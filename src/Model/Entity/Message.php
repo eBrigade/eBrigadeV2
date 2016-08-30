@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property int $from_user
  * @property string $subject
  * @property string $text
+ * @property \Cake\I18n\Time $created
  */
 class Message extends Entity
 {

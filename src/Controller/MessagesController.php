@@ -30,8 +30,9 @@ class MessagesController extends AppController
     public function send()
     {
         $message = $this->Messages->newEntity();
+        $user= $this->Auth->user('id');
         if ($this->request->is('post')) {
-            $this->request->data['from_user']= 1;
+            $this->request->data['from_user']= $user;
             $message = $this->Messages->patchEntity($message, $this->request->data);
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('Le message a été envoyé.'));
