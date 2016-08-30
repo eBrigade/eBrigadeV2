@@ -7,6 +7,10 @@
         <li><?= $this->Html->link(__('New Event'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Cities'), ['controller' => 'Cities', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New City'), ['controller' => 'Cities', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Creators'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Creator'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Bills'), ['controller' => 'Bills', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Bill'), ['controller' => 'Bills', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Event Equipments'), ['controller' => 'EventEquipments', 'action' => 'index']) ?> </li>
@@ -15,6 +19,8 @@
         <li><?= $this->Html->link(__('New Event Team'), ['controller' => 'EventTeams', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Event Vehicles'), ['controller' => 'EventVehicles', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Event Vehicle'), ['controller' => 'EventVehicles', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Formations'), ['controller' => 'Formations', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Formation'), ['controller' => 'Formations', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?> </li>
     </ul>
@@ -25,6 +31,14 @@
         <tr>
             <th><?= __('City') ?></th>
             <td><?= $event->has('city') ? $this->Html->link($event->city->id, ['controller' => 'Cities', 'action' => 'view', $event->city->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Creator') ?></th>
+            <td><?= $event->has('creator') ? $this->Html->link($event->creator->id, ['controller' => 'Users', 'action' => 'view', $event->creator->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Bill') ?></th>
+            <td><?= $event->has('bill') ? $this->Html->link($event->bill->id, ['controller' => 'Bills', 'action' => 'view', $event->bill->id]) : '' ?></td>
         </tr>
         <tr>
             <th><?= __('Title') ?></th>
@@ -61,14 +75,6 @@
         <tr>
             <th><?= __('Id') ?></th>
             <td><?= $this->Number->format($event->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Creator Id') ?></th>
-            <td><?= $this->Number->format($event->creator_id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Bill Id') ?></th>
-            <td><?= $this->Number->format($event->bill_id) ?></td>
         </tr>
         <tr>
             <th><?= __('Latitude') ?></th>
@@ -193,13 +199,39 @@
         <?php endif; ?>
     </div>
     <div class="related">
+        <h4><?= __('Related Formations') ?></h4>
+        <?php if (!empty($event->formations)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Organization Id') ?></th>
+                <th><?= __('Teacher Id') ?></th>
+                <th><?= __('Event Id') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($event->formations as $formations): ?>
+            <tr>
+                <td><?= h($formations->id) ?></td>
+                <td><?= h($formations->organization_id) ?></td>
+                <td><?= h($formations->teacher_id) ?></td>
+                <td><?= h($formations->event_id) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Formations', 'action' => 'view', $formations->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Formations', 'action' => 'edit', $formations->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Formations', 'action' => 'delete', $formations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $formations->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
         <h4><?= __('Related Operations') ?></h4>
         <?php if (!empty($event->operations)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
                 <th><?= __('Event Id') ?></th>
-                <th><?= __('Barrack Id') ?></th>
                 <th><?= __('Public Headcount') ?></th>
                 <th><?= __('Operation Activity Id') ?></th>
                 <th><?= __('Operation Environment Id') ?></th>
@@ -242,7 +274,6 @@
             <tr>
                 <td><?= h($operations->id) ?></td>
                 <td><?= h($operations->event_id) ?></td>
-                <td><?= h($operations->barrack_id) ?></td>
                 <td><?= h($operations->public_headcount) ?></td>
                 <td><?= h($operations->operation_activity_id) ?></td>
                 <td><?= h($operations->operation_environment_id) ?></td>

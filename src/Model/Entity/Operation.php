@@ -8,7 +8,6 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $event_id
- * @property int $barrack_id
  * @property int $public_headcount
  * @property int $operation_activity_id
  * @property int $operation_environment_id
@@ -47,7 +46,6 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $date
  *
  * @property \App\Model\Entity\Event $event
- * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\OperationActivity $operation_activity
  * @property \App\Model\Entity\OperationEnvironment $operation_environment
  * @property \App\Model\Entity\OperationDelay $operation_delay

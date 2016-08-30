@@ -19,7 +19,7 @@ class EventsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Cities', 'Creators', 'Bills', 'Responsibles', 'Barracks']
+            'contain' => ['Cities', 'Creators', 'Bills', 'Barracks']
         ];
         $events = $this->paginate($this->Events);
 
@@ -37,7 +37,7 @@ class EventsController extends AppController
     public function view($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => ['Cities', 'Creators', 'Bills', 'Responsibles', 'Barracks', 'EventEquipments', 'EventTeams', 'EventVehicles', 'Operations']
+            'contain' => ['Cities', 'Creators', 'Bills', 'Barracks', 'EventEquipments', 'EventTeams', 'EventVehicles', 'Formations', 'Operations']
         ]);
 
         $this->set('event', $event);
@@ -65,9 +65,8 @@ class EventsController extends AppController
         $cities = $this->Events->Cities->find('list', ['limit' => 200]);
         $creators = $this->Events->Creators->find('list', ['limit' => 200]);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
-        $responsibles = $this->Events->Responsibles->find('list', ['limit' => 200]);
         $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'cities', 'creators', 'bills', 'responsibles', 'barracks'));
+        $this->set(compact('event', 'cities', 'creators', 'bills', 'barracks'));
         $this->set('_serialize', ['event']);
     }
 
@@ -96,9 +95,8 @@ class EventsController extends AppController
         $cities = $this->Events->Cities->find('list', ['limit' => 200]);
         $creators = $this->Events->Creators->find('list', ['limit' => 200]);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
-        $responsibles = $this->Events->Responsibles->find('list', ['limit' => 200]);
         $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'cities', 'creators', 'bills', 'responsibles', 'barracks'));
+        $this->set(compact('event', 'cities', 'creators', 'bills', 'barracks'));
         $this->set('_serialize', ['event']);
     }
 

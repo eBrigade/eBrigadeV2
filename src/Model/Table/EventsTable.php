@@ -53,12 +53,14 @@ class EventsTable extends Table
             'foreignKey' => 'city_id'
         ]);
         $this->belongsTo('Creators', [
+            'className' => 'Users',
             'foreignKey' => 'creator_id'
         ]);
         $this->belongsTo('Bills', [
             'foreignKey' => 'bill_id'
         ]);
         $this->belongsTo('Responsibles', [
+            'className' => 'Users',
             'foreignKey' => 'responsible_id'
         ]);
         $this->belongsTo('Barracks', [

@@ -32,13 +32,13 @@ use Cake\ORM\Entity;
  * @property bool $public
  *
  * @property \App\Model\Entity\City $city
- * @property \App\Model\Entity\Creator $creator
+ * @property \App\Model\Entity\User $creator
  * @property \App\Model\Entity\Bill $bill
- * @property \App\Model\Entity\Responsible $responsible
  * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\EventEquipment[] $event_equipments
  * @property \App\Model\Entity\EventTeam[] $event_teams
  * @property \App\Model\Entity\EventVehicle[] $event_vehicles
+ * @property \App\Model\Entity\Formation[] $formations
  * @property \App\Model\Entity\Operation[] $operations
  */
 class Event extends Entity
