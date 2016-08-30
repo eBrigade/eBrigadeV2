@@ -119,9 +119,9 @@ class OperationsTable extends Table
             ->notEmpty('rescuers_total');
 
         $validator
-            ->integer('heacount_total')
-            ->requirePresence('heacount_total', 'create')
-            ->notEmpty('heacount_total');
+            ->integer('headcount_total')
+            ->requirePresence('headcount_total', 'create')
+            ->notEmpty('headcount_total');
 
         $validator
             ->allowEmpty('actors_organization');

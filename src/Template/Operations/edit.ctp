@@ -45,7 +45,7 @@
             echo $this->Form->input('organization_id', ['options' => $organizations]);
             echo $this->Form->input('actors_headcount');
             echo $this->Form->input('rescuers_total');
-            echo $this->Form->input('heacount_total');
+            echo $this->Form->input('headcount_total');
             echo $this->Form->input('actors_organization');
             echo $this->Form->input('general_organization');
             echo $this->Form->input('transport_organization');

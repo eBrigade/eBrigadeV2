@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\OperationsController;
+use App\Controller\EventsController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\OperationsController Test Case
+ * App\Controller\EventsController Test Case
  */
-class OperationsControllerTest extends IntegrationTestCase
+class EventsControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,7 +16,6 @@ class OperationsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.operations',
         'app.events',
         'app.cities',
         'app.barracks',
@@ -47,6 +46,7 @@ class OperationsControllerTest extends IntegrationTestCase
         'app.bills',
         'app.responsibles',
         'app.event_equipments',
+        'app.operations',
         'app.operation_activities',
         'app.operation_environments',
         'app.operation_delays',

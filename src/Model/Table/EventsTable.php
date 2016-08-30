@@ -17,6 +17,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $EventEquipments
  * @property \Cake\ORM\Association\HasMany $EventTeams
  * @property \Cake\ORM\Association\HasMany $EventVehicles
+ * @property \Cake\ORM\Association\HasMany $Formations
  * @property \Cake\ORM\Association\HasMany $Operations
  *
  * @method \App\Model\Entity\Event get($primaryKey, $options = [])
@@ -70,6 +71,9 @@ class EventsTable extends Table
             'foreignKey' => 'event_id'
         ]);
         $this->hasMany('EventVehicles', [
+            'foreignKey' => 'event_id'
+        ]);
+        $this->hasMany('Formations', [
             'foreignKey' => 'event_id'
         ]);
         $this->hasMany('Operations', [

@@ -40,7 +40,7 @@
                 <th><?= $this->Paginator->sort('organization_id') ?></th>
                 <th><?= $this->Paginator->sort('actors_headcount') ?></th>
                 <th><?= $this->Paginator->sort('rescuers_total') ?></th>
-                <th><?= $this->Paginator->sort('heacount_total') ?></th>
+                <th><?= $this->Paginator->sort('headcount_total') ?></th>
                 <th><?= $this->Paginator->sort('meals_morning') ?></th>
                 <th><?= $this->Paginator->sort('meals_lunch') ?></th>
                 <th><?= $this->Paginator->sort('meals_dinner') ?></th>
@@ -74,7 +74,7 @@
                 <td><?= $operation->has('organization') ? $this->Html->link($operation->organization->title, ['controller' => 'Organizations', 'action' => 'view', $operation->organization->id]) : '' ?></td>
                 <td><?= $this->Number->format($operation->actors_headcount) ?></td>
                 <td><?= $this->Number->format($operation->rescuers_total) ?></td>
-                <td><?= $this->Number->format($operation->heacount_total) ?></td>
+                <td><?= $this->Number->format($operation->headcount_total) ?></td>
                 <td><?= $this->Number->format($operation->meals_morning) ?></td>
                 <td><?= $this->Number->format($operation->meals_lunch) ?></td>
                 <td><?= $this->Number->format($operation->meals_dinner) ?></td>

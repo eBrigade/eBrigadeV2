@@ -27,9 +27,6 @@ class OperationsTableTest extends TestCase
         'app.operations',
         'app.events',
         'app.cities',
-        'app.creators',
-        'app.bills',
-        'app.responsibles',
         'app.barracks',
         'app.barrack_users',
         'app.materials',
@@ -51,15 +48,18 @@ class OperationsTableTest extends TestCase
         'app.model_vehicles',
         'app.event_vehicles',
         'app.users_vehicles',
+        'app.organizations',
+        'app.formations',
+        'app.teachers',
+        'app.creators',
+        'app.bills',
+        'app.responsibles',
         'app.event_equipments',
         'app.operation_activities',
         'app.operation_environments',
         'app.operation_delays',
         'app.operation_types',
-        'app.operation_recommendations',
-        'app.organizations',
-        'app.formations',
-        'app.teachers'
+        'app.operation_recommendations'
     ];
 
     /**

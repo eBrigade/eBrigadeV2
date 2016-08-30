@@ -21,7 +21,7 @@ use Cake\ORM\Entity;
  * @property int $organization_id
  * @property int $actors_headcount
  * @property int $rescuers_total
- * @property int $heacount_total
+ * @property int $headcount_total
  * @property string $actors_organization
  * @property string $general_organization
  * @property string $transport_organization

@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `organization_id` INT(11) NOT NULL DEFAULT '0',
   `actors_headcount` INT(11) NOT NULL DEFAULT '0',
   `rescuers_total` INT(11) NOT NULL DEFAULT '0',
-  `heacount_total` INT(11) NOT NULL DEFAULT '0',
+  `headcount_total` INT(11) NOT NULL DEFAULT '0',
   `actors_organization` TEXT,
   `general_organization` TEXT,
   `transport_organization` TEXT,
@@ -391,6 +391,7 @@ CREATE TABLE `formations` (
   `id` INT(11) NOT NULL,
   `organization_id` INT(11)  ,
   `teacher_id` INT  ,
+  `event_id` INT,
   PRIMARY KEY (`id`)
 );
 

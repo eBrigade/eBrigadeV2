@@ -87,8 +87,8 @@
             <td><?= $this->Number->format($operation->rescuers_total) ?></td>
         </tr>
         <tr>
-            <th><?= __('Heacount Total') ?></th>
-            <td><?= $this->Number->format($operation->heacount_total) ?></td>
+            <th><?= __('Headcount Total') ?></th>
+            <td><?= $this->Number->format($operation->headcount_total) ?></td>
         </tr>
         <tr>
             <th><?= __('Meals Morning') ?></th>

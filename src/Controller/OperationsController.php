@@ -51,7 +51,6 @@ class OperationsController extends AppController
      */
     public function add()
     {
-
         $operation = $this->Operations->newEntity();
         if ($this->request->is('post')) {
             $operation = $this->Operations->patchEntity($operation, $this->request->data);
@@ -63,7 +62,6 @@ class OperationsController extends AppController
                 $this->Flash->error(__('The operation could not be saved. Please, try again.'));
             }
         }
-
         $events = $this->Operations->Events->find('list', ['limit' => 200]);
         $barracks = $this->Operations->Barracks->find('list', ['limit' => 200]);
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);

@@ -28,7 +28,7 @@
             echo $this->Form->input('event_id', ['options' => $events]);
             echo $this->Form->input('barrack_id', ['options' => $barracks]);
             echo $this->Form->input('public_headcount');
-            echo $this->Form->input('operation_activity_id', ['options' => $operationActivities]);
+            echo $this->Form->input('operation_activity_id', ['options' => $operationActivities, 'onclick' => 'calculris()']);
             echo $this->Form->input('operation_environment_id', ['options' => $operationEnvironments]);
             echo $this->Form->input('operation_delay_id', ['options' => $operationDelays]);
             echo $this->Form->input('public_ris');
@@ -39,7 +39,7 @@
             echo $this->Form->input('organization_id', ['options' => $organizations]);
             echo $this->Form->input('actors_headcount');
             echo $this->Form->input('rescuers_total');
-            echo $this->Form->input('heacount_total');
+            echo $this->Form->input('headcount_total');
             echo $this->Form->input('actors_organization');
             echo $this->Form->input('general_organization');
             echo $this->Form->input('transport_organization');
@@ -71,13 +71,19 @@
 
 <script>
     function calculris() {
-        p1 = document.getElementById('public_headcount').value;
-        ap2 = document.getElementById('operation_activity_id');
-        p2 = parseFloat(ap2.options[ap2.selectedIndex].text);
+
+        p1 = document.getElementById('effectifs-public').value;
+        ap2 = document.getElementById('operation-activity-id');
+        var p2cases = [0.25, 0.30, 35, 0.40, 0.40];
+        p2 = p2cases[ap2.options[ap2.selectedIndex].value +1];
+        console.log(p1);
+
+
+        /*p2 = parseFloat(ap2.options[ap2.selectedIndex].value);*/
         ae1 = document.getElementById('operation_environment_id');
-        e1 = parseFloat(ae1.options[ae1.selectedIndex].text);
+        e1 = parseFloat(ae1.options[ae1.selectedIndex].value);
         ae2 = document.getElementById('operation_delay_id');
-        e2 = parseFloat(ae2.options[ae2.selectedIndex].text);
+        e2 = parseFloat(ae2.options[ae2.selectedIndex].value);
         pub = document.getElementById('operation_type_id');
         if (p1 <= 100000) {
             p = p1;
@@ -86,7 +92,7 @@
         }
         i = p2 + e1 + e2;
         ris = i * (p / 1000);
-        document.getElementById('public-ris').value = ris;
+        document.getElementById('public_ris').value = ris;
         console.log(ris);
         switch (true) {
             case ris <= 0.25:
