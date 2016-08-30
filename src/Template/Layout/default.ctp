@@ -48,6 +48,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
     </nav>
     <?= $this->Flash->render() ?>
+    <?php $cell = $this->cell('Login');
+        echo $cell; ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
     </div>
