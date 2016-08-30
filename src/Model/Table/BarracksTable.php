@@ -87,9 +87,6 @@ class BarracksTable extends Table
             ->requirePresence('email', 'create')
             ->notEmpty('email');
 
-        $validator
-            ->requirePresence('website_url', 'create')
-            ->notEmpty('website_url');
 
         return $validator;
     }
