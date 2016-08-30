@@ -67,14 +67,19 @@ class BarracksController extends AppController
         $barrack = $this->Barracks->get($id, [
             'contain' => []
         ]);
+        $cities = TableRegistry::get('Cities');
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $cit = $this->request->data['city_name'];
+            $city = $cities->find()->select(['id'])->where(['city' => $cit])->first();
+            $id_city =$city['id'];
+            $this->request->data['city_id']= $id_city;
             $barrack = $this->Barracks->patchEntity($barrack, $this->request->data);
             if ($this->Barracks->save($barrack)) {
                 $this->Flash->success(__('La caserne a été éditée.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('La caserne n\a pas pu être éditée . Svp, réessayez.'));
+                $this->Flash->error(__('La caserne n\'a pas pu être éditée . Svp, réessayez.'));
             }
         }
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);

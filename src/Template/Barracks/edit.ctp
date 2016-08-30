@@ -25,7 +25,7 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('address');
-            echo $this->Form->input('city_id', ['options' => $cities]);
+            echo $this->Form->input('city_name');
             echo $this->Form->input('phone');
             echo $this->Form->input('fax');
             echo $this->Form->input('email');
@@ -35,3 +35,6 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<!--script jquery autocomplete pour les villes-->
+<?=  $this->element('Autocomplete/villes'); ?>
