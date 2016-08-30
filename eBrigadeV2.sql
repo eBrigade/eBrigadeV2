@@ -389,12 +389,12 @@ CREATE TABLE `event_types` (
 
 CREATE TABLE `formations` (
   `id` INT(11) NOT NULL,
-  `organisation_id` INT(11)  ,
+  `organization_id` INT(11)  ,
   `teacher_id` INT  ,
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `organisations` (
+CREATE TABLE `organizations` (
   `id` INT(11) NOT NULL ,
   `title` VARCHAR(250) ,
   `adress` VARCHAR(200)  ,
