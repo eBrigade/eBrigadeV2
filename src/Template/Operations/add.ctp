@@ -4,27 +4,27 @@
         <legend><?= __('Add Operation') ?></legend>
         <?php
         //event fields
-        echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
-        echo $this->Form->input('creator_id');
-        echo $this->Form->input('bill_id');
-        echo $this->Form->input('title');
-        echo $this->Form->input('address');
-        echo $this->Form->input('latitude');
-        echo $this->Form->input('longitude');
-        echo $this->Form->input('is_closed');
-        echo $this->Form->input('closed', ['empty' => true]);
-        echo $this->Form->input('price');
-        echo $this->Form->input('canceled');
-        echo $this->Form->input('canceled_detail');
-        echo $this->Form->input('is_active');
-        echo $this->Form->input('instructions');
-        echo $this->Form->input('responsible_id');
-        echo $this->Form->input('details');
-        echo $this->Form->input('barrack_id', ['options' => $barracks, 'empty' => true]);
-        echo $this->Form->input('event_start_date', ['empty' => true]);
-        echo $this->Form->input('event_end_date', ['empty' => true]);
-        echo $this->Form->input('horaires');
-        echo $this->Form->input('public');
+        echo $this->Form->input('operation.event.city_id', ['options' => $cities, 'empty' => true]);
+        echo $this->Form->input('event.creator_id');
+        echo $this->Form->input('event.bill_id');
+        echo $this->Form->input('event.title');
+        echo $this->Form->input('event.address');
+        echo $this->Form->input('event.latitude');
+        echo $this->Form->input('event.longitude');
+        echo $this->Form->input('event.is_closed');
+        echo $this->Form->input('event.closed', ['empty' => true]);
+        echo $this->Form->input('event.price');
+        echo $this->Form->input('event.canceled');
+        echo $this->Form->input('event.canceled_detail');
+        echo $this->Form->input('event.is_active');
+        echo $this->Form->input('event.instructions');
+        echo $this->Form->input('event.responsible_id');
+        echo $this->Form->input('event.details');
+        echo $this->Form->input('operation.event.barrack_id', ['options' => $barracks, 'empty' => true]);
+        echo $this->Form->input('event.event_start_date', ['empty' => true]);
+        echo $this->Form->input('event.event_end_date', ['empty' => true]);
+        echo $this->Form->input('event.horaires');
+        echo $this->Form->input('event.public');
 
         //operation fields
         echo $this->Form->input('event_id', ['options' => $events]);

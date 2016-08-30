@@ -51,9 +51,17 @@ class OperationsController extends AppController
      */
     public function add()
     {
+        $this->loadModel('Cities');
+        $this->loadModel('Barracks');
         $operation = $this->Operations->newEntity();
         if ($this->request->is('post')) {
-            $operation = $this->Operations->patchEntity($operation, $this->request->data);
+            $operation = $this->Operations->patchEntity($operation, $this->request->data, [
+                'associated' => [
+                    'Events',
+                    'Events.Operations'
+                ]
+            ]);
+
             if ($this->Operations->save($operation)) {
                 $this->Flash->success(__('The operation has been saved.'));
 
@@ -63,13 +71,15 @@ class OperationsController extends AppController
             }
         }
         $events = $this->Operations->Events->find('list', ['limit' => 200]);
+        $cities = $this->Cities->find('list', ['limit' => 200]);
+        $barracks = $this->Barracks->find('list', ['limit' => 200]);
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
         $operationEnvironments = $this->Operations->OperationEnvironments->find('list', ['limit' => 200]);
         $operationDelays = $this->Operations->OperationDelays->find('list', ['limit' => 200]);
         $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
         $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
         $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'events', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
+        $this->set(compact('operation', 'barracks', 'events', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
         $this->set('_serialize', ['operation']);
     }
 

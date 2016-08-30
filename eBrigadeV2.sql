@@ -92,7 +92,7 @@ CREATE TABLE materials
 (
   `id` INT NOT NULL AUTO_INCREMENT,
   `list_material_id` INT,
-  `type_material_id` INT,
+  `material_type_id` INT,
   `barrack_id` INT,
   `stock` INT,
   PRIMARY KEY(`id`)
@@ -337,7 +337,7 @@ INSERT INTO `operation_types` (`id`, `title`, `min`, `max`) VALUES
 
 
 CREATE TABLE `events` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `city_id` INT(11),
   `creator_id` INT(11),
   `bill_id` INT(11),
