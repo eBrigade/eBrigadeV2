@@ -8,17 +8,17 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $event_id
- * @property int $caserne_id
+ * @property int $barrack_id
  * @property int $public_headcount
  * @property int $operation_activity_id
- * @property int $operation_environments
- * @property int $operation_delays
+ * @property int $operation_environment_id
+ * @property int $operation_delay_id
  * @property int $public_ris
  * @property int $operation_type_id
  * @property int $operation_recommendation_id
  * @property string $public_reinforcement
  * @property int $public_total
- * @property int $public_organization
+ * @property int $organization_id
  * @property int $actors_headcount
  * @property int $rescuers_total
  * @property int $heacount_total
@@ -47,10 +47,13 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $date
  *
  * @property \App\Model\Entity\Event $event
- * @property \App\Model\Entity\Caserne $caserne
+ * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\OperationActivity $operation_activity
+ * @property \App\Model\Entity\OperationEnvironment $operation_environment
+ * @property \App\Model\Entity\OperationDelay $operation_delay
  * @property \App\Model\Entity\OperationType $operation_type
  * @property \App\Model\Entity\OperationRecommendation $operation_recommendation
+ * @property \App\Model\Entity\Organization $organization
  */
 class Operation extends Entity
 {

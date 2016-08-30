@@ -10,10 +10,13 @@ use Cake\Validation\Validator;
  * Operations Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Events
- * @property \Cake\ORM\Association\BelongsTo $Casernes
+ * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\BelongsTo $OperationActivities
+ * @property \Cake\ORM\Association\BelongsTo $OperationEnvironments
+ * @property \Cake\ORM\Association\BelongsTo $OperationDelays
  * @property \Cake\ORM\Association\BelongsTo $OperationTypes
  * @property \Cake\ORM\Association\BelongsTo $OperationRecommendations
+ * @property \Cake\ORM\Association\BelongsTo $Organizations
  *
  * @method \App\Model\Entity\Operation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Operation newEntity($data = null, array $options = [])
@@ -44,12 +47,20 @@ class OperationsTable extends Table
             'foreignKey' => 'event_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Casernes', [
-            'foreignKey' => 'caserne_id',
+        $this->belongsTo('Barracks', [
+            'foreignKey' => 'barrack_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('OperationActivities', [
             'foreignKey' => 'operation_activity_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('OperationEnvironments', [
+            'foreignKey' => 'operation_environment_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('OperationDelays', [
+            'foreignKey' => 'operation_delay_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('OperationTypes', [
@@ -58,6 +69,10 @@ class OperationsTable extends Table
         ]);
         $this->belongsTo('OperationRecommendations', [
             'foreignKey' => 'operation_recommendation_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Organizations', [
+            'foreignKey' => 'organization_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -80,16 +95,6 @@ class OperationsTable extends Table
             ->notEmpty('public_headcount');
 
         $validator
-            ->integer('operation_environments')
-            ->requirePresence('operation_environments', 'create')
-            ->notEmpty('operation_environments');
-
-        $validator
-            ->integer('operation_delays')
-            ->requirePresence('operation_delays', 'create')
-            ->notEmpty('operation_delays');
-
-        $validator
             ->integer('public_ris')
             ->requirePresence('public_ris', 'create')
             ->notEmpty('public_ris');
@@ -102,11 +107,6 @@ class OperationsTable extends Table
             ->integer('public_total')
             ->requirePresence('public_total', 'create')
             ->notEmpty('public_total');
-
-        $validator
-            ->integer('public_organization')
-            ->requirePresence('public_organization', 'create')
-            ->notEmpty('public_organization');
 
         $validator
             ->integer('actors_headcount')
@@ -229,10 +229,13 @@ class OperationsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['event_id'], 'Events'));
-        $rules->add($rules->existsIn(['caserne_id'], 'Casernes'));
+        $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
         $rules->add($rules->existsIn(['operation_activity_id'], 'OperationActivities'));
+        $rules->add($rules->existsIn(['operation_environment_id'], 'OperationEnvironments'));
+        $rules->add($rules->existsIn(['operation_delay_id'], 'OperationDelays'));
         $rules->add($rules->existsIn(['operation_type_id'], 'OperationTypes'));
         $rules->add($rules->existsIn(['operation_recommendation_id'], 'OperationRecommendations'));
+        $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
 
         return $rules;
     }

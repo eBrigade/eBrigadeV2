@@ -63,7 +63,7 @@ CREATE TABLE team_users
 
 
 CREATE TABLE `barracks` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `address` varchar(255) NOT NULL,
   `city_id` INT NOT NULL,
@@ -187,17 +187,17 @@ CREATE TABLE orders_providers
 CREATE TABLE IF NOT EXISTS `operations` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `event_id` INT(11) NOT NULL DEFAULT '0',
-  `caserne_id` INT(11) NOT NULL DEFAULT '0',
+  `barrack_id` INT(11) NOT NULL DEFAULT '0',
   `public_headcount` INT(11) NOT NULL DEFAULT '0',
   `operation_activity_id` INT(11) NOT NULL DEFAULT '0',
-  `operation_environments` INT(11) NOT NULL DEFAULT '0',
-  `operation_delays` INT(11) NOT NULL DEFAULT '0',
+  `operation_environment_id` INT(11) NOT NULL DEFAULT '0',
+  `operation_delay_id` INT(11) NOT NULL DEFAULT '0',
   `public_ris` INT(11) NOT NULL DEFAULT '0',
   `operation_type_id` INT(11) NOT NULL DEFAULT '0',
   `operation_recommendation_id` INT(11) NOT NULL DEFAULT '0',
   `public_reinforcement` VARCHAR(255) NOT NULL DEFAULT '0',
   `public_total` INT(11) NOT NULL DEFAULT '0',
-  `public_organization` INT(11) NOT NULL DEFAULT '0',
+  `organization_id` INT(11) NOT NULL DEFAULT '0',
   `actors_headcount` INT(11) NOT NULL DEFAULT '0',
   `rescuers_total` INT(11) NOT NULL DEFAULT '0',
   `heacount_total` INT(11) NOT NULL DEFAULT '0',
@@ -479,7 +479,8 @@ INSERT INTO `equipment_types` (`id`, `title`) VALUES
 CREATE TABLE IF NOT EXISTS `cities` (
   `id` int(11) NOT NULL,
   `city` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `zipcode` varchar(5) CHARACTER SET utf8 DEFAULT NULL
+  `zipcode` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`id`)
 );
 
 
