@@ -52,7 +52,6 @@ class EventsTableTest extends TestCase
         'app.teachers',
         'app.creators',
         'app.bills',
-        'app.responsibles',
         'app.event_equipments',
         'app.operations',
         'app.operation_activities',
