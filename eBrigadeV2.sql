@@ -112,12 +112,19 @@ CREATE TABLE material_types
   PRIMARY KEY(`id`)
 );
 
-CREATE TABLE users_materials
+CREATE TABLE inventary
 (
-  `user_id` INT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `material_id` INT,
-  `quantity` INT
-);
+  `vehicle_id` INT,
+  `barrack_id` INT,
+  `user_id` INT,
+  `event_id` INT,
+  `is_available` TINYINT(1),
+  `borrowed_from` DATE,
+  `borrowed_to` DATE,
+  PRIMARY KEY(`id`)
+)
 
 CREATE TABLE vehicles
 (
@@ -176,6 +183,18 @@ CREATE TABLE supplies
   PRIMARY KEY(`id`)
 );
 
+CREATE TABLE `supply_types` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `code` varchar(12) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `cond` char(2) NOT NULL,
+  `measure_unit` char(2) NOT NULL,
+  `quantity_per_unit` float NOT NULL,
+  `peremp` tinyint(1),
+  PRIMARY KEY(`id`)
+);
+
+
 CREATE TABLE providers_supplies
 (
   `provider_id` INT,
@@ -195,6 +214,12 @@ CREATE TABLE order_supplies
   `order_id` INT,
   `supply_id` INT,
   `quantity` INT DEFAULT '1'
+);
+
+CREATE TABLE bills
+(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(`id`)
 );
 
 
@@ -5698,3 +5723,83 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthname`, `email`, `login
 (2, 'Nicolas', 'Hel', '', 'znirgal@gmail.com', 'nirgal', '$2y$10$IS67pIEg25UG6lN556WDleoEGpbAXBE2k7bYYtRt/4y7BaOI2SMua', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
 (3, 'Gwenael', 'Prevot', '', 'prevotgwenael@gmail.com', 'frexwimsn', '$2y$10$zBLH6jfO99bjjNEif7qmquN0Ms2E7eE2we8BFrs2iODm7KKhxRbBi', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
 (4, 'Olivier', 'Perrin', '', 'perrinolivier88@gmail.com', 'kaki88', '$2y$10$8Wn4cnW9eqsdrNfqPRbxM.YuOw/JUE4GbhYUHTyvskiIE1vIxtBta', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL);
+
+INSERT INTO `supply_types` (`id`, `code`, `name`, `cond`, `measure_unit`, `quantity_per_unit`, `peremp`) VALUES
+(1, 'ALIMENTATION', 'Eau', 'BO', 'cl', 150, 0),
+(2, 'ALIMENTATION', 'Eau', 'BN', 'li', 10, 0),
+(3, 'ALIMENTATION', 'Soupe', 'BR', 'li', 1, 1),
+(4, 'ALIMENTATION', 'Sucre en morceaux', 'BT', 'kg', 1, 1),
+(5, 'ALIMENTATION', 'dosette café soluble', 'EI', 'un', 1, 1),
+(6, 'ALIMENTATION', 'dosette boisson chocolatée', 'EI', 'un', 1, 1),
+(7, 'ALIMENTATION', 'gobelet', 'PE', 'un', 1, 0),
+(8, 'ALIMENTATION', 'cuillère en plastique / touillette', 'PE', 'un', 1, 0),
+(9, 'PHARMACIE', 'Dosiseptine', 'DO', 'ml', 10, 0),
+(10, 'PHARMACIE', 'Chlorure de sodium / sérum physiologique', 'DO', 'ml', 10, 0),
+(11, 'PHARMACIE', 'Dakin stabilisé', 'DO', 'ml', 10, 0),
+(12, 'PHARMACIE', 'Compresses stériles', 'EI', 'un', 1, 0),
+(13, 'PHARMACIE', 'Collier cervical adulte', 'EI', 'un', 1, 0),
+(14, 'PHARMACIE', 'Collier cervical enfant', 'EI', 'un', 1, 0),
+(15, 'PHARMACIE', 'Masque haute concentration adulte', 'EI', 'un', 1, 0),
+(16, 'PHARMACIE', 'Masque haute concentration enfant', 'EI', 'un', 1, 0),
+(17, 'PHARMACIE', 'gants à usage unique S', 'BT', 'un', 100, 0),
+(18, 'PHARMACIE', 'gants à usage unique M', 'BT', 'un', 100, 0),
+(19, 'PHARMACIE', 'gants à usage unique L', 'BT', 'un', 100, 0),
+(20, 'PHARMACIE', 'gants à usage unique XL', 'BT', 'un', 100, 0),
+(21, 'PHARMACIE', 'solution hydro-alcoolique', 'FL', 'cl', 1, 0),
+(22, 'VEHICULES', 'Essence groupe électrogène', 'JC', 'li', 10, 0),
+(23, 'VEHICULES', 'Essence groupe électrogène', 'JC', 'li', 20, 0),
+(24, 'VEHICULES', 'Gasoil groupe électrogène', 'JC', 'li', 20, 0),
+(25, 'VEHICULES', 'Huile moteur', 'BI', 'li', 5, 0),
+(26, 'VEHICULES', 'Liquide lave glace', 'BI', 'li', 5, 0),
+(27, 'VEHICULES', 'Liquide de freins', 'BI', 'li', 5, 0),
+(28, 'ENTRETIEN', 'Désinfectant surface', 'FL', 'cl', 50, 0),
+(29, 'ENTRETIEN', 'Alkidiol', 'FL', 'cl', 50, 0),
+(30, 'ENTRETIEN', 'Solution hydro-alcoolique', 'FL', 'cl', 50, 0),
+(31, 'ENTRETIEN', 'Spray désinfectant de surface', 'FL', 'cl', 50, 0),
+(32, 'ENTRETIEN', 'Liquide vaisselle', 'FL', 'cl', 100, 0),
+(33, 'ENTRETIEN', 'Papier toilette rouleau', 'PE', 'un', 1, 0),
+(34, 'BUREAU', 'Ramette Papier A4', 'EI', 'un', 500, 1),
+(35, 'BUREAU', 'Cartouche encre pour imprimante', 'EI', 'un', 1, 0),
+(36, 'BUREAU', 'main courante', 'EI', 'un', 1, 0),
+(37, 'BUREAU', 'fiche d''intervention', 'EI', 'un', 1, 0),
+(38, 'BUREAU', 'bracelet d''identification adulte', 'EI', 'un', 1, 0),
+(39, 'BUREAU', 'bracelet d''identification enfant', 'EI', 'un', 1, 0),
+(40, 'PHARMACIE', 'protection de sonde pour thermomètre tympanique', 'EI', 'un', 1, 0),
+(41, 'PHARMACIE', 'coussin Hémostatique d''urgence', 'EI', 'un', 1, 0),
+(42, 'PHARMACIE', 'antiseptique', 'DO', 'ml', 5, 0),
+(43, 'PHARMACIE', 'champs stérile', 'EI', 'un', 1, 0),
+(44, 'PHARMACIE', 'bande extensible', 'EI', 'un', 1, 0),
+(45, 'PHARMACIE', 'pansements pré-découpés', 'EI', 'un', 1, 0),
+(46, 'PHARMACIE', 'sparadrap rouleau', 'EI', 'un', 1, 0),
+(47, 'PHARMACIE', 'pansement absorbant, américain', 'EI', 'un', 1, 0),
+(48, 'PHARMACIE', 'gants stériles', 'EI', 'un', 1, 0),
+(49, 'PHARMACIE', 'compresses brulure', 'EI', 'un', 1, 0),
+(50, 'PHARMACIE', 'couverture de survie', 'EI', 'un', 1, 0),
+(51, 'PHARMACIE', 'couverture de survie stérile', 'EI', 'un', 1, 0),
+(52, 'PHARMACIE', 'écharpe triangulaire', 'EI', 'un', 1, 0),
+(53, 'PHARMACIE', 'poche de froid', 'EI', 'un', 1, 0),
+(54, 'PHARMACIE', 'tuyau patient pour aspirateur de mucosités', 'EI', 'un', 1, 0),
+(55, 'PHARMACIE', 'masque insufflateur adulte', 'EI', 'un', 1, 0),
+(56, 'PHARMACIE', 'masque insufflateur enfant', 'EI', 'un', 1, 0),
+(57, 'PHARMACIE', 'masque insufflateur nourisson', 'EI', 'un', 1, 0),
+(58, 'PHARMACIE', 'tubulure à oxygène', 'EI', 'un', 1, 0),
+(59, 'PHARMACIE', 'raccord biconique', 'EI', 'un', 1, 0),
+(60, 'PHARMACIE', 'sonde d''aspiration adulte', 'EI', 'un', 1, 0),
+(61, 'PHARMACIE', 'sonde d''aspiration pédiatrique', 'EI', 'un', 1, 0),
+(62, 'PHARMACIE', 'stop vide', 'EI', 'un', 1, 0),
+(63, 'PHARMACIE', 'canule de Guédel taille 00', 'EI', 'un', 1, 0),
+(64, 'PHARMACIE', 'canule de Guédel taille 0', 'EI', 'un', 1, 0),
+(65, 'PHARMACIE', 'canule de Guédel taille 1', 'EI', 'un', 1, 0),
+(66, 'PHARMACIE', 'canule de Guédel taille 2', 'EI', 'un', 1, 0),
+(67, 'PHARMACIE', 'canule de Guédel taille 3', 'EI', 'un', 1, 0),
+(68, 'PHARMACIE', 'canule de Guédel taille 4', 'EI', 'un', 1, 0),
+(69, 'PHARMACIE', 'canule de Guédel taille 5', 'EI', 'un', 1, 0),
+(70, 'PHARMACIE', 'masque FFP2', 'EI', 'un', 1, 0),
+(71, 'PHARMACIE', 'masque chirurgical', 'EI', 'un', 1, 0),
+(72, 'PHARMACIE', 'drap d''hôpital', 'PE', 'un', 1, 0),
+(73, 'VEHICULES', 'Gasoil', 'PE', 'li', 1, 0),
+(74, 'VEHICULES', 'Essence SP', 'PE', 'li', 1, 0);
+
+ALTER TABLE `supply_types`
+DROP COLUMN `cond`, DROP COLUMN `peremp`;
+ALTER TABLE `supply_types` REBUILD;
