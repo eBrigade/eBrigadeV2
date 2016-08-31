@@ -165,23 +165,36 @@ CREATE TABLE providers
   `phone` VARCHAR(14),
   `email` VARCHAR(255),
   `descritpion` TEXT,
+  `website` VARCHAR(255),
   PRIMARY KEY(`id`)
+);
+
+CREATE TABLE supplies
+(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255),
+  PRIMARY KEY(`id`)
+);
+
+CREATE TABLE providers_supplies
+(
+  `provider_id` INT,
+  `supply_id` INT
 );
 
 CREATE TABLE orders
 (
   `id` INT NOT NULL AUTO_INCREMENT,
   `provider_id` INT,
-  `list_material_id` INT,
-  `quantity` INT NOT NULL DEFAULT '1',
   `user_id` INT,
   PRIMARY KEY(`id`)
 );
 
-CREATE TABLE orders_materials
+CREATE TABLE order_supplies
 (
   `order_id` INT,
-  `provider_id` INT
+  `supply_id` INT,
+  `quantity` INT DEFAULT '1'
 );
 
 
@@ -5679,3 +5692,9 @@ INSERT INTO `cities` (`id`, `city`, `zipcode`) VALUES
   (5190, 'lamarche', '88320'),
   (5191, 'moussey', '88210'),
   (5192, 'frain', '88320');
+
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthname`, `email`, `login`, `password`, `phone`, `cellphone`, `address`, `zipcode`, `city`, `birthday`, `birthplace`, `skype`, `is_active`, `permission_id`, `grade_id`, `role_id`, `created`, `modified`, `connected`) VALUES
+(1, 'Florent', 'Maillard', '', 'florent.maillard.pro@gmail.fr', 'admin', '$2y$10$82fA2pFkODkaj6cbxD5S8Ob.KEzEE848qoAovzopb4stB8HAcLHVG', '0611214341', '', '', '', '', '1985-03-05', '', '', 1, NULL, 24, NULL, '2016-08-30', '2016-08-30', NULL),
+(2, 'Nicolas', 'Hel', '', 'znirgal@gmail.com', 'nirgal', '$2y$10$IS67pIEg25UG6lN556WDleoEGpbAXBE2k7bYYtRt/4y7BaOI2SMua', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
+(3, 'Gwenael', 'Prevot', '', 'prevotgwenael@gmail.com', 'frexwimsn', '$2y$10$zBLH6jfO99bjjNEif7qmquN0Ms2E7eE2we8BFrs2iODm7KKhxRbBi', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
+(4, 'Olivier', 'Perrin', '', 'perrinolivier88@gmail.com', 'kaki88', '$2y$10$8Wn4cnW9eqsdrNfqPRbxM.YuOw/JUE4GbhYUHTyvskiIE1vIxtBta', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL);
