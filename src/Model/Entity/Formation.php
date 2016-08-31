@@ -7,13 +7,14 @@ use Cake\ORM\Entity;
  * Formation Entity
  *
  * @property int $id
+ * @property int $event_id
  * @property int $organization_id
  * @property int $teacher_id
  *
  * @property \App\Model\Entity\Organization $organization
+ * @property \App\Model\Entity\Event $event
  * @property \App\Model\Entity\Teacher $teacher
- */
-class Formation extends Entity
+ */class Formation extends Entity
 {
 
     /**

@@ -6,8 +6,7 @@ use App\Controller\AppController;
 /**
  * Formations Controller
  *
- * @property \App\Model\Table\FormationsTable $Formations
- */
+ * @property \App\Model\Table\FormationsTable $Formations */
 class FormationsController extends AppController
 {
 
@@ -19,9 +18,10 @@ class FormationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Organizations', 'Teachers']
+            'contain' => ['Organizations', 'Teachers','Events']
         ];
         $formations = $this->paginate($this->Formations);
+
 
         $this->set(compact('formations'));
         $this->set('_serialize', ['formations']);
@@ -44,11 +44,10 @@ class FormationsController extends AppController
         $this->set('_serialize', ['formation']);
     }
 
-    /*
+    /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     *
      */
     public function add()
     {
@@ -61,30 +60,29 @@ class FormationsController extends AppController
         if ($this->request->is('post')) {
             $formation = $this->Formations->patchEntity($formation, $this->request->data, [
                 'associated' => [
-                    'Events'
+                    'Events',
+                    'Events.Formations'
                 ]
             ]);
+
             if ($this->Formations->save($formation)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' =>'formations','action' => 'index']);
             } else {
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
 
+                $organizations = $this->Formations->Organizations->find('list', ['limit' => 200]);
+                $teachers = $this->Formations->Teachers->find('list', ['valueField' => 'firstname']);
 
-        $organizations = $this->Formations->Organizations->find('all', ['limit' => 200]);
-        $teachers = $this->Formations->Teachers->find('list', ['limit' => 200]);
 
-
-        $cities = $this->Cities->find('list', ['limit' => 200]);
-        $barracks = $this->Barracks->find('list', ['limit' => 200]);
-
+        $cities = $this->Cities->find('list', ['valueField' => 'city']);
+        $barracks = $this->Barracks->find('list', ['valueField' => 'name']);
 
         $this->set(compact('formation', 'organizations', 'teachers','barracks','cities'));
         $this->set('_serialize', ['formation']);
-        debug($organizations);
     }
 
     /**
