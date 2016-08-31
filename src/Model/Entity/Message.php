@@ -7,11 +7,12 @@ use Cake\ORM\Entity;
  * Message Entity
  *
  * @property int $id
- * @property int $to_user
- * @property int $from_user
  * @property string $subject
  * @property string $text
  * @property \Cake\I18n\Time $created
+ *
+ * @property \App\Model\Entity\ToUser $to_user
+ * @property \App\Model\Entity\FromUser $from_user
  */
 class Message extends Entity
 {
