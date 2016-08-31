@@ -2,10 +2,11 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Nouveau Message'), ['action' => 'send']) ?></li>
+        <li><?= $this->Html->link(__('Messages envoyés'), ['action' => 'dispatch']) ?></li>
     </ul>
 </nav>
 <div class="messages index large-9 medium-8 columns content">
-    <h3><?= __('Messages') ?></h3>
+    <h3><?= __('Boîte de réception') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -18,8 +19,11 @@
         <tbody>
             <?php foreach ($messages as $message): ?>
             <tr>
-                <td><?= $message->created->i18nformat(' dd MMMM à HH:m') ?></td>
-                <td><?= $this->Number->format($message->from_user) ?></td>
+                <td><?= $message->created->i18nformat(' dd MMMM à HH:mm') ?></td>
+                <td><?php
+                $user = $users->find()->where(['id' => $message->from_user])->first();
+echo $user->firstname.' '.$user->lastname;
+                    ?></td>
                 <td><?= h($message->subject) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('Voir'), ['action' => 'view', $message->id]) ?>

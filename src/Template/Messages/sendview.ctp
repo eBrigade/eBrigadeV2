@@ -13,9 +13,9 @@
             <td><?= h($message->subject) ?></td>
         </tr>
         <tr>
-            <th><?= __('Expéditeur') ?></th>
+            <th><?= __('Destinataire') ?></th>
             <td><?php
-                $user = $users->find()->where(['id' => $message->from_user])->first();
+                $user = $users->find()->where(['id' => $message->to_user])->first();
                 echo $user->firstname.' '.$user->lastname;
                 ?></td>
         </tr>
