@@ -126,7 +126,7 @@ CREATE TABLE borrowed_materials
 CREATE TABLE borrowed_vehicles
 (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `vehicule_id` INT NOT NULL,
+  `vehicle_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `event_id` INT NOT NULL DEFAULT '0',
   PRIMARY KEY(`id`)
@@ -150,7 +150,7 @@ CREATE TABLE vehicles
 CREATE TABLE users_vehicles
 (
   `user_id` INT,
-  `vehicule_id` INT
+  `vehicle_id` INT
 );
 
 CREATE TABLE vehicle_types
@@ -674,6 +674,66 @@ INSERT INTO `material_types` (`id`, `name`, `description`, `type`) VALUES
 (57, 'Téléphones Portables', '', 'Transmission'),
 (58, 'Extincteur à poudre', '', 'Incendie'),
 (59, 'Extincteur à eau', '', 'Incendie');
+
+INSERT INTO `grades` (`name`) VALUES
+('non renseigné'),
+('adjoint administratif 1ère classe'),
+('adjoint administratif 2ème classe'),
+('adjoint administratif 2ème classe non titulaire'),
+('adjoint administratif principal de 1ère classe'),
+('adjoint administratif principal de 2ème classe'),
+('adjudant-chef'),
+('adjudant'),
+('agent de maîtrise'),
+('agent de maîtrise principal'),
+('adjoint technique de 1ère classe'),
+('adjoint technique de 2ème classe'),
+('adjoint technique de 2ème classe non titulaire'),
+('attaché principal'),
+('adjoint technique principal de 1ère classe'),
+('adjoint technique principal de 2ème classe'),
+('attaché'),
+('caporal-chef'),
+('commandant'),
+('colonel'),
+('contrôleur de travaux'),
+('contrôleur de travaux en chef'),
+('contrôleur principal de travaux'),
+('caporal'),
+('capitaine'),
+('directeur territorial'),
+('ingénieur en chef de classe exceptionnelle'),
+('ingénieur en chef de classe normale'),
+('ingénieur'),
+('ingénieur principal'),
+('Infirmier'),
+('Infirmier Chef'),
+('Infirmier d''encadrement'),
+('Infirmier Principal'),
+('jeune sapeur pompier 1'),
+('jeune sapeur pompier 2'),
+('jeune sapeur pompier 3'),
+('jeune sapeur pompier 4'),
+('jeune sapeur pompier breveté'),
+('lieutenant-colonel'),
+('lieutenant 1ère classe'),
+('lieutenant 2ème classe'),
+('major'),
+('Médecin Commandant'),
+('Médecin Colonel'),
+('Médecin Capitaine'),
+('Médecin Lieutenant Colonel'),
+('rédacteur'),
+('rédacteur chef'),
+('rédacteur principal'),
+('sapeur 1ère classe'),
+('sapeur 2ème classe'),
+('sergent-chef'),
+('sergent'),
+('technicien supérieur'),
+('technicien supérieur chef'),
+('technicien supérieur principal');
+
 
 INSERT INTO `vehicle_types` (`code`, `name`, `type`, `picture`) VALUES
 ('ASSU', 'Ambulance de secours et de soins d''urgence', 'SECOURS', 'images/vehicules/VSAV.png'),
