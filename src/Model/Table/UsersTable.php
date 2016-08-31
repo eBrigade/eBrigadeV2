@@ -14,10 +14,11 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Roles
  * @property \Cake\ORM\Association\HasMany $Availabilities
  * @property \Cake\ORM\Association\HasMany $BarrackUsers
+ * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
+ * @property \Cake\ORM\Association\HasMany $BorrowedVehicles
  * @property \Cake\ORM\Association\HasMany $EventTeams
  * @property \Cake\ORM\Association\HasMany $Orders
  * @property \Cake\ORM\Association\HasMany $TeamUsers
- * @property \Cake\ORM\Association\BelongsToMany $Materials
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
@@ -64,6 +65,12 @@ class UsersTable extends Table
         $this->hasMany('BarrackUsers', [
             'foreignKey' => 'user_id'
         ]);
+        $this->hasMany('BorrowedMaterials', [
+            'foreignKey' => 'user_id'
+        ]);
+        $this->hasMany('BorrowedVehicles', [
+            'foreignKey' => 'user_id'
+        ]);
         $this->hasMany('EventTeams', [
             'foreignKey' => 'user_id'
         ]);
@@ -72,11 +79,6 @@ class UsersTable extends Table
         ]);
         $this->hasMany('TeamUsers', [
             'foreignKey' => 'user_id'
-        ]);
-        $this->belongsToMany('Materials', [
-            'foreignKey' => 'user_id',
-            'targetForeignKey' => 'material_id',
-            'joinTable' => 'users_materials'
         ]);
         $this->belongsToMany('Vehicles', [
             'foreignKey' => 'user_id',
@@ -98,10 +100,12 @@ class UsersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('firstname');
+            ->requirePresence('firstname', 'create')
+            ->notEmpty('firstname');
 
         $validator
-            ->allowEmpty('lastname');
+            ->requirePresence('lastname', 'create')
+            ->notEmpty('lastname');
 
         $validator
             ->allowEmpty('birthname');

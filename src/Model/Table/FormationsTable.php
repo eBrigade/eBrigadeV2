@@ -9,9 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Formations Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Events
  * @property \Cake\ORM\Association\BelongsTo $Organizations
  * @property \Cake\ORM\Association\BelongsTo $Teachers
+ * @property \Cake\ORM\Association\BelongsTo $Events
  *
  * @method \App\Model\Entity\Formation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Formation newEntity($data = null, array $options = [])
@@ -20,7 +20,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Formation patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Formation[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Formation findOrCreate($search, callable $callback = null)
- */class FormationsTable extends Table
+ */
+class FormationsTable extends Table
 {
 
     /**
@@ -37,16 +38,14 @@ use Cake\Validation\Validator;
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Events', [
-            'foreignKey' => 'event_id',
-        ]);
         $this->belongsTo('Organizations', [
             'foreignKey' => 'organization_id'
         ]);
-        $this->belongsTo(
-            'Teachers', [
-            'className' => ' Users',
+        $this->belongsTo('Teachers', [
             'foreignKey' => 'teacher_id'
+        ]);
+        $this->belongsTo('Events', [
+            'foreignKey' => 'event_id'
         ]);
     }
 
@@ -59,7 +58,9 @@ use Cake\Validation\Validator;
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')            ->allowEmpty('id', 'create');
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
         return $validator;
     }
 
@@ -72,9 +73,9 @@ use Cake\Validation\Validator;
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['event_id'], 'Events'));
         $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
         $rules->add($rules->existsIn(['teacher_id'], 'Teachers'));
+        $rules->add($rules->existsIn(['event_id'], 'Events'));
 
         return $rules;
     }

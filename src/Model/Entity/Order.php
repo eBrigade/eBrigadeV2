@@ -7,13 +7,12 @@ use Cake\ORM\Entity;
  * Order Entity
  *
  * @property int $id
- * @property int $list_material_id
- * @property int $quantity
+ * @property int $provider_id
  * @property int $user_id
  *
- * @property \App\Model\Entity\ListMaterial $list_material
+ * @property \App\Model\Entity\Provider $provider
  * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\Provider[] $providers
+ * @property \App\Model\Entity\OrderSupply[] $order_supplies
  */
 class Order extends Entity
 {

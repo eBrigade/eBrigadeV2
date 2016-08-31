@@ -19,6 +19,8 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\TypeVehicle $type_vehicle
  * @property \App\Model\Entity\ModelVehicle $model_vehicle
+ * @property \App\Model\Entity\BorrowedMaterial[] $borrowed_materials
+ * @property \App\Model\Entity\BorrowedVehicle[] $borrowed_vehicles
  * @property \App\Model\Entity\EventVehicle[] $event_vehicles
  * @property \App\Model\Entity\User[] $users
  */

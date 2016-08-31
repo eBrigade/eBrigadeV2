@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\Formation[] $formations
+ * @property \App\Model\Entity\Operation[] $operations
  */
 class Organization extends Entity
 {

@@ -8,14 +8,13 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $list_material_id
- * @property int $type_material_id
+ * @property int $material_type_id
  * @property int $barrack_id
- * @property int $stock
  *
  * @property \App\Model\Entity\ListMaterial $list_material
- * @property \App\Model\Entity\TypeMaterial $type_material
+ * @property \App\Model\Entity\MaterialType $material_type
  * @property \App\Model\Entity\Barrack $barrack
- * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\BorrowedMaterial[] $borrowed_materials
  */
 class Material extends Entity
 {

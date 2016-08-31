@@ -19,6 +19,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\BarrackUser[] $barrack_users
  * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Material[] $materials
+ * @property \App\Model\Entity\Operation[] $operations
  */
 class Barrack extends Entity
 {

@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $TypeVehicles
  * @property \Cake\ORM\Association\BelongsTo $ModelVehicles
+ * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
+ * @property \Cake\ORM\Association\HasMany $BorrowedVehicles
  * @property \Cake\ORM\Association\HasMany $EventVehicles
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *
@@ -44,6 +46,12 @@ class VehiclesTable extends Table
         ]);
         $this->belongsTo('ModelVehicles', [
             'foreignKey' => 'model_vehicle_id'
+        ]);
+        $this->hasMany('BorrowedMaterials', [
+            'foreignKey' => 'vehicle_id'
+        ]);
+        $this->hasMany('BorrowedVehicles', [
+            'foreignKey' => 'vehicle_id'
         ]);
         $this->hasMany('EventVehicles', [
             'foreignKey' => 'vehicle_id'

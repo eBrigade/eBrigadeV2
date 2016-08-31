@@ -9,9 +9,9 @@ use Cake\Validation\Validator;
 /**
  * Orders Model
  *
- * @property \Cake\ORM\Association\BelongsTo $ListMaterials
+ * @property \Cake\ORM\Association\BelongsTo $Providers
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsToMany $Providers
+ * @property \Cake\ORM\Association\HasMany $OrderSupplies
  *
  * @method \App\Model\Entity\Order get($primaryKey, $options = [])
  * @method \App\Model\Entity\Order newEntity($data = null, array $options = [])
@@ -38,16 +38,14 @@ class OrdersTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('ListMaterials', [
-            'foreignKey' => 'list_material_id'
+        $this->belongsTo('Providers', [
+            'foreignKey' => 'provider_id'
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
-        $this->belongsToMany('Providers', [
-            'foreignKey' => 'order_id',
-            'targetForeignKey' => 'provider_id',
-            'joinTable' => 'orders_providers'
+        $this->hasMany('OrderSupplies', [
+            'foreignKey' => 'order_id'
         ]);
     }
 
@@ -63,11 +61,6 @@ class OrdersTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
-        $validator
-            ->integer('quantity')
-            ->requirePresence('quantity', 'create')
-            ->notEmpty('quantity');
-
         return $validator;
     }
 
@@ -80,7 +73,7 @@ class OrdersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['list_material_id'], 'ListMaterials'));
+        $rules->add($rules->existsIn(['provider_id'], 'Providers'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;

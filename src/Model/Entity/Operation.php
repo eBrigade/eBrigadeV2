@@ -47,6 +47,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $date
  *
  * @property \App\Model\Entity\Event $event
+ * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\OperationActivity $operation_activity
  * @property \App\Model\Entity\OperationEnvironment $operation_environment
  * @property \App\Model\Entity\OperationDelay $operation_delay

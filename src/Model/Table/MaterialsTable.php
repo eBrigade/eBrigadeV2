@@ -10,9 +10,9 @@ use Cake\Validation\Validator;
  * Materials Model
  *
  * @property \Cake\ORM\Association\BelongsTo $ListMaterials
- * @property \Cake\ORM\Association\BelongsTo $TypeMaterials
+ * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
  * @property \Cake\ORM\Association\BelongsTo $Barracks
- * @property \Cake\ORM\Association\BelongsToMany $Users
+ * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
  *
  * @method \App\Model\Entity\Material get($primaryKey, $options = [])
  * @method \App\Model\Entity\Material newEntity($data = null, array $options = [])
@@ -42,16 +42,14 @@ class MaterialsTable extends Table
         $this->belongsTo('ListMaterials', [
             'foreignKey' => 'list_material_id'
         ]);
-        $this->belongsTo('TypeMaterials', [
-            'foreignKey' => 'type_material_id'
+        $this->belongsTo('MaterialTypes', [
+            'foreignKey' => 'material_type_id'
         ]);
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id'
         ]);
-        $this->belongsToMany('Users', [
-            'foreignKey' => 'material_id',
-            'targetForeignKey' => 'user_id',
-            'joinTable' => 'users_materials'
+        $this->hasMany('BorrowedMaterials', [
+            'foreignKey' => 'material_id'
         ]);
     }
 
@@ -67,10 +65,6 @@ class MaterialsTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
-        $validator
-            ->integer('stock')
-            ->allowEmpty('stock');
-
         return $validator;
     }
 
@@ -84,7 +78,7 @@ class MaterialsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['list_material_id'], 'ListMaterials'));
-        $rules->add($rules->existsIn(['type_material_id'], 'TypeMaterials'));
+        $rules->add($rules->existsIn(['material_type_id'], 'MaterialTypes'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
 
         return $rules;

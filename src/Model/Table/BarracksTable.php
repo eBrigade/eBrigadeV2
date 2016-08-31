@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $BarrackUsers
  * @property \Cake\ORM\Association\HasMany $Events
  * @property \Cake\ORM\Association\HasMany $Materials
+ * @property \Cake\ORM\Association\HasMany $Operations
  *
  * @method \App\Model\Entity\Barrack get($primaryKey, $options = [])
  * @method \App\Model\Entity\Barrack newEntity($data = null, array $options = [])
@@ -52,6 +53,9 @@ class BarracksTable extends Table
         $this->hasMany('Materials', [
             'foreignKey' => 'barrack_id'
         ]);
+        $this->hasMany('Operations', [
+            'foreignKey' => 'barrack_id'
+        ]);
     }
 
     /**
@@ -87,6 +91,9 @@ class BarracksTable extends Table
             ->requirePresence('email', 'create')
             ->notEmpty('email');
 
+        $validator
+            ->requirePresence('website_url', 'create')
+            ->notEmpty('website_url');
 
         return $validator;
     }
