@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Formations Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Events
  * @property \Cake\ORM\Association\BelongsTo $Organizations
  * @property \Cake\ORM\Association\BelongsTo $Teachers
  *
@@ -19,8 +20,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Formation patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Formation[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Formation findOrCreate($search, callable $callback = null)
- */
-class FormationsTable extends Table
+ */class FormationsTable extends Table
 {
 
     /**
@@ -37,10 +37,15 @@ class FormationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->belongsTo('Events', [
+            'foreignKey' => 'event_id',
+        ]);
         $this->belongsTo('Organizations', [
             'foreignKey' => 'organization_id'
         ]);
-        $this->belongsTo('Teachers', [
+        $this->belongsTo(
+            'Teachers', [
+            'className' => ' Users',
             'foreignKey' => 'teacher_id'
         ]);
     }
@@ -54,9 +59,7 @@ class FormationsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
-
+            ->integer('id')            ->allowEmpty('id', 'create');
         return $validator;
     }
 
@@ -69,6 +72,7 @@ class FormationsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['event_id'], 'Events'));
         $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
         $rules->add($rules->existsIn(['teacher_id'], 'Teachers'));
 

@@ -12,10 +12,8 @@ class FormationsTableTest extends TestCase
 {
 
     /**
-     * Test subject
-     *
-     * @var \App\Model\Table\FormationsTable
-     */
+     * Test subject     *
+     * @var \App\Model\Table\FormationsTable     */
     public $Formations;
 
     /**
@@ -27,6 +25,38 @@ class FormationsTableTest extends TestCase
         'app.formations',
         'app.organizations',
         'app.cities',
+        'app.barracks',
+        'app.barrack_users',
+        'app.events',
+        'app.creators',
+        'app.permissions',
+        'app.grades',
+        'app.roles',
+        'app.availabilities',
+        'app.event_teams',
+        'app.orders',
+        'app.list_materials',
+        'app.users',
+        'app.team_users',
+        'app.materials',
+        'app.type_materials',
+        'app.users_materials',
+        'app.vehicles',
+        'app.type_vehicles',
+        'app.model_vehicles',
+        'app.event_vehicles',
+        'app.users_vehicles',
+        'app.providers',
+        'app.orders_providers',
+        'app.bills',
+        'app.responsibles',
+        'app.event_equipments',
+        'app.operations',
+        'app.operation_activities',
+        'app.operation_environments',
+        'app.operation_delays',
+        'app.operation_types',
+        'app.operation_recommendations',
         'app.teachers'
     ];
 
@@ -38,9 +68,7 @@ class FormationsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Formations') ? [] : ['className' => 'App\Model\Table\FormationsTable'];
-        $this->Formations = TableRegistry::get('Formations', $config);
-    }
+        $config = TableRegistry::exists('Formations') ? [] : ['className' => 'App\Model\Table\FormationsTable'];        $this->Formations = TableRegistry::get('Formations', $config);    }
 
     /**
      * tearDown method
