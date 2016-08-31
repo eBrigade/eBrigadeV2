@@ -2,8 +2,8 @@
 CREATE TABLE users
 (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(100),
-  `lastname` VARCHAR(100),
+  `firstname` VARCHAR(100) NOT NULL,
+  `lastname` VARCHAR(100) NOT NULL,
   `birthname`VARCHAR(100),
   `email`VARCHAR(255) UNIQUE NOT NULL,
   `login`VARCHAR(100) UNIQUE NOT NULL,
@@ -94,7 +94,6 @@ CREATE TABLE materials
   `list_material_id` INT,
   `material_type_id` INT,
   `barrack_id` INT,
-  `stock` INT,
   PRIMARY KEY(`id`)
 );
 
@@ -108,15 +107,29 @@ CREATE TABLE list_materials
 CREATE TABLE material_types
 (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255),
+  `name` VARCHAR(25) NOT NULL UNIQUE,
+  `description` VARCHAR(60),
+  `type` VARCHAR(15),
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE borrowed_materials
+(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `material_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `event_id` INT NOT NULL DEFAULT '0',
+  `vehicle_id` INT NOT NULL DEFAULT '0',
   PRIMARY KEY(`id`)
 );
 
-CREATE TABLE users_materials
+CREATE TABLE borrowed_vehicles
 (
-  `user_id` INT,
-  `material_id` INT,
-  `quantity` INT
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `vehicule_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `event_id` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY(`id`)
 );
 
 CREATE TABLE vehicles
@@ -143,7 +156,10 @@ CREATE TABLE users_vehicles
 CREATE TABLE vehicle_types
 (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL UNIQUE,
+  `code` VARCHAR(10) NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `type` VARCHAR(15) NOT NULL,
+  `picture` VARCHAR(255),
   PRIMARY KEY(`id`)
 );
 
@@ -176,6 +192,18 @@ CREATE TABLE supplies
   PRIMARY KEY(`id`)
 );
 
+CREATE TABLE `supply_types` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `code` varchar(12) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `cond` char(2) NOT NULL,
+  `measure_unit` char(2) NOT NULL,
+  `quantity_per_unit` float NOT NULL,
+  `peremp` tinyint(1),
+  PRIMARY KEY(`id`)
+);
+
+
 CREATE TABLE providers_supplies
 (
   `provider_id` INT,
@@ -197,6 +225,12 @@ CREATE TABLE order_supplies
   `quantity` INT DEFAULT '1'
 );
 
+CREATE TABLE bills
+(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(`id`)
+);
+
 
 CREATE TABLE IF NOT EXISTS `operations` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -206,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `operation_activity_id` INT(11) NOT NULL DEFAULT '0',
   `operation_environment_id` INT(11) NOT NULL DEFAULT '0',
   `operation_delay_id` INT(11) NOT NULL DEFAULT '0',
-  `public_ris` INT(11) NOT NULL DEFAULT '0',
+  `public_ris` FLOAT NOT NULL DEFAULT '0',
   `operation_type_id` INT(11) NOT NULL DEFAULT '0',
   `operation_recommendation_id` INT(11) NOT NULL DEFAULT '0',
   `public_reinforcement` VARCHAR(255) NOT NULL DEFAULT '0',
@@ -497,6 +531,183 @@ CREATE TABLE IF NOT EXISTS `cities` (
   `zipcode` varchar(5) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
+
+
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthname`, `email`, `login`, `password`, `phone`, `cellphone`, `address`, `zipcode`, `city`, `birthday`, `birthplace`, `skype`, `is_active`, `permission_id`, `grade_id`, `role_id`, `created`, `modified`, `connected`) VALUES
+(1, 'Florent', 'Maillard', '', 'florent.maillard.pro@gmail.fr', 'admin', '$2y$10$82fA2pFkODkaj6cbxD5S8Ob.KEzEE848qoAovzopb4stB8HAcLHVG', '0611214341', '', '', '', '', '1985-03-05', '', '', 1, NULL, 24, NULL, '2016-08-30', '2016-08-30', NULL),
+(2, 'Nicolas', 'Hel', '', 'znirgal@gmail.com', 'nirgal', '$2y$10$IS67pIEg25UG6lN556WDleoEGpbAXBE2k7bYYtRt/4y7BaOI2SMua', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
+(3, 'Gwenael', 'Prevot', '', 'prevotgwenael@gmail.com', 'frexwimsn', '$2y$10$zBLH6jfO99bjjNEif7qmquN0Ms2E7eE2we8BFrs2iODm7KKhxRbBi', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
+(4, 'Olivier', 'Perrin', '', 'perrinolivier88@gmail.com', 'kaki88', '$2y$10$8Wn4cnW9eqsdrNfqPRbxM.YuOw/JUE4GbhYUHTyvskiIE1vIxtBta', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL);
+
+INSERT INTO `supply_types` (`id`, `code`, `name`, `cond`, `measure_unit`, `quantity_per_unit`, `peremp`) VALUES
+(1, 'ALIMENTATION', 'Eau', 'BO', 'cl', 150, 0),
+(2, 'ALIMENTATION', 'Eau', 'BN', 'li', 10, 0),
+(3, 'ALIMENTATION', 'Soupe', 'BR', 'li', 1, 1),
+(4, 'ALIMENTATION', 'Sucre en morceaux', 'BT', 'kg', 1, 1),
+(5, 'ALIMENTATION', 'dosette café soluble', 'EI', 'un', 1, 1),
+(6, 'ALIMENTATION', 'dosette boisson chocolatée', 'EI', 'un', 1, 1),
+(7, 'ALIMENTATION', 'gobelet', 'PE', 'un', 1, 0),
+(8, 'ALIMENTATION', 'cuillère en plastique / touillette', 'PE', 'un', 1, 0),
+(9, 'PHARMACIE', 'Dosiseptine', 'DO', 'ml', 10, 0),
+(10, 'PHARMACIE', 'Chlorure de sodium / sérum physiologique', 'DO', 'ml', 10, 0),
+(11, 'PHARMACIE', 'Dakin stabilisé', 'DO', 'ml', 10, 0),
+(12, 'PHARMACIE', 'Compresses stériles', 'EI', 'un', 1, 0),
+(13, 'PHARMACIE', 'Collier cervical adulte', 'EI', 'un', 1, 0),
+(14, 'PHARMACIE', 'Collier cervical enfant', 'EI', 'un', 1, 0),
+(15, 'PHARMACIE', 'Masque haute concentration adulte', 'EI', 'un', 1, 0),
+(16, 'PHARMACIE', 'Masque haute concentration enfant', 'EI', 'un', 1, 0),
+(17, 'PHARMACIE', 'gants à usage unique S', 'BT', 'un', 100, 0),
+(18, 'PHARMACIE', 'gants à usage unique M', 'BT', 'un', 100, 0),
+(19, 'PHARMACIE', 'gants à usage unique L', 'BT', 'un', 100, 0),
+(20, 'PHARMACIE', 'gants à usage unique XL', 'BT', 'un', 100, 0),
+(21, 'PHARMACIE', 'solution hydro-alcoolique', 'FL', 'cl', 1, 0),
+(22, 'VEHICULES', 'Essence groupe électrogène', 'JC', 'li', 10, 0),
+(23, 'VEHICULES', 'Essence groupe électrogène', 'JC', 'li', 20, 0),
+(24, 'VEHICULES', 'Gasoil groupe électrogène', 'JC', 'li', 20, 0),
+(25, 'VEHICULES', 'Huile moteur', 'BI', 'li', 5, 0),
+(26, 'VEHICULES', 'Liquide lave glace', 'BI', 'li', 5, 0),
+(27, 'VEHICULES', 'Liquide de freins', 'BI', 'li', 5, 0),
+(28, 'ENTRETIEN', 'Désinfectant surface', 'FL', 'cl', 50, 0),
+(29, 'ENTRETIEN', 'Alkidiol', 'FL', 'cl', 50, 0),
+(30, 'ENTRETIEN', 'Solution hydro-alcoolique', 'FL', 'cl', 50, 0),
+(31, 'ENTRETIEN', 'Spray désinfectant de surface', 'FL', 'cl', 50, 0),
+(32, 'ENTRETIEN', 'Liquide vaisselle', 'FL', 'cl', 100, 0),
+(33, 'ENTRETIEN', 'Papier toilette rouleau', 'PE', 'un', 1, 0),
+(34, 'BUREAU', 'Ramette Papier A4', 'EI', 'un', 500, 1),
+(35, 'BUREAU', 'Cartouche encre pour imprimante', 'EI', 'un', 1, 0),
+(36, 'BUREAU', 'main courante', 'EI', 'un', 1, 0),
+(37, 'BUREAU', 'fiche d''intervention', 'EI', 'un', 1, 0),
+(38, 'BUREAU', 'bracelet d''identification adulte', 'EI', 'un', 1, 0),
+(39, 'BUREAU', 'bracelet d''identification enfant', 'EI', 'un', 1, 0),
+(40, 'PHARMACIE', 'protection de sonde pour thermomètre tympanique', 'EI', 'un', 1, 0),
+(41, 'PHARMACIE', 'coussin Hémostatique d''urgence', 'EI', 'un', 1, 0),
+(42, 'PHARMACIE', 'antiseptique', 'DO', 'ml', 5, 0),
+(43, 'PHARMACIE', 'champs stérile', 'EI', 'un', 1, 0),
+(44, 'PHARMACIE', 'bande extensible', 'EI', 'un', 1, 0),
+(45, 'PHARMACIE', 'pansements pré-découpés', 'EI', 'un', 1, 0),
+(46, 'PHARMACIE', 'sparadrap rouleau', 'EI', 'un', 1, 0),
+(47, 'PHARMACIE', 'pansement absorbant, américain', 'EI', 'un', 1, 0),
+(48, 'PHARMACIE', 'gants stériles', 'EI', 'un', 1, 0),
+(49, 'PHARMACIE', 'compresses brulure', 'EI', 'un', 1, 0),
+(50, 'PHARMACIE', 'couverture de survie', 'EI', 'un', 1, 0),
+(51, 'PHARMACIE', 'couverture de survie stérile', 'EI', 'un', 1, 0),
+(52, 'PHARMACIE', 'écharpe triangulaire', 'EI', 'un', 1, 0),
+(53, 'PHARMACIE', 'poche de froid', 'EI', 'un', 1, 0),
+(54, 'PHARMACIE', 'tuyau patient pour aspirateur de mucosités', 'EI', 'un', 1, 0),
+(55, 'PHARMACIE', 'masque insufflateur adulte', 'EI', 'un', 1, 0),
+(56, 'PHARMACIE', 'masque insufflateur enfant', 'EI', 'un', 1, 0),
+(57, 'PHARMACIE', 'masque insufflateur nourisson', 'EI', 'un', 1, 0),
+(58, 'PHARMACIE', 'tubulure à oxygène', 'EI', 'un', 1, 0),
+(59, 'PHARMACIE', 'raccord biconique', 'EI', 'un', 1, 0),
+(60, 'PHARMACIE', 'sonde d''aspiration adulte', 'EI', 'un', 1, 0),
+(61, 'PHARMACIE', 'sonde d''aspiration pédiatrique', 'EI', 'un', 1, 0),
+(62, 'PHARMACIE', 'stop vide', 'EI', 'un', 1, 0),
+(63, 'PHARMACIE', 'canule de Guédel taille 00', 'EI', 'un', 1, 0),
+(64, 'PHARMACIE', 'canule de Guédel taille 0', 'EI', 'un', 1, 0),
+(65, 'PHARMACIE', 'canule de Guédel taille 1', 'EI', 'un', 1, 0),
+(66, 'PHARMACIE', 'canule de Guédel taille 2', 'EI', 'un', 1, 0),
+(67, 'PHARMACIE', 'canule de Guédel taille 3', 'EI', 'un', 1, 0),
+(68, 'PHARMACIE', 'canule de Guédel taille 4', 'EI', 'un', 1, 0),
+(69, 'PHARMACIE', 'canule de Guédel taille 5', 'EI', 'un', 1, 0),
+(70, 'PHARMACIE', 'masque FFP2', 'EI', 'un', 1, 0),
+(71, 'PHARMACIE', 'masque chirurgical', 'EI', 'un', 1, 0),
+(72, 'PHARMACIE', 'drap d''hôpital', 'PE', 'un', 1, 0),
+(73, 'VEHICULES', 'Gasoil', 'PE', 'li', 1, 0),
+(74, 'VEHICULES', 'Essence SP', 'PE', 'li', 1, 0);
+
+ALTER TABLE `supply_types`
+DROP COLUMN `cond`, DROP COLUMN `peremp`;
+REPAIR TABLE `supply_types`;
+
+INSERT INTO `material_types` (`id`, `name`, `description`, `type`) VALUES
+(1, 'N/R', 'Non renseigné', ''),
+(2, 'LOT A', 'Sac de secours avec équipement lot A', 'Sanitaire'),
+(3, 'LOT B', 'Sac de secours avec équipement lot B', 'Sanitaire'),
+(4, 'LOT C', 'Sac de secours avec équipement lot C (Hors VPS)', 'Sanitaire'),
+(5, 'Lits Picots', '', 'Hébergement'),
+(6, 'DAE', 'Défibrillateur automatique externe', 'Sanitaire'),
+(7, 'Oxygène', '', 'Sanitaire'),
+(8, 'Radios 450 Mhz', '', 'Transmission'),
+(10, 'Radios 150 MHz', '', 'Transmission'),
+(13, 'Valise P.C.', '150 MHz', 'Transmission'),
+(14, 'Pantalons', '', 'Habillement'),
+(15, 'Mannequins', '', 'Formation'),
+(16, 'Groupes électogènes', '', 'Eléctrique'),
+(17, 'D.A.E.', '', 'Formation'),
+(18, 'Portables', '', 'Informatique'),
+(19, 'Fixes', '', 'Informatique'),
+(20, 'Tentes', '', 'Hébergement'),
+(21, 'Immobilisateurs de tête', '', 'Sanitaire'),
+(24, 'Vestes', '', 'Habillement'),
+(25, 'Parkas', '', 'Habillement'),
+(26, 'Polos', '', 'Habillement'),
+(27, 'Polaires', '', 'Habillement'),
+(28, 'Eclairages', '', 'Eléctrique'),
+(29, 'Rallonges', '', 'Eléctrique'),
+(30, 'Classeurs', '', 'Formation'),
+(31, 'CD ROM', '', 'Formation'),
+(32, 'Couvertures', '', 'Hébergement'),
+(33, 'Sacs de Couchage', '', 'Hébergement'),
+(34, 'Vidéos Projecteurs', '', 'Informatique'),
+(35, 'Imprimantes', '', 'Informatique'),
+(36, 'tee-shirts', '', 'Habillement'),
+(37, 'Valise P.C', '450 MHz', 'Transmission'),
+(38, 'Antennes', '', 'Transmission'),
+(39, 'Tronçonneuses', '', 'Elagage'),
+(40, 'Thermos', '', 'Logistique'),
+(41, 'Jerricanes Alimentaires', '', 'Logistique'),
+(42, 'Claies de Portage', '', 'Logistique'),
+(43, 'Néons', '', 'Eclairage'),
+(44, 'Trépieds Hallogènes', '', 'Eclairage'),
+(45, 'Brancards', '', 'Hébergement'),
+(46, 'Jerricanes', '', 'Divers'),
+(47, 'Brancards Pliants', '', 'Sanitaire'),
+(48, 'Chaises Porteurs', '', 'Sanitaire'),
+(49, 'Brancards Cuillères', '', 'Sanitaire'),
+(50, 'Chauffages Electriques', '', 'Hébergement'),
+(51, 'Aspirateurs à eau', '', 'Pompage'),
+(52, 'Motos Pompes', '', 'Pompage'),
+(53, 'Seaux', '', 'Pompage'),
+(54, 'Raclettes', '', 'Pompage'),
+(55, 'Serpillières', '', 'Pompage'),
+(56, 'Vides Caves', '', 'Pompage'),
+(57, 'Téléphones Portables', '', 'Transmission'),
+(58, 'Extincteur à poudre', '', 'Incendie'),
+(59, 'Extincteur à eau', '', 'Incendie');
+
+INSERT INTO `vehicle_types` (`code`, `name`, `type`, `picture`) VALUES
+('ASSU', 'Ambulance de secours et de soins d''urgence', 'SECOURS', 'images/vehicules/VSAV.png'),
+('CCFL', 'Camion citerne Forêt léger', 'FEU', 'images/vehicules/CCF.png'),
+('CCFM', 'Camion citerne Forêt moyen', 'FEU', 'images/vehicules/CCF.png'),
+('CCFS', 'Camion citerne Forêt super', 'FEU', 'images/vehicules/CCGC.png'),
+('CCGC', 'Camion citerne grande capacité', 'FEU', 'images/vehicules/CCGC.png'),
+('CTU', 'Camionnette tous usages', 'DIVERS', 'images/vehicules/VTU.png'),
+('EPA', 'Echelle pivotante automatique', 'FEU', 'images/vehicules/EPA.png'),
+('ERS', 'Embarcation de Reconnaissance et de Sauvetage', 'SECOURS', 'images/vehicules/BOAT1.png'),
+('FPT', 'Fourgon pompe tonne', 'FEU', 'images/vehicules/FPT.png'),
+('FPTL', 'Fourgon pompe tonne léger', 'FEU', 'images/vehicules/FPT.png'),
+('FPTLHR', 'Fourgon pompe tonne léger hors route', 'FEU', 'images/vehicules/FMOGP.png'),
+('GER', 'Groupe Electrogène Remorquable', 'DIVERS', NULL),
+('MOTO', 'Motocyclette', 'DIVERS', 'images/vehicules/MOTO.png'),
+('MPS', 'Moto de premiers secours', 'SECOURS', 'images/vehicules/MOTO.png'),
+('PCM', 'Poste de Commandement Mobile', 'DIVERS', 'images/vehicules/PC.png'),
+('QUAD', 'Véhicule quad', 'DIVERS', 'images/vehicules/QUAD.png'),
+('REM', 'Remorque', 'DIVERS', NULL),
+('VCYN', 'Véhicule Cynotechnique', 'DIVERS', 'images/vehicules/CYNO.png'),
+('VELO', 'Vélo tout terrain', 'DIVERS', 'images/vehicules/VELO.png'),
+('VL', 'Véhicule léger', 'DIVERS', 'images/vehicules/VL.png'),
+('VLC', 'Véhicule Léger de Commandement', 'DIVERS', 'images/vehicules/VLCG.png'),
+('VLHR', 'Véhicule léger hors route', 'DIVERS', 'images/vehicules/VLHR.png'),
+('VPI', 'Véhicule polyvalent d''intervention', 'DIVERS', 'images/vehicules/VPI.png'),
+('VPS', 'Véhicule de premier secours', 'SECOURS', 'images/vehicules/AMBULANCE1.png'),
+('VSAV', 'Véhicule de secours aux blessés', 'SECOURS', 'images/vehicules/VSAV.png'),
+('VSR', 'Véhicule de secours routier', 'SECOURS', 'images/vehicules/VSR.png'),
+('VTD', 'Véhicule technique déblaiement', 'DIVERS', 'images/vehicules/VSD.png'),
+('VTH', 'Véhicule technique hébergement', 'LOGISTIQUE', 'images/vehicules/CMIC.png'),
+('VTI', 'Véhicule technique soutien intendance', 'LOGISTIQUE', 'images/vehicules/VIRT.png'),
+('VTP', 'Véhicule de transport de personnel', 'DIVERS', 'images/vehicules/BUS.png'),
+('VTU', 'Véhicule tous usages', 'DIVERS', 'images/vehicules/VTU.png');
+
 
 
 INSERT INTO `cities` (`id`, `city`, `zipcode`) VALUES
@@ -5692,9 +5903,3 @@ INSERT INTO `cities` (`id`, `city`, `zipcode`) VALUES
   (5190, 'lamarche', '88320'),
   (5191, 'moussey', '88210'),
   (5192, 'frain', '88320');
-
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthname`, `email`, `login`, `password`, `phone`, `cellphone`, `address`, `zipcode`, `city`, `birthday`, `birthplace`, `skype`, `is_active`, `permission_id`, `grade_id`, `role_id`, `created`, `modified`, `connected`) VALUES
-(1, 'Florent', 'Maillard', '', 'florent.maillard.pro@gmail.fr', 'admin', '$2y$10$82fA2pFkODkaj6cbxD5S8Ob.KEzEE848qoAovzopb4stB8HAcLHVG', '0611214341', '', '', '', '', '1985-03-05', '', '', 1, NULL, 24, NULL, '2016-08-30', '2016-08-30', NULL),
-(2, 'Nicolas', 'Hel', '', 'znirgal@gmail.com', 'nirgal', '$2y$10$IS67pIEg25UG6lN556WDleoEGpbAXBE2k7bYYtRt/4y7BaOI2SMua', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
-(3, 'Gwenael', 'Prevot', '', 'prevotgwenael@gmail.com', 'frexwimsn', '$2y$10$zBLH6jfO99bjjNEif7qmquN0Ms2E7eE2we8BFrs2iODm7KKhxRbBi', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
-(4, 'Olivier', 'Perrin', '', 'perrinolivier88@gmail.com', 'kaki88', '$2y$10$8Wn4cnW9eqsdrNfqPRbxM.YuOw/JUE4GbhYUHTyvskiIE1vIxtBta', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL);
