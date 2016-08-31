@@ -171,13 +171,14 @@ CREATE TABLE providers
 CREATE TABLE orders
 (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `provider_id` INT,
   `list_material_id` INT,
   `quantity` INT NOT NULL DEFAULT '1',
   `user_id` INT,
   PRIMARY KEY(`id`)
 );
 
-CREATE TABLE orders_providers
+CREATE TABLE orders_materials
 (
   `order_id` INT,
   `provider_id` INT
