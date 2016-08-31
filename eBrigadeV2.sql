@@ -104,12 +104,13 @@ CREATE TABLE list_materials
   PRIMARY KEY(`id`)
 );
 
-CREATE TABLE material_types (
+CREATE TABLE material_types
+(
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(25) NOT NULL UNIQUE,
-  `description` varchar(60),
-  `type` varchar(15),
-  PRIMARY KEY (`id`),
+  `description` VARCHAR(60),
+  `type` VARCHAR(15),
+  PRIMARY KEY (`id`)
 );
 
 CREATE TABLE borrowed_materials
