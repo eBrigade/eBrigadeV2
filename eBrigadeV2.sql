@@ -617,7 +617,7 @@ INSERT INTO `supply_types` (`id`, `code`, `name`, `cond`, `measure_unit`, `quant
 
 ALTER TABLE `supply_types`
 DROP COLUMN `cond`, DROP COLUMN `peremp`;
-ALTER TABLE `supply_types` REBUILD;
+REPAIR TABLE `supply_types`;
 
 INSERT INTO `material_types` (`id`, `name`, `description`, `type`) VALUES
 (1, 'N/R', 'Non renseigné', ''),
