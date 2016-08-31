@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `operation_activity_id` INT(11) NOT NULL DEFAULT '0',
   `operation_environment_id` INT(11) NOT NULL DEFAULT '0',
   `operation_delay_id` INT(11) NOT NULL DEFAULT '0',
-  `public_ris` INT(11) NOT NULL DEFAULT '0',
+  `public_ris` FLOAT NOT NULL DEFAULT '0',
   `operation_type_id` INT(11) NOT NULL DEFAULT '0',
   `operation_recommendation_id` INT(11) NOT NULL DEFAULT '0',
   `public_reinforcement` VARCHAR(255) NOT NULL DEFAULT '0',
