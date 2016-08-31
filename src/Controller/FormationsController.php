@@ -20,7 +20,7 @@ class FormationsController extends AppController
         $this->paginate = [
             'contain' => ['Organizations', 'Teachers','Events']
         ];
-        $formations = $this->paginate($this->Formations);
+        $formations = $this->paginate($this->Formations)->toArray();
 
 
         $this->set(compact('formations'));
@@ -36,11 +36,24 @@ class FormationsController extends AppController
      */
     public function view($id = null)
     {
+        $this->loadModel('Events');
+        $this->loadModel('Cities');
+        $this->loadModel('Users');
+        $this->loadModel('Barracks');
         $formation = $this->Formations->get($id, [
             'contain' => ['Organizations', 'Teachers']
         ]);
 
-        $this->set('formation', $formation);
+
+        $event = $this->Events->findAllById($formation['event_id'])->toArray();
+
+        $cities = $this->Cities->findAllById($event[0]['city_id'])->toArray();
+        $Users = $this->Users->findAllById($event[0]['creator_id'])->toArray();
+        $barracks = $this->Barracks->findAllById($event[0]['barrack_id'])->toArray();
+
+
+
+        $this->set(compact('formation', 'cities','Users','event','barracks','bills'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -58,11 +71,11 @@ class FormationsController extends AppController
         $formation = $this->Formations->newEntity();
 
         if ($this->request->is('post')) {
-            $formation = $this->Formations->patchEntity($formation, $this->request->data, [
-                'associated' => [
+            $formation = $this->Formations->patchEntity($formation, $this->request->data, ['associated' => [
                     'Events',
                     'Events.Formations'
                 ]
+
             ]);
 
             if ($this->Formations->save($formation)) {

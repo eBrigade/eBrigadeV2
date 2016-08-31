@@ -8,11 +8,12 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $event_id
+ * @property int $barrack_id
  * @property int $public_headcount
  * @property int $operation_activity_id
  * @property int $operation_environment_id
  * @property int $operation_delay_id
- * @property int $public_ris
+ * @property float $public_ris
  * @property int $operation_type_id
  * @property int $operation_recommendation_id
  * @property string $public_reinforcement

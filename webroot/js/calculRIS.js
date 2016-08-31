@@ -1,18 +1,38 @@
+//default values
+var p2 = 0.25;
+var e1 = 0.25;
+var e2 = 0.25;
+
+//on change events
+$('#public-headcount').on('change', function () {
+    p1 = $(this).val();
+    calculris();
+});
+
+$('#operation-activity-id').on('change', function () {
+    var p2cases = [0.25, 0.30, 0.35, 0.40, 0.40];
+    p2 = p2cases[$(this).val() - 1];
+    calculris();
+});
+
+$('#operation-environment-id').on('change', function () {
+    var e1cases = [0.25, 0.30, 0.35, 0.40];
+    e1 = e1cases[$(this).val() - 1];
+    calculris();
+});
+
+$('#operation-delay-id').on('change', function () {
+    var e2cases = [0.25, 0.30, 0.35, 0.40];
+    e2 = e2cases[$(this).val() - 1];
+    calculris();
+});
+
+
+
+//function to calculate RIS
 function calculris() {
 
-    p1 = document.getElementById('public-headcount').value;
-    ap2 = document.getElementById('operation-activity-id');
-    var p2cases = [0.25, 0.30, 35, 0.40, 0.40];
-    p2 = p2cases[ap2.options[ap2.selectedIndex].value + 1];
-    console.log(p1);
 
-
-    /*p2 = parseFloat(ap2.options[ap2.selectedIndex].value);*/
-    ae1 = document.getElementById('operation_environment_id');
-    e1 = parseFloat(ae1.options[ae1.selectedIndex].value);
-    ae2 = document.getElementById('operation_delay_id');
-    e2 = parseFloat(ae2.options[ae2.selectedIndex].value);
-    pub = document.getElementById('operation_type_id');
     if (p1 <= 100000) {
         p = p1;
     } else if (p1 > 100000) {
@@ -20,22 +40,24 @@ function calculris() {
     }
     i = p2 + e1 + e2;
     ris = i * (p / 1000);
-    document.getElementById('public_ris').value = ris;
+    $('#public-ris').val(ris);
+
+    pub = $('#operation-type-id');
     console.log(ris);
     switch (true) {
         case ris <= 0.25:
-            pub.value = 'PAS DE DISPOSITIF';
+            pub.val(1);
             break;
         case 0.25 < ris & ris <= 1.125:
-            pub.value = "POINT D'ALERTE ET DE PREMIER SECOURS";
+            pub.val(2);
             break;
         case 1.125 < ris & ris <= 12:
-            pub.value = "DPS DE PETITE ENVERGURE";
+            pub.val(3);
             break;
         case 12 < ris & ris <= 36:
-            pub.value = "DPS DE MOYENNE ENVERGURE";
+            pub.val(4);
             break;
         case 36 < ris:
-            pub.value = "DPS DE GRANDE ENVERGURE";
+            pub.val(5);
     }
 }

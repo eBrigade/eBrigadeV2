@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Operations Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Events
+ * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\BelongsTo $OperationActivities
  * @property \Cake\ORM\Association\BelongsTo $OperationEnvironments
  * @property \Cake\ORM\Association\BelongsTo $OperationDelays
@@ -44,6 +45,10 @@ class OperationsTable extends Table
 
         $this->belongsTo('Events', [
             'foreignKey' => 'event_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Barracks', [
+            'foreignKey' => 'barrack_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('OperationActivities', [
@@ -90,7 +95,7 @@ class OperationsTable extends Table
             ->notEmpty('public_headcount');
 
         $validator
-            ->integer('public_ris')
+            ->numeric('public_ris')
             ->requirePresence('public_ris', 'create')
             ->notEmpty('public_ris');
 
@@ -224,6 +229,7 @@ class OperationsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['event_id'], 'Events'));
+        $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
         $rules->add($rules->existsIn(['operation_activity_id'], 'OperationActivities'));
         $rules->add($rules->existsIn(['operation_environment_id'], 'OperationEnvironments'));
         $rules->add($rules->existsIn(['operation_delay_id'], 'OperationDelays'));
