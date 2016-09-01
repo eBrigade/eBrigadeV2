@@ -5,19 +5,16 @@
     </ul>
 </nav>
 <div class="formations form large-9 medium-8 columns content">
-    <?php $user_creator =
-        $this->Session->read('Auth.User.id');
-    ?>
-    <?=
-    $this->Form->create($formation)
-    ?>
+    <?php  $user_creator =  $this->Session->read('Auth.User.id');?>
+    <?=$this->Form->create($formation) ?>
     <fieldset>
         <legend><?= __('Add Formation') ?></legend>
         <?php
         echo $this->Form->input('formation.organization_id');
         echo $this->Form->input('formation.teacher_id');
         echo $this->Form->hidden('formation.event_id');
-        echo $this->Form->input('formation.event.city_id', ['options' => $cities]);
+        echo $this->Form->input('event.city_id', ['options' => $cities]);
+        echo $this->Form->input('event.barrack_id', ['options' => $barracks]);
         echo $this->Form->hidden('formation.id');
         echo $this->Form->hidden('event.id');
         echo $this->Form->hidden('event.creator_id' ,['value' => $user_creator ]);
@@ -35,7 +32,6 @@
         echo $this->Form->input('event.instructions');
         echo $this->Form->input('event.responsible_id');
         echo $this->Form->input('event.details');
-        echo $this->Form->input('formation.event.barrack_id', ['options' => $barracks]);
         echo $this->Form->input('event.event_start_date', ['empty' => true]);
         echo $this->Form->input('event.event_end_date', ['empty' => true]);
         echo $this->Form->input('event.horaires');

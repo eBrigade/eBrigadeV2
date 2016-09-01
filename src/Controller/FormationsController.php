@@ -74,20 +74,18 @@ class FormationsController extends AppController
             $formation = $this->Formations->patchEntity($formation, $this->request->data, ['associated' => [
                     'Events',
                     'Events.Formations'
-                ]
-
-            ]);
+            ]]);
 
             if ($this->Formations->save($formation)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
-                return $this->redirect(['controller' =>'formations','action' => 'index']);
+/*                return $this->redirect(['action' => 'index']);*/
             } else {
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
 
-                $organizations = $this->Formations->Organizations->find('list', ['limit' => 200]);
+                $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
                 $teachers = $this->Formations->Teachers->find('list', ['valueField' => 'firstname']);
 
 
@@ -107,11 +105,18 @@ class FormationsController extends AppController
      */
     public function edit($id = null)
     {
+
+        $this->loadModel('Cities');
+        $this->loadModel('Barracks');
+
         $formation = $this->Formations->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $formation = $this->Formations->patchEntity($formation, $this->request->data);
+            $formation = $this->Formations->patchEntity($formation, $this->request->data,['associated' => [
+                'Events',
+                'Events.Formations'
+            ]]);
             if ($this->Formations->save($formation)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
@@ -120,9 +125,14 @@ class FormationsController extends AppController
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
-        $organizations = $this->Formations->Organizations->find('list', ['limit' => 200]);
-        $teachers = $this->Formations->Teachers->find('list', ['limit' => 200]);
-        $this->set(compact('formation', 'organizations', 'teachers'));
+        $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
+        $teachers = $this->Formations->Teachers->find('list', ['valueField' => 'firstname']);
+
+        $cities = $this->Cities->find('list', ['valueField' => 'city']);
+        $barracks = $this->Barracks->find('list', ['valueField' => 'name']);
+
+
+        $this->set(compact('formation', 'organizations', 'teachers','barracks','cities'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -135,8 +145,15 @@ class FormationsController extends AppController
      */
     public function delete($id = null)
     {
+        $this->loadModel('Events');
+
         $this->request->allowMethod(['post', 'delete']);
         $formation = $this->Formations->get($id);
+
+      $event = $this->Events->get($formation['event_id']);
+
+         $this->Events->delete($event);
+
         if ($this->Formations->delete($formation)) {
             $this->Flash->success(__('The formation has been deleted.'));
         } else {
