@@ -174,7 +174,7 @@ class MessagesController extends AppController
         $this->set('_serialize', ['message']);
     }
 
-// supprimer un message
+//supprimer un message
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -185,7 +185,7 @@ class MessagesController extends AppController
             $this->Flash->error(__('Le message n\'a pas pu être supprimé. Svp, réessayez.'));
         }
 
-        return $this->redirect(['action' => 'dispatch']);
+        return $this->redirect(['action' => 'index']);
     }
 
 
