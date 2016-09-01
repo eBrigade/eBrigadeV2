@@ -9,7 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Materials Model
  *
- * @property \Cake\ORM\Association\BelongsTo $ListMaterials
  * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
  * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
@@ -39,9 +38,6 @@ class MaterialsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('ListMaterials', [
-            'foreignKey' => 'list_material_id'
-        ]);
         $this->belongsTo('MaterialTypes', [
             'foreignKey' => 'material_type_id'
         ]);
@@ -77,7 +73,6 @@ class MaterialsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['list_material_id'], 'ListMaterials'));
         $rules->add($rules->existsIn(['material_type_id'], 'MaterialTypes'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
 
