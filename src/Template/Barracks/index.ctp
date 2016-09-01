@@ -15,18 +15,18 @@
     </ul>
 </nav>
 <div class="barracks index large-9 medium-8 columns content">
-    <h3><?= __('Barracks') ?></h3>
+    <h3><?= __('Liste des casernes') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('name') ?></th>
-                <th><?= $this->Paginator->sort('address') ?></th>
-                <th><?= $this->Paginator->sort('city_id') ?></th>
-                <th><?= $this->Paginator->sort('phone') ?></th>
+                <th><?= $this->Paginator->sort('name',['label' => 'Nom']) ?></th>
+                <th><?= $this->Paginator->sort('address',['label' => 'Adresse']) ?></th>
+                <th><?= $this->Paginator->sort('city_id',['label' => 'Ville']) ?></th>
+                <th><?= $this->Paginator->sort('phone',['label' => 'Téléphone']) ?></th>
                 <th><?= $this->Paginator->sort('fax') ?></th>
                 <th><?= $this->Paginator->sort('email') ?></th>
-                <th><?= $this->Paginator->sort('website_url') ?></th>
+                <th><?= $this->Paginator->sort('website_url',['label' => 'URL du site ']) ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -42,9 +42,9 @@
                 <td><?= h($barrack->email) ?></td>
                 <td><?= h($barrack->website_url) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $barrack->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $barrack->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $barrack->id], ['confirm' => __('Are you sure you want to delete # {0}?', $barrack->id)]) ?>
+                    <?= $this->Html->link(__('Voir'), ['action' => 'view', $barrack->id]) ?>
+                    <?= $this->Html->link(__('Editer'), ['action' => 'edit', $barrack->id]) ?>
+                    <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $barrack->id], ['confirm' => __('Voulez-vous vraiment supprimer la caserne # {0}?', $barrack->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

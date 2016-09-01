@@ -4,7 +4,7 @@
         <li><?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $barrack->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $barrack->id)]
+                ['confirm' => __('Voulez-vous vraiment supprimer la caserne # {0}?', $barrack->id)]
             )
         ?></li>
         <li><?= $this->Html->link(__('List Barracks'), ['action' => 'index']) ?></li>
@@ -23,17 +23,22 @@
 <div class="barracks form large-9 medium-8 columns content">
     <?= $this->Form->create($barrack) ?>
     <fieldset>
-        <legend><?= __('Edit Barrack') ?></legend>
+        <legend><?= __('Editer une caserne') ?></legend>
         <?php
-            echo $this->Form->input('name');
-            echo $this->Form->input('address');
-            echo $this->Form->input('city_id', ['options' => $cities]);
-            echo $this->Form->input('phone');
-            echo $this->Form->input('fax');
-            echo $this->Form->input('email');
-            echo $this->Form->input('website_url');
+                  echo $this->Form->input('name',['label' => 'Nom']);
+        echo $this->Form->input('address',['label' => 'Adresse']);
+        echo $this->Form->input('city_name',['required' => true, 'label' => 'Ville']);
+        echo $this->Form->input('phone',['label' => 'Téléphone']);
+        echo $this->Form->input('fax',['required' => false]);
+        echo $this->Form->input('email');
+        echo $this->Form->input('website_url',['required' => false, 'label' => 'URL du site web']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Valider les modifications')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+
+
+<!--script jquery autocomplete pour les villes-->
+<?=  $this->element('Autocomplete/villes'); ?>
