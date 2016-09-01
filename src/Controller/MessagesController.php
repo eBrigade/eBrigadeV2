@@ -32,6 +32,24 @@ class MessagesController extends AppController
             'contain' => []
         ]);
         $users = TableRegistry::get('users');
+
+        // répondre au message
+        $user= $this->Auth->user('id');
+        $repondre = $this->Messages->newEntity();
+        $repondre->from_user = $user;
+        $repondre->to_user = 5;
+        $repondre->subject =  $this->request->data['subject'];
+        $repondre->text =  $this->request->data['text'];
+        $repondre->send =  0;
+        $repondre->recipients =  '';
+        $this->Messages->save($repondre);
+
+
+
+
+
+
+        $this->set('repondre', $repondre);
         $this->set(compact('users'));
         $this->set('message', $message);
         $this->set('_serialize', ['message']);
@@ -70,6 +88,7 @@ class MessagesController extends AppController
         $users = TableRegistry::get('users');
         $message = $this->Messages->newEntity();
         $user= $this->Auth->user('id');
+        $frommp = $users->find()->where(['id' => $user])->first();
         if ($this->request->is('post')) {
             $this->request->data['from_user']= $user;
             $too =  $this->request->data['to'];
@@ -92,8 +111,10 @@ class MessagesController extends AppController
                 // notification par email
                 $recipient = $users->find()->select(['email'])->where(['id' => $touserid->id])->first();
                 $email = new Email('default');
+                $email->template('default', 'default')
+                    ->emailFormat('html');
                 $email->to($recipient->email)
-                    ->subject('Vous avez reçu un message privé')
+                    ->subject("Vous avez reçu un message privé de $frommp->firstname $frommp->lastname")
                     ->send($this->request->data['text']);
             }
             // copie l'entrée pour historique des messages envoyés
@@ -114,6 +135,7 @@ class MessagesController extends AppController
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('Le message n\'a pas pu être envoyé. Svp, réessayez.'));
+
             }
 
 

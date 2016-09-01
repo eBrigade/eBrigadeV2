@@ -24,5 +24,16 @@ class LoginCell extends Cell
      */
     public function display()
     {
+        if($this->request->session()->read('Auth.User.id') !== null)
+        {
+            $isConnected = true;
+            $myId = $this->request->session()->read('Auth.User.id');
+            $this->set('myId',$myId);
+        }
+        else{
+            $isConnected = false;
+        }
+
+        $this->set('isConnected',$isConnected);
     }
 }

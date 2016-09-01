@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  * @property int $vehicle_id
  *
  * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\Vehicule $vehicule
+ * @property \App\Model\Entity\Vehicle $vehicle
  */
 class UsersVehicle extends Entity
 {

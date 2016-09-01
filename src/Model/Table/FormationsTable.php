@@ -42,7 +42,6 @@ class FormationsTable extends Table
             'foreignKey' => 'organization_id'
         ]);
         $this->belongsTo('Teachers', [
-            'className'=>'Users',
             'foreignKey' => 'teacher_id'
         ]);
         $this->belongsTo('Events', [

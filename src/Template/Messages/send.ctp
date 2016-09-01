@@ -9,7 +9,7 @@
     <fieldset>
         <legend><?= __('Envoyer un message privé') ?></legend>
         <?php
-            echo $this->Form->input('to',['label' => 'Destinataire','type' => 'text']);
+            echo $this->Form->input('to',['label' => 'Destinataire','type' => 'text','required' => true]);
             echo $this->Form->input('subject',['label' => 'Sujet']);
             echo $this->Form->input('text',['label' => 'Votre message']);
         ?>
