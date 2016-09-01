@@ -12,8 +12,10 @@ class FormationsTableTest extends TestCase
 {
 
     /**
-     * Test subject     *
-     * @var \App\Model\Table\FormationsTable     */
+     * Test subject
+     *
+     * @var \App\Model\Table\FormationsTable
+     */
     public $Formations;
 
     /**
@@ -27,30 +29,36 @@ class FormationsTableTest extends TestCase
         'app.cities',
         'app.barracks',
         'app.barrack_users',
-        'app.events',
-        'app.creators',
+        'app.users',
         'app.permissions',
         'app.grades',
         'app.roles',
         'app.availabilities',
-        'app.event_teams',
-        'app.orders',
-        'app.list_materials',
-        'app.users',
-        'app.team_users',
+        'app.borrowed_materials',
         'app.materials',
-        'app.type_materials',
-        'app.users_materials',
+        'app.list_materials',
+        'app.material_types',
+        'app.events',
+        'app.creators',
+        'app.borrowed_vehicles',
         'app.vehicles',
         'app.type_vehicles',
         'app.model_vehicles',
         'app.event_vehicles',
         'app.users_vehicles',
+        'app.event_teams',
+        'app.teams',
+        'app.team_users',
+        'app.team_chieves',
+        'app.orders',
         'app.providers',
-        'app.orders_providers',
+        'app.supplies',
+        'app.order_supplies',
+        'app.providers_supplies',
         'app.bills',
         'app.responsibles',
         'app.event_equipments',
+        'app.equipment',
         'app.operations',
         'app.operation_activities',
         'app.operation_environments',
@@ -68,7 +76,9 @@ class FormationsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Formations') ? [] : ['className' => 'App\Model\Table\FormationsTable'];        $this->Formations = TableRegistry::get('Formations', $config);    }
+        $config = TableRegistry::exists('Formations') ? [] : ['className' => 'App\Model\Table\FormationsTable'];
+        $this->Formations = TableRegistry::get('Formations', $config);
+    }
 
     /**
      * tearDown method

@@ -12,14 +12,16 @@
         <li><?= $this->Html->link(__('New Availability'), ['controller' => 'Availabilities', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Barrack Users'), ['controller' => 'BarrackUsers', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Barrack User'), ['controller' => 'BarrackUsers', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Borrowed Materials'), ['controller' => 'BorrowedMaterials', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Borrowed Material'), ['controller' => 'BorrowedMaterials', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Borrowed Vehicles'), ['controller' => 'BorrowedVehicles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Borrowed Vehicle'), ['controller' => 'BorrowedVehicles', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Event Teams'), ['controller' => 'EventTeams', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Event Team'), ['controller' => 'EventTeams', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Orders'), ['controller' => 'Orders', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Order'), ['controller' => 'Orders', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Team Users'), ['controller' => 'TeamUsers', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Team User'), ['controller' => 'TeamUsers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?></li>
     </ul>
@@ -40,18 +42,11 @@
             echo $this->Form->input('address');
             echo $this->Form->input('zipcode');
             echo $this->Form->input('city');
-            echo $this->Form->input('birthday', ['empty' => true, 'dateFormat' => 'DMY',
-                'minYear' => date('Y') - 90,
-                'maxYear' => date('Y') - 16]);
+            echo $this->Form->input('birthday', ['empty' => true]);
             echo $this->Form->input('birthplace');
             echo $this->Form->input('skype');
-            echo $this->Form->input('is_active');
-            echo $this->Form->input('permission_id', ['options' => $permissions, 'empty' => true]);
             echo $this->Form->input('grade_id', ['options' => $grades, 'empty' => true]);
             echo $this->Form->input('role_id', ['options' => $roles, 'empty' => true]);
-            echo $this->Form->input('connected', ['empty' => true]);
-            echo $this->Form->input('materials._ids', ['options' => $materials]);
-            echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

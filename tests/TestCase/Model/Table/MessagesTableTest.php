@@ -24,9 +24,7 @@ class MessagesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.messages',
-        'app.to_users',
-        'app.from_users'
+        'app.messages'
     ];
 
     /**
@@ -69,16 +67,6 @@ class MessagesTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

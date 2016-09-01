@@ -11,6 +11,12 @@ use Cake\Event\Event;
  */
 class UsersController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+    }
+
     /**
      * Index method
      *
@@ -27,11 +33,6 @@ class UsersController extends AppController
         $this->set('_serialize', ['users']);
     }
 
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-    }
-
     /**
      * View method
      *
@@ -42,10 +43,13 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Permissions', 'Grades', 'Roles', 'Materials', 'Vehicles', 'Availabilities', 'BarrackUsers', 'EventTeams', 'Orders', 'TeamUsers']
+            'contain' => ['Permissions', 'Grades', 'Roles', 'Vehicles', 'Availabilities', 'BarrackUsers', 'BorrowedMaterials', 'BorrowedVehicles', 'EventTeams', 'Orders', 'TeamUsers']
         ]);
-
+        $myId = $this->Auth->user('id');
+        ($id == $myId) ? $myProfile = true : $myProfile = false;
         $this->set('user', $user);
+        $this->set('myProfile',$myProfile);
+        $this->set('myId',$myId);
         $this->set('_serialize', ['user']);
     }
 
@@ -70,9 +74,7 @@ class UsersController extends AppController
         $permissions = $this->Users->Permissions->find('list', ['limit' => 200]);
         $grades = $this->Users->Grades->find('list', ['limit' => 200]);
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $materials = $this->Users->Materials->find('list', ['limit' => 200]);
-        $vehicles = $this->Users->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'permissions', 'grades', 'roles', 'materials', 'vehicles'));
+        $this->set(compact('user', 'permissions', 'grades', 'roles'));
         $this->set('_serialize', ['user']);
     }
 
@@ -86,7 +88,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Materials', 'Vehicles']
+            'contain' => ['Vehicles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -98,12 +100,8 @@ class UsersController extends AppController
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
-        $permissions = $this->Users->Permissions->find('list', ['limit' => 200]);
         $grades = $this->Users->Grades->find('list', ['limit' => 200]);
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $materials = $this->Users->Materials->find('list', ['limit' => 200]);
-        $vehicles = $this->Users->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'permissions', 'grades', 'roles', 'materials', 'vehicles'));
+        $this->set(compact('user','grades'));
         $this->set('_serialize', ['user']);
     }
 
