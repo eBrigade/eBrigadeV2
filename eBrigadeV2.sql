@@ -91,7 +91,6 @@ CREATE TABLE barrack_users
 CREATE TABLE materials
 (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `list_material_id` INT,
   `material_type_id` INT,
   `barrack_id` INT,
   PRIMARY KEY(`id`)

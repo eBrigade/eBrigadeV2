@@ -51,12 +51,8 @@
             echo $this->Form->input('birthday', ['empty' => true]);
             echo $this->Form->input('birthplace');
             echo $this->Form->input('skype');
-            echo $this->Form->input('is_active');
-            echo $this->Form->input('permission_id', ['options' => $permissions, 'empty' => true]);
-            echo $this->Form->input('grade_id', ['options' => $grades, 'empty' => true]);
-            echo $this->Form->input('role_id', ['options' => $roles, 'empty' => true]);
-            echo $this->Form->input('connected', ['empty' => true]);
-            echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
+            echo $this->Form->input('grade_id', ['disabled' => 'disabled', 'empty' => true]);
+
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
