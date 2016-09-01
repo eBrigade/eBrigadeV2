@@ -57,8 +57,7 @@ class OperationsController extends AppController
         if ($this->request->is('post')) {
             $operation = $this->Operations->patchEntity($operation, $this->request->data, [
                 'associated' => [
-                    'Events',
-                    'Events.Operations'
+                    'Events'
                 ]
             ]);
 
@@ -94,16 +93,14 @@ class OperationsController extends AppController
     public function edit($id = null)
     {
 
-        $this->loadModel('Cities');
-        $this->loadModel('Barracks');
+
         $operation = $this->Operations->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $operation = $this->Operations->patchEntity($operation, $this->request->data, [
                 'associated' => [
-                    'Events',
-                    'Events.Operations'
+                    'Events'
                 ]]);
             if ($this->Operations->save($operation)) {
                 $this->Flash->success(__('The operation has been saved.'));
@@ -113,8 +110,8 @@ class OperationsController extends AppController
                 $this->Flash->error(__('The operation could not be saved. Please, try again.'));
             }
         }
-        $cities = $this->Cities->find('list', ['limit' => 200]);
-        $barracks = $this->Barracks->find('list', ['limit' => 200]);
+        $cities = $this->Operations->Events->Cities->find('list', ['limit' => 200]);
+        $barracks = $this->Operations->Events->Barracks->find('list', ['limit' => 200]);
         $events = $this->Operations->Events->find('list', ['limit' => 200]);
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
         $operationEnvironments = $this->Operations->OperationEnvironments->find('list', ['limit' => 200]);

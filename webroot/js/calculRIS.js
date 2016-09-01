@@ -43,18 +43,17 @@ function calculris() {
     $('#public-ris').val(ris.toFixed(2));
 
     pub = $('#operation-type-id');
-
     switch (true) {
         case ris <= 0.25:
             pub.val(1);
             break;
-        case 0.25 < ris & ris <= 1.125:
+        case 0.25 < ris && ris <= 1.125:
             pub.val(2);
             break;
-        case 1.125 < ris & ris <= 12:
+        case 1.125 < ris && ris <= 12:
             pub.val(3);
             break;
-        case 12 < ris & ris <= 36:
+        case 12 < ris && ris <= 36:
             pub.val(4);
             break;
         case 36 < ris:
