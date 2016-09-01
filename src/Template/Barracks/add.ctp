@@ -10,6 +10,8 @@
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="barracks form large-9 medium-8 columns content">
@@ -19,7 +21,7 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('address');
-            echo $this->Form->input('city_name');
+            echo $this->Form->input('city_id', ['options' => $cities]);
             echo $this->Form->input('phone');
             echo $this->Form->input('fax');
             echo $this->Form->input('email');
@@ -29,6 +31,3 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
-
-<!--script jquery autocomplete pour les villes-->
-<?=  $this->element('Autocomplete/villes'); ?>

@@ -1,22 +1,14 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
+namespace App\Test\TestCase\Controller;
 
-use App\Model\Table\BarracksTable;
-use Cake\ORM\TableRegistry;
-use Cake\TestSuite\TestCase;
+use App\Controller\BarracksController;
+use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Model\Table\BarracksTable Test Case
+ * App\Controller\BarracksController Test Case
  */
-class BarracksTableTest extends TestCase
+class BarracksControllerTest extends IntegrationTestCase
 {
-
-    /**
-     * Test subject
-     *
-     * @var \App\Model\Table\BarracksTable
-     */
-    public $Barracks;
 
     /**
      * Fixtures
@@ -44,6 +36,7 @@ class BarracksTableTest extends TestCase
         'app.borrowed_vehicles',
         'app.event_vehicles',
         'app.users_vehicles',
+        'app.responsibles',
         'app.event_teams',
         'app.teams',
         'app.team_users',
@@ -53,8 +46,8 @@ class BarracksTableTest extends TestCase
         'app.supplies',
         'app.order_supplies',
         'app.providers_supplies',
+        'app.teachers',
         'app.bills',
-        'app.responsibles',
         'app.event_equipments',
         'app.equipment',
         'app.formations',
@@ -64,60 +57,55 @@ class BarracksTableTest extends TestCase
         'app.operation_environments',
         'app.operation_delays',
         'app.operation_types',
-        'app.operation_recommendations',
-        'app.teachers'
+        'app.operation_recommendations'
     ];
 
     /**
-     * setUp method
+     * Test index method
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $config = TableRegistry::exists('Barracks') ? [] : ['className' => 'App\Model\Table\BarracksTable'];
-        $this->Barracks = TableRegistry::get('Barracks', $config);
-    }
-
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->Barracks);
-
-        parent::tearDown();
-    }
-
-    /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
+    public function testIndex()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test validationDefault method
+     * Test view method
      *
      * @return void
      */
-    public function testValidationDefault()
+    public function testView()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test buildRules method
+     * Test add method
      *
      * @return void
      */
-    public function testBuildRules()
+    public function testAdd()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test edit method
+     *
+     * @return void
+     */
+    public function testEdit()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test delete method
+     *
+     * @return void
+     */
+    public function testDelete()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
