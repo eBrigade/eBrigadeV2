@@ -20,8 +20,35 @@
                 ?></td>
         </tr>
     </table>
+
+
+    <?= $this->Form->button(__('Répondre à ce message'),['id' => 'rep-bt']) ?>
+    <div id="repondre">
+        <?= $this->Form->create($repondre) ?>
+        <fieldset>
+            <?php
+            echo $this->Form->input('text',['label' => 'Votre message']);
+            ?>
+
+        </fieldset>
+        <?= $this->Form->button(__('ENVOYER')) ?>
+        <?= $this->Form->end() ?>
+    </div>
+
+
+
+
     <div class="row">
         <h4><?= __('Contenu') ?></h4>
-        <?= $this->Text->autoParagraph(h($message->text)); ?>
+        <?= $message->text ; ?>
     </div>
 </div>
+
+
+
+<script>
+    $('#repondre').hide();
+    $("#rep-bt").click(function() {
+        $('#repondre').toggle( "slow");
+    });
+</script>
