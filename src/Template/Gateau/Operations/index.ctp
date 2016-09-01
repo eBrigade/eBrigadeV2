@@ -4,12 +4,20 @@
         <li><?= $this->Html->link(__('New Operation'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Operation Activities'), ['controller' => 'OperationActivities', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Operation Activity'), ['controller' => 'OperationActivities', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operation Environments'), ['controller' => 'OperationEnvironments', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation Environment'), ['controller' => 'OperationEnvironments', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operation Delays'), ['controller' => 'OperationDelays', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation Delay'), ['controller' => 'OperationDelays', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Operation Types'), ['controller' => 'OperationTypes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Operation Type'), ['controller' => 'OperationTypes', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Operation Recommendations'), ['controller' => 'OperationRecommendations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Operation Recommendation'), ['controller' => 'OperationRecommendations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Organizations'), ['controller' => 'Organizations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Organization'), ['controller' => 'Organizations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="operations index large-9 medium-8 columns content">
@@ -19,20 +27,20 @@
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('event_id') ?></th>
-                <th><?= $this->Paginator->sort('caserne_id') ?></th>
+                <th><?= $this->Paginator->sort('barrack_id') ?></th>
                 <th><?= $this->Paginator->sort('public_headcount') ?></th>
                 <th><?= $this->Paginator->sort('operation_activity_id') ?></th>
-                <th><?= $this->Paginator->sort('operation_environments') ?></th>
-                <th><?= $this->Paginator->sort('operation_delays') ?></th>
+                <th><?= $this->Paginator->sort('operation_environment_id') ?></th>
+                <th><?= $this->Paginator->sort('operation_delay_id') ?></th>
                 <th><?= $this->Paginator->sort('public_ris') ?></th>
                 <th><?= $this->Paginator->sort('operation_type_id') ?></th>
                 <th><?= $this->Paginator->sort('operation_recommendation_id') ?></th>
                 <th><?= $this->Paginator->sort('public_reinforcement') ?></th>
                 <th><?= $this->Paginator->sort('public_total') ?></th>
-                <th><?= $this->Paginator->sort('public_organization') ?></th>
+                <th><?= $this->Paginator->sort('organization_id') ?></th>
                 <th><?= $this->Paginator->sort('actors_headcount') ?></th>
                 <th><?= $this->Paginator->sort('rescuers_total') ?></th>
-                <th><?= $this->Paginator->sort('heacount_total') ?></th>
+                <th><?= $this->Paginator->sort('headcount_total') ?></th>
                 <th><?= $this->Paginator->sort('meals_morning') ?></th>
                 <th><?= $this->Paginator->sort('meals_lunch') ?></th>
                 <th><?= $this->Paginator->sort('meals_dinner') ?></th>
@@ -53,20 +61,20 @@
             <tr>
                 <td><?= $this->Number->format($operation->id) ?></td>
                 <td><?= $operation->has('event') ? $this->Html->link($operation->event->title, ['controller' => 'Events', 'action' => 'view', $operation->event->id]) : '' ?></td>
-                <td><?= $this->Number->format($operation->caserne_id) ?></td>
+                <td><?= $operation->has('barrack') ? $this->Html->link($operation->barrack->name, ['controller' => 'Barracks', 'action' => 'view', $operation->barrack->id]) : '' ?></td>
                 <td><?= $this->Number->format($operation->public_headcount) ?></td>
                 <td><?= $operation->has('operation_activity') ? $this->Html->link($operation->operation_activity->title, ['controller' => 'OperationActivities', 'action' => 'view', $operation->operation_activity->id]) : '' ?></td>
-                <td><?= $this->Number->format($operation->operation_environments) ?></td>
-                <td><?= $this->Number->format($operation->operation_delays) ?></td>
+                <td><?= $operation->has('operation_environment') ? $this->Html->link($operation->operation_environment->title, ['controller' => 'OperationEnvironments', 'action' => 'view', $operation->operation_environment->id]) : '' ?></td>
+                <td><?= $operation->has('operation_delay') ? $this->Html->link($operation->operation_delay->title, ['controller' => 'OperationDelays', 'action' => 'view', $operation->operation_delay->id]) : '' ?></td>
                 <td><?= $this->Number->format($operation->public_ris) ?></td>
                 <td><?= $operation->has('operation_type') ? $this->Html->link($operation->operation_type->title, ['controller' => 'OperationTypes', 'action' => 'view', $operation->operation_type->id]) : '' ?></td>
                 <td><?= $operation->has('operation_recommendation') ? $this->Html->link($operation->operation_recommendation->title, ['controller' => 'OperationRecommendations', 'action' => 'view', $operation->operation_recommendation->id]) : '' ?></td>
                 <td><?= h($operation->public_reinforcement) ?></td>
                 <td><?= $this->Number->format($operation->public_total) ?></td>
-                <td><?= $this->Number->format($operation->public_organization) ?></td>
+                <td><?= $operation->has('organization') ? $this->Html->link($operation->organization->title, ['controller' => 'Organizations', 'action' => 'view', $operation->organization->id]) : '' ?></td>
                 <td><?= $this->Number->format($operation->actors_headcount) ?></td>
                 <td><?= $this->Number->format($operation->rescuers_total) ?></td>
-                <td><?= $this->Number->format($operation->heacount_total) ?></td>
+                <td><?= $this->Number->format($operation->headcount_total) ?></td>
                 <td><?= $this->Number->format($operation->meals_morning) ?></td>
                 <td><?= $this->Number->format($operation->meals_lunch) ?></td>
                 <td><?= $this->Number->format($operation->meals_dinner) ?></td>

@@ -70,6 +70,7 @@ class OperationsController extends AppController
                 $this->Flash->error(__('The operation could not be saved. Please, try again.'));
             }
         }
+        $creator = $this->Auth->user('id');
         $events = $this->Operations->Events->find('list', ['limit' => 200]);
         $cities = $this->Cities->find('list', ['limit' => 200]);
         $barracks = $this->Barracks->find('list', ['limit' => 200]);
@@ -79,7 +80,7 @@ class OperationsController extends AppController
         $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
         $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
         $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'barracks', 'events', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
+        $this->set(compact('creator', 'operation', 'barracks', 'events', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
         $this->set('_serialize', ['operation']);
     }
 

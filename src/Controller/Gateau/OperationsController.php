@@ -19,7 +19,7 @@ class OperationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Events', 'Casernes', 'OperationActivities', 'OperationTypes', 'OperationRecommendations']
+            'contain' => ['Events', 'Barracks', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationTypes', 'OperationRecommendations', 'Organizations']
         ];
         $operations = $this->paginate($this->Operations);
 
@@ -37,7 +37,7 @@ class OperationsController extends AppController
     public function view($id = null)
     {
         $operation = $this->Operations->get($id, [
-            'contain' => ['Events', 'Casernes', 'OperationActivities', 'OperationTypes', 'OperationRecommendations']
+            'contain' => ['Events', 'Barracks', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationTypes', 'OperationRecommendations', 'Organizations']
         ]);
 
         $this->set('operation', $operation);
@@ -63,11 +63,14 @@ class OperationsController extends AppController
             }
         }
         $events = $this->Operations->Events->find('list', ['limit' => 200]);
-        $casernes = $this->Operations->Casernes->find('list', ['limit' => 200]);
+        $barracks = $this->Operations->Barracks->find('list', ['limit' => 200]);
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
+        $operationEnvironments = $this->Operations->OperationEnvironments->find('list', ['limit' => 200]);
+        $operationDelays = $this->Operations->OperationDelays->find('list', ['limit' => 200]);
         $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
         $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'events', 'casernes', 'operationActivities', 'operationTypes', 'operationRecommendations'));
+        $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
+        $this->set(compact('operation', 'events', 'barracks', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
         $this->set('_serialize', ['operation']);
     }
 
@@ -94,11 +97,14 @@ class OperationsController extends AppController
             }
         }
         $events = $this->Operations->Events->find('list', ['limit' => 200]);
-        $casernes = $this->Operations->Casernes->find('list', ['limit' => 200]);
+        $barracks = $this->Operations->Barracks->find('list', ['limit' => 200]);
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
+        $operationEnvironments = $this->Operations->OperationEnvironments->find('list', ['limit' => 200]);
+        $operationDelays = $this->Operations->OperationDelays->find('list', ['limit' => 200]);
         $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
         $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'events', 'casernes', 'operationActivities', 'operationTypes', 'operationRecommendations'));
+        $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
+        $this->set(compact('operation', 'events', 'barracks', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
         $this->set('_serialize', ['operation']);
     }
 

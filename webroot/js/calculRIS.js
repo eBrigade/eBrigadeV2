@@ -4,7 +4,7 @@ var e1 = 0.25;
 var e2 = 0.25;
 
 //on change events
-$('#public-headcount').on('change', function () {
+$('#public-headcount').keyup(function () {
     p1 = $(this).val();
     calculris();
 });
@@ -40,10 +40,10 @@ function calculris() {
     }
     i = p2 + e1 + e2;
     ris = i * (p / 1000);
-    $('#public-ris').val(ris);
+    $('#public-ris').val(ris.toFixed(2));
 
     pub = $('#operation-type-id');
-    console.log(ris);
+
     switch (true) {
         case ris <= 0.25:
             pub.val(1);

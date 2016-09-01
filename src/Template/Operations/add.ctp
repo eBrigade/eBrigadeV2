@@ -5,7 +5,7 @@
         <?php
         //event fields
         echo $this->Form->input('operation.event.city_id', ['options' => $cities, 'empty' => true]);
-        echo $this->Form->input('event.creator_id');
+        echo $this->Form->hidden('event.creator_id', ['value' => $creator]);
         echo $this->Form->input('event.bill_id');
         echo $this->Form->input('event.title');
         echo $this->Form->input('event.address');
@@ -32,8 +32,8 @@
         echo $this->Form->input('operation_activity_id', ['options' => $operationActivities]);
         echo $this->Form->input('operation_environment_id', ['options' => $operationEnvironments]);
         echo $this->Form->input('operation_delay_id', ['options' => $operationDelays]);
-        echo $this->Form->input('public_ris');
-        echo $this->Form->input('operation_type_id', ['options' => $operationTypes]);
+        echo $this->Form->input('public_ris', ['disabled']);
+        echo $this->Form->input('operation_type_id', ['options' => $operationTypes, 'disabled']);
         echo $this->Form->input('operation_recommendation_id', [ 'options' => $operationRecommendations]);
         echo $this->Form->input('public_reinforcement');
         echo $this->Form->input('public_total');

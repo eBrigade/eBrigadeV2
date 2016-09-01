@@ -7,12 +7,20 @@
         <li><?= $this->Html->link(__('New Operation'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Operation Activities'), ['controller' => 'OperationActivities', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Operation Activity'), ['controller' => 'OperationActivities', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Operation Environments'), ['controller' => 'OperationEnvironments', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Operation Environment'), ['controller' => 'OperationEnvironments', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Operation Delays'), ['controller' => 'OperationDelays', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Operation Delay'), ['controller' => 'OperationDelays', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Operation Types'), ['controller' => 'OperationTypes', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Operation Type'), ['controller' => 'OperationTypes', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Operation Recommendations'), ['controller' => 'OperationRecommendations', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Operation Recommendation'), ['controller' => 'OperationRecommendations', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Organizations'), ['controller' => 'Organizations', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Organization'), ['controller' => 'Organizations', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="operations view large-9 medium-8 columns content">
@@ -23,8 +31,20 @@
             <td><?= $operation->has('event') ? $this->Html->link($operation->event->title, ['controller' => 'Events', 'action' => 'view', $operation->event->id]) : '' ?></td>
         </tr>
         <tr>
+            <th><?= __('Barrack') ?></th>
+            <td><?= $operation->has('barrack') ? $this->Html->link($operation->barrack->name, ['controller' => 'Barracks', 'action' => 'view', $operation->barrack->id]) : '' ?></td>
+        </tr>
+        <tr>
             <th><?= __('Operation Activity') ?></th>
             <td><?= $operation->has('operation_activity') ? $this->Html->link($operation->operation_activity->title, ['controller' => 'OperationActivities', 'action' => 'view', $operation->operation_activity->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Operation Environment') ?></th>
+            <td><?= $operation->has('operation_environment') ? $this->Html->link($operation->operation_environment->title, ['controller' => 'OperationEnvironments', 'action' => 'view', $operation->operation_environment->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Operation Delay') ?></th>
+            <td><?= $operation->has('operation_delay') ? $this->Html->link($operation->operation_delay->title, ['controller' => 'OperationDelays', 'action' => 'view', $operation->operation_delay->id]) : '' ?></td>
         </tr>
         <tr>
             <th><?= __('Operation Type') ?></th>
@@ -39,24 +59,16 @@
             <td><?= h($operation->public_reinforcement) ?></td>
         </tr>
         <tr>
+            <th><?= __('Organization') ?></th>
+            <td><?= $operation->has('organization') ? $this->Html->link($operation->organization->title, ['controller' => 'Organizations', 'action' => 'view', $operation->organization->id]) : '' ?></td>
+        </tr>
+        <tr>
             <th><?= __('Id') ?></th>
             <td><?= $this->Number->format($operation->id) ?></td>
         </tr>
         <tr>
-            <th><?= __('Caserne Id') ?></th>
-            <td><?= $this->Number->format($operation->caserne_id) ?></td>
-        </tr>
-        <tr>
             <th><?= __('Public Headcount') ?></th>
             <td><?= $this->Number->format($operation->public_headcount) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Operation Environments') ?></th>
-            <td><?= $this->Number->format($operation->operation_environments) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Operation Delays') ?></th>
-            <td><?= $this->Number->format($operation->operation_delays) ?></td>
         </tr>
         <tr>
             <th><?= __('Public Ris') ?></th>
@@ -67,10 +79,6 @@
             <td><?= $this->Number->format($operation->public_total) ?></td>
         </tr>
         <tr>
-            <th><?= __('Public Organization') ?></th>
-            <td><?= $this->Number->format($operation->public_organization) ?></td>
-        </tr>
-        <tr>
             <th><?= __('Actors Headcount') ?></th>
             <td><?= $this->Number->format($operation->actors_headcount) ?></td>
         </tr>
@@ -79,8 +87,8 @@
             <td><?= $this->Number->format($operation->rescuers_total) ?></td>
         </tr>
         <tr>
-            <th><?= __('Heacount Total') ?></th>
-            <td><?= $this->Number->format($operation->heacount_total) ?></td>
+            <th><?= __('Headcount Total') ?></th>
+            <td><?= $this->Number->format($operation->headcount_total) ?></td>
         </tr>
         <tr>
             <th><?= __('Meals Morning') ?></th>
