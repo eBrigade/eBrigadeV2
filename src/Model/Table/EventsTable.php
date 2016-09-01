@@ -52,6 +52,9 @@ class EventsTable extends Table
         $this->belongsTo('Cities', [
             'foreignKey' => 'city_id'
         ]);
+        $this->belongsTo('EventTypes', [
+            'foreignKey' => 'event_type_id'
+        ]);
         $this->belongsTo('Creators', [
             'className' => 'Users',
             'foreignKey' => 'creator_id'
