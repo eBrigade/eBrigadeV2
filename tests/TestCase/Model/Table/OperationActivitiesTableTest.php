@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\BarracksTable;
+use App\Model\Table\OperationActivitiesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\BarracksTable Test Case
+ * App\Model\Table\OperationActivitiesTable Test Case
  */
-class BarracksTableTest extends TestCase
+class OperationActivitiesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\BarracksTable
+     * @var \App\Model\Table\OperationActivitiesTable
      */
-    public $Barracks;
+    public $OperationActivities;
 
     /**
      * Fixtures
@@ -24,48 +24,42 @@ class BarracksTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.barracks',
-        'app.cities',
+        'app.operation_activities',
+        'app.operations',
         'app.events',
-        'app.creators',
-        'app.permissions',
+        'app.cities',
+        'app.barracks',
+        'app.barrack_users',
+        'app.materials',
+        'app.list_materials',
+        'app.type_materials',
         'app.users',
+        'app.permissions',
         'app.grades',
         'app.roles',
         'app.availabilities',
-        'app.barrack_users',
-        'app.borrowed_materials',
-        'app.materials',
-        'app.list_materials',
-        'app.material_types',
+        'app.event_teams',
+        'app.orders',
+        'app.providers',
+        'app.orders_providers',
+        'app.team_users',
+        'app.users_materials',
         'app.vehicles',
         'app.type_vehicles',
         'app.model_vehicles',
-        'app.borrowed_vehicles',
         'app.event_vehicles',
         'app.users_vehicles',
-        'app.event_teams',
-        'app.teams',
-        'app.team_users',
-        'app.team_chieves',
-        'app.orders',
-        'app.providers',
-        'app.supplies',
-        'app.order_supplies',
-        'app.providers_supplies',
+        'app.organizations',
+        'app.formations',
+        'app.teachers',
+        'app.creators',
         'app.bills',
         'app.responsibles',
         'app.event_equipments',
-        'app.equipment',
-        'app.formations',
-        'app.organizations',
-        'app.operations',
-        'app.operation_activities',
         'app.operation_environments',
         'app.operation_delays',
         'app.operation_types',
-        'app.operation_recommendations',
-        'app.teachers'
+        'app.operation_recommendations'
     ];
 
     /**
@@ -76,8 +70,8 @@ class BarracksTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Barracks') ? [] : ['className' => 'App\Model\Table\BarracksTable'];
-        $this->Barracks = TableRegistry::get('Barracks', $config);
+        $config = TableRegistry::exists('OperationActivities') ? [] : ['className' => 'App\Model\Table\OperationActivitiesTable'];
+        $this->OperationActivities = TableRegistry::get('OperationActivities', $config);
     }
 
     /**
@@ -87,7 +81,7 @@ class BarracksTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Barracks);
+        unset($this->OperationActivities);
 
         parent::tearDown();
     }
@@ -108,16 +102,6 @@ class BarracksTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

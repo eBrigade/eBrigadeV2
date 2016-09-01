@@ -19,7 +19,7 @@
         <tbody>
             <?php foreach ($messages as $message): ?>
             <tr>
-                <td><?= $message->created->i18nformat(' dd MMMM à HH:mm') ?></td>
+                <td><?= $message->created->i18nformat('dd MMMM à HH:mm') ?></td>
                 <td><?php
                 $user = $users->find()->where(['id' => $message->from_user])->first();
 echo $user->firstname.' '.$user->lastname;

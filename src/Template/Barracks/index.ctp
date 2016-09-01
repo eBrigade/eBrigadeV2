@@ -10,6 +10,8 @@
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="barracks index large-9 medium-8 columns content">
@@ -34,7 +36,7 @@
                 <td><?= $this->Number->format($barrack->id) ?></td>
                 <td><?= h($barrack->name) ?></td>
                 <td><?= h($barrack->address) ?></td>
-                <td><?= h($barrack->city_id) ?></td>
+                <td><?= $barrack->has('city') ? $this->Html->link($barrack->city->id, ['controller' => 'Cities', 'action' => 'view', $barrack->city->id]) : '' ?></td>
                 <td><?= h($barrack->phone) ?></td>
                 <td><?= h($barrack->fax) ?></td>
                 <td><?= h($barrack->email) ?></td>
@@ -57,5 +59,3 @@
         <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
-
-

@@ -2,13 +2,20 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\ORM\TableRegistry;
 
-// controleur pour voir / editer / ajouter des casernes
-
+/**
+ * Barracks Controller
+ *
+ * @property \App\Model\Table\BarracksTable $Barracks
+ */
 class BarracksController extends AppController
 {
-    // liste des casernes
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Network\Response|null
+     */
     public function index()
     {
         $this->paginate = [
@@ -20,66 +27,39 @@ class BarracksController extends AppController
         $this->set('_serialize', ['barracks']);
     }
 
-// détail d'une caserne
+    /**
+     * View method
+     *
+     * @param string|null $id Barrack id.
+     * @return \Cake\Network\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function view($id = null)
     {
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['Cities', 'BarrackUsers', 'Events', 'Materials']
+            'contain' => ['Cities', 'BarrackUsers', 'Events', 'Materials', 'Operations']
         ]);
 
         $this->set('barrack', $barrack);
         $this->set('_serialize', ['barrack']);
     }
 
-   // ajouter une caserne
+    /**
+     * Add method
+     *
+     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     */
     public function add()
     {
         $barrack = $this->Barracks->newEntity();
-        $getTable = TableRegistry::get('Barracks');
-        $cities = TableRegistry::get('Cities');
         if ($this->request->is('post')) {
-            $cit = $this->request->data['city_name'];
-            $city = $cities->find()->select(['id'])->where(['city' => $cit])->first();
-            $id_city =$city['id'];
-            $barrack->name = $this->request->data['name'];
-            $barrack->address = $this->request->data['address'];
-            $barrack->city_id = $id_city;
-            $barrack->phone = $this->request->data['phone'];
-            $barrack->fax = $this->request->data['fax'];
-            $barrack->email = $this->request->data['email'];
-            $barrack->website_url = $this->request->data['website_url'];
-            $getTable->save($barrack);
-            if ($getTable->save($barrack)) {
-                $this->Flash->success(__('La caserne a bien été créée.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('La caserne n\'a pas pu être sauvegardée. Svp, réessayez.'));
-            }
-        }
-
-        $this->set(compact('barrack'));
-        $this->set('_serialize', ['barrack']);
-    }
-
-// editer une caserne
-    public function edit($id = null)
-    {
-        $barrack = $this->Barracks->get($id, [
-            'contain' => []
-        ]);
-        $cities = TableRegistry::get('Cities');
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $cit = $this->request->data['city_name'];
-            $city = $cities->find()->select(['id'])->where(['city' => $cit])->first();
-            $id_city =$city['id'];
-            $this->request->data['city_id']= $id_city;
             $barrack = $this->Barracks->patchEntity($barrack, $this->request->data);
             if ($this->Barracks->save($barrack)) {
-                $this->Flash->success(__('La caserne a été éditée.'));
+                $this->Flash->success(__('The barrack has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('La caserne n\'a pas pu être éditée . Svp, réessayez.'));
+                $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
             }
         }
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
@@ -87,15 +67,48 @@ class BarracksController extends AppController
         $this->set('_serialize', ['barrack']);
     }
 
-// supprimer une caserne
+    /**
+     * Edit method
+     *
+     * @param string|null $id Barrack id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function edit($id = null)
+    {
+        $barrack = $this->Barracks->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $barrack = $this->Barracks->patchEntity($barrack, $this->request->data);
+            if ($this->Barracks->save($barrack)) {
+                $this->Flash->success(__('The barrack has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
+            }
+        }
+        $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
+        $this->set(compact('barrack', 'cities'));
+        $this->set('_serialize', ['barrack']);
+    }
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Barrack id.
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $barrack = $this->Barracks->get($id);
         if ($this->Barracks->delete($barrack)) {
-            $this->Flash->success(__('La caserne a été supprimée.'));
+            $this->Flash->success(__('The barrack has been deleted.'));
         } else {
-            $this->Flash->error(__('La caserne ne peut pas être supprimée. Svp, réessayez.'));
+            $this->Flash->error(__('The barrack could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

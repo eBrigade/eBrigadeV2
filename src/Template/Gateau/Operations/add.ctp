@@ -4,12 +4,20 @@
         <li><?= $this->Html->link(__('List Operations'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Operation Activities'), ['controller' => 'OperationActivities', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Operation Activity'), ['controller' => 'OperationActivities', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operation Environments'), ['controller' => 'OperationEnvironments', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation Environment'), ['controller' => 'OperationEnvironments', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operation Delays'), ['controller' => 'OperationDelays', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation Delay'), ['controller' => 'OperationDelays', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Operation Types'), ['controller' => 'OperationTypes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Operation Type'), ['controller' => 'OperationTypes', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Operation Recommendations'), ['controller' => 'OperationRecommendations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Operation Recommendation'), ['controller' => 'OperationRecommendations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Organizations'), ['controller' => 'Organizations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Organization'), ['controller' => 'Organizations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="operations form large-9 medium-8 columns content">
@@ -18,20 +26,20 @@
         <legend><?= __('Add Operation') ?></legend>
         <?php
             echo $this->Form->input('event_id', ['options' => $events]);
-            echo $this->Form->input('caserne_id');
+            echo $this->Form->input('barrack_id', ['options' => $barracks]);
             echo $this->Form->input('public_headcount');
             echo $this->Form->input('operation_activity_id', ['options' => $operationActivities]);
-            echo $this->Form->input('operation_environments');
-            echo $this->Form->input('operation_delays');
+            echo $this->Form->input('operation_environment_id', ['options' => $operationEnvironments]);
+            echo $this->Form->input('operation_delay_id', ['options' => $operationDelays]);
             echo $this->Form->input('public_ris');
             echo $this->Form->input('operation_type_id', ['options' => $operationTypes]);
             echo $this->Form->input('operation_recommendation_id', ['options' => $operationRecommendations]);
             echo $this->Form->input('public_reinforcement');
             echo $this->Form->input('public_total');
-            echo $this->Form->input('public_organization');
+            echo $this->Form->input('organization_id', ['options' => $organizations]);
             echo $this->Form->input('actors_headcount');
             echo $this->Form->input('rescuers_total');
-            echo $this->Form->input('heacount_total');
+            echo $this->Form->input('headcount_total');
             echo $this->Form->input('actors_organization');
             echo $this->Form->input('general_organization');
             echo $this->Form->input('transport_organization');

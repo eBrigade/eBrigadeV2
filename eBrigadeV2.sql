@@ -465,13 +465,17 @@ CREATE TABLE `availabilities` (
 );
 
 CREATE TABLE `messages` (
-  `id` INT NOT NULL,
-  `to_user_id` INT NOT NULL,
-  `from_user_id` INT NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `to_user` int(11) NOT NULL,
+  `from_user` int(11) NOT NULL,
   `subject` varchar(255) NOT NULL,
-  `text` TEXT NOT NULL,
-  PRIMARY KEY (`id`)
+  `text` text NOT NULL,
+  `created` datetime NOT NULL,
+  `send` tinyint(1) NOT NULL,
+  `recipients` varchar(255) NOT NULL,
+   PRIMARY KEY (`id`)
 );
+
 
 
 CREATE TABLE IF NOT EXISTS `functions` (

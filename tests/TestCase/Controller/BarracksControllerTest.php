@@ -1,13 +1,13 @@
 <?php
-namespace App\Test\TestCase\Controller\Gateau;
+namespace App\Test\TestCase\Controller;
 
-use App\Controller\Gateau\OperationsController;
+use App\Controller\BarracksController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\Gateau\OperationsController Test Case
+ * App\Controller\BarracksController Test Case
  */
-class OperationsControllerTest extends IntegrationTestCase
+class BarracksControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,16 +16,16 @@ class OperationsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.operations',
-        'app.events',
-        'app.cities',
         'app.barracks',
-        'app.barrack_users',
-        'app.users',
+        'app.cities',
+        'app.events',
+        'app.creators',
         'app.permissions',
+        'app.users',
         'app.grades',
         'app.roles',
         'app.availabilities',
+        'app.barrack_users',
         'app.borrowed_materials',
         'app.materials',
         'app.list_materials',
@@ -36,7 +36,7 @@ class OperationsControllerTest extends IntegrationTestCase
         'app.borrowed_vehicles',
         'app.event_vehicles',
         'app.users_vehicles',
-        'app.creators',
+        'app.responsibles',
         'app.event_teams',
         'app.teams',
         'app.team_users',
@@ -46,13 +46,13 @@ class OperationsControllerTest extends IntegrationTestCase
         'app.supplies',
         'app.order_supplies',
         'app.providers_supplies',
-        'app.responsibles',
-        'app.organizations',
-        'app.formations',
         'app.teachers',
         'app.bills',
         'app.event_equipments',
         'app.equipment',
+        'app.formations',
+        'app.organizations',
+        'app.operations',
         'app.operation_activities',
         'app.operation_environments',
         'app.operation_delays',

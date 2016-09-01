@@ -21,8 +21,11 @@
         <tr>
             <td><?= $message->created->i18nformat(' dd MMMM à HH:mm') ?></td>
             <td><?php
-                $user = $users->find()->where(['id' => $message->to_user])->first();
-                echo $user->firstname.' '.$user->lastname;
+                $recip = unserialize($message->recipients);
+               foreach ($recip as $recipId){
+                $user = $users->find()->where(['id' => $recipId])->first();
+                echo $user->firstname.' '.$user->lastname." <br/> ";
+                }
                 ?></td>
             <td><?= h($message->subject) ?></td>
             <td class="actions">
