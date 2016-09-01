@@ -21,7 +21,7 @@ class OperationsController extends AppController
         $this->paginate = [
             'contain' => ['Events', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationTypes', 'OperationRecommendations', 'Organizations']
         ];
-        $operations = $this->paginate($this->Operations);
+        $operations = $this->paginate($this->Operations)->toArray();
 
         $this->set(compact('operations'));
         $this->set('_serialize', ['operations']);

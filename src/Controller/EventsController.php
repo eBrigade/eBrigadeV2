@@ -62,11 +62,12 @@ class EventsController extends AppController
                 $this->Flash->error(__('The event could not be saved. Please, try again.'));
             }
         }
+        $eventype = $this->Events->EventTypes->find('list', ['limit' => 200]);
         $cities = $this->Events->Cities->find('list', ['limit' => 200]);
         $creators = $this->Events->Creators->find('list', ['limit' => 200]);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
         $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'cities', 'creators', 'bills', 'barracks'));
+        $this->set(compact('event', 'cities', 'creators', 'bills', 'barracks','eventype'));
         $this->set('_serialize', ['event']);
     }
 
