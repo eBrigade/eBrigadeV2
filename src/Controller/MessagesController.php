@@ -32,22 +32,45 @@ class MessagesController extends AppController
             'contain' => []
         ]);
         $users = TableRegistry::get('users');
+        $repondre = $this->Messages->newEntity();
 
         // répondre au message
-        $user= $this->Auth->user('id');
-        $repondre = $this->Messages->newEntity();
-        $repondre->from_user = $user;
-        $repondre->to_user = 5;
-        $repondre->subject =  $this->request->data['subject'];
-        $repondre->text =  $this->request->data['text'];
-        $repondre->send =  0;
-        $repondre->recipients =  '';
-        $this->Messages->save($repondre);
-
-
-
-
-
+        if ($this->request->is('post')) {
+            $text = $this->request->data['text'];
+            $user = $this->Auth->user('id');
+            $repondre->from_user = $message->to_user;
+            $repondre->to_user = $message->from_user;
+            $repondre->subject = "re: $message->subject";
+            $repondre->text = $text;
+            $repondre->send = 0;
+            $repondre->recipients = '';
+            $this->Messages->save($repondre);
+            $rec = [];
+            if ($this->Messages->save($repondre)) {
+                $sendmessage = $this->Messages->newEntity();
+                $copy = $message->id;
+                $clone = $this->Messages->find()->where(['id' => $copy])->first();
+                array_push($rec, $clone->from_user);
+                $sendmessage->from_user = $clone->to_user;
+                $sendmessage->to_user = $clone->from_user;
+                $sendmessage->subject =  "re: $clone->subject";
+                $sendmessage->text =  $text;
+                $sendmessage->send =  1;
+                $sendmessage->recipients = serialize($rec);
+                $this->Messages->save($sendmessage);
+                // notification par email
+                $recipient = $users->find()->select(['email'])->where(['id' => $clone->from_user])->first();
+                var_dump($recipient->email);
+                $email = new Email('default');
+                $email->template('default', 'default')
+                    ->emailFormat('html');
+                $email->to($recipient->email)
+                    ->subject('Vous avez reçu une réponse à votre message privé')
+                    ->send($this->request->data['text']);
+            }
+            $this->Flash->success(__('Le message a été envoyé.'));
+            return $this->redirect(['action' => 'index']);
+        }
 
         $this->set('repondre', $repondre);
         $this->set(compact('users'));
