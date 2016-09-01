@@ -174,7 +174,7 @@ class MessagesController extends AppController
         $this->set('_serialize', ['message']);
     }
 
-//supprimer un message
+//supprimer un messager
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
