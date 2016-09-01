@@ -17,7 +17,7 @@ class EventsFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'city_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'creator_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'bill_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -66,10 +66,10 @@ class EventsFixture extends TestFixture
             'address' => 'Lorem ipsum dolor sit amet',
             'latitude' => 1,
             'longitude' => 1,
-            'created' => '2016-08-30',
-            'modified' => '2016-08-30',
+            'created' => '2016-09-01',
+            'modified' => '2016-09-01',
             'is_closed' => 1,
-            'closed' => '2016-08-30',
+            'closed' => '2016-09-01',
             'price' => 1,
             'canceled' => 1,
             'canceled_detail' => 'Lorem ipsum dolor sit amet',
@@ -78,8 +78,8 @@ class EventsFixture extends TestFixture
             'responsible_id' => 'Lorem ipsum dolor sit amet',
             'details' => 'Lorem ipsum dolor sit amet',
             'barrack_id' => 1,
-            'event_start_date' => '2016-08-30',
-            'event_end_date' => '2016-08-30',
+            'event_start_date' => '2016-09-01',
+            'event_end_date' => '2016-09-01',
             'horaires' => 'Lorem ipsum dolor sit amet',
             'public' => 1
         ],

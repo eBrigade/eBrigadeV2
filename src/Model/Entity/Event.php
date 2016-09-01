@@ -32,12 +32,10 @@ use Cake\ORM\Entity;
  * @property bool $public
  *
  * @property \App\Model\Entity\City $city
- * @property \App\Model\Entity\Creator $creator
+ * @property \App\Model\Entity\User $creator
  * @property \App\Model\Entity\Bill $bill
- * @property \App\Model\Entity\Responsible $responsible
+ * @property \App\Model\Entity\User $responsible
  * @property \App\Model\Entity\Barrack $barrack
- * @property \App\Model\Entity\BorrowedMaterial[] $borrowed_materials
- * @property \App\Model\Entity\BorrowedVehicle[] $borrowed_vehicles
  * @property \App\Model\Entity\EventEquipment[] $event_equipments
  * @property \App\Model\Entity\EventTeam[] $event_teams
  * @property \App\Model\Entity\EventVehicle[] $event_vehicles

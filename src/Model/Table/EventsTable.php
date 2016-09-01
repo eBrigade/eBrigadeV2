@@ -14,6 +14,8 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Bills
  * @property \Cake\ORM\Association\BelongsTo $Responsibles
  * @property \Cake\ORM\Association\BelongsTo $Barracks
+ * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
+ * @property \Cake\ORM\Association\HasMany $BorrowedVehicles
  * @property \Cake\ORM\Association\HasMany $EventEquipments
  * @property \Cake\ORM\Association\HasMany $EventTeams
  * @property \Cake\ORM\Association\HasMany $EventVehicles
@@ -53,18 +55,22 @@ class EventsTable extends Table
             'foreignKey' => 'city_id'
         ]);
         $this->belongsTo('Creators', [
-            'className' => 'Users',
             'foreignKey' => 'creator_id'
         ]);
         $this->belongsTo('Bills', [
             'foreignKey' => 'bill_id'
         ]);
         $this->belongsTo('Responsibles', [
-            'className' => 'Users',
             'foreignKey' => 'responsible_id'
         ]);
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id'
+        ]);
+        $this->hasMany('BorrowedMaterials', [
+            'foreignKey' => 'event_id'
+        ]);
+        $this->hasMany('BorrowedVehicles', [
+            'foreignKey' => 'event_id'
         ]);
         $this->hasMany('EventEquipments', [
             'foreignKey' => 'event_id'

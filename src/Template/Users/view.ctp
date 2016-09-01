@@ -15,14 +15,16 @@
         <li><?= $this->Html->link(__('New Availability'), ['controller' => 'Availabilities', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Barrack Users'), ['controller' => 'BarrackUsers', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Barrack User'), ['controller' => 'BarrackUsers', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Borrowed Materials'), ['controller' => 'BorrowedMaterials', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Borrowed Material'), ['controller' => 'BorrowedMaterials', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Borrowed Vehicles'), ['controller' => 'BorrowedVehicles', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Borrowed Vehicle'), ['controller' => 'BorrowedVehicles', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Event Teams'), ['controller' => 'EventTeams', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Event Team'), ['controller' => 'EventTeams', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Orders'), ['controller' => 'Orders', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Order'), ['controller' => 'Orders', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Team Users'), ['controller' => 'TeamUsers', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Team User'), ['controller' => 'TeamUsers', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?> </li>
     </ul>
@@ -170,6 +172,62 @@
         <?php endif; ?>
     </div>
     <div class="related">
+        <h4><?= __('Related Borrowed Materials') ?></h4>
+        <?php if (!empty($user->borrowed_materials)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Material Id') ?></th>
+                <th><?= __('User Id') ?></th>
+                <th><?= __('Event Id') ?></th>
+                <th><?= __('Vehicle Id') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($user->borrowed_materials as $borrowedMaterials): ?>
+            <tr>
+                <td><?= h($borrowedMaterials->id) ?></td>
+                <td><?= h($borrowedMaterials->material_id) ?></td>
+                <td><?= h($borrowedMaterials->user_id) ?></td>
+                <td><?= h($borrowedMaterials->event_id) ?></td>
+                <td><?= h($borrowedMaterials->vehicle_id) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'BorrowedMaterials', 'action' => 'view', $borrowedMaterials->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'BorrowedMaterials', 'action' => 'edit', $borrowedMaterials->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'BorrowedMaterials', 'action' => 'delete', $borrowedMaterials->id], ['confirm' => __('Are you sure you want to delete # {0}?', $borrowedMaterials->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Borrowed Vehicles') ?></h4>
+        <?php if (!empty($user->borrowed_vehicles)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Vehicle Id') ?></th>
+                <th><?= __('User Id') ?></th>
+                <th><?= __('Event Id') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($user->borrowed_vehicles as $borrowedVehicles): ?>
+            <tr>
+                <td><?= h($borrowedVehicles->id) ?></td>
+                <td><?= h($borrowedVehicles->vehicle_id) ?></td>
+                <td><?= h($borrowedVehicles->user_id) ?></td>
+                <td><?= h($borrowedVehicles->event_id) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'BorrowedVehicles', 'action' => 'view', $borrowedVehicles->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'BorrowedVehicles', 'action' => 'edit', $borrowedVehicles->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'BorrowedVehicles', 'action' => 'delete', $borrowedVehicles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $borrowedVehicles->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
         <h4><?= __('Related Event Teams') ?></h4>
         <?php if (!empty($user->event_teams)): ?>
         <table cellpadding="0" cellspacing="0">
@@ -202,16 +260,14 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
-                <th><?= __('List Material Id') ?></th>
-                <th><?= __('Quantity') ?></th>
+                <th><?= __('Provider Id') ?></th>
                 <th><?= __('User Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($user->orders as $orders): ?>
             <tr>
                 <td><?= h($orders->id) ?></td>
-                <td><?= h($orders->list_material_id) ?></td>
-                <td><?= h($orders->quantity) ?></td>
+                <td><?= h($orders->provider_id) ?></td>
                 <td><?= h($orders->user_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Orders', 'action' => 'view', $orders->id]) ?>
@@ -240,35 +296,6 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'TeamUsers', 'action' => 'view', $teamUsers->]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'TeamUsers', 'action' => 'edit', $teamUsers->]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'TeamUsers', 'action' => 'delete', $teamUsers->], ['confirm' => __('Are you sure you want to delete # {0}?', $teamUsers->)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Materials') ?></h4>
-        <?php if (!empty($user->materials)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('List Material Id') ?></th>
-                <th><?= __('Type Material Id') ?></th>
-                <th><?= __('Barrack Id') ?></th>
-                <th><?= __('Stock') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($user->materials as $materials): ?>
-            <tr>
-                <td><?= h($materials->id) ?></td>
-                <td><?= h($materials->list_material_id) ?></td>
-                <td><?= h($materials->type_material_id) ?></td>
-                <td><?= h($materials->barrack_id) ?></td>
-                <td><?= h($materials->stock) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Materials', 'action' => 'delete', $materials->id], ['confirm' => __('Are you sure you want to delete # {0}?', $materials->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
