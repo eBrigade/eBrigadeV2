@@ -27,6 +27,11 @@
     <fieldset>
         <legend><?= __('Add Event') ?></legend>
         <?php
+            echo $this->Html->link(__('Formation'), ['controller' => 'Formations', 'action' => 'add','class'=>'button']);
+            echo $this->Html->link(__('Operation'), ['controller' => 'Operations', 'action' => 'add','class'=>'button']);
+            echo $this->Html->link(__('Catastrophe'), ['controller' => 'Formations', 'action' => 'add','class'=>'button']);
+
+            echo $this->Form->input('event_type_id',['options' => $eventype, 'empty' => true]);
             echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
             echo $this->Form->input('creator_id', ['options' => $creators, 'empty' => true]);
             echo $this->Form->input('bill_id', ['options' => $bills, 'empty' => true]);
