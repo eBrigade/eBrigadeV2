@@ -34,6 +34,8 @@ class EventEquipmentsTable extends Table
         parent::initialize($config);
 
         $this->table('event_equipments');
+        $this->displayField('id');
+        $this->primaryKey('id');
 
         $this->belongsTo('Events', [
             'foreignKey' => 'event_id'
@@ -41,6 +43,21 @@ class EventEquipmentsTable extends Table
         $this->belongsTo('Equipment', [
             'foreignKey' => 'equipment_id'
         ]);
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        return $validator;
     }
 
     /**

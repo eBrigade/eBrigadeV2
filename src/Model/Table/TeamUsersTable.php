@@ -34,6 +34,8 @@ class TeamUsersTable extends Table
         parent::initialize($config);
 
         $this->table('team_users');
+        $this->displayField('id');
+        $this->primaryKey('id');
 
         $this->belongsTo('Teams', [
             'foreignKey' => 'team_id'
@@ -41,6 +43,21 @@ class TeamUsersTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        return $validator;
     }
 
     /**

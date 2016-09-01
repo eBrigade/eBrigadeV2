@@ -12,7 +12,6 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Teams
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $Events
- * @property \Cake\ORM\Association\BelongsTo $TeamChieves
  *
  * @method \App\Model\Entity\EventTeam get($primaryKey, $options = [])
  * @method \App\Model\Entity\EventTeam newEntity($data = null, array $options = [])
@@ -36,6 +35,8 @@ class EventTeamsTable extends Table
         parent::initialize($config);
 
         $this->table('event_teams');
+        $this->displayField('id');
+        $this->primaryKey('id');
 
         $this->belongsTo('Teams', [
             'foreignKey' => 'team_id'
@@ -46,9 +47,21 @@ class EventTeamsTable extends Table
         $this->belongsTo('Events', [
             'foreignKey' => 'event_id'
         ]);
-        $this->belongsTo('TeamChieves', [
-            'foreignKey' => 'team_chief_id'
-        ]);
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        return $validator;
     }
 
     /**
@@ -63,7 +76,6 @@ class EventTeamsTable extends Table
         $rules->add($rules->existsIn(['team_id'], 'Teams'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['event_id'], 'Events'));
-        $rules->add($rules->existsIn(['team_chief_id'], 'TeamChieves'));
 
         return $rules;
     }

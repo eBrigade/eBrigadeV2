@@ -57,8 +57,10 @@ CREATE TABLE teams
 
 CREATE TABLE team_users
 (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `team_id` INT,
-  `user_id` INT
+  `user_id` INT,
+  PRIMARY KEY(`id`)
 );
 
 
@@ -413,20 +415,26 @@ CREATE TABLE `events` (
 );
 
 CREATE TABLE `event_equipments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `event_id` INT(11)   ,
-  `equipment_id` INT(11)
+  `equipment_id` INT(11),
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `event_vehicles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `event_id` INT(11) ,
-  `vehicle_id` INT(11)
+  `vehicle_id` INT(11),
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `event_teams` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `team_id` INT(11) ,
   `user_id` INT(11)  ,
   `event_id` INT(11) ,
-  `team_chief_id` VARCHAR(50)
+  `team_chief_id` VARCHAR(50),
+  PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `event_types` (
