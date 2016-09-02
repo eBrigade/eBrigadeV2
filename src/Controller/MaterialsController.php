@@ -39,7 +39,7 @@ class MaterialsController extends AppController
     public function view($id = null)
     {
         $material = $this->Materials->get($id, [
-            'contain' => ['MaterialTypes', 'Barracks', 'BorrowedMaterials']
+            'contain' => ['MaterialTypes', 'Barracks', 'UserMaterials']
         ]);
 
         $this->set('material', $material);
@@ -67,6 +67,7 @@ class MaterialsController extends AppController
                     ->execute();
                 $quantity--;
             }
+            $this->redirect(['action' => 'index']);
         }
         $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
         $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
@@ -123,6 +124,60 @@ class MaterialsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function inventory($id = null)
+    {
+        $materials = $this->Materials->find('all',[
+            'contain' => [
+                'MaterialTypes',
+                'UserMaterials'
+            ],
+            'fields' => [
+                'name' => 'name',
+                'material_count' => $this->Materials->find()->func()->count('material_type_id')
+            ],
+            'conditions' => [
+                'barrack_id' => $id,
+                'Materials.id NOT IN' => 'UserMaterials.material_id'
+            ],
+            'group' => 'material_type_id'
+        ]);
+        $this->set('barrack',$this->Materials->Barracks->get($id));
+        $this->set('materials',$materials);
+    }
+
+    public function rent($id = null)
+    {
+        $materials = $this->Materials->find('list',[
+            'valueField' => 'name2',
+            'keyField' => 'id',
+            'contain' => [
+                'MaterialTypes',
+                'UserMaterials'
+            ],
+            'fields' => [
+                'name' => 'name',
+                'material_count' => $this->Materials->find()->func()->count('material_type_id'),
+                'name2' => $this->Materials->find()->func()->concat([
+                    'name' => 'identifier',
+                    ' (',
+                    $this->Materials->find()->func()->count('material_type_id'),
+                    ')'
+                ])
+            ],
+            'conditions' => [
+                'barrack_id' => $id,
+                'Materials.id NOT IN' => 'UserMaterials.material_id'
+            ],
+            'group' => 'material_type_id',
+            'having' => [
+                'material_count >' => '0'
+            ]
+        ]);
+        $this->set('barrack',$this->Materials->Barracks->get($id));
+        $this->set('materials',$materials);
+    }
+
 
 
 }
