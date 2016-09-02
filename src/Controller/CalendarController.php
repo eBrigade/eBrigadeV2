@@ -20,4 +20,22 @@ class CalendarController extends AppController
         $this->set(compact('now'));
     }
 
+    // ajouter les disponibilités
+    public function add()
+    {
+        $events = TableRegistry::get('events');
+        $event = $events->find();
+        $now = Time::now();
+
+        $this->set(compact('event'));
+        $this->set(compact('now'));
+    }
+
+    // sauvegarde les disponibilités
+    public function save()
+    {
+
+
+    }
+
 }
