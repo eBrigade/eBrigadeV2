@@ -1,22 +1,14 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
+namespace App\Test\TestCase\Controller;
 
-use App\Model\Table\VehiclesTable;
-use Cake\ORM\TableRegistry;
-use Cake\TestSuite\TestCase;
+use App\Controller\MaterialsController;
+use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Model\Table\VehiclesTable Test Case
+ * App\Controller\MaterialsController Test Case
  */
-class VehiclesTableTest extends TestCase
+class MaterialsControllerTest extends IntegrationTestCase
 {
-
-    /**
-     * Test subject
-     *
-     * @var \App\Model\Table\VehiclesTable
-     */
-    public $Vehicles;
 
     /**
      * Fixtures
@@ -24,26 +16,25 @@ class VehiclesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.vehicles',
-        'app.type_vehicles',
-        'app.model_vehicles',
-        'app.borrowed_materials',
         'app.materials',
-        'app.list_materials',
         'app.material_types',
         'app.barracks',
         'app.cities',
         'app.events',
         'app.creators',
-        'app.bills',
-        'app.responsibles',
-        'app.borrowed_vehicles',
-        'app.users',
         'app.permissions',
+        'app.users',
         'app.grades',
         'app.roles',
         'app.availabilities',
         'app.barrack_users',
+        'app.borrowed_materials',
+        'app.vehicles',
+        'app.type_vehicles',
+        'app.model_vehicles',
+        'app.borrowed_vehicles',
+        'app.event_vehicles',
+        'app.users_vehicles',
         'app.event_teams',
         'app.teams',
         'app.team_users',
@@ -53,10 +44,10 @@ class VehiclesTableTest extends TestCase
         'app.supplies',
         'app.order_supplies',
         'app.providers_supplies',
-        'app.users_vehicles',
+        'app.bills',
+        'app.responsibles',
         'app.event_equipments',
         'app.equipment',
-        'app.event_vehicles',
         'app.formations',
         'app.organizations',
         'app.operations',
@@ -69,55 +60,51 @@ class VehiclesTableTest extends TestCase
     ];
 
     /**
-     * setUp method
+     * Test index method
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $config = TableRegistry::exists('Vehicles') ? [] : ['className' => 'App\Model\Table\VehiclesTable'];
-        $this->Vehicles = TableRegistry::get('Vehicles', $config);
-    }
-
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->Vehicles);
-
-        parent::tearDown();
-    }
-
-    /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
+    public function testIndex()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test validationDefault method
+     * Test view method
      *
      * @return void
      */
-    public function testValidationDefault()
+    public function testView()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test buildRules method
+     * Test add method
      *
      * @return void
      */
-    public function testBuildRules()
+    public function testAdd()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test edit method
+     *
+     * @return void
+     */
+    public function testEdit()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test delete method
+     *
+     * @return void
+     */
+    public function testDelete()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

@@ -7,7 +7,6 @@ use Cake\ORM\Entity;
  * Material Entity
  *
  * @property int $id
- * @property int $list_material_id
  * @property int $material_type_id
  * @property int $barrack_id
  *

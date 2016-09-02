@@ -67,9 +67,9 @@
                 <td><?= h($barrackUsers->user_id) ?></td>
                 <td><?= h($barrackUsers->barrack_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'BarrackUsers', 'action' => 'view', $barrackUsers->]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'BarrackUsers', 'action' => 'edit', $barrackUsers->]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'BarrackUsers', 'action' => 'delete', $barrackUsers->], ['confirm' => __('Are you sure you want to delete # {0}?', $barrackUsers->)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'BarrackUsers', 'action' => 'view', $barrackUsers->barrack_id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'BarrackUsers', 'action' => 'edit', $barrackUsers->barrack_id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'BarrackUsers', 'action' => 'delete', $barrackUsers->barrack_id], ['confirm' => __('Are you sure you want to delete # {0}?', $barrackUsers->barrack_id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
