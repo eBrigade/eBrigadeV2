@@ -1,0 +1,34 @@
+ /*boite de reception messagerie privé*/
+
+@media (min-width: 768px) {
+    .sidebar-nav .navbar .navbar-collapse {
+        padding: 0;
+        max-height: none;
+    }
+    .sidebar-nav .navbar ul {
+        float: none;
+        display: block;
+    }
+    .sidebar-nav .navbar li {
+        float: none;
+        display: block;
+    }
+    .sidebar-nav .navbar li a {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+}
+
+.panel-right {
+    border: none;
+    margin-top: -0.65em;
+    float: right;
+}
+
+.panel-title a,
+.panel-title a:active,
+.panel-title a:visited {
+    text-decoration: none;
+}
+
+ /* autres */
