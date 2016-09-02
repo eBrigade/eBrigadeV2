@@ -105,23 +105,13 @@ CREATE TABLE material_types
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE borrowed_materials
+CREATE TABLE user_materials
 (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
   `material_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `event_id` INT NOT NULL DEFAULT '0',
-  `vehicle_id` INT NOT NULL DEFAULT '0',
-  PRIMARY KEY(`id`)
-);
-
-CREATE TABLE borrowed_vehicles
-(
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vehicle_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `event_id` INT NOT NULL DEFAULT '0',
-  PRIMARY KEY(`id`)
+  PRIMARY KEY (`user_id`, `material_id`),
+  FOREIGN KEY users_key(user_id) REFERENCES users(id),
+  FOREIGN KEY materials_key(material_id) REFERENCES materials(id)
 );
 
 CREATE TABLE vehicles

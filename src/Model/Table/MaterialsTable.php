@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
  * @property \Cake\ORM\Association\BelongsTo $Barracks
- * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
+ * @property \Cake\ORM\Association\HasMany $UserMaterials
  *
  * @method \App\Model\Entity\Material get($primaryKey, $options = [])
  * @method \App\Model\Entity\Material newEntity($data = null, array $options = [])
@@ -44,7 +44,7 @@ class MaterialsTable extends Table
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id'
         ]);
-        $this->hasMany('BorrowedMaterials', [
+        $this->hasMany('UserMaterials', [
             'foreignKey' => 'material_id'
         ]);
     }

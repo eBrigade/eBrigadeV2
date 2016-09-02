@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\MaterialsTable;
+use App\Model\Table\UserMaterialsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\MaterialsTable Test Case
+ * App\Model\Table\UserMaterialsTable Test Case
  */
-class MaterialsTableTest extends TestCase
+class UserMaterialsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\MaterialsTable
+     * @var \App\Model\Table\UserMaterialsTable
      */
-    public $Materials;
+    public $UserMaterials;
 
     /**
      * Fixtures
@@ -24,19 +24,21 @@ class MaterialsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.materials',
-        'app.material_types',
-        'app.barracks',
-        'app.cities',
-        'app.events',
-        'app.creators',
-        'app.permissions',
+        'app.user_materials',
         'app.users',
+        'app.permissions',
         'app.grades',
         'app.roles',
         'app.availabilities',
         'app.barrack_users',
+        'app.barracks',
+        'app.cities',
+        'app.events',
+        'app.creators',
         'app.borrowed_materials',
+        'app.materials',
+        'app.material_types',
+        'app.material_users',
         'app.vehicles',
         'app.type_vehicles',
         'app.model_vehicles',
@@ -64,8 +66,7 @@ class MaterialsTableTest extends TestCase
         'app.operation_delays',
         'app.operation_types',
         'app.operation_recommendations',
-        'app.teachers',
-        'app.material_users'
+        'app.teachers'
     ];
 
     /**
@@ -76,8 +77,8 @@ class MaterialsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Materials') ? [] : ['className' => 'App\Model\Table\MaterialsTable'];
-        $this->Materials = TableRegistry::get('Materials', $config);
+        $config = TableRegistry::exists('UserMaterials') ? [] : ['className' => 'App\Model\Table\UserMaterialsTable'];
+        $this->UserMaterials = TableRegistry::get('UserMaterials', $config);
     }
 
     /**
@@ -87,7 +88,7 @@ class MaterialsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Materials);
+        unset($this->UserMaterials);
 
         parent::tearDown();
     }
@@ -98,16 +99,6 @@ class MaterialsTableTest extends TestCase
      * @return void
      */
     public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
