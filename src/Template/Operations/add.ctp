@@ -3,6 +3,7 @@
     <fieldset>
         <legend><?= __('Add Operation') ?></legend>
         <?php
+
         //event fields
         echo $this->Form->input('event.city_id', ['options' => $cities, 'empty' => true]);
         echo $this->Form->hidden('event.creator_id', ['value' => $creator]);
