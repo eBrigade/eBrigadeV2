@@ -8,18 +8,12 @@
     </div>
 </div>
 
-
 <button type="button" id="test">test</button>
 
 <br/>
 <div class="row">
 <div id='calendar'></div>
 </div>
-
-
-
-
-
 
 <?= $this->Html->css('fullcalendar.css') ?>
 
@@ -28,10 +22,6 @@
 <?= $this->Html->script('moment.min.js')?>
 <?= $this->Html->script('fullcalendar.js')?>
 <?= $this->Html->script('lang-all.js')?>
-
-
-
-
 
 
 <script>
@@ -56,34 +46,32 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end) {
-            var title = $('.active').text();;
+            var title = $('.active').text();
             var eventData;
-
             if (title) {
                 eventData = {
                     title: title,
                     start: start,
                     end: end
                 };
-
-                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-
-                myArray.push(eventData);
+                $('#calendar').fullCalendar('renderEvent', eventData, true);
+var date = moment(start).format();
+            var shortdate = date.slice(0,10);
+            myArray.push(shortdate + ':' + title);
             }
             $('#calendar').fullCalendar('unselect');
         },
         editable: true,
                 eventLimit: true,
-
     });
-
     });
 
     $( "#test" ).click(function() {
-        var id = 3;
-        $.post('../calendar/save',{id:id}, function(data){
-            console.log(data);
-        }, 'json');
+        $.ajax({
+            type:'post',
+            data: 'title='+ myArray,
+            url: '../calendar/save',
+        });
     });
 
 </script>

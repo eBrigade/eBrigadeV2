@@ -18,6 +18,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Availability patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Availability[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Availability findOrCreate($search, callable $callback = null)
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class AvailabilitiesTable extends Table
 {
@@ -35,6 +37,8 @@ class AvailabilitiesTable extends Table
         $this->table('availabilities');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
@@ -55,14 +59,8 @@ class AvailabilitiesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->date('date')
-            ->requirePresence('date', 'create')
-            ->notEmpty('date');
-
-        $validator
-            ->integer('time_slot')
-            ->requirePresence('time_slot', 'create')
-            ->notEmpty('time_slot');
+            ->requirePresence('result', 'create')
+            ->notEmpty('result');
 
         return $validator;
     }

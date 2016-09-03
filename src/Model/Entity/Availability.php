@@ -7,11 +7,9 @@ use Cake\ORM\Entity;
  * Availability Entity
  *
  * @property int $id
- * @property \Cake\I18n\Time $date
- * @property int $time_slot
+ * @property string $result
  * @property int $user_id
- *
- * @property \App\Model\Entity\User $user
+ * @property \Cake\I18n\Time $modified
  */
 class Availability extends Entity
 {

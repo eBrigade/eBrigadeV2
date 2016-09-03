@@ -9,6 +9,7 @@ use Cake\I18n\Time;
 class CalendarController extends AppController
 {
 
+
     // affiche le calendrier
     public function index()
     {
@@ -34,7 +35,18 @@ class CalendarController extends AppController
     // sauvegarde les disponibilités
     public function save()
     {
+        $table = TableRegistry::get('availabilities');
+        if ($this->request->data) {
+            $titre = $this->request->data['title'];
+//            $date = $this->request->data['start'];
+            $value = $table->newEntity();
+            $value->result = $titre;
+//            $value->date = $date;
+            $table->save($value);
+        }
 
+        $availabilities = $table->find();
+        $this->set(compact('availabilities'));
 
     }
 
