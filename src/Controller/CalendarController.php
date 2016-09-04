@@ -24,30 +24,41 @@ class CalendarController extends AppController
     // ajouter les disponibilités
     public function add()
     {
-        $events = TableRegistry::get('events');
-        $event = $events->find();
+        $table = TableRegistry::get('availabilities');
         $now = Time::now();
+        $user = $this->Auth->user('id');
+        $availabilities = $table->find()->where(['user_id' => $user])->first();
 
-        $this->set(compact('event'));
+        $this->set(compact('availabilities'));
         $this->set(compact('now'));
+        $this->set(compact('user'));
     }
 
     // sauvegarde les disponibilités
     public function save()
     {
         $table = TableRegistry::get('availabilities');
+        $user = $this->Auth->user('id');
         if ($this->request->data) {
+            $availabilities = $table->find()->where(['user_id' => $user])->first();
+            // si l'utilisateur a deja un calendrier le mettre a jour
+            if ($availabilities->user_id == $user ) {
+                $titre = $this->request->data['title'];
+                $availabilities->result = $titre;
+                $availabilities->user_id = $user;
+                $table->save($availabilities);
+            }
+            // sinon créée une nouvelle entrée
+            else{
             $titre = $this->request->data['title'];
-//            $date = $this->request->data['start'];
             $value = $table->newEntity();
             $value->result = $titre;
-//            $value->date = $date;
+           $value->user_id = $user;
             $table->save($value);
         }
-
-        $availabilities = $table->find();
-        $this->set(compact('availabilities'));
-
     }
 
+
+        $this->set(compact('availabilities'));
+}
 }

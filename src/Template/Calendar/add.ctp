@@ -1,14 +1,23 @@
 <div class="row">
-    <div id="selector" class="btn-group">
+    <div id="selector" class="btn-group col-md-8">
         <button type="button" class="btn active">ABSENT</button>
         <button type="button" class="btn">MATIN</button>
         <button type="button" class="btn">APRES-MIDI</button>
         <button type="button" class="btn">SOIR</button>
         <button type="button" class="btn">NUIT</button>
     </div>
+    <div   class="col-md-4">
+    <button type="button" id="test" class="btn">SAUVEGARDER </button><br/>
+
+        <?php if ($availabilities){
+        echo "Dernière sauvegarde le : $availabilities->modified ";
+        }
+        ?>
+
+    </div>
 </div>
 
-<button type="button" id="test">test</button>
+
 
 <br/>
 <div class="row">
@@ -29,7 +38,20 @@
         $(this).addClass('active').siblings().removeClass('active');
     });
 
-    var myArray = new Array();
+    var myArray =[
+    <?php if ($availabilities) {
+        $results = explode(",", $availabilities->result);
+        foreach ($results as $result){
+            echo '"' ;
+            echo $result ;
+            echo '",' ;
+        }
+    }
+  else{
+        echo "";
+    }
+    ?>
+    ];
 
     $(document).ready(function() {
 
@@ -43,33 +65,79 @@
             },
             defaultDate: <?php echo "'$now->year-$now->month-$now->day'"  ?>,
         lang: initialLangCode,
+        events: [
+
+<?php if ($availabilities){
+
+        $results = explode(",", $availabilities->result);
+        foreach ($results as $result){
+            $ev = explode("|", $result);
+if (count($ev, COUNT_RECURSIVE) > 1){
+            echo "
+        {
+            title: '$ev[1]',
+            start: '$ev[0]',
+        },
+            ";
+        }}}
+        ?>
+
+        ],
                 selectable: true,
                 selectHelper: true,
-                select: function(start, end) {
+                select: function(start, end, id) {
             var title = $('.active').text();
             var eventData;
             if (title) {
                 eventData = {
                     title: title,
                     start: start,
-                    end: end
+                id: id
                 };
                 $('#calendar').fullCalendar('renderEvent', eventData, true);
 var date = moment(start).format();
-            var shortdate = date.slice(0,10);
-            myArray.push(shortdate + ':' + title);
+            var shortdatestart = date.slice(0,10);
+
+            if (myArray.indexOf(shortdatestart + '|' + title) == -1) {
+            myArray.push(shortdatestart + '|' + title);
+            console.log(myArray);
+        }
+            else {
+            $('#calendar').fullCalendar('removeEvents', function(event) {
+            return event.id == id;
+        });
+            console.log("doublon");
+        }
+
             }
             $('#calendar').fullCalendar('unselect');
         },
-        editable: true,
+        editable: false,
                 eventLimit: true,
+
+        eventClick: function(calEvent, jsEvent, view) {
+            $('#calendar').fullCalendar('removeEvents', function (event) {
+                return event == calEvent;
+            });
+                var dateget = moment(calEvent.start).format('YYYY-MM-DD');
+                var titleget = calEvent.title;
+          var compare = dateget +'|'+ titleget;
+            var index = myArray.indexOf(compare);
+            if (index > -1) {
+            myArray.splice(index, 1);
+        }
+                console.log(myArray);
+
+        }
+
     });
     });
 
     $( "#test" ).click(function() {
+        console.log( myArray);
         $.ajax({
             type:'post',
-            data: 'title='+ myArray,
+            data: 'title=' + myArray,
             url: '../calendar/save',
         });
     });
