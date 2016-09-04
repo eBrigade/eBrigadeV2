@@ -39,8 +39,9 @@ class CalendarController extends AppController
     {
         $table = TableRegistry::get('availabilities');
         $user = $this->Auth->user('id');
+        $availabilities = $table->find()->where(['user_id' => $user])->first();
         if ($this->request->data) {
-            $availabilities = $table->find()->where(['user_id' => $user])->first();
+
             // si l'utilisateur a deja un calendrier le mettre a jour
             if ($availabilities->user_id == $user ) {
                 $titre = $this->request->data['title'];

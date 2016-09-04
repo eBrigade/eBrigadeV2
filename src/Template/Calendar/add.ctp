@@ -7,11 +7,14 @@
         <button type="button" class="btn">NUIT</button>
     </div>
     <div   class="col-md-4">
-    <button type="button" id="test" class="btn">SAUVEGARDER </button><br/>
+    <button type="button" id="bttosave" class="btn">SAUVEGARDER </button><br/>
 
         <?php if ($availabilities){
-        echo "Dernière sauvegarde le : $availabilities->modified ";
+        echo "<div id='savedate' > <span > Dernière sauvegarde le : $availabilities->modified   </span ></div>";
         }
+    else {
+    echo "<div id='savedate' > <span > Aucune sauvegarde trouvée </span ></div>";
+    }
         ?>
 
     </div>
@@ -133,15 +136,22 @@ var date = moment(start).format();
     });
     });
 
-    $( "#test" ).click(function() {
+    $( "#bttosave" ).click(function() {
         console.log( myArray);
         $.ajax({
             type:'post',
             data: 'title=' + myArray,
             url: '../calendar/save',
+            success:function(){
+              $('#savedate').load('../calendar/save');
+            }
         });
     });
 
+
+    setInterval(function(){
+        $("#bttosave").click();
+    },300000);
 </script>
 
 
