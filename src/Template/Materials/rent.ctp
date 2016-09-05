@@ -15,16 +15,20 @@
                 <tr>
                     <th>Nom</th>
                     <th>Matériel</th>
+                    <th>Nb</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($users as $user): ?>
                 <tr>
-                    <td><?= $user->user->firstname . ' ' . $user->user->lastname ?></td>
-                    <td><?= $user->material->material_type->name ?></td>
+                    <td><?= $user->firstname . ' ' . $user->lastname ?></td>
+                    <td><?= $user->name ?></td>
+                    <td><?= $user->nb ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
+
+

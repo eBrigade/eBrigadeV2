@@ -152,11 +152,11 @@ class MaterialsController extends AppController
 
     public function rent($id = null)
     {
-        $UserMaterials = TableRegistry::get('UserMaterials');
-        $rented = $UserMaterials->find('all', [
+        $this->loadModel('UserMaterials');
+        $rented = $this->UserMaterials->find('all', [
             'fields' => ['material_id']
         ]);
-        $entity = $UserMaterials->newEntity();
+        $entity = $this->UserMaterials->newEntity();
         if($this->request->is('post'))
         {
             $materialId = $this->Materials->find('all',[
@@ -172,7 +172,7 @@ class MaterialsController extends AppController
             ])->first();
             $entity->user_id = $this->Auth->user('id');
             $entity->material_id = $materialId->id;
-            if($UserMaterials->save($entity))
+            if($this->UserMaterials->save($entity))
             {
                 // ajouter une redirection
             }
@@ -205,15 +205,23 @@ class MaterialsController extends AppController
             ]
         ]);
         // stocker les infos de l'user qui a emprunté tel matériel
-        $Users = TableRegistry::get('Users');
-        $users = $UserMaterials->find('all',[
+        $this->loadModel('MaterialTypes');
+        $users = $this->UserMaterials->find('all',[
             'contain' => [
                 'Users',
-                'Materials.MaterialTypes'
+                'Materials.MaterialTypes' // -> jointure entre les deux tables
+            ],
+            'fields' => [
+                'firstname' => 'firstname',
+                'lastname' => 'lastname',
+                'name' => 'name',
+                'material_type_id' => 'material_type_id',
+                'nb' => $this->MaterialTypes->find()->func()->count('material_type_id')
             ],
             'conditions' => [
                 'barrack_id' => $id
-            ]
+            ],
+            'group' => 'material_type_id'
         ]);
         $this->set('userId',$this->Auth->user('id'));
         $this->set('barrack',$this->Materials->Barracks->get($id));
