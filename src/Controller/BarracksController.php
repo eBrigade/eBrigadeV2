@@ -36,22 +36,14 @@ class BarracksController extends AppController
     // ajouter une caserne
     public function add()
     {
+        $this->loadModel('Cities');
         $barrack = $this->Barracks->newEntity();
-        $getTable = TableRegistry::get('Barracks');
-        $cities = TableRegistry::get('Cities');
         if ($this->request->is('post')) {
             $cit = $this->request->data['city_name'];
-            $city = $cities->find()->select(['id'])->where(['city' => $cit])->first();
-            $id_city =$city['id'];
-            $barrack->name = $this->request->data['name'];
-            $barrack->address = $this->request->data['address'];
-            $barrack->city_id = $id_city;
-            $barrack->phone = $this->request->data['phone'];
-            $barrack->fax = $this->request->data['fax'];
-            $barrack->email = $this->request->data['email'];
-            $barrack->website_url = $this->request->data['website_url'];
-            $getTable->save($barrack);
-            if ($getTable->save($barrack)) {
+            $city = $this->Cities->find()->select(['id'])->where(['city' => $cit])->first();
+            $this->request->data['city_id'] =$city['id'];
+            $barrack = $this->Barracks->patchEntity($barrack, $this->request->data);
+            if ($this->Barracks->save($barrack)) {
                 $this->Flash->success(__('La caserne a bien été créée.'));
                 return $this->redirect(['action' => 'index']);
             } else {

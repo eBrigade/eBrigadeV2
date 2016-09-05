@@ -12,9 +12,10 @@ $cakeDescription = 'Ebrigade';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('styles.css') ?>
+
     <?= $this->Html->css('bootstrap.css') ?>
     <?= $this->Html->css('bootstrap-theme.css') ?>
+    <?= $this->Html->css('styles.css') ?>
 
 
     <?= $this->fetch('meta') ?>
@@ -35,11 +36,14 @@ $cakeDescription = 'Ebrigade';
         <ul class="nav navbar-nav">
             <?= $this->element('navigation')?>
         </ul>
+        <?php $notif = $this->cell('Notifications');
+        echo $notif; ?>
     </div>
 </nav>
 <?= $this->Flash->render() ?>
 <?php $cell = $this->cell('Login');
 echo $cell; ?>
+
 <div class="container clearfix">
     <?= $this->fetch('content') ?>
 </div>

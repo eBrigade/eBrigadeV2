@@ -140,6 +140,17 @@ class MessagesController extends AppController
                     ->subject("Vous avez reçu un message privé de $frommp->firstname $frommp->lastname")
                     ->send($this->request->data['text']);
             }
+            // notification sur le site
+            $notifTable = TableRegistry::get('notifications');
+            $notifSave = $notifTable->newEntity();
+            $notifSave->is_read =  0;
+            $notifSave->from_user =  $user;
+            $notifSave->to_user = $touserid->id;
+            $obj = 'Message privé de  '.$frommp->lastname.' '.$frommp->firstname.'';
+            $notifSave->content = $obj;
+            $notifTable->save($notifSave);
+
+
             // copie l'entrée pour historique des messages envoyés
             if ($this->Messages->save($message)) {
                 $sendmessage = $this->Messages->newEntity();

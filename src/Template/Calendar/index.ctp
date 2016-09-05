@@ -8,11 +8,9 @@
 
 
 
-
 <?= $this->Html->css('fullcalendar.css') ?>
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
+<?= $this->Html->script('jquery-ui.js')?>
 <?= $this->Html->script('moment.min.js')?>
 <?= $this->Html->script('fullcalendar.js')?>
 <?= $this->Html->script('lang-all.js')?>
