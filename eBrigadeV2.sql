@@ -441,7 +441,7 @@ CREATE TABLE `availabilities` (
   `user_id` int(11) NOT NULL,
   `modified` datetime NOT NULL,
     PRIMARY KEY (`id`)
-)
+);
 
 
 CREATE TABLE `messages` (
