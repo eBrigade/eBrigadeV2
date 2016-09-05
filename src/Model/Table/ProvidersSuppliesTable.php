@@ -34,12 +34,16 @@ class ProvidersSuppliesTable extends Table
         parent::initialize($config);
 
         $this->table('providers_supplies');
+        $this->displayField('provider_id');
+        $this->primaryKey(['provider_id', 'supply_id']);
 
         $this->belongsTo('Providers', [
-            'foreignKey' => 'provider_id'
+            'foreignKey' => 'provider_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsTo('Supplies', [
-            'foreignKey' => 'supply_id'
+            'foreignKey' => 'supply_id',
+            'joinType' => 'INNER'
         ]);
     }
 

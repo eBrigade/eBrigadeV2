@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\HasMany $Formations
- * @property \Cake\ORM\Association\HasMany $Operations
+ * @property \Cake\ORM\Association\HasMany $RescuePlans
  *
  * @method \App\Model\Entity\Organization get($primaryKey, $options = [])
  * @method \App\Model\Entity\Organization newEntity($data = null, array $options = [])
@@ -44,7 +44,7 @@ class OrganizationsTable extends Table
         $this->hasMany('Formations', [
             'foreignKey' => 'organization_id'
         ]);
-        $this->hasMany('Operations', [
+        $this->hasMany('RescuePlans', [
             'foreignKey' => 'organization_id'
         ]);
     }
@@ -65,7 +65,20 @@ class OrganizationsTable extends Table
             ->allowEmpty('title');
 
         $validator
-            ->allowEmpty('adress');
+            ->allowEmpty('address1');
+
+        $validator
+            ->allowEmpty('address2');
+
+        $validator
+            ->email('email')
+            ->allowEmpty('email');
+
+        $validator
+            ->allowEmpty('phone');
+
+        $validator
+            ->allowEmpty('cellphone');
 
         return $validator;
     }
@@ -79,6 +92,7 @@ class OrganizationsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
 
         return $rules;

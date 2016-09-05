@@ -9,11 +9,11 @@ use Cake\Validation\Validator;
 /**
  * Vehicles Model
  *
- * @property \Cake\ORM\Association\BelongsTo $TypeVehicles
- * @property \Cake\ORM\Association\BelongsTo $ModelVehicles
- * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
- * @property \Cake\ORM\Association\HasMany $BorrowedVehicles
- * @property \Cake\ORM\Association\HasMany $EventVehicles
+ * @property \Cake\ORM\Association\BelongsTo $VehicleTypes
+ * @property \Cake\ORM\Association\BelongsTo $VehicleModels
+ * @property \Cake\ORM\Association\BelongsToMany $Barracks
+ * @property \Cake\ORM\Association\BelongsToMany $Events
+ * @property \Cake\ORM\Association\BelongsToMany $Teams
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *
  * @method \App\Model\Entity\Vehicle get($primaryKey, $options = [])
@@ -41,20 +41,26 @@ class VehiclesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('TypeVehicles', [
-            'foreignKey' => 'type_vehicle_id'
+        $this->belongsTo('VehicleTypes', [
+            'foreignKey' => 'vehicle_type_id'
         ]);
-        $this->belongsTo('ModelVehicles', [
-            'foreignKey' => 'model_vehicle_id'
+        $this->belongsTo('VehicleModels', [
+            'foreignKey' => 'vehicle_model_id'
         ]);
-        $this->hasMany('BorrowedMaterials', [
-            'foreignKey' => 'vehicle_id'
+        $this->belongsToMany('Barracks', [
+            'foreignKey' => 'vehicle_id',
+            'targetForeignKey' => 'barrack_id',
+            'joinTable' => 'barracks_vehicles'
         ]);
-        $this->hasMany('BorrowedVehicles', [
-            'foreignKey' => 'vehicle_id'
+        $this->belongsToMany('Events', [
+            'foreignKey' => 'vehicle_id',
+            'targetForeignKey' => 'event_id',
+            'joinTable' => 'events_vehicles'
         ]);
-        $this->hasMany('EventVehicles', [
-            'foreignKey' => 'vehicle_id'
+        $this->belongsToMany('Teams', [
+            'foreignKey' => 'vehicle_id',
+            'targetForeignKey' => 'team_id',
+            'joinTable' => 'teams_vehicles'
         ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'vehicle_id',
@@ -114,8 +120,8 @@ class VehiclesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['type_vehicle_id'], 'TypeVehicles'));
-        $rules->add($rules->existsIn(['model_vehicle_id'], 'ModelVehicles'));
+        $rules->add($rules->existsIn(['vehicle_type_id'], 'VehicleTypes'));
+        $rules->add($rules->existsIn(['vehicle_model_id'], 'VehicleModels'));
 
         return $rules;
     }

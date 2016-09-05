@@ -10,10 +10,12 @@ use Cake\Validation\Validator;
  * Barracks Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Cities
- * @property \Cake\ORM\Association\HasMany $BarrackUsers
  * @property \Cake\ORM\Association\HasMany $Events
  * @property \Cake\ORM\Association\HasMany $Materials
- * @property \Cake\ORM\Association\HasMany $Operations
+ * @property \Cake\ORM\Association\HasMany $RescuePlans
+ * @property \Cake\ORM\Association\BelongsToMany $Materials
+ * @property \Cake\ORM\Association\BelongsToMany $Users
+ * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
  * @method \App\Model\Entity\Barrack get($primaryKey, $options = [])
  * @method \App\Model\Entity\Barrack newEntity($data = null, array $options = [])
@@ -44,17 +46,29 @@ class BarracksTable extends Table
             'foreignKey' => 'city_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('BarrackUsers', [
-            'foreignKey' => 'barrack_id'
-        ]);
         $this->hasMany('Events', [
             'foreignKey' => 'barrack_id'
         ]);
         $this->hasMany('Materials', [
             'foreignKey' => 'barrack_id'
         ]);
-        $this->hasMany('Operations', [
+        $this->hasMany('RescuePlans', [
             'foreignKey' => 'barrack_id'
+        ]);
+        $this->belongsToMany('Materials', [
+            'foreignKey' => 'barrack_id',
+            'targetForeignKey' => 'material_id',
+            'joinTable' => 'barracks_materials'
+        ]);
+        $this->belongsToMany('Users', [
+            'foreignKey' => 'barrack_id',
+            'targetForeignKey' => 'user_id',
+            'joinTable' => 'barracks_users'
+        ]);
+        $this->belongsToMany('Vehicles', [
+            'foreignKey' => 'barrack_id',
+            'targetForeignKey' => 'vehicle_id',
+            'joinTable' => 'barracks_vehicles'
         ]);
     }
 

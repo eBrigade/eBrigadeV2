@@ -8,8 +8,12 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $title
- * @property string $adress
+ * @property string $address1
+ * @property string $address2
  * @property int $city_id
+ * @property string $email
+ * @property string $phone
+ * @property string $cellphone
  *
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\Formation[] $formations

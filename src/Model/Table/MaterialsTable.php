@@ -12,6 +12,9 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
  * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\HasMany $UserMaterials
+ * @property \Cake\ORM\Association\BelongsToMany $Barracks
+ * @property \Cake\ORM\Association\BelongsToMany $Events
+ * @property \Cake\ORM\Association\BelongsToMany $Teams
  *
  * @method \App\Model\Entity\Material get($primaryKey, $options = [])
  * @method \App\Model\Entity\Material newEntity($data = null, array $options = [])
@@ -46,6 +49,21 @@ class MaterialsTable extends Table
         ]);
         $this->hasMany('UserMaterials', [
             'foreignKey' => 'material_id'
+        ]);
+        $this->belongsToMany('Barracks', [
+            'foreignKey' => 'material_id',
+            'targetForeignKey' => 'barrack_id',
+            'joinTable' => 'barracks_materials'
+        ]);
+        $this->belongsToMany('Events', [
+            'foreignKey' => 'material_id',
+            'targetForeignKey' => 'event_id',
+            'joinTable' => 'events_materials'
+        ]);
+        $this->belongsToMany('Teams', [
+            'foreignKey' => 'material_id',
+            'targetForeignKey' => 'team_id',
+            'joinTable' => 'materials_teams'
         ]);
     }
 

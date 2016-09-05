@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * Formations Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Organizations
- * @property \Cake\ORM\Association\BelongsTo $Teachers
  * @property \Cake\ORM\Association\BelongsTo $Events
  *
  * @method \App\Model\Entity\Formation get($primaryKey, $options = [])
@@ -40,10 +39,6 @@ class FormationsTable extends Table
 
         $this->belongsTo('Organizations', [
             'foreignKey' => 'organization_id'
-        ]);
-        $this->belongsTo('Teachers', [
-            'className'=> 'Users',
-            'foreignKey' => 'teacher_id'
         ]);
         $this->belongsTo('Events', [
             'foreignKey' => 'event_id'
@@ -75,7 +70,6 @@ class FormationsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
-        $rules->add($rules->existsIn(['teacher_id'], 'Teachers'));
         $rules->add($rules->existsIn(['event_id'], 'Events'));
 
         return $rules;

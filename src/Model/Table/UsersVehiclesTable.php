@@ -34,12 +34,16 @@ class UsersVehiclesTable extends Table
         parent::initialize($config);
 
         $this->table('users_vehicles');
+        $this->displayField('vehicle_id');
+        $this->primaryKey(['vehicle_id', 'user_id']);
 
         $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsTo('Vehicles', [
-            'foreignKey' => 'vehicle_id'
+            'foreignKey' => 'vehicle_id',
+            'joinType' => 'INNER'
         ]);
     }
 

@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * VehicleTypes Model
  *
+ * @property \Cake\ORM\Association\HasMany $Vehicles
+ *
  * @method \App\Model\Entity\VehicleType get($primaryKey, $options = [])
  * @method \App\Model\Entity\VehicleType newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\VehicleType[] newEntities(array $data, array $options = [])
@@ -33,6 +35,10 @@ class VehicleTypesTable extends Table
         $this->table('vehicle_types');
         $this->displayField('name');
         $this->primaryKey('id');
+
+        $this->hasMany('Vehicles', [
+            'foreignKey' => 'vehicle_type_id'
+        ]);
     }
 
     /**

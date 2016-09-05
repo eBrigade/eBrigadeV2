@@ -48,6 +48,7 @@ class NotificationsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->boolean('is_read')
             ->requirePresence('is_read', 'create')
             ->notEmpty('is_read');
 
@@ -64,6 +65,11 @@ class NotificationsTable extends Table
         $validator
             ->requirePresence('content', 'create')
             ->notEmpty('content');
+
+        $validator
+            ->integer('type')
+            ->requirePresence('type', 'create')
+            ->notEmpty('type');
 
         return $validator;
     }

@@ -7,10 +7,11 @@ use Cake\ORM\Entity;
  * Notification Entity
  *
  * @property int $id
- * @property string $is_read
+ * @property bool $is_read
  * @property int $from_user
  * @property int $to_user
  * @property string $content
+ * @property int $type
  */
 class Notification extends Entity
 {

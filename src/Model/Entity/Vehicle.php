@@ -11,8 +11,8 @@ use Cake\ORM\Entity;
  * @property int $number_kilometer
  * @property bool $snow
  * @property bool $air_conditionner
- * @property int $type_vehicle_id
- * @property int $model_vehicle_id
+ * @property int $vehicle_type_id
+ * @property int $vehicle_model_id
  * @property \Cake\I18n\Time $bought
  * @property \Cake\I18n\Time $end_warranty
  * @property \Cake\I18n\Time $next_revision

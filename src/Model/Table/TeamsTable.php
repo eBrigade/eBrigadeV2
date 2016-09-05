@@ -9,8 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Teams Model
  *
- * @property \Cake\ORM\Association\HasMany $EventTeams
- * @property \Cake\ORM\Association\HasMany $TeamUsers
+ * @property \Cake\ORM\Association\BelongsToMany $Events
+ * @property \Cake\ORM\Association\BelongsToMany $Materials
+ * @property \Cake\ORM\Association\BelongsToMany $Users
+ * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
  * @method \App\Model\Entity\Team get($primaryKey, $options = [])
  * @method \App\Model\Entity\Team newEntity($data = null, array $options = [])
@@ -37,11 +39,25 @@ class TeamsTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
-        $this->hasMany('EventTeams', [
-            'foreignKey' => 'team_id'
+        $this->belongsToMany('Events', [
+            'foreignKey' => 'team_id',
+            'targetForeignKey' => 'event_id',
+            'joinTable' => 'events_teams'
         ]);
-        $this->hasMany('TeamUsers', [
-            'foreignKey' => 'team_id'
+        $this->belongsToMany('Materials', [
+            'foreignKey' => 'team_id',
+            'targetForeignKey' => 'material_id',
+            'joinTable' => 'materials_teams'
+        ]);
+        $this->belongsToMany('Users', [
+            'foreignKey' => 'team_id',
+            'targetForeignKey' => 'user_id',
+            'joinTable' => 'teams_users'
+        ]);
+        $this->belongsToMany('Vehicles', [
+            'foreignKey' => 'team_id',
+            'targetForeignKey' => 'vehicle_id',
+            'joinTable' => 'teams_vehicles'
         ]);
     }
 

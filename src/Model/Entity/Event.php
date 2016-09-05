@@ -8,7 +8,6 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $city_id
- * @property int $creator_id
  * @property int $bill_id
  * @property string $title
  * @property string $address
@@ -23,7 +22,6 @@ use Cake\ORM\Entity;
  * @property string $canceled_detail
  * @property bool $is_active
  * @property string $instructions
- * @property string $responsible_id
  * @property string $details
  * @property int $barrack_id
  * @property \Cake\I18n\Time $event_start_date
@@ -32,9 +30,10 @@ use Cake\ORM\Entity;
  * @property bool $public
  *
  * @property \App\Model\Entity\City $city
- * @property \App\Model\Entity\Creator $creator
+ * @property \App\Model\Entity\EventType $event_type
+ * @property \App\Model\Entity\User $creator
  * @property \App\Model\Entity\Bill $bill
- * @property \App\Model\Entity\Responsible $responsible
+ * @property \App\Model\Entity\User $responsible
  * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\BorrowedMaterial[] $borrowed_materials
  * @property \App\Model\Entity\BorrowedVehicle[] $borrowed_vehicles

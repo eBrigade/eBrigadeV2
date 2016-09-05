@@ -13,12 +13,10 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Grades
  * @property \Cake\ORM\Association\BelongsTo $Roles
  * @property \Cake\ORM\Association\HasMany $Availabilities
- * @property \Cake\ORM\Association\HasMany $BarrackUsers
- * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
- * @property \Cake\ORM\Association\HasMany $BorrowedVehicles
- * @property \Cake\ORM\Association\HasMany $EventTeams
  * @property \Cake\ORM\Association\HasMany $Orders
- * @property \Cake\ORM\Association\HasMany $TeamUsers
+ * @property \Cake\ORM\Association\HasMany $UserMaterials
+ * @property \Cake\ORM\Association\BelongsToMany $Barracks
+ * @property \Cake\ORM\Association\BelongsToMany $Teams
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
@@ -62,23 +60,21 @@ class UsersTable extends Table
         $this->hasMany('Availabilities', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('BarrackUsers', [
-            'foreignKey' => 'user_id'
-        ]);
-        $this->hasMany('BorrowedMaterials', [
-            'foreignKey' => 'user_id'
-        ]);
-        $this->hasMany('BorrowedVehicles', [
-            'foreignKey' => 'user_id'
-        ]);
-        $this->hasMany('EventTeams', [
-            'foreignKey' => 'user_id'
-        ]);
         $this->hasMany('Orders', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('TeamUsers', [
+        $this->hasMany('UserMaterials', [
             'foreignKey' => 'user_id'
+        ]);
+        $this->belongsToMany('Barracks', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'barrack_id',
+            'joinTable' => 'barracks_users'
+        ]);
+        $this->belongsToMany('Teams', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'team_id',
+            'joinTable' => 'teams_users'
         ]);
         $this->belongsToMany('Vehicles', [
             'foreignKey' => 'user_id',
@@ -153,6 +149,10 @@ class UsersTable extends Table
         $validator
             ->boolean('is_active')
             ->allowEmpty('is_active');
+
+        $validator
+            ->boolean('external')
+            ->allowEmpty('external');
 
         $validator
             ->date('connected')

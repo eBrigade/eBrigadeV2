@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Providers
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\HasMany $OrderSupplies
+ * @property \Cake\ORM\Association\BelongsToMany $Supplies
  *
  * @method \App\Model\Entity\Order get($primaryKey, $options = [])
  * @method \App\Model\Entity\Order newEntity($data = null, array $options = [])
@@ -44,8 +44,10 @@ class OrdersTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('OrderSupplies', [
-            'foreignKey' => 'order_id'
+        $this->belongsToMany('Supplies', [
+            'foreignKey' => 'order_id',
+            'targetForeignKey' => 'supply_id',
+            'joinTable' => 'orders_supplies'
         ]);
     }
 

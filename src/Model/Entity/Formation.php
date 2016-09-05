@@ -8,11 +8,10 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $organization_id
- * @property int $teacher_id
  * @property int $event_id
  *
  * @property \App\Model\Entity\Organization $organization
- * @property \App\Model\Entity\Teacher $teacher
+ * @property \App\Model\Entity\User $teacher
  * @property \App\Model\Entity\Event $event
  */
 class Formation extends Entity

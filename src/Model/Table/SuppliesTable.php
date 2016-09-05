@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Supplies Model
  *
- * @property \Cake\ORM\Association\HasMany $OrderSupplies
+ * @property \Cake\ORM\Association\BelongsToMany $Orders
  * @property \Cake\ORM\Association\BelongsToMany $Providers
  *
  * @method \App\Model\Entity\Supply get($primaryKey, $options = [])
@@ -37,8 +37,10 @@ class SuppliesTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
-        $this->hasMany('OrderSupplies', [
-            'foreignKey' => 'supply_id'
+        $this->belongsToMany('Orders', [
+            'foreignKey' => 'supply_id',
+            'targetForeignKey' => 'order_id',
+            'joinTable' => 'orders_supplies'
         ]);
         $this->belongsToMany('Providers', [
             'foreignKey' => 'supply_id',

@@ -29,6 +29,7 @@ class MaterialsTableTest extends TestCase
         'app.barracks',
         'app.cities',
         'app.events',
+        'app.event_types',
         'app.creators',
         'app.permissions',
         'app.users',
@@ -65,7 +66,7 @@ class MaterialsTableTest extends TestCase
         'app.operation_types',
         'app.operation_recommendations',
         'app.teachers',
-        'app.material_users'
+        'app.user_materials'
     ];
 
     /**

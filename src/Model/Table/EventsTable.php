@@ -10,17 +10,13 @@ use Cake\Validation\Validator;
  * Events Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Cities
- * @property \Cake\ORM\Association\BelongsTo $Creators
  * @property \Cake\ORM\Association\BelongsTo $Bills
- * @property \Cake\ORM\Association\BelongsTo $Responsibles
  * @property \Cake\ORM\Association\BelongsTo $Barracks
- * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
- * @property \Cake\ORM\Association\HasMany $BorrowedVehicles
- * @property \Cake\ORM\Association\HasMany $EventEquipments
- * @property \Cake\ORM\Association\HasMany $EventTeams
- * @property \Cake\ORM\Association\HasMany $EventVehicles
  * @property \Cake\ORM\Association\HasMany $Formations
- * @property \Cake\ORM\Association\HasMany $Operations
+ * @property \Cake\ORM\Association\HasMany $RescuePlans
+ * @property \Cake\ORM\Association\BelongsToMany $Materials
+ * @property \Cake\ORM\Association\BelongsToMany $Teams
+ * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
  * @method \App\Model\Entity\Event get($primaryKey, $options = [])
  * @method \App\Model\Entity\Event newEntity($data = null, array $options = [])
@@ -54,43 +50,32 @@ class EventsTable extends Table
         $this->belongsTo('Cities', [
             'foreignKey' => 'city_id'
         ]);
-        $this->belongsTo('EventTypes', [
-            'foreignKey' => 'event_type_id'
-        ]);
-        $this->belongsTo('Creators', [
-            'className' => 'Users',
-            'foreignKey' => 'creator_id'
-        ]);
         $this->belongsTo('Bills', [
             'foreignKey' => 'bill_id'
-        ]);
-        $this->belongsTo('Responsibles', [
-            'className' => 'Users',
-            'foreignKey' => 'responsible_id'
         ]);
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id'
         ]);
-        $this->hasMany('BorrowedMaterials', [
-            'foreignKey' => 'event_id'
-        ]);
-        $this->hasMany('BorrowedVehicles', [
-            'foreignKey' => 'event_id'
-        ]);
-        $this->hasMany('EventEquipments', [
-            'foreignKey' => 'event_id'
-        ]);
-        $this->hasMany('EventTeams', [
-            'foreignKey' => 'event_id'
-        ]);
-        $this->hasMany('EventVehicles', [
-            'foreignKey' => 'event_id'
-        ]);
         $this->hasMany('Formations', [
             'foreignKey' => 'event_id'
         ]);
-        $this->hasMany('Operations', [
+        $this->hasMany('RescuePlans', [
             'foreignKey' => 'event_id'
+        ]);
+        $this->belongsToMany('Materials', [
+            'foreignKey' => 'event_id',
+            'targetForeignKey' => 'material_id',
+            'joinTable' => 'events_materials'
+        ]);
+        $this->belongsToMany('Teams', [
+            'foreignKey' => 'event_id',
+            'targetForeignKey' => 'team_id',
+            'joinTable' => 'events_teams'
+        ]);
+        $this->belongsToMany('Vehicles', [
+            'foreignKey' => 'event_id',
+            'targetForeignKey' => 'vehicle_id',
+            'joinTable' => 'events_vehicles'
         ]);
     }
 
@@ -177,9 +162,7 @@ class EventsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
-        $rules->add($rules->existsIn(['creator_id'], 'Creators'));
         $rules->add($rules->existsIn(['bill_id'], 'Bills'));
-        $rules->add($rules->existsIn(['responsible_id'], 'Responsibles'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
 
         return $rules;

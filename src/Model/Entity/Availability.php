@@ -10,6 +10,8 @@ use Cake\ORM\Entity;
  * @property string $result
  * @property int $user_id
  * @property \Cake\I18n\Time $modified
+ *
+ * @property \App\Model\Entity\User $user
  */
 class Availability extends Entity
 {

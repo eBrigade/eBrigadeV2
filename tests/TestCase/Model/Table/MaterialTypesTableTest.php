@@ -26,24 +26,22 @@ class MaterialTypesTableTest extends TestCase
     public $fixtures = [
         'app.material_types',
         'app.materials',
-        'app.list_materials',
         'app.barracks',
         'app.cities',
         'app.events',
+        'app.event_types',
         'app.creators',
-        'app.bills',
-        'app.responsibles',
-        'app.borrowed_materials',
-        'app.users',
         'app.permissions',
+        'app.users',
         'app.grades',
         'app.roles',
         'app.availabilities',
         'app.barrack_users',
-        'app.borrowed_vehicles',
+        'app.borrowed_materials',
         'app.vehicles',
         'app.type_vehicles',
         'app.model_vehicles',
+        'app.borrowed_vehicles',
         'app.event_vehicles',
         'app.users_vehicles',
         'app.event_teams',
@@ -55,6 +53,8 @@ class MaterialTypesTableTest extends TestCase
         'app.supplies',
         'app.order_supplies',
         'app.providers_supplies',
+        'app.bills',
+        'app.responsibles',
         'app.event_equipments',
         'app.equipment',
         'app.formations',
@@ -65,7 +65,8 @@ class MaterialTypesTableTest extends TestCase
         'app.operation_delays',
         'app.operation_types',
         'app.operation_recommendations',
-        'app.teachers'
+        'app.teachers',
+        'app.user_materials'
     ];
 
     /**

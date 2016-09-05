@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\MaterialType $material_type
  * @property \App\Model\Entity\Barrack $barrack
- * @property \App\Model\Entity\MaterialUser[] $material_users
+ * @property \App\Model\Entity\UserMaterial[] $user_materials
  */
 class Material extends Entity
 {
