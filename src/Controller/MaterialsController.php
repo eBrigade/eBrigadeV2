@@ -2,7 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Database\Schema\Table;
 use Cake\ORM\Query;
+use Cake\ORM\TableRegistry;
 
 /**
  * Materials Controller
@@ -148,9 +150,34 @@ class MaterialsController extends AppController
 
     public function rent($id = null)
     {
+        $userMaterials = TableRegistry::get('UserMaterials');
+        $rented = $userMaterials->find('all', [
+            'fields' => ['material_id']
+        ]);
+        $entity = $userMaterials->newEntity();
+        if($this->request->is('post'))
+        {
+            $materialId = $this->Materials->find('all',[
+                'field' => 'id',
+                'contain' => [
+                    'MaterialTypes',
+                    'UserMaterials'
+                ],
+                'conditions' => [
+                    'Materials.material_type_id' => $this->request->data['material_id'],
+                    'Materials.id NOT IN' => $rented
+                ]
+            ])->first();
+            $entity->user_id = $this->Auth->user('id');
+            $entity->material_id = $materialId->id;
+            if($userMaterials->save($entity))
+            {
+
+            }
+        }
         $materials = $this->Materials->find('list',[
-            'valueField' => 'name2',
-            'keyField' => 'id',
+            'valueField' => 'conc',
+            'keyField' => 'type_id',
             'contain' => [
                 'MaterialTypes',
                 'UserMaterials'
@@ -158,22 +185,24 @@ class MaterialsController extends AppController
             'fields' => [
                 'name' => 'name',
                 'material_count' => $this->Materials->find()->func()->count('material_type_id'),
-                'name2' => $this->Materials->find()->func()->concat([
+                'conc' => $this->Materials->find()->func()->concat([
                     'name' => 'identifier',
                     ' (',
                     $this->Materials->find()->func()->count('material_type_id'),
                     ')'
-                ])
+                ]),
+                'type_id' => 'Materials.material_type_id'
             ],
             'conditions' => [
                 'barrack_id' => $id,
-                'Materials.id NOT IN' => 'UserMaterials.material_id'
+                'Materials.id NOT IN' => $rented
             ],
             'group' => 'material_type_id',
             'having' => [
                 'material_count >' => '0'
             ]
         ]);
+        $this->set('userId',$this->Auth->user('id'));
         $this->set('barrack',$this->Materials->Barracks->get($id));
         $this->set('materials',$materials);
     }
