@@ -14,11 +14,10 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Roles
  * @property \Cake\ORM\Association\HasMany $Availabilities
  * @property \Cake\ORM\Association\HasMany $BarrackUsers
- * @property \Cake\ORM\Association\HasMany $BorrowedMaterials
- * @property \Cake\ORM\Association\HasMany $BorrowedVehicles
  * @property \Cake\ORM\Association\HasMany $EventTeams
  * @property \Cake\ORM\Association\HasMany $Orders
  * @property \Cake\ORM\Association\HasMany $TeamUsers
+ * @property \Cake\ORM\Association\HasMany $UserMaterials
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
@@ -65,12 +64,6 @@ class UsersTable extends Table
         $this->hasMany('BarrackUsers', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('BorrowedMaterials', [
-            'foreignKey' => 'user_id'
-        ]);
-        $this->hasMany('BorrowedVehicles', [
-            'foreignKey' => 'user_id'
-        ]);
         $this->hasMany('EventTeams', [
             'foreignKey' => 'user_id'
         ]);
@@ -78,6 +71,9 @@ class UsersTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('TeamUsers', [
+            'foreignKey' => 'user_id'
+        ]);
+        $this->hasMany('UserMaterials', [
             'foreignKey' => 'user_id'
         ]);
         $this->belongsToMany('Vehicles', [

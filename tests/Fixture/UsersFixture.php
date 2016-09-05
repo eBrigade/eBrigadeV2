@@ -70,16 +70,16 @@ class UsersFixture extends TestFixture
             'address' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'zipcode' => 'Lor',
             'city' => 'Lorem ipsum dolor sit amet',
-            'birthday' => '2016-09-01',
+            'birthday' => '2016-09-05',
             'birthplace' => 'Lorem ipsum dolor sit amet',
             'skype' => 'Lorem ipsum dolor sit amet',
             'is_active' => 1,
             'permission_id' => 1,
             'grade_id' => 1,
             'role_id' => 1,
-            'created' => '2016-09-01',
-            'modified' => '2016-09-01',
-            'connected' => '2016-09-01'
+            'created' => '2016-09-05',
+            'modified' => '2016-09-05',
+            'connected' => '2016-09-05'
         ],
     ];
 }

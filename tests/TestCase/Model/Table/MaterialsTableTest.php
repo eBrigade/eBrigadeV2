@@ -36,13 +36,6 @@ class MaterialsTableTest extends TestCase
         'app.roles',
         'app.availabilities',
         'app.barrack_users',
-        'app.borrowed_materials',
-        'app.vehicles',
-        'app.type_vehicles',
-        'app.model_vehicles',
-        'app.borrowed_vehicles',
-        'app.event_vehicles',
-        'app.users_vehicles',
         'app.event_teams',
         'app.teams',
         'app.team_users',
@@ -52,6 +45,14 @@ class MaterialsTableTest extends TestCase
         'app.supplies',
         'app.order_supplies',
         'app.providers_supplies',
+        'app.user_materials',
+        'app.vehicles',
+        'app.type_vehicles',
+        'app.model_vehicles',
+        'app.borrowed_materials',
+        'app.borrowed_vehicles',
+        'app.event_vehicles',
+        'app.users_vehicles',
         'app.bills',
         'app.responsibles',
         'app.event_equipments',
@@ -64,8 +65,7 @@ class MaterialsTableTest extends TestCase
         'app.operation_delays',
         'app.operation_types',
         'app.operation_recommendations',
-        'app.teachers',
-        'app.material_users'
+        'app.teachers'
     ];
 
     /**

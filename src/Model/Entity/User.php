@@ -38,7 +38,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\EventTeam[] $event_teams
  * @property \App\Model\Entity\Order[] $orders
  * @property \App\Model\Entity\TeamUser[] $team_users
- * @property \App\Model\Entity\Material[] $materials
+ * @property \App\Model\Entity\UserMaterial[] $user_materials
  * @property \App\Model\Entity\Vehicle[] $vehicles
  */
 class User extends Entity

@@ -11,6 +11,8 @@ use Cake\ORM\TableRegistry;
  *
  * @property \App\Model\Table\MaterialsTable $Materials
  * @property \App\Model\Table\MaterialTypesTable $MaterialTypes
+ * @property \App\Model\Table\UserMaterialsTable $UserMaterials
+ * @property \App\Model\Table\Users $Users
  */
 class MaterialsController extends AppController
 {
@@ -150,11 +152,11 @@ class MaterialsController extends AppController
 
     public function rent($id = null)
     {
-        $userMaterials = TableRegistry::get('UserMaterials');
-        $rented = $userMaterials->find('all', [
+        $UserMaterials = TableRegistry::get('UserMaterials');
+        $rented = $UserMaterials->find('all', [
             'fields' => ['material_id']
         ]);
-        $entity = $userMaterials->newEntity();
+        $entity = $UserMaterials->newEntity();
         if($this->request->is('post'))
         {
             $materialId = $this->Materials->find('all',[
@@ -170,9 +172,9 @@ class MaterialsController extends AppController
             ])->first();
             $entity->user_id = $this->Auth->user('id');
             $entity->material_id = $materialId->id;
-            if($userMaterials->save($entity))
+            if($UserMaterials->save($entity))
             {
-
+                // ajouter une redirection
             }
         }
         $materials = $this->Materials->find('list',[
@@ -186,9 +188,9 @@ class MaterialsController extends AppController
                 'name' => 'name',
                 'material_count' => $this->Materials->find()->func()->count('material_type_id'),
                 'conc' => $this->Materials->find()->func()->concat([
-                    'name' => 'identifier',
+                    'name' => 'identifier', // identifier pour que la valeur s'affiche correctement
                     ' (',
-                    $this->Materials->find()->func()->count('material_type_id'),
+                    $this->Materials->find()->func()->count('material_type_id'), // fonction pour concaténer
                     ')'
                 ]),
                 'type_id' => 'Materials.material_type_id'
@@ -202,11 +204,21 @@ class MaterialsController extends AppController
                 'material_count >' => '0'
             ]
         ]);
+        // stocker les infos de l'user qui a emprunté tel matériel
+        $Users = TableRegistry::get('Users');
+        $users = $UserMaterials->find('all',[
+            'contain' => [
+                'Users',
+                'Materials.MaterialTypes'
+            ],
+            'conditions' => [
+                'barrack_id' => $id
+            ]
+        ]);
         $this->set('userId',$this->Auth->user('id'));
         $this->set('barrack',$this->Materials->Barracks->get($id));
+        $this->set('users',$users);
         $this->set('materials',$materials);
     }
-
-
 
 }
