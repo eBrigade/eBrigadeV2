@@ -5,3 +5,4 @@
 <li><?= $this->Html->link('Materials', ['controller' => 'Materials', 'action' => 'index'])?></li>
 <li><?= $this->Html->link('Barracks', ['controller' => 'Barracks', 'action' => 'index'])?></li>
 <li><?= $this->Html->link('Calendar', ['controller' => 'Calendar', 'action' => 'index'])?></li>
+<li><?= $this->Html->link('Availabilities', ['controller' => 'Calendar', 'action' => 'add'])?></li>

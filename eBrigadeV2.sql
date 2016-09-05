@@ -435,16 +435,14 @@ CREATE TABLE `organizations` (
 
 
 
-
-
-
 CREATE TABLE `availabilities` (
-  `id` INT NOT NULL,
-  `date` DATE NOT NULL,
-  `time_slot` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  PRIMARY KEY (`id`)
-);
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `result` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `modified` datetime NOT NULL,
+    PRIMARY KEY (`id`)
+)
+
 
 CREATE TABLE `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
