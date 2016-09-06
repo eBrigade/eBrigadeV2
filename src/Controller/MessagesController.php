@@ -148,6 +148,7 @@ class MessagesController extends AppController
             $notifSave->to_user = $touserid->id;
             $obj = 'Message privé de  '.$frommp->lastname.' '.$frommp->firstname.'';
             $notifSave->content = $obj;
+            $notifSave->type = 0;
             $notifTable->save($notifSave);
 
 
