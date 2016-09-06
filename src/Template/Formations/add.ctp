@@ -5,30 +5,20 @@
     </ul>
 </nav>
 <div class="formations form large-9 medium-8 columns content">
-    <?php  $user_creator =  $this->Session->read('Auth.User.id');?>
     <?=$this->Form->create($formation) ?>
     <fieldset>
         <legend><?= __('Add Formation') ?></legend>
         <?php
+        echo $this->Form->input('event.title');
+        echo $this->Form->input('formation_type_id', ['options' => $FormationTypes]);
         echo $this->Form->input('formation.organization_id');
-        echo $this->Form->input('formation.teacher_id');
         echo $this->Form->hidden('formation.event_id');
         echo $this->Form->input('event.city_id', ['options' => $cities]);
         echo $this->Form->input('event.barrack_id', ['options' => $barracks]);
-        echo $this->Form->hidden('formation.id');
-        echo $this->Form->hidden('event.id');
-        echo $this->Form->hidden('event.creator_id' ,['value' => $user_creator ]);
-        echo $this->Form->input('event.bill_id');
-        echo $this->Form->input('event.title');
         echo $this->Form->input('event.address');
-        echo $this->Form->input('event.latitude');
-        echo $this->Form->input('event.longitude');
-        echo $this->Form->input('event.is_closed');
-        echo $this->Form->input('event.closed', ['empty' => true]);
+        echo $this->Form->hidden('event.latitude');
+        echo $this->Form->hidden('event.longitude');
         echo $this->Form->input('event.price');
-        echo $this->Form->input('event.canceled');
-        echo $this->Form->input('event.canceled_detail');
-        echo $this->Form->input('event.is_active');
         echo $this->Form->input('event.instructions');
         echo $this->Form->input('event.responsible_id');
         echo $this->Form->input('event.details');
@@ -36,6 +26,7 @@
         echo $this->Form->input('event.event_end_date', ['empty' => true]);
         echo $this->Form->input('event.horaires');
         echo $this->Form->input('event.public');
+        echo $this->Form->hidden('event.is_active');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

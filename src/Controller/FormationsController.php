@@ -17,13 +17,14 @@ class FormationsController extends AppController
      */
     public function index()
     {
+$this->loadModel('Events');
         $this->paginate = [
-            'contain' => ['Organizations', 'Teachers','Events']
+            'contain' => ['Organizations','Events','FormationTypes']
         ];
-        $formations = $this->paginate($this->Formations)->toArray();
+        $formations = $this->paginate($this->Formations);
 
 
-        $this->set(compact('formations'));
+        $this->set(compact('formations','events'));
         $this->set('_serialize', ['formations']);
     }
 
@@ -41,7 +42,7 @@ class FormationsController extends AppController
         $this->loadModel('Users');
         $this->loadModel('Barracks');
         $formation = $this->Formations->get($id, [
-            'contain' => ['Organizations', 'Teachers']
+            'contain' => ['Organizations']
         ]);
 
 
@@ -86,13 +87,12 @@ class FormationsController extends AppController
         }
 
                 $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
-                $teachers = $this->Formations->Teachers->find('list', ['valueField' => 'firstname']);
-
+                $FormationTypes = $this->Formations->FormationTypes->find('list',['valueField'=> 'title']);
 
         $cities = $this->Cities->find('list', ['valueField' => 'city']);
         $barracks = $this->Barracks->find('list', ['valueField' => 'name']);
 
-        $this->set(compact('formation', 'organizations', 'teachers','barracks','cities'));
+        $this->set(compact('formation', 'organizations','barracks','cities','FormationTypes'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -108,9 +108,11 @@ class FormationsController extends AppController
 
         $this->loadModel('Cities');
         $this->loadModel('Barracks');
+        $this->loadModel('Users');
+        $this->loadModel('Events');
 
         $formation = $this->Formations->get($id, [
-            'contain' => []
+            'contain' => ['Events']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $formation = $this->Formations->patchEntity($formation, $this->request->data,['associated' => [
@@ -126,13 +128,14 @@ class FormationsController extends AppController
             }
         }
         $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
-        $teachers = $this->Formations->Teachers->find('list', ['valueField' => 'firstname']);
+        $teachers = $this->Users->find('list', ['valueField' => 'firstname']);
 
         $cities = $this->Cities->find('list', ['valueField' => 'city']);
         $barracks = $this->Barracks->find('list', ['valueField' => 'name']);
+        $event = $this->Events->findAllById($formation['event_id'])->toArray();
 
 
-        $this->set(compact('formation', 'organizations', 'teachers','barracks','cities'));
+        $this->set(compact('formation', 'organizations', 'teachers','barracks','cities','event'));
         $this->set('_serialize', ['formation']);
     }
 
