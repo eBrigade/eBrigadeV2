@@ -1,75 +1,39 @@
-
-<div class="operations index large-9 medium-8 columns content">
-    <h3><?= __('Operations') ?></h3>
+<h1>Opérations en cours</h1>
+<div class="rescuePlans index large-9 medium-8 columns content">
+    <h3><?= __('Rescue Plans') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('event_id') ?></th>
                 <th><?= $this->Paginator->sort('barrack_id') ?></th>
-                <th><?= $this->Paginator->sort('public_headcount') ?></th>
-                <th><?= $this->Paginator->sort('operation_activity_id') ?></th>
-                <th><?= $this->Paginator->sort('operation_environment_id') ?></th>
-                <th><?= $this->Paginator->sort('operation_delay_id') ?></th>
-                <th><?= $this->Paginator->sort('public_ris') ?></th>
-                <th><?= $this->Paginator->sort('operation_type_id') ?></th>
-                <th><?= $this->Paginator->sort('operation_recommendation_id') ?></th>
-                <th><?= $this->Paginator->sort('public_reinforcement') ?></th>
-                <th><?= $this->Paginator->sort('public_total') ?></th>
+                <th><?= $this->Paginator->sort('rescue_plan_type_id') ?></th>
                 <th><?= $this->Paginator->sort('organization_id') ?></th>
                 <th><?= $this->Paginator->sort('actors_headcount') ?></th>
                 <th><?= $this->Paginator->sort('rescuers_total') ?></th>
                 <th><?= $this->Paginator->sort('headcount_total') ?></th>
-                <th><?= $this->Paginator->sort('meals_morning') ?></th>
-                <th><?= $this->Paginator->sort('meals_lunch') ?></th>
-                <th><?= $this->Paginator->sort('meals_dinner') ?></th>
-                <th><?= $this->Paginator->sort('meals_unit_cost') ?></th>
-                <th><?= $this->Paginator->sort('meals_charge') ?></th>
-                <th><?= $this->Paginator->sort('meals_cost') ?></th>
-                <th><?= $this->Paginator->sort('cost_kilometers_vps') ?></th>
-                <th><?= $this->Paginator->sort('cost_kilometers_other') ?></th>
-                <th><?= $this->Paginator->sort('discount_percentage') ?></th>
-                <th><?= $this->Paginator->sort('cost_percentage_adpc') ?></th>
-                <th><?= $this->Paginator->sort('total_cost') ?></th>
                 <th><?= $this->Paginator->sort('date') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($operations as $operation): ?>
+            <?php foreach ($rescuePlans as $rescuePlan): ?>
             <tr>
-                <td><?= $this->Number->format($operation->id) ?></td>
-                <td><?= $operation->has('event') ? $this->Html->link($operation->event->title, ['controller' => 'Events', 'action' => 'view', $operation->event->id]) : '' ?></td>
-                <td><?= $operation->has('barrack') ? $this->Html->link($operation->barrack->name, ['controller' => 'Barracks', 'action' => 'view', $operation->barrack->id]) : '' ?></td>
-                <td><?= $this->Number->format($operation->public_headcount) ?></td>
-                <td><?= $operation->has('operation_activity') ? $this->Html->link($operation->operation_activity->title, ['controller' => 'OperationActivities', 'action' => 'view', $operation->operation_activity->id]) : '' ?></td>
-                <td><?= $operation->has('operation_environment') ? $this->Html->link($operation->operation_environment->title, ['controller' => 'OperationEnvironments', 'action' => 'view', $operation->operation_environment->id]) : '' ?></td>
-                <td><?= $operation->has('operation_delay') ? $this->Html->link($operation->operation_delay->title, ['controller' => 'OperationDelays', 'action' => 'view', $operation->operation_delay->id]) : '' ?></td>
-                <td><?= $this->Number->format($operation->public_ris) ?></td>
-                <td><?= $operation->has('operation_type') ? $this->Html->link($operation->operation_type->title, ['controller' => 'OperationTypes', 'action' => 'view', $operation->operation_type->id]) : '' ?></td>
-                <td><?= $operation->has('operation_recommendation') ? $this->Html->link($operation->operation_recommendation->title, ['controller' => 'OperationRecommendations', 'action' => 'view', $operation->operation_recommendation->id]) : '' ?></td>
-                <td><?= h($operation->public_reinforcement) ?></td>
-                <td><?= $this->Number->format($operation->public_total) ?></td>
-                <td><?= $operation->has('organization') ? $this->Html->link($operation->organization->title, ['controller' => 'Organizations', 'action' => 'view', $operation->organization->id]) : '' ?></td>
-                <td><?= $this->Number->format($operation->actors_headcount) ?></td>
-                <td><?= $this->Number->format($operation->rescuers_total) ?></td>
-                <td><?= $this->Number->format($operation->headcount_total) ?></td>
-                <td><?= $this->Number->format($operation->meals_morning) ?></td>
-                <td><?= $this->Number->format($operation->meals_lunch) ?></td>
-                <td><?= $this->Number->format($operation->meals_dinner) ?></td>
-                <td><?= $this->Number->format($operation->meals_unit_cost) ?></td>
-                <td><?= $this->Number->format($operation->meals_charge) ?></td>
-                <td><?= $this->Number->format($operation->meals_cost) ?></td>
-                <td><?= $this->Number->format($operation->cost_kilometers_vps) ?></td>
-                <td><?= $this->Number->format($operation->cost_kilometers_other) ?></td>
-                <td><?= $this->Number->format($operation->discount_percentage) ?></td>
-                <td><?= $this->Number->format($operation->cost_percentage_adpc) ?></td>
-                <td><?= $this->Number->format($operation->total_cost) ?></td>
-                <td><?= h($operation->date) ?></td>
+                <td><?= $this->Number->format($rescuePlan->id) ?></td>
+                <td><?= $rescuePlan->has('event') ? $this->Html->link($rescuePlan->event->title, ['controller' => 'Events', 'action' => 'view', $rescuePlan->event->id]) : '' ?></td>
+                <td><?= $rescuePlan->has('barrack') ? $this->Html->link($rescuePlan->barrack->name, ['controller' => 'Barracks', 'action' => 'view', $rescuePlan->barrack->id]) : '' ?></td>
+                <td><?= $this->Number->format($rescuePlan->public_headcount) ?></td>
+                <td><?= $rescuePlan->has('rescue_plan_type') ? $this->Html->link($rescuePlan->rescue_plan_type->title, ['controller' => 'RescuePlanTypes', 'action' => 'view', $rescuePlan->rescue_plan_type->id]) : '' ?></td>
+                <td><?= $this->Number->format($rescuePlan->public_total) ?></td>
+                <td><?= $rescuePlan->has('organization') ? $this->Html->link($rescuePlan->organization->title, ['controller' => 'Organizations', 'action' => 'view', $rescuePlan->organization->id]) : '' ?></td>
+                <td><?= $this->Number->format($rescuePlan->actors_headcount) ?></td>
+                <td><?= $this->Number->format($rescuePlan->rescuers_total) ?></td>
+                <td><?= $this->Number->format($rescuePlan->headcount_total) ?></td>
+                <td><?= h($rescuePlan->date) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $operation->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $operation->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $operation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $rescuePlan->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rescuePlan->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rescuePlan->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rescuePlan->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

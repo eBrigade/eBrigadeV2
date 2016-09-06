@@ -19,7 +19,7 @@ class RescuePlansController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Events', 'Barracks', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
+            'contain' => ['Events', 'RescuePlanTypes']
         ];
         $rescuePlans = $this->paginate($this->RescuePlans);
 
@@ -37,7 +37,7 @@ class RescuePlansController extends AppController
     public function view($id = null)
     {
         $rescuePlan = $this->RescuePlans->get($id, [
-            'contain' => ['Events', 'Barracks', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
+            'contain' => ['Events', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
         ]);
 
         $this->set('rescuePlan', $rescuePlan);
@@ -53,7 +53,11 @@ class RescuePlansController extends AppController
     {
         $rescuePlan = $this->RescuePlans->newEntity();
         if ($this->request->is('post')) {
-            $rescuePlan = $this->RescuePlans->patchEntity($rescuePlan, $this->request->data);
+            $rescuePlan = $this->RescuePlans->patchEntity($rescuePlan, $this->request->data, [
+                'associated' => [
+                    'Events'
+                ]
+            ]);
             if ($this->RescuePlans->save($rescuePlan)) {
                 $this->Flash->success(__('The rescue plan has been saved.'));
 
@@ -62,7 +66,8 @@ class RescuePlansController extends AppController
                 $this->Flash->error(__('The rescue plan could not be saved. Please, try again.'));
             }
         }
-        $events = $this->RescuePlans->Events->find('list', ['limit' => 200]);
+
+        $cities = $this->RescuePlans->Events->Cities->find('list', ['limit' => 200]);
         $barracks = $this->RescuePlans->Barracks->find('list', ['limit' => 200]);
         $rescuePlanActivities = $this->RescuePlans->RescuePlanActivities->find('list', ['limit' => 200]);
         $rescuePlanEnvironments = $this->RescuePlans->RescuePlanEnvironments->find('list', ['limit' => 200]);
@@ -70,7 +75,7 @@ class RescuePlansController extends AppController
         $rescuePlanTypes = $this->RescuePlans->RescuePlanTypes->find('list', ['limit' => 200]);
         $rescuePlanRecommendations = $this->RescuePlans->RescuePlanRecommendations->find('list', ['limit' => 200]);
         $organizations = $this->RescuePlans->Organizations->find('list', ['limit' => 200]);
-        $this->set(compact('rescuePlan', 'events', 'barracks', 'rescuePlanActivities', 'rescuePlanEnvironments', 'rescuePlanDelays', 'rescuePlanTypes', 'rescuePlanRecommendations', 'organizations'));
+        $this->set(compact('cities', 'rescuePlan', 'events', 'barracks', 'rescuePlanActivities', 'rescuePlanEnvironments', 'rescuePlanDelays', 'rescuePlanTypes', 'rescuePlanRecommendations', 'organizations'));
         $this->set('_serialize', ['rescuePlan']);
     }
 

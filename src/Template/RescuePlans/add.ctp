@@ -26,12 +26,13 @@
         <legend><?= __('Add Rescue Plan') ?></legend>
         <?php
         //linked event form
-        echo $this->Form->input('event.city_id', ['options' => $cities, 'empty' => true]);
+
         echo $this->Form->input('event.bill_id');
         echo $this->Form->input('event.title');
         echo $this->Form->input('event.address');
-        echo $this->Form->input('event.latitude');
-        echo $this->Form->input('event.longitude');
+        echo $this->Form->input('event.city_id', ['options' => $cities, 'empty' => true]);
+        echo $this->Form->hidden('event.latitude');
+        echo $this->Form->hidden('event.longitude');
         echo $this->Form->input('event.is_closed');
         echo $this->Form->input('event.closed', ['empty' => true]);
         echo $this->Form->input('event.price');
@@ -46,7 +47,7 @@
         echo $this->Form->input('event.horaires');
         echo $this->Form->input('event.public');
 
-        //
+        //rescue plan form
         echo $this->Form->input('barrack_id', ['options' => $barracks]);
         echo $this->Form->input('public_headcount');
         echo $this->Form->input('rescue_plan_activity_id', ['options' => $rescuePlanActivities]);
@@ -90,5 +91,8 @@
     <?= $this->Form->end() ?>
 </div>
 
+
+<?php
 //script to calculate RIS
-<?php echo $this->Html->script('calculRIS.js');?>
+echo $this->Html->script('calculRIS.js');
+?>
