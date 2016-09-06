@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property bool $is_read
- * @property int $from_user
+ * @property int $source_id
  * @property int $to_user
  * @property string $content
  * @property int $type

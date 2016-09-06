@@ -119,7 +119,7 @@
 ul.form {
     position:relative;
     background:#fff;
-    width:100%;
+    width:250px;
     margin:auto;
     padding:0;
     list-style: none;
@@ -137,7 +137,7 @@ ul.form {
 .form li a {
 
     border: 1px solid grey;
-    width:100%;
+    width:185px;
     padding-left:20px;
     height:50px;
     line-height:50px;
@@ -147,7 +147,6 @@ ul.form {
     text-decoration:none;
     text-transform:uppercase;
     font-size:14px;
-    font-weight: bold;
     color:#686868;
 
     -webkit-transition:all 0.2s linear;
@@ -157,7 +156,7 @@ ul.form {
 }
 
 .form li a:hover {
-    background: lightgrey;
+    background: b;
 }
 
 .form li a.nuit {
@@ -230,5 +229,5 @@ ul.form {
 }
 
 .form li.selected a {
-    background:lightgrey;
+    background:#efefef;
 }
