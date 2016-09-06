@@ -1,44 +1,38 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $operation->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]
-            )
-            ?></li>
-        <li><?= $this->Html->link(__('List Operations'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Rescue Plans'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Operation Activities'), ['controller' => 'OperationActivities', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Operation Activity'), ['controller' => 'OperationActivities', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Operation Environments'), ['controller' => 'OperationEnvironments', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Operation Environment'), ['controller' => 'OperationEnvironments', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Operation Delays'), ['controller' => 'OperationDelays', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Operation Delay'), ['controller' => 'OperationDelays', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Operation Types'), ['controller' => 'OperationTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Operation Type'), ['controller' => 'OperationTypes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Operation Recommendations'), ['controller' => 'OperationRecommendations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Operation Recommendation'), ['controller' => 'OperationRecommendations', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Rescue Plan Activities'), ['controller' => 'RescuePlanActivities', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Rescue Plan Activity'), ['controller' => 'RescuePlanActivities', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Rescue Plan Environments'), ['controller' => 'RescuePlanEnvironments', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Rescue Plan Environment'), ['controller' => 'RescuePlanEnvironments', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Rescue Plan Delays'), ['controller' => 'RescuePlanDelays', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Rescue Plan Delay'), ['controller' => 'RescuePlanDelays', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Rescue Plan Types'), ['controller' => 'RescuePlanTypes', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Rescue Plan Type'), ['controller' => 'RescuePlanTypes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Rescue Plan Recommendations'), ['controller' => 'RescuePlanRecommendations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Rescue Plan Recommendation'), ['controller' => 'RescuePlanRecommendations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Organizations'), ['controller' => 'Organizations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Organization'), ['controller' => 'Organizations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="operations form large-9 medium-8 columns content">
-    <?= $this->Form->create($operation) ?>
+<div class="rescuePlans form large-9 medium-8 columns content">
+    <?= $this->Form->create($rescuePlan) ?>
     <fieldset>
-        <legend><?= __('Edit Operation') ?></legend>
+        <legend><?= __('Add Rescue Plan') ?></legend>
         <?php
-        //event fields
-        echo $this->Form->input('operation.event.city_id', ['options' => $cities, 'empty' => true]);
-        echo $this->Form->input('event.creator_id');
+        //linked event form
+
         echo $this->Form->input('event.bill_id');
         echo $this->Form->input('event.title');
         echo $this->Form->input('event.address');
-        echo $this->Form->input('event.latitude');
-        echo $this->Form->input('event.longitude');
+        echo $this->Form->input('event.city_id', ['options' => $cities, 'empty' => true]);
+        echo $this->Form->hidden('event.latitude');
+        echo $this->Form->hidden('event.longitude');
         echo $this->Form->input('event.is_closed');
         echo $this->Form->input('event.closed', ['empty' => true]);
         echo $this->Form->input('event.price');
@@ -46,24 +40,22 @@
         echo $this->Form->input('event.canceled_detail');
         echo $this->Form->input('event.is_active');
         echo $this->Form->input('event.instructions');
-        echo $this->Form->input('event.responsible_id');
         echo $this->Form->input('event.details');
-        echo $this->Form->input('operation.event.barrack_id', ['options' => $barracks, 'empty' => true]);
+        echo $this->Form->input('event.barrack_id', ['options' => $barracks, 'empty' => true]);
         echo $this->Form->input('event.event_start_date', ['empty' => true]);
         echo $this->Form->input('event.event_end_date', ['empty' => true]);
         echo $this->Form->input('event.horaires');
         echo $this->Form->input('event.public');
 
-        //operation fields
-        echo $this->Form->input('event_id', ['options' => $events]);
+        //rescue plan form
         echo $this->Form->input('barrack_id', ['options' => $barracks]);
         echo $this->Form->input('public_headcount');
-        echo $this->Form->input('operation_activity_id', ['options' => $operationActivities]);
-        echo $this->Form->input('operation_environment_id', ['options' => $operationEnvironments]);
-        echo $this->Form->input('operation_delay_id', ['options' => $operationDelays]);
+        echo $this->Form->input('rescue_plan_activity_id', ['options' => $rescuePlanActivities]);
+        echo $this->Form->input('rescue_plan_environment_id', ['options' => $rescuePlanEnvironments]);
+        echo $this->Form->input('rescue_plan_delay_id', ['options' => $rescuePlanDelays]);
         echo $this->Form->input('public_ris');
-        echo $this->Form->input('operation_type_id', ['options' => $operationTypes]);
-        echo $this->Form->input('operation_recommendation_id', ['options' => $operationRecommendations]);
+        echo $this->Form->input('rescue_plan_type_id', ['options' => $rescuePlanTypes]);
+        echo $this->Form->input('rescue_plan_recommendation_id', ['options' => $rescuePlanRecommendations]);
         echo $this->Form->input('public_reinforcement');
         echo $this->Form->input('public_total');
         echo $this->Form->input('organization_id', ['options' => $organizations]);
@@ -98,3 +90,9 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+
+<?php
+//script to calculate RIS
+echo $this->Html->script('calculRIS.js');
+?>

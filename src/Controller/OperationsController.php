@@ -4,9 +4,9 @@ namespace App\Controller;
 use App\Controller\AppController;
 
 /**
- * Operations Controller
+ * RescuePlans Controller
  *
- * @property \App\Model\Table\OperationsTable $Operations
+ * @property \App\Model\Table\RescuePlansTable $RescuePlans
  */
 class OperationsController extends AppController
 {
@@ -18,128 +18,36 @@ class OperationsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Events', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationTypes', 'OperationRecommendations', 'Organizations']
-        ];
-        $operations = $this->paginate($this->Operations)->toArray();
 
-        $this->set(compact('operations'));
-        $this->set('_serialize', ['operations']);
+        $this->loadModel('RescuePlans');
+        $this->paginate = [
+            'contain' => ['Events', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
+        ];
+        $rescuePlans = $this->paginate($this->RescuePlans);
+
+        $this->set(compact('rescuePlans'));
+        $this->set('_serialize', ['rescuePlans']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Operation id.
+     * @param string|null $id Rescue Plan id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $operation = $this->Operations->get($id, [
-            'contain' => ['Events', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationTypes', 'OperationRecommendations', 'Organizations']
+        $rescuePlan = $this->RescuePlans->get($id, [
+            'contain' => ['Events', 'Barracks', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
         ]);
 
-        $this->set('operation', $operation);
-        $this->set('_serialize', ['operation']);
+        $this->set('rescuePlan', $rescuePlan);
+        $this->set('_serialize', ['rescuePlan']);
     }
 
     /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     * A
      */
-    public function add()
-    {
-        $this->loadModel('Cities');
-        $this->loadModel('Barracks');
-        $operation = $this->Operations->newEntity();
-        if ($this->request->is('post')) {
-            $operation = $this->Operations->patchEntity($operation, $this->request->data, [
-                'associated' => [
-                    'Events'
-                ]
-            ]);
 
-            if ($this->Operations->save($operation)) {
-                $this->Flash->success(__('The operation has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The operation could not be saved. Please, try again.'));
-            }
-        }
-        $creator = $this->Auth->user('id');
-        $events = $this->Operations->Events->find('list', ['limit' => 200]);
-        $cities = $this->Cities->find('list', ['limit' => 200]);
-        $barracks = $this->Barracks->find('list', ['limit' => 200]);
-        $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
-        $operationEnvironments = $this->Operations->OperationEnvironments->find('list', ['limit' => 200]);
-        $operationDelays = $this->Operations->OperationDelays->find('list', ['limit' => 200]);
-        $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
-        $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
-        $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
-        $this->set(compact('creator', 'operation', 'barracks', 'events', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
-        $this->set('_serialize', ['operation']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Operation id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-
-
-        $operation = $this->Operations->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $operation = $this->Operations->patchEntity($operation, $this->request->data, [
-                'associated' => [
-                    'Events'
-                ]]);
-            if ($this->Operations->save($operation)) {
-                $this->Flash->success(__('The operation has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The operation could not be saved. Please, try again.'));
-            }
-        }
-        $cities = $this->Operations->Events->Cities->find('list', ['limit' => 200]);
-        $barracks = $this->Operations->Events->Barracks->find('list', ['limit' => 200]);
-        $events = $this->Operations->Events->find('list', ['limit' => 200]);
-        $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
-        $operationEnvironments = $this->Operations->OperationEnvironments->find('list', ['limit' => 200]);
-        $operationDelays = $this->Operations->OperationDelays->find('list', ['limit' => 200]);
-        $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
-        $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
-        $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'barracks', 'cities', 'events', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationTypes', 'operationRecommendations', 'organizations'));
-        $this->set('_serialize', ['operation']);
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Operation id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $operation = $this->Operations->get($id);
-        if ($this->Operations->delete($operation)) {
-            $this->Flash->success(__('The operation has been deleted.'));
-        } else {
-            $this->Flash->error(__('The operation could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
 }
