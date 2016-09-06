@@ -8,8 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property int $user_id
  * @property int $material_id
- * @property \Cake\I18n\Time $from
- * @property \Cake\I18n\Time $to
+ * @property \Cake\I18n\Time $from_date
+ * @property \Cake\I18n\Time $to_date
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Material $material

@@ -39,6 +39,7 @@ class UserMaterialsTableTest extends TestCase
         'app.cities',
         'app.events',
         'app.bills',
+        'app.event_types',
         'app.formations',
         'app.organizations',
         'app.rescue_plans',
@@ -47,6 +48,8 @@ class UserMaterialsTableTest extends TestCase
         'app.rescue_plan_delays',
         'app.rescue_plan_types',
         'app.rescue_plan_recommendations',
+        'app.operation_types',
+        'app.formation_types',
         'app.materials',
         'app.material_types',
         'app.barracks_materials',
@@ -95,6 +98,16 @@ class UserMaterialsTableTest extends TestCase
      * @return void
      */
     public function testInitialize()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test validationDefault method
+     *
+     * @return void
+     */
+    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
