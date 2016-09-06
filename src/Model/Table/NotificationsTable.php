@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Notifications Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Sources
+ *
  * @method \App\Model\Entity\Notification get($primaryKey, $options = [])
  * @method \App\Model\Entity\Notification newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Notification[] newEntities(array $data, array $options = [])
@@ -33,6 +35,8 @@ class NotificationsTable extends Table
         $this->table('notifications');
         $this->displayField('id');
         $this->primaryKey('id');
+
+
     }
 
     /**
@@ -53,11 +57,6 @@ class NotificationsTable extends Table
             ->notEmpty('is_read');
 
         $validator
-            ->integer('from_user')
-            ->requirePresence('from_user', 'create')
-            ->notEmpty('from_user');
-
-        $validator
             ->integer('to_user')
             ->requirePresence('to_user', 'create')
             ->notEmpty('to_user');
@@ -73,4 +72,6 @@ class NotificationsTable extends Table
 
         return $validator;
     }
+
+
 }

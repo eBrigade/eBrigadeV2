@@ -130,6 +130,7 @@ class MessagesController extends AppController
                 $message->send =  0;
                 $message->recipients =  '';
                 $this->Messages->save($message);
+                $messageInsertId = $message->id;
 
                 // notification par email
                 $recipient = $users->find()->select(['email'])->where(['id' => $touserid->id])->first();
@@ -139,18 +140,17 @@ class MessagesController extends AppController
                 $email->to($recipient->email)
                     ->subject("Vous avez reçu un message privé de $frommp->firstname $frommp->lastname")
                     ->send($this->request->data['text']);
-            }
+
             // notification sur le site
             $notifTable = TableRegistry::get('notifications');
             $notifSave = $notifTable->newEntity();
-            $notifSave->is_read =  0;
-            $notifSave->from_user =  $user;
+            $notifSave->source_id =  $messageInsertId;
             $notifSave->to_user = $touserid->id;
             $obj = 'Message privé de  '.$frommp->lastname.' '.$frommp->firstname.'';
             $notifSave->content = $obj;
-            $notifSave->type = 0;
             $notifTable->save($notifSave);
 
+            }
 
             // copie l'entrée pour historique des messages envoyés
             if ($this->Messages->save($message)) {
@@ -200,7 +200,14 @@ class MessagesController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-
+    //supprimer une notification de mp
+    public function deletenotif()
+    {
+        $this->loadModel('Notifications');
+        $id = $this->request->data['id'];
+        $entity = $this->Notifications->get($id);
+        $this->Notifications->delete($entity);
+    }
 
 
 }

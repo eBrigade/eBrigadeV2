@@ -1,7 +1,7 @@
 <div class="row">
     <!--bouton de sauvegarde et status-->
     <div   class="col-md-2 col-sm-12  col-xs-12">
-        <button type="button" id="bttosave" class="btn"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> SAUVEGARDER </button><br/>
+        <button type="button" id="bttosave" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> SAUVEGARDER </button><br/>
         <?php if ($availabilities){
         echo "<div id='savedate' > <span > Dernière sauvegarde le : $availabilities->modified   </span ></div>";
     } else {

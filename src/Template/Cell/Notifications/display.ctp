@@ -10,14 +10,13 @@
 
 
 <?php
-
  foreach ($check as $alert){
 echo "
-            <a class='content' href='/messages/view/'>
+            <a class='content' href='/messages/view/$alert->source_id'>
 
-                <div class='notification-item'>
+                <div class='notification-item' id='notif-$alert->id'>
                     <h4 class='item-title'>$alert->content</h4>
-                    <p class='item-info'><a href='#'>Voir </a></p>
+                    <p class='item-info'><a href='#' id='delete'>Supprimer </a> | <a href='/messages/view/$alert->source_id'>Voir </a></p>
                 </div>
 
             </a>
@@ -35,3 +34,14 @@ echo "
 
 <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script type='text/javascript' src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script>
+    $( "#delete" ).click(function() {
+       $("#notif-<?= $alert->id ?>").remove();
+        $.ajax({
+            type:'post',
+            data: 'id=<?= $alert->id ?>',
+            url: '../deletenotif'
+        });
+    });
+</script>
