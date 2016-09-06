@@ -17,7 +17,8 @@ class FormationsController extends AppController
      */
     public function index()
     {
-$this->loadModel('Events');
+        // Pourquoi faire un loadModel de Events alors qu'il est associé par table normalement ?
+        $this->loadModel('Events');
         $this->paginate = [
             'contain' => ['Organizations','Events','FormationTypes']
         ];
