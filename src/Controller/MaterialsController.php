@@ -5,6 +5,8 @@ use App\Controller\AppController;
 use Cake\Database\Schema\Table;
 use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
+use Cake\I18n\Date;
 
 /**
  * Materials Controller
@@ -152,30 +154,52 @@ class MaterialsController extends AppController
 
     public function rent($id = null)
     {
+        $today = Time::now();
+        $today->timezone = 'Europe/Paris';
+
         $this->loadModel('UserMaterials');
+        // liste des matériels empruntés
         $rented = $this->UserMaterials->find('all', [
             'fields' => ['material_id']
         ]);
-        $entity = $this->UserMaterials->newEntity();
+
         // enregistrement du formulaire
         if($this->request->is('post'))
         {
-            $materialId = $this->Materials->find('all',[
-                'field' => 'id',
-                'contain' => [
-                    'MaterialTypes',
-                    'UserMaterials'
-                ],
-                'conditions' => [
-                    'Materials.material_type_id' => $this->request->data['material_id'],
-                    'Materials.id NOT IN' => $rented
-                ]
-            ])->first();
-            $entity->user_id = $this->Auth->user('id');
-            $entity->material_id = $materialId->id;
-            if($this->UserMaterials->save($entity))
+            // je récupère la quantité pour savoir combien de fois je save
+            $quantity = intval($this->request->data['quantity']);
+            while($quantity>0)
             {
-                // ajouter une redirection
+                // je crée l'entitée
+                $entity = $this->UserMaterials->newEntity();
+                // je récup l'id du matériel pour le stocker dans material_type_id
+                $materialId = $this->Materials->find('all',[
+                    'field' => 'id',
+                    'contain' => [
+                        'MaterialTypes',
+                        'UserMaterials'
+                    ],
+                    'conditions' => [
+                        'Materials.material_type_id' => $this->request->data['material_id'],
+                        'Materials.id NOT IN' => $rented
+                    ]
+                ])->first();
+
+                $entity->user_id = $this->Auth->user('id');
+                $entity->material_id = $materialId->id;
+                $entity->from_date = $today->format('Y-m-d');
+                $entity->to_date = null;
+                // on récupère la date limite si il y en a une
+                if($this->request->data['day']['day'] != null && $this->request->data['month']['month'] != null && $this->request->data['year']['year'])
+                {
+                    $to = Time::now();
+                    $to->setDate($this->request->data['year']['year'],$this->request->data['month']['month'],$this->request->data['day']['day']);
+                    $entity->to_date = $to->format('Y-m-d');
+                }
+                // on sauvegarde
+
+                if($this->UserMaterials->save($entity))
+                    $quantity--;
             }
         }
         // Listes
@@ -207,6 +231,7 @@ class MaterialsController extends AppController
                 'material_count >' => '0'
             ]
         ]);
+        // quantitées
         // stocker les infos de l'user qui a emprunté tel matériel
         $this->loadModel('MaterialTypes');
         $this->loadModel('Users');
@@ -217,6 +242,7 @@ class MaterialsController extends AppController
             ],
             'fields' => [
                 'id' => 'Materials.id',
+                'user_id' => 'user_id',
                 'complete_name' => $this->Users->find()->func()->concat([
                     'firstname' => 'identifier',
                     ' ',
@@ -224,18 +250,25 @@ class MaterialsController extends AppController
                 ]),
                 'name' => 'name',
                 'material_type_id' => 'material_type_id',
-                'nb' => $this->MaterialTypes->find()->func()->count('material_type_id')
+                'nb' => $this->MaterialTypes->find()->func()->count('material_type_id'),
+                'from_date' => 'from_date',
+                'to_date' => 'to_date'
             ],
             'conditions' => [
                 'barrack_id' => $id
             ],
-            'group' => 'complete_name,material_type_id'
+            'group' => 'complete_name,material_type_id,from_date,to_date'
         ]);
         // Liste des catégories
         $this->set('userId',$this->Auth->user('id'));
         $this->set('barrack',$this->Materials->Barracks->get($id));
         $this->set('users',$users);
         $this->set('materials',$materials);
+    }
+
+    public function back($id = null)
+    {
+
     }
 
 }

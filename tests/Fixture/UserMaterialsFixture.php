@@ -19,8 +19,8 @@ class UserMaterialsFixture extends TestFixture
     public $fields = [
         'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'material_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'from' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'to' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'from_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'to_date' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
             'materials_key' => ['type' => 'index', 'columns' => ['material_id'], 'length' => []],
         ],
@@ -45,8 +45,8 @@ class UserMaterialsFixture extends TestFixture
         [
             'user_id' => 1,
             'material_id' => 1,
-            'from' => '2016-09-06',
-            'to' => '2016-09-06'
+            'from_date' => '2016-09-06',
+            'to_date' => '2016-09-06'
         ],
     ];
 }

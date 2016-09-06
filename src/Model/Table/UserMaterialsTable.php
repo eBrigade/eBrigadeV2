@@ -56,13 +56,13 @@ class UserMaterialsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->date('from')
-            ->requirePresence('from', 'create')
-            ->notEmpty('from');
+            ->date('from_date')
+            ->requirePresence('from_date', 'create')
+            ->notEmpty('from_date');
 
         $validator
-            ->date('to')
-            ->allowEmpty('to');
+            ->date('to_date')
+            ->allowEmpty('to_date');
 
         return $validator;
     }
