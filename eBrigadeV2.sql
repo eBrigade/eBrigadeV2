@@ -6452,3 +6452,75 @@ ALTER TABLE `user_materials`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+DROP TABLE `event_types`
+
+CREATE TABLE `event_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `TE_CODE` varchar(5) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `CEV_CODE` varchar(5) NOT NULL
+);
+
+INSERT INTO `event_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+('CER', 'Cérémonie','C_DIV'),
+('COM', 'Communication - Promotion','C_DIV'),
+('DIV', 'Evénement divers','C_DIV'),
+('MC', 'Main courante','C_DIV'),
+('MLA', 'Mission Logistique et Administrative','C_DIV'),
+('REU', 'Réunion', 'C_DIV'),
+('SPO', 'Compétition sportive','C_DIV'),
+('TEC', 'Entretien, opérations techniques','C_DIV'),
+('WEB', 'Visio conférence', 'C_DIV');
+
+CREATE TABLE `formation_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `TE_CODE` varchar(5) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `CEV_CODE` varchar(5) NOT NULL
+);
+
+INSERT INTO `formation_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+  ('EXE', 'Participation à exercice état-sdis-samu','C_FOR'),
+  ('MAN', 'Manoeuvre','C_FOR');
+
+
+CREATE TABLE `operation_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `TE_CODE` varchar(5) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `CEV_CODE` varchar(5) NOT NULL
+);
+
+INSERT INTO `operation_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+  ('AH', 'Autres actions humanitaires','C_OPE'),
+  ('AIP', 'Aide aux populations','C_OPE'),
+  ('HEB', 'Hébergement durgence','C_OPE'),
+  ('MET', 'Alerte des bénévoles','C_OPE');
+
+
+
+CREATE TABLE `catastrophe_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `TE_CODE` varchar(5) NOT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `CEV_CODE` varchar(5) NOT NULL
+);
+
+INSERT INTO `catastrophe_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+
+  ('COOP', 'Coopération état-sdis-samu','C_SEC'),
+  ('DPS', 'Dispositif Prévisionnel de Secours','C_SEC'),
+  ('GAR', 'Garde','C_SEC'),
+  ('MAR', 'Maraude','C_SEC'),
+  ('MED', 'Médicalisation, équipe médicale','C_SEC'),
+  ('NAUT', 'Activité nautique','C_SEC');
+
+
+ALTER TABLE rescue_plans
+  ADD operation_type_id INT(11);
+ALTER TABLE formations
+  ADD formation_type_id INT(11);
+ALTER TABLE events
+  ADD event_type_id INT(11);
