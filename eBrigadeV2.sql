@@ -6201,17 +6201,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `phone` varchar(14) DEFAULT NULL,
   `cellphone` varchar(14) DEFAULT NULL,
-  `address` text,
+  `workphone` varchar(14) DEFAULT NULL,
+  `address` varchar(255) NOT NULL,
+  `address_complement` varchar(255) NOT NULL,
   `zipcode` varchar(5) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `birthplace` varchar(100) DEFAULT NULL,
   `skype` varchar(100) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
-  `external` tinyint(1) DEFAULT NULL,
-  `permission_id` int(11) DEFAULT '0',
-  `grade_id` int(11) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
+  `external` tinyint(1) DEFAULT NULL
   `created` date DEFAULT NULL,
   `modified` date DEFAULT NULL,
   `connected` date DEFAULT NULL,
@@ -6446,65 +6445,35 @@ ALTER TABLE `user_materials`
 
 CREATE TABLE `event_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `te_code` varchar(5) NOT NULL,
+  `code` varchar(5) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `cev_code` varchar(5) NOT NULL
+  `module` varchar(5) NOT NULL
 );
 
-INSERT INTO `event_types` (`te_code`, `title`,`cev_code`) VALUES
-('CER', 'Cérémonie','C_DIV'),
-('COM', 'Communication - Promotion','C_DIV'),
-('DIV', 'Evénement divers','C_DIV'),
-('MC', 'Main courante','C_DIV'),
-('MLA', 'Mission Logistique et Administrative','C_DIV'),
-('REU', 'Réunion', 'C_DIV'),
-('SPO', 'Compétition sportive','C_DIV'),
-('TEC', 'Entretien, opérations techniques','C_DIV'),
-('WEB', 'Visio conférence', 'C_DIV');
-
-CREATE TABLE `formation_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `te_code` varchar(5) NOT NULL,
-  `title` varchar(50) DEFAULT NULL,
-  `cev_code` varchar(5) NOT NULL
-);
-
-INSERT INTO `formation_types` (`te_code`, `title`,`cev_code`) VALUES
-  ('EXE', 'Participation à exercice état-sdis-samu','C_FOR'),
-  ('MAN', 'Manoeuvre','C_FOR');
-
-
-CREATE TABLE `operation_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `te_code` varchar(5) NOT NULL,
-  `title` varchar(50) DEFAULT NULL,
-  `cev_code` varchar(5) NOT NULL
-);
-
-INSERT INTO `operation_types` (`te_code`, `title`,`cev_code`) VALUES
-  ('AH', 'Autres actions humanitaires','C_OPE'),
-  ('AIP', 'Aide aux populations','C_OPE'),
-  ('HEB', 'Hébergement durgence','C_OPE'),
-  ('MET', 'Alerte des bénévoles','C_OPE');
-
-
-
-CREATE TABLE `catastrophe_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `te_code` varchar(5) NOT NULL,
-  `title` varchar(50) DEFAULT NULL,
-  `cev_code` varchar(5) NOT NULL
-);
-
-INSERT INTO `catastrophe_types` (`te_code`, `title`,`cev_code`) VALUES
-
-  ('COOP', 'Coopération état-sdis-samu','C_SEC'),
-  ('DPS', 'Dispositif Prévisionnel de Secours','C_SEC'),
-  ('GAR', 'Garde','C_SEC'),
-  ('MAR', 'Maraude','C_SEC'),
-  ('MED', 'Médicalisation, équipe médicale','C_SEC'),
-  ('NAUT', 'Activité nautique','C_SEC');
-
+-- Il n'y a pas de operationnel type, ou de formation type, il y a un event type qui contient des modules sinon on va se retrouver avec des controllers/models/views inutiles et qui font la même chose
+-- Le modules peut être utilisé pour filtrer selon le modules dans lequel on est, générer l'URL, ...
+INSERT INTO `event_types` (`code`, `title`,`module`) VALUES
+('CER', 'Cérémonie','events'),
+('COM', 'Communication - Promotion','events'),
+('DIV', 'Evénement divers','events'),
+('MC', 'Main courante','events'),
+('MLA', 'Mission Logistique et Administrative','events'),
+('REU', 'Réunion', 'events'),
+('SPO', 'Compétition sportive','events'),
+('TEC', 'Entretien, opérations techniques','events'),
+('WEB', 'Visio conférence', 'events'),
+('EXE', 'Participation à exercice état-sdis-samu','formations'),
+('MAN', 'Manoeuvre','formations'),
+('AH', 'Autres actions humanitaires','catastrophes'),
+('AIP', 'Aide aux populations','catastrophes'),
+('HEB', 'Hébergement durgence','catastrophes'),
+('MET', 'Alerte des bénévoles','catastrophes'),
+('COOP', 'Coopération état-sdis-samu','operationnels'),
+('DPS', 'Dispositif Prévisionnel de Secours','operationnels'),
+('GAR', 'Garde','operationnels'),
+('MAR', 'Maraude','operationnels'),
+('MED', 'Médicalisation, équipe médicale','operationnels'),
+('NAUT', 'Activité nautique','operationnels');
 
 ALTER TABLE rescue_plans
   ADD operation_type_id INT(11);
