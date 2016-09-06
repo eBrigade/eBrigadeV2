@@ -157,6 +157,7 @@ class MaterialsController extends AppController
             'fields' => ['material_id']
         ]);
         $entity = $this->UserMaterials->newEntity();
+        // enregistrement du formulaire
         if($this->request->is('post'))
         {
             $materialId = $this->Materials->find('all',[
@@ -177,6 +178,8 @@ class MaterialsController extends AppController
                 // ajouter une redirection
             }
         }
+        // Listes
+        // affiche les items de l'inventaire avec leur quantité
         $materials = $this->Materials->find('list',[
             'valueField' => 'conc',
             'keyField' => 'type_id',
@@ -206,14 +209,19 @@ class MaterialsController extends AppController
         ]);
         // stocker les infos de l'user qui a emprunté tel matériel
         $this->loadModel('MaterialTypes');
+        $this->loadModel('Users');
         $users = $this->UserMaterials->find('all',[
             'contain' => [
                 'Users',
                 'Materials.MaterialTypes' // -> jointure entre les deux tables
             ],
             'fields' => [
-                'firstname' => 'firstname',
-                'lastname' => 'lastname',
+                'id' => 'Materials.id',
+                'complete_name' => $this->Users->find()->func()->concat([
+                    'firstname' => 'identifier',
+                    ' ',
+                    'lastname' => 'identifier'
+                ]),
                 'name' => 'name',
                 'material_type_id' => 'material_type_id',
                 'nb' => $this->MaterialTypes->find()->func()->count('material_type_id')
@@ -221,8 +229,9 @@ class MaterialsController extends AppController
             'conditions' => [
                 'barrack_id' => $id
             ],
-            'group' => 'material_type_id'
+            'group' => 'complete_name,material_type_id'
         ]);
+        // Liste des catégories
         $this->set('userId',$this->Auth->user('id'));
         $this->set('barrack',$this->Materials->Barracks->get($id));
         $this->set('users',$users);
