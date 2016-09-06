@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\BelongsTo $Bills
  * @property \Cake\ORM\Association\BelongsTo $Barracks
+ * @property \Cake\ORM\Association\BelongsTo $EventTypes
  * @property \Cake\ORM\Association\HasMany $Formations
  * @property \Cake\ORM\Association\HasMany $RescuePlans
  * @property \Cake\ORM\Association\BelongsToMany $Materials
@@ -55,6 +56,9 @@ class EventsTable extends Table
         ]);
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id'
+        ]);
+        $this->belongsTo('EventTypes', [
+            'foreignKey' => 'event_type_id'
         ]);
         $this->hasMany('Formations', [
             'foreignKey' => 'event_id'
@@ -164,6 +168,7 @@ class EventsTable extends Table
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
         $rules->add($rules->existsIn(['bill_id'], 'Bills'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
+        $rules->add($rules->existsIn(['event_type_id'], 'EventTypes'));
 
         return $rules;
     }

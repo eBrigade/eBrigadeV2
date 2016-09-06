@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\PermissionsTable;
+use App\Model\Table\FormationTypesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\PermissionsTable Test Case
+ * App\Model\Table\FormationTypesTable Test Case
  */
-class PermissionsTableTest extends TestCase
+class FormationTypesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\PermissionsTable
+     * @var \App\Model\Table\FormationTypesTable
      */
-    public $Permissions;
+    public $FormationTypes;
 
     /**
      * Fixtures
@@ -24,8 +24,25 @@ class PermissionsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.permissions',
+        'app.formation_types',
+        'app.formations',
+        'app.organizations',
+        'app.cities',
+        'app.barracks',
+        'app.events',
+        'app.bills',
+        'app.rescue_plans',
+        'app.rescue_plan_activities',
+        'app.rescue_plan_environments',
+        'app.rescue_plan_delays',
+        'app.rescue_plan_types',
+        'app.rescue_plan_recommendations',
+        'app.materials',
+        'app.material_types',
+        'app.barracks_materials',
+        'app.user_materials',
         'app.users',
+        'app.permissions',
         'app.grades',
         'app.roles',
         'app.availabilities',
@@ -34,22 +51,7 @@ class PermissionsTableTest extends TestCase
         'app.supplies',
         'app.orders_supplies',
         'app.providers_supplies',
-        'app.user_materials',
-        'app.materials',
-        'app.material_types',
-        'app.barracks',
-        'app.cities',
-        'app.events',
-        'app.bills',
-        'app.formations',
-        'app.organizations',
-        'app.rescue_plans',
-        'app.rescue_plan_activities',
-        'app.rescue_plan_environments',
-        'app.rescue_plan_delays',
-        'app.rescue_plan_types',
-        'app.rescue_plan_recommendations',
-        'app.events_materials',
+        'app.barracks_users',
         'app.teams',
         'app.events_teams',
         'app.materials_teams',
@@ -61,8 +63,7 @@ class PermissionsTableTest extends TestCase
         'app.events_vehicles',
         'app.teams_vehicles',
         'app.users_vehicles',
-        'app.barracks_materials',
-        'app.barracks_users'
+        'app.events_materials'
     ];
 
     /**
@@ -73,8 +74,8 @@ class PermissionsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Permissions') ? [] : ['className' => 'App\Model\Table\PermissionsTable'];
-        $this->Permissions = TableRegistry::get('Permissions', $config);
+        $config = TableRegistry::exists('FormationTypes') ? [] : ['className' => 'App\Model\Table\FormationTypesTable'];
+        $this->FormationTypes = TableRegistry::get('FormationTypes', $config);
     }
 
     /**
@@ -84,7 +85,7 @@ class PermissionsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Permissions);
+        unset($this->FormationTypes);
 
         parent::tearDown();
     }
@@ -105,16 +106,6 @@ class PermissionsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

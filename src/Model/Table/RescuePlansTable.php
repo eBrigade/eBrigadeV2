@@ -17,6 +17,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $RescuePlanTypes
  * @property \Cake\ORM\Association\BelongsTo $RescuePlanRecommendations
  * @property \Cake\ORM\Association\BelongsTo $Organizations
+ * @property \Cake\ORM\Association\BelongsTo $OperationTypes
  *
  * @method \App\Model\Entity\RescuePlan get($primaryKey, $options = [])
  * @method \App\Model\Entity\RescuePlan newEntity($data = null, array $options = [])
@@ -74,6 +75,9 @@ class RescuePlansTable extends Table
         $this->belongsTo('Organizations', [
             'foreignKey' => 'organization_id',
             'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('OperationTypes', [
+            'foreignKey' => 'operation_type_id'
         ]);
     }
 
@@ -241,6 +245,7 @@ class RescuePlansTable extends Table
         $rules->add($rules->existsIn(['rescue_plan_type_id'], 'RescuePlanTypes'));
         $rules->add($rules->existsIn(['rescue_plan_recommendation_id'], 'RescuePlanRecommendations'));
         $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
+        $rules->add($rules->existsIn(['operation_type_id'], 'OperationTypes'));
 
         return $rules;
     }

@@ -7,19 +7,17 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * EventTypes Model
+ * CatastropheTypes Model
  *
- * @property \Cake\ORM\Association\HasMany $Events
- *
- * @method \App\Model\Entity\EventType get($primaryKey, $options = [])
- * @method \App\Model\Entity\EventType newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\EventType[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\EventType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\EventType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\EventType[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\EventType findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\CatastropheType get($primaryKey, $options = [])
+ * @method \App\Model\Entity\CatastropheType newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\CatastropheType[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\CatastropheType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\CatastropheType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\CatastropheType[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\CatastropheType findOrCreate($search, callable $callback = null)
  */
-class EventTypesTable extends Table
+class CatastropheTypesTable extends Table
 {
 
     /**
@@ -32,13 +30,9 @@ class EventTypesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('event_types');
+        $this->table('catastrophe_types');
         $this->displayField('title');
         $this->primaryKey('id');
-
-        $this->hasMany('Events', [
-            'foreignKey' => 'event_type_id'
-        ]);
     }
 
     /**

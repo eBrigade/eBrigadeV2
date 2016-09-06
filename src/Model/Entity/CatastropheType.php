@@ -4,16 +4,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * OperationType Entity
+ * CatastropheType Entity
  *
  * @property int $id
  * @property string $te_code
  * @property string $title
  * @property string $cev_code
- *
- * @property \App\Model\Entity\Operation[] $operations
  */
-class OperationType extends Entity
+class CatastropheType extends Entity
 {
 
     /**

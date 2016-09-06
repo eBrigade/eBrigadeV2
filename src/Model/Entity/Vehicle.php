@@ -17,11 +17,11 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $end_warranty
  * @property \Cake\I18n\Time $next_revision
  *
- * @property \App\Model\Entity\TypeVehicle $type_vehicle
- * @property \App\Model\Entity\ModelVehicle $model_vehicle
- * @property \App\Model\Entity\BorrowedMaterial[] $borrowed_materials
- * @property \App\Model\Entity\BorrowedVehicle[] $borrowed_vehicles
- * @property \App\Model\Entity\EventVehicle[] $event_vehicles
+ * @property \App\Model\Entity\VehicleType $vehicle_type
+ * @property \App\Model\Entity\VehicleModel $vehicle_model
+ * @property \App\Model\Entity\Barrack[] $barracks
+ * @property \App\Model\Entity\Event[] $events
+ * @property \App\Model\Entity\Team[] $teams
  * @property \App\Model\Entity\User[] $users
  */
 class Vehicle extends Entity

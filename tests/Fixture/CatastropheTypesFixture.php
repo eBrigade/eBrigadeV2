@@ -4,10 +4,10 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * EventTypesFixture
+ * CatastropheTypesFixture
  *
  */
-class EventTypesFixture extends TestFixture
+class CatastropheTypesFixture extends TestFixture
 {
 
     /**

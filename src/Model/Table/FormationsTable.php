@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Organizations
  * @property \Cake\ORM\Association\BelongsTo $Events
+ * @property \Cake\ORM\Association\BelongsTo $FormationTypes
  *
  * @method \App\Model\Entity\Formation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Formation newEntity($data = null, array $options = [])
@@ -43,6 +44,9 @@ class FormationsTable extends Table
         $this->belongsTo('Events', [
             'foreignKey' => 'event_id'
         ]);
+        $this->belongsTo('FormationTypes', [
+            'foreignKey' => 'formation_type_id'
+        ]);
     }
 
     /**
@@ -71,6 +75,7 @@ class FormationsTable extends Table
     {
         $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
         $rules->add($rules->existsIn(['event_id'], 'Events'));
+        $rules->add($rules->existsIn(['formation_type_id'], 'FormationTypes'));
 
         return $rules;
     }

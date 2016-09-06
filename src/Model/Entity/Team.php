@@ -10,8 +10,10 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $description
  *
- * @property \App\Model\Entity\EventTeam[] $event_teams
- * @property \App\Model\Entity\TeamUser[] $team_users
+ * @property \App\Model\Entity\Event[] $events
+ * @property \App\Model\Entity\Material[] $materials
+ * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\Vehicle[] $vehicles
  */
 class Team extends Entity
 {

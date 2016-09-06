@@ -24,7 +24,45 @@ class VehicleTypesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.vehicle_types'
+        'app.vehicle_types',
+        'app.vehicles',
+        'app.vehicle_models',
+        'app.barracks',
+        'app.cities',
+        'app.events',
+        'app.bills',
+        'app.formations',
+        'app.organizations',
+        'app.rescue_plans',
+        'app.rescue_plan_activities',
+        'app.rescue_plan_environments',
+        'app.rescue_plan_delays',
+        'app.rescue_plan_types',
+        'app.rescue_plan_recommendations',
+        'app.materials',
+        'app.material_types',
+        'app.barracks_materials',
+        'app.user_materials',
+        'app.users',
+        'app.permissions',
+        'app.grades',
+        'app.roles',
+        'app.availabilities',
+        'app.orders',
+        'app.providers',
+        'app.supplies',
+        'app.orders_supplies',
+        'app.providers_supplies',
+        'app.barracks_users',
+        'app.teams',
+        'app.events_teams',
+        'app.materials_teams',
+        'app.teams_users',
+        'app.teams_vehicles',
+        'app.users_vehicles',
+        'app.events_materials',
+        'app.events_vehicles',
+        'app.barracks_vehicles'
     ];
 
     /**

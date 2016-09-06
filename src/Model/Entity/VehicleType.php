@@ -11,6 +11,8 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $type
  * @property string $picture
+ *
+ * @property \App\Model\Entity\Vehicle[] $vehicles
  */
 class VehicleType extends Entity
 {

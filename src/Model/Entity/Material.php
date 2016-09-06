@@ -11,8 +11,10 @@ use Cake\ORM\Entity;
  * @property int $barrack_id
  *
  * @property \App\Model\Entity\MaterialType $material_type
- * @property \App\Model\Entity\Barrack $barrack
+ * @property \App\Model\Entity\Barrack[] $barracks
  * @property \App\Model\Entity\UserMaterial[] $user_materials
+ * @property \App\Model\Entity\Event[] $events
+ * @property \App\Model\Entity\Team[] $teams
  */
 class Material extends Entity
 {
