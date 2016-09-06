@@ -16,10 +16,11 @@ use Cake\ORM\Entity;
  * @property string $website_url
  *
  * @property \App\Model\Entity\City $city
- * @property \App\Model\Entity\BarrackUser[] $barrack_users
  * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Material[] $materials
- * @property \App\Model\Entity\Operation[] $operations
+ * @property \App\Model\Entity\RescuePlan[] $rescue_plans
+ * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\Vehicle[] $vehicles
  */
 class Barrack extends Entity
 {

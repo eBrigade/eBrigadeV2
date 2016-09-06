@@ -45,6 +45,7 @@ use Cake\ORM\Entity;
  * @property int $cost_percentage_adpc
  * @property int $total_cost
  * @property \Cake\I18n\Time $date
+ * @property int $operation_type_id
  *
  * @property \App\Model\Entity\Event $event
  * @property \App\Model\Entity\Barrack $barrack

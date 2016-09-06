@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * OperationTypes Model
+ * FormationTypes Model
  *
- * @property \Cake\ORM\Association\HasMany $RescuePlans
+ * @property \Cake\ORM\Association\HasMany $Formations
  *
- * @method \App\Model\Entity\OperationType get($primaryKey, $options = [])
- * @method \App\Model\Entity\OperationType newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\OperationType[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\OperationType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\OperationType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\OperationType[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\OperationType findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\FormationType get($primaryKey, $options = [])
+ * @method \App\Model\Entity\FormationType newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\FormationType[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\FormationType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\FormationType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\FormationType[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\FormationType findOrCreate($search, callable $callback = null)
  */
-class OperationTypesTable extends Table
+class FormationTypesTable extends Table
 {
 
     /**
@@ -32,12 +32,12 @@ class OperationTypesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('operation_types');
+        $this->table('formation_types');
         $this->displayField('title');
         $this->primaryKey('id');
 
-        $this->hasMany('RescuePlans', [
-            'foreignKey' => 'operation_type_id'
+        $this->hasMany('Formations', [
+            'foreignKey' => 'formation_type_id'
         ]);
     }
 

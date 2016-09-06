@@ -5466,18 +5466,6 @@ CREATE TABLE IF NOT EXISTS `events_vehicles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event_types`
---
-
-CREATE TABLE IF NOT EXISTS `event_types` (
-  `id` int(11) NOT NULL,
-  `title` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `formations`
 --
 
@@ -6264,6 +6252,8 @@ CREATE TABLE IF NOT EXISTS `users_vehicles` (
 CREATE TABLE IF NOT EXISTS `user_materials` (
   `user_id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
+  `from` date NOT NULL,
+  `to` date DEFAULT NULL,
   PRIMARY KEY (`user_id`,`material_id`),
   KEY `materials_key` (`material_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -6454,16 +6444,14 @@ ALTER TABLE `user_materials`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
-DROP TABLE `event_types`
-
 CREATE TABLE `event_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `TE_CODE` varchar(5) NOT NULL,
+  `te_code` varchar(5) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `CEV_CODE` varchar(5) NOT NULL
+  `cev_code` varchar(5) NOT NULL
 );
 
-INSERT INTO `event_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+INSERT INTO `event_types` (`te_code`, `title`,`cev_code`) VALUES
 ('CER', 'Cérémonie','C_DIV'),
 ('COM', 'Communication - Promotion','C_DIV'),
 ('DIV', 'Evénement divers','C_DIV'),
@@ -6476,24 +6464,24 @@ INSERT INTO `event_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
 
 CREATE TABLE `formation_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `TE_CODE` varchar(5) NOT NULL,
+  `te_code` varchar(5) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `CEV_CODE` varchar(5) NOT NULL
+  `cev_code` varchar(5) NOT NULL
 );
 
-INSERT INTO `formation_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+INSERT INTO `formation_types` (`te_code`, `title`,`cev_code`) VALUES
   ('EXE', 'Participation à exercice état-sdis-samu','C_FOR'),
   ('MAN', 'Manoeuvre','C_FOR');
 
 
 CREATE TABLE `operation_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `TE_CODE` varchar(5) NOT NULL,
+  `te_code` varchar(5) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `CEV_CODE` varchar(5) NOT NULL
+  `cev_code` varchar(5) NOT NULL
 );
 
-INSERT INTO `operation_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+INSERT INTO `operation_types` (`te_code`, `title`,`cev_code`) VALUES
   ('AH', 'Autres actions humanitaires','C_OPE'),
   ('AIP', 'Aide aux populations','C_OPE'),
   ('HEB', 'Hébergement durgence','C_OPE'),
@@ -6503,12 +6491,12 @@ INSERT INTO `operation_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
 
 CREATE TABLE `catastrophe_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `TE_CODE` varchar(5) NOT NULL,
+  `te_code` varchar(5) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `CEV_CODE` varchar(5) NOT NULL
+  `cev_code` varchar(5) NOT NULL
 );
 
-INSERT INTO `catastrophe_types` (`TE_CODE`, `title`,`CEV_CODE`) VALUES
+INSERT INTO `catastrophe_types` (`te_code`, `title`,`cev_code`) VALUES
 
   ('COOP', 'Coopération état-sdis-samu','C_SEC'),
   ('DPS', 'Dispositif Prévisionnel de Secours','C_SEC'),

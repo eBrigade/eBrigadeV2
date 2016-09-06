@@ -48,6 +48,26 @@ class UserMaterialsTable extends Table
     }
 
     /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->date('from')
+            ->requirePresence('from', 'create')
+            ->notEmpty('from');
+
+        $validator
+            ->date('to')
+            ->allowEmpty('to');
+
+        return $validator;
+    }
+
+    /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *

@@ -9,9 +9,9 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $organization_id
  * @property int $event_id
+ * @property int $formation_type_id
  *
  * @property \App\Model\Entity\Organization $organization
- * @property \App\Model\Entity\User $teacher
  * @property \App\Model\Entity\Event $event
  */
 class Formation extends Entity

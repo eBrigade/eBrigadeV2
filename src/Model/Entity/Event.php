@@ -28,20 +28,16 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $event_end_date
  * @property string $horaires
  * @property bool $public
+ * @property int $event_type_id
  *
  * @property \App\Model\Entity\City $city
- * @property \App\Model\Entity\EventType $event_type
- * @property \App\Model\Entity\User $creator
  * @property \App\Model\Entity\Bill $bill
- * @property \App\Model\Entity\User $responsible
  * @property \App\Model\Entity\Barrack $barrack
- * @property \App\Model\Entity\BorrowedMaterial[] $borrowed_materials
- * @property \App\Model\Entity\BorrowedVehicle[] $borrowed_vehicles
- * @property \App\Model\Entity\EventEquipment[] $event_equipments
- * @property \App\Model\Entity\EventTeam[] $event_teams
- * @property \App\Model\Entity\EventVehicle[] $event_vehicles
  * @property \App\Model\Entity\Formation[] $formations
- * @property \App\Model\Entity\Operation[] $operations
+ * @property \App\Model\Entity\RescuePlan[] $rescue_plans
+ * @property \App\Model\Entity\Material[] $materials
+ * @property \App\Model\Entity\Team[] $teams
+ * @property \App\Model\Entity\Vehicle[] $vehicles
  */
 class Event extends Entity
 {

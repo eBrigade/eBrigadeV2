@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  *
- * @property \App\Model\Entity\OrderSupply[] $order_supplies
+ * @property \App\Model\Entity\Order[] $orders
  * @property \App\Model\Entity\Provider[] $providers
  */
 class Supply extends Entity

@@ -7,19 +7,17 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * OperationTypes Model
+ * CatastropheTypes Model
  *
- * @property \Cake\ORM\Association\HasMany $RescuePlans
- *
- * @method \App\Model\Entity\OperationType get($primaryKey, $options = [])
- * @method \App\Model\Entity\OperationType newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\OperationType[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\OperationType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\OperationType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\OperationType[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\OperationType findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\CatastropheType get($primaryKey, $options = [])
+ * @method \App\Model\Entity\CatastropheType newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\CatastropheType[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\CatastropheType|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\CatastropheType patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\CatastropheType[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\CatastropheType findOrCreate($search, callable $callback = null)
  */
-class OperationTypesTable extends Table
+class CatastropheTypesTable extends Table
 {
 
     /**
@@ -32,13 +30,9 @@ class OperationTypesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('operation_types');
+        $this->table('catastrophe_types');
         $this->displayField('title');
         $this->primaryKey('id');
-
-        $this->hasMany('RescuePlans', [
-            'foreignKey' => 'operation_type_id'
-        ]);
     }
 
     /**
