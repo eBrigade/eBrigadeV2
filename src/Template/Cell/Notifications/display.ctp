@@ -9,7 +9,9 @@
         <div class="notifications-wrapper">
 
 
-<?php foreach ($check as $alert){
+<?php
+
+ foreach ($check as $alert){
 echo "
             <a class='content' href='/messages/view/'>
 

@@ -8,13 +8,17 @@
     echo "<div id='savedate' > <span > Aucune sauvegarde trouvée </span ></div>";
     } ?>
     <div class="row voffset3">
-        <div id="selector" class="btn-group-vertical col-md-12 col-sm-12 col-xs-12">
-            <button type="button" class="btn active btn-danger">ABSENT</button>
-            <button type="button" class="btn btn-danger">ASTREINTE</button>
-            <button type="button" class="btn btn-warning">MATIN</button>
-            <button type="button" class="btn btn-success">APRES-MIDI</button>
-            <button type="button" class="btn btn-info">SOIR</button>
-            <button type="button" class="btn btn-primary">NUIT</button>
+
+        <div  class="btn-group-vertical col-md-12 col-sm-12 col-xs-12">
+            <ul class="form">
+                <li><a class="absent" href="#"><i class="icon-user"></i>ABSENT</a></li>
+                <li><a class="astreinte" href="#"><i class="icon-envelope-alt"></i>ASTREINTE</a></li>
+                <li><a class="matin" href="#"><i class="icon-cog"></i>MATIN</a></li>
+                <li><a class="midi" href="#"><i class="icon-signout"></i>MIDI</a></li>
+                <li><a class="apres-midi" href="#"><i class="icon-envelope-alt"></i>APRES-MIDI</a></li>
+                <li><a class="soir" href="#"><i class="icon-cog"></i>SOIR</a></li>
+                <li><a class="nuit" href="#"><i class="icon-signout"></i>NUIT</a></li>
+            </ul>
         </div>
     </div>
 </div>
@@ -22,7 +26,7 @@
 <!--affiche le calendrier-->
     <div id='calendar' class="col-md-10 col-sm-12 voffset3"></div>
 </div>
-
+<?php $date = $now->i18nFormat('yyyy-MM-dd'); ?>
 
 <?= $this->Html->css('fullcalendar.css') ?>
 <?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
@@ -31,8 +35,14 @@
 <?= $this->Html->script('fullcalendar.js')?>
 <?= $this->Html->script('lang-all.js')?>
 <script>
-    $('#selector button').click(function() {
-        $(this).addClass('active').siblings().removeClass('active');
+    $(document).ready(function() {
+        $('ul.form li a').click(
+                function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $(this).closest('ul').find('.selected').removeClass('selected');
+                    $(this).parent().addClass('selected');
+                });
     });
 
     var myArray =[
@@ -62,7 +72,7 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            defaultDate: <?php echo "'$now->year-$now->month-$now->day'"  ?>,
+            defaultDate: <?php echo "'$date'"  ?>,
         lang: initialLangCode,
         events: [
 <?php if ($availabilities){
@@ -77,27 +87,47 @@ if (count($ev, COUNT_RECURSIVE) > 1){
             title: '$ev[2]',
             start: '$ev[0]',
             end: '$ev[1]',
-            color: '#d14744'
+            color: 'black'
         },
             ";
             break;
+                case 'ASTREINTE':
+                    echo "
+                {
+                    title: '$ev[2]',
+                            start: '$ev[0]',
+                        end: '$ev[1]',
+                        color: 'darkgray'
+                },
+                    ";
+                    break;
             case 'MATIN':
             echo "
         {
             title: '$ev[2]',
             start: '$ev[0]',
             end: '$ev[1]',
-            color: '#efa843'
+            color: 'yellow'
         },
             ";
             break;
+                case 'MIDI':
+                    echo "
+                {
+                    title: '$ev[2]',
+                            start: '$ev[0]',
+                        end: '$ev[1]',
+                        color: 'darkorange'
+                },
+                    ";
+                    break;
             case 'APRES-MIDI':
             echo "
         {
             title: '$ev[2]',
             start: '$ev[0]',
             end: '$ev[1]',
-            color: '#57b257'
+            color: 'red'
         },
             ";
             break;
@@ -117,7 +147,7 @@ if (count($ev, COUNT_RECURSIVE) > 1){
             title: '$ev[2]',
             start: '$ev[0]',
             end: '$ev[1]',
-            color: '#3174af'
+            color: '3174af'
         },
             ";
             break;
@@ -144,7 +174,7 @@ if (count($ev, COUNT_RECURSIVE) > 1){
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, id) {
-            var title = $('.active').text();
+            var title = $('.selected').text();
             var eventData;
             if (title) {
             if (title == 'ABSENT') {
@@ -152,25 +182,43 @@ if (count($ev, COUNT_RECURSIVE) > 1){
                     title: title,
                     start: start,
             end: end,
-                color: '#d14744',
+                color: 'black',
                 id: id
                 };
         }
+                if (title == 'ASTREINTE') {
+                    eventData = {
+                        title: title,
+                        start: start,
+                        end: end,
+                        color: 'darkgray',
+                        id: id
+                    };
+                }
             if (title == 'MATIN') {
             eventData = {
             title: title,
             start: start,
             end: end,
-            color: '#efa843',
+            color: 'yellow',
             id: id
         };
         }
+                if (title == 'MIDI') {
+                    eventData = {
+                        title: title,
+                        start: start,
+                        end: end,
+                        color: 'darkorange',
+                        id: id
+                    };
+                }
             if (title == 'APRES-MIDI') {
             eventData = {
             title: title,
             start: start,
             end: end,
-            color: '#57b257',
+            color: 'red',
             id: id
         };
         }
@@ -241,6 +289,7 @@ var date = moment(start).format();
             }
         });
     });
+
 
     // sauvegarde automatique
 /*    setInterval(function(){
