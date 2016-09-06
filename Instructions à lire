@@ -1,0 +1,34 @@
+Bonjour l'équipe
+
+A ce jour, un conseil sur la méthodologie à employer :
+- Etape 1 - baker l'ensemble des tables le nécessitant pour générer tous les controllers, models, views de base
+- Etape 2 - travailler les fichiers baker au préalable
+- Ne pas prendre en compte le Auth-> sera fait à la fin du développement en fonction des fonctions créées dans vos controllers
+
+Un projet en cakephp se bake dans son intégralité (peut être déjà fait, mais dans le github il n'y a pas tous les fichiers donc pas évident d'en dire plus) puis est modifié à convenance.
+Cette méthode offre une version fonctionnelle complète dès le début, de telle sort qu'il ne reste plus qu'à modifier et ajuster, sinon vous allez perdre du temps à créer des fichiers et les bidouiller un par un.
+
+Pour inclure Bootstrap, il existe un plugin pour cela, ce qui fait que votre affichage serait déjà presque conforme.
+
+Fonctionnalité à implémenter en priorité (pour la fin de semaine) :
+- Baker absolument tous les controllers, models et views
+- Formations + Events multiples + Affectation (personnels, matériels, véhicules, équipes, ...)
+- Opérationnels + Events multiples + Affectation (personnels, matériels, véhicules, équipes, ...)
+- Gestion de barracks avec arborescence (http://book.cakephp.org/3.0/fr/tutorials-and-examples/blog/part-three.html)
+- Boostrap en plugin
+
+Souhaits :
+- Calendar case plus grandes en hauteur
+- Dans barracks : adresse et adresse complément, ordre des chèques, champ RIB bancaire
+- Dans user ajouter un champ adresse complémentaire, et supprimer les champs grade et rôle (un user peut avoir plusieurs rôles, et plusieurs grades suivant sont barracks d'appartenance)
+
+Souhaits pour la semaine prochaine
+- Mise en page et options d'ergonomie (ajax, js) de formations, opérationnels, matériels, barracks, ...
+- Implémentation du système d'alerte SMS
+- Events standards
+
+Semaine prochaine je serai peu disponible, ormis le soir et lundi ou je pense passer comme cette semaine.
+
+Travaillez bien ;)
+
+
