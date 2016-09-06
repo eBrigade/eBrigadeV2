@@ -2,13 +2,17 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Database\Schema\Table;
 use Cake\ORM\Query;
+use Cake\ORM\TableRegistry;
 
 /**
  * Materials Controller
  *
  * @property \App\Model\Table\MaterialsTable $Materials
  * @property \App\Model\Table\MaterialTypesTable $MaterialTypes
+ * @property \App\Model\Table\UserMaterialsTable $UserMaterials
+ * @property \App\Model\Table\Users $Users
  */
 class MaterialsController extends AppController
 {
@@ -148,9 +152,37 @@ class MaterialsController extends AppController
 
     public function rent($id = null)
     {
+        $this->loadModel('UserMaterials');
+        $rented = $this->UserMaterials->find('all', [
+            'fields' => ['material_id']
+        ]);
+        $entity = $this->UserMaterials->newEntity();
+        // enregistrement du formulaire
+        if($this->request->is('post'))
+        {
+            $materialId = $this->Materials->find('all',[
+                'field' => 'id',
+                'contain' => [
+                    'MaterialTypes',
+                    'UserMaterials'
+                ],
+                'conditions' => [
+                    'Materials.material_type_id' => $this->request->data['material_id'],
+                    'Materials.id NOT IN' => $rented
+                ]
+            ])->first();
+            $entity->user_id = $this->Auth->user('id');
+            $entity->material_id = $materialId->id;
+            if($this->UserMaterials->save($entity))
+            {
+                // ajouter une redirection
+            }
+        }
+        // Listes
+        // affiche les items de l'inventaire avec leur quantité
         $materials = $this->Materials->find('list',[
-            'valueField' => 'name2',
-            'keyField' => 'id',
+            'valueField' => 'conc',
+            'keyField' => 'type_id',
             'contain' => [
                 'MaterialTypes',
                 'UserMaterials'
@@ -158,26 +190,52 @@ class MaterialsController extends AppController
             'fields' => [
                 'name' => 'name',
                 'material_count' => $this->Materials->find()->func()->count('material_type_id'),
-                'name2' => $this->Materials->find()->func()->concat([
-                    'name' => 'identifier',
+                'conc' => $this->Materials->find()->func()->concat([
+                    'name' => 'identifier', // identifier pour que la valeur s'affiche correctement
                     ' (',
-                    $this->Materials->find()->func()->count('material_type_id'),
+                    $this->Materials->find()->func()->count('material_type_id'), // fonction pour concaténer
                     ')'
-                ])
+                ]),
+                'type_id' => 'Materials.material_type_id'
             ],
             'conditions' => [
                 'barrack_id' => $id,
-                'Materials.id NOT IN' => 'UserMaterials.material_id'
+                'Materials.id NOT IN' => $rented
             ],
             'group' => 'material_type_id',
             'having' => [
                 'material_count >' => '0'
             ]
         ]);
+        // stocker les infos de l'user qui a emprunté tel matériel
+        $this->loadModel('MaterialTypes');
+        $this->loadModel('Users');
+        $users = $this->UserMaterials->find('all',[
+            'contain' => [
+                'Users',
+                'Materials.MaterialTypes' // -> jointure entre les deux tables
+            ],
+            'fields' => [
+                'id' => 'Materials.id',
+                'complete_name' => $this->Users->find()->func()->concat([
+                    'firstname' => 'identifier',
+                    ' ',
+                    'lastname' => 'identifier'
+                ]),
+                'name' => 'name',
+                'material_type_id' => 'material_type_id',
+                'nb' => $this->MaterialTypes->find()->func()->count('material_type_id')
+            ],
+            'conditions' => [
+                'barrack_id' => $id
+            ],
+            'group' => 'complete_name,material_type_id'
+        ]);
+        // Liste des catégories
+        $this->set('userId',$this->Auth->user('id'));
         $this->set('barrack',$this->Materials->Barracks->get($id));
+        $this->set('users',$users);
         $this->set('materials',$materials);
     }
-
-
 
 }
