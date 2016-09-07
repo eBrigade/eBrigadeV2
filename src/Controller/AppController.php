@@ -82,5 +82,18 @@ class AppController extends Controller
     {
         $this->Auth->allow(['index', 'add', 'view', 'display', 'home']);
     }
-
+    public $helpers = [
+        'Html' => [
+            'className' => 'Bootstrap.BootstrapHtml'
+        ],
+        'Form' => [
+            'className' => 'Bootstrap.BootstrapForm'
+        ],
+        'Paginator' => [
+            'className' => 'Bootstrap.BootstrapPaginator'
+        ],
+        'Modal' => [
+            'className' => 'Bootstrap.BootstrapModal'
+        ]
+    ];
 }

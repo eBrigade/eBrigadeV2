@@ -224,3 +224,5 @@ if (Configure::read('debug')) {
 Plugin::load('Migrations');
 Configure::write('Config.language', 'fra');
 setlocale(LC_ALL, 'fr_FR.UTF-8');
+
+Plugin::load('Bootstrap', ['autoload' => true]);
