@@ -2,26 +2,16 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Permissions'), ['controller' => 'Permissions', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Permission'), ['controller' => 'Permissions', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Grades'), ['controller' => 'Grades', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Grade'), ['controller' => 'Grades', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Availabilities'), ['controller' => 'Availabilities', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Availability'), ['controller' => 'Availabilities', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Barrack Users'), ['controller' => 'BarrackUsers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Barrack User'), ['controller' => 'BarrackUsers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Borrowed Materials'), ['controller' => 'BorrowedMaterials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Borrowed Material'), ['controller' => 'BorrowedMaterials', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Borrowed Vehicles'), ['controller' => 'BorrowedVehicles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Borrowed Vehicle'), ['controller' => 'BorrowedVehicles', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Event Teams'), ['controller' => 'EventTeams', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Event Team'), ['controller' => 'EventTeams', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Orders'), ['controller' => 'Orders', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Order'), ['controller' => 'Orders', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Team Users'), ['controller' => 'TeamUsers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Team User'), ['controller' => 'TeamUsers', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List User Materials'), ['controller' => 'UserMaterials', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?></li>
     </ul>
@@ -40,15 +30,16 @@
                 <th><?= $this->Paginator->sort('password') ?></th>
                 <th><?= $this->Paginator->sort('phone') ?></th>
                 <th><?= $this->Paginator->sort('cellphone') ?></th>
+                <th><?= $this->Paginator->sort('workphone') ?></th>
+                <th><?= $this->Paginator->sort('address') ?></th>
+                <th><?= $this->Paginator->sort('address_complement') ?></th>
                 <th><?= $this->Paginator->sort('zipcode') ?></th>
                 <th><?= $this->Paginator->sort('city') ?></th>
                 <th><?= $this->Paginator->sort('birthday') ?></th>
                 <th><?= $this->Paginator->sort('birthplace') ?></th>
                 <th><?= $this->Paginator->sort('skype') ?></th>
                 <th><?= $this->Paginator->sort('is_active') ?></th>
-                <th><?= $this->Paginator->sort('permission_id') ?></th>
-                <th><?= $this->Paginator->sort('grade_id') ?></th>
-                <th><?= $this->Paginator->sort('role_id') ?></th>
+                <th><?= $this->Paginator->sort('external') ?></th>
                 <th><?= $this->Paginator->sort('created') ?></th>
                 <th><?= $this->Paginator->sort('modified') ?></th>
                 <th><?= $this->Paginator->sort('connected') ?></th>
@@ -67,15 +58,16 @@
                 <td><?= h($user->password) ?></td>
                 <td><?= h($user->phone) ?></td>
                 <td><?= h($user->cellphone) ?></td>
+                <td><?= h($user->workphone) ?></td>
+                <td><?= h($user->address) ?></td>
+                <td><?= h($user->address_complement) ?></td>
                 <td><?= h($user->zipcode) ?></td>
                 <td><?= h($user->city) ?></td>
                 <td><?= h($user->birthday) ?></td>
                 <td><?= h($user->birthplace) ?></td>
                 <td><?= h($user->skype) ?></td>
                 <td><?= h($user->is_active) ?></td>
-                <td><?= $user->has('permission') ? $this->Html->link($user->permission->name, ['controller' => 'Permissions', 'action' => 'view', $user->permission->id]) : '' ?></td>
-                <td><?= $user->has('grade') ? $this->Html->link($user->grade->name, ['controller' => 'Grades', 'action' => 'view', $user->grade->id]) : '' ?></td>
-                <td><?= $user->has('role') ? $this->Html->link($user->role->name, ['controller' => 'Roles', 'action' => 'view', $user->role->id]) : '' ?></td>
+                <td><?= h($user->external) ?></td>
                 <td><?= h($user->created) ?></td>
                 <td><?= h($user->modified) ?></td>
                 <td><?= h($user->connected) ?></td>

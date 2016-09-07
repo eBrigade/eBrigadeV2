@@ -3,9 +3,7 @@
     <div class="col-md-6">
         <h3>Formulaire d'emprunt</h3>
         <!-- formulaire de sélection -->
-        <?= $this->Form->create() ?>
-        <?= $this->Form->input(null,['options' => $select]) ?>
-        <?= $this->Form->end() ?>
+
         <!-- Formulaire d'envoi -->
         <?= $this->Form->create() ?>
         <?= $this->Form->input('material_id', ['options' => $materials]) ?>

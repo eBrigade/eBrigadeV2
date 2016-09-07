@@ -1,22 +1,14 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
+namespace App\Test\TestCase\Controller;
 
-use App\Model\Table\UsersTable;
-use Cake\ORM\TableRegistry;
-use Cake\TestSuite\TestCase;
+use App\Controller\UserMaterialsController;
+use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Model\Table\UsersTable Test Case
+ * App\Controller\UserMaterialsController Test Case
  */
-class UsersTableTest extends TestCase
+class UserMaterialsControllerTest extends IntegrationTestCase
 {
-
-    /**
-     * Test subject
-     *
-     * @var \App\Model\Table\UsersTable
-     */
-    public $Users;
 
     /**
      * Fixtures
@@ -24,6 +16,7 @@ class UsersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.user_materials',
         'app.users',
         'app.permissions',
         'app.grades',
@@ -34,9 +27,6 @@ class UsersTableTest extends TestCase
         'app.supplies',
         'app.orders_supplies',
         'app.providers_supplies',
-        'app.user_materials',
-        'app.materials',
-        'app.material_types',
         'app.barracks',
         'app.cities',
         'app.events',
@@ -52,6 +42,9 @@ class UsersTableTest extends TestCase
         'app.rescue_plan_recommendations',
         'app.operation_types',
         'app.formation_types',
+        'app.materials',
+        'app.material_types',
+        'app.barracks_materials',
         'app.events_materials',
         'app.teams',
         'app.events_teams',
@@ -64,60 +57,55 @@ class UsersTableTest extends TestCase
         'app.events_vehicles',
         'app.teams_vehicles',
         'app.users_vehicles',
-        'app.barracks_materials',
         'app.barracks_users'
     ];
 
     /**
-     * setUp method
+     * Test index method
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $config = TableRegistry::exists('Users') ? [] : ['className' => 'App\Model\Table\UsersTable'];
-        $this->Users = TableRegistry::get('Users', $config);
-    }
-
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->Users);
-
-        parent::tearDown();
-    }
-
-    /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
+    public function testIndex()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test validationDefault method
+     * Test view method
      *
      * @return void
      */
-    public function testValidationDefault()
+    public function testView()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test buildRules method
+     * Test add method
      *
      * @return void
      */
-    public function testBuildRules()
+    public function testAdd()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test edit method
+     *
+     * @return void
+     */
+    public function testEdit()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test delete method
+     *
+     * @return void
+     */
+    public function testDelete()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

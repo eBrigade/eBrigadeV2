@@ -10,14 +10,11 @@ use Cake\I18n\Date;
 use Cake\Datasource\EntityInterface;
 
 /**
- * Materials Controller
+ * UserMaterials Controller
  *
- * @property \App\Model\Table\MaterialsTable $Materials
- * @property \App\Model\Table\MaterialTypesTable $MaterialTypes
  * @property \App\Model\Table\UserMaterialsTable $UserMaterials
- * @property \App\Model\Table\Users $Users
  */
-class MaterialsController extends AppController
+class UserMaterialsController extends AppController
 {
 
     /**
@@ -28,29 +25,30 @@ class MaterialsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['MaterialTypes', 'Barracks']
+            'contain' => ['Users', 'Materials.MaterialTypes']
         ];
-        $materials = $this->paginate($this->Materials);
-
-        $this->set(compact('materials'));
-        $this->set('_serialize', ['materials']);
+        $userMaterials = $this->paginate($this->UserMaterials);
+        $this->set(compact('userMaterials'));
+        $this->set('_serialize', ['userMaterials']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Material id.
+     * @param string|null $id User Material id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $material = $this->Materials->get($id, [
-            'contain' => ['MaterialTypes', 'Barracks', 'UserMaterials']
+        $userMaterial = $this->UserMaterials->get($id, [
+            'contain' => [
+                'Users',
+                'Materials.MaterialTypes'
+            ]
         ]);
-
-        $this->set('material', $material);
-        $this->set('_serialize', ['material']);
+        $this->set('userMaterial', $userMaterial);
+        $this->set('_serialize', ['userMaterial']);
     }
 
     /**
@@ -58,107 +56,13 @@ class MaterialsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
-        $material = $this->Materials->newEntity();
-        if ($this->request->is('post')) {
-            $quantity = $this->request->data['quantity'];
-            unset($this->request->data['mtype']);
-            unset($this->request->data['description']);
-            unset($this->request->data['quantity']);
-
-            while($quantity>0){
-                $query = $this->Materials->query();
-                $query->insert(['material_type_id','barrack_id'])
-                    ->values($this->request->data())
-                    ->execute();
-                $quantity--;
-            }
-            $this->redirect(['action' => 'index']);
-        }
-        $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
-        $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
-        $types = $this->Materials->MaterialTypes->find('all')->toArray();
-        $this->set('types',$types);
-        $this->set(compact('material', 'materialTypes', 'barracks','types'));
-        $this->set('_serialize', ['material']);
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Material id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $material = $this->Materials->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $material = $this->Materials->patchEntity($material, $this->request->data);
-            if ($this->Materials->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The material could not be saved. Please, try again.'));
-            }
-        }
-        $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
-        $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
-        $this->set(compact('material', 'materialTypes', 'barracks'));
-        $this->set('_serialize', ['material']);
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Material id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $material = $this->Materials->get($id);
-        if ($this->Materials->delete($material)) {
-            $this->Flash->success(__('The material has been deleted.'));
-        } else {
-            $this->Flash->error(__('The material could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
-
-    public function inventory($id = null)
-    {
-        $materials = $this->Materials->find('all',[
-            'contain' => [
-                'MaterialTypes',
-                'UserMaterials'
-            ],
-            'fields' => [
-                'name' => 'name',
-                'material_count' => $this->Materials->find()->func()->count('material_type_id')
-            ],
-            'conditions' => [
-                'barrack_id' => $id,
-                'Materials.id NOT IN' => 'UserMaterials.material_id'
-            ],
-            'group' => 'material_type_id'
-        ]);
-        $this->set('barrack',$this->Materials->Barracks->get($id));
-        $this->set('materials',$materials);
-    }
-
-    public function rent($id = null)
-    {
+        $this->loadModel('Materials');
+        // je configure la localisation de la date
         $today = Time::now();
         $today->timezone = 'Europe/Paris';
 
-        $this->loadModel('UserMaterials');
         // liste des matériels empruntés
         $rented = $this->UserMaterials->find('all', [
             'fields' => ['material_id']
@@ -169,6 +73,7 @@ class MaterialsController extends AppController
         {
             // je récupère la quantité pour savoir combien de fois je save
             $quantity = intval($this->request->data['quantity']);
+            // je lance la boucle
             while($quantity>0)
             {
                 // je crée l'entitée
@@ -185,10 +90,12 @@ class MaterialsController extends AppController
                         'Materials.id NOT IN' => $rented
                     ]
                 ])->first();
-
+                // je configure l'entitée
                 $entity->user_id = $this->Auth->user('id');
                 $entity->material_id = $materialId->id;
                 $entity->from_date = $today->format('Y-m-d');
+                // de base je défini la valeur de to_date à null au cas où il n'y a aucune
+                // date renseignée, pour que la valeur reste null dans la db
                 $entity->to_date = null;
                 // on récupère la date limite si il y en a une
                 if($this->request->data['day']['day'] != null && $this->request->data['month']['month'] != null && $this->request->data['year']['year'])
@@ -198,9 +105,9 @@ class MaterialsController extends AppController
                     $entity->to_date = $to->format('Y-m-d');
                 }
                 // on sauvegarde
-
-                if($this->UserMaterials->save($entity))
-                    $quantity--;
+                $this->UserMaterials->save($entity);
+                // on retire 1 à la quantité et on recommence si la quantité n'est pas à 0
+                $quantity--;
             }
         }
         // Listes
@@ -216,9 +123,9 @@ class MaterialsController extends AppController
                 'name' => 'name',
                 'material_count' => $this->Materials->find()->func()->count('material_type_id'),
                 'conc' => $this->Materials->find()->func()->concat([
-                    'name' => 'identifier', // identifier pour que la valeur s'affiche correctement
+                    'name' => 'identifier', // identifier pour que la valeur du champ s'affiche correctement et non pas juste le nom du champ
                     ' (',
-                    $this->Materials->find()->func()->count('material_type_id'), // fonction pour concaténer
+                    $this->Materials->find()->func()->count('material_type_id'), // fonction pour concaténer le nombre d'items possédés
                     ')'
                 ]),
                 'type_id' => 'Materials.material_type_id'
@@ -267,9 +174,37 @@ class MaterialsController extends AppController
         $this->set('materials',$materials);
     }
 
-    public function back($id = null)
+    /**
+     * Edit method
+     *
+     * @param string|null $id User Material id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id User Material id.
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
     {
-        $this->loadModel('UserMaterials');
+        $this->request->allowMethod(['post', 'delete']);
+        $userMaterial = $this->UserMaterials->get($id);
+        if ($this->UserMaterials->delete($userMaterial)) {
+            $this->Flash->success(__('The user material has been deleted.'));
+        } else {
+            $this->Flash->error(__('The user material could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function edit($id = null)
+    {
+        $this->loadModel('Materials');
         $this->loadModel('MaterialTypes');
         // les empruntés
         $rented = $this->UserMaterials->find('all',[
@@ -332,5 +267,4 @@ class MaterialsController extends AppController
         ]);
         $this->set('materials',$materials);
     }
-
 }
