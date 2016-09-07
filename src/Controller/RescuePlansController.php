@@ -37,7 +37,7 @@ class RescuePlansController extends AppController
     public function view($id = null)
     {
         $rescuePlan = $this->RescuePlans->get($id, [
-            'contain' => ['Events', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
+            'contain' => ['Events', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations']
         ]);
 
         $this->set('rescuePlan', $rescuePlan);

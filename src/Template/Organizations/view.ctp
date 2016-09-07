@@ -118,6 +118,7 @@
                 <th><?= __('Cost Percentage Adpc') ?></th>
                 <th><?= __('Total Cost') ?></th>
                 <th><?= __('Date') ?></th>
+                <th><?= __('Operation Type Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($organization->rescue_plans as $rescuePlans): ?>
@@ -161,6 +162,7 @@
                 <td><?= h($rescuePlans->cost_percentage_adpc) ?></td>
                 <td><?= h($rescuePlans->total_cost) ?></td>
                 <td><?= h($rescuePlans->date) ?></td>
+                <td><?= h($rescuePlans->operation_type_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'RescuePlans', 'action' => 'view', $rescuePlans->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'RescuePlans', 'action' => 'edit', $rescuePlans->id]) ?>
