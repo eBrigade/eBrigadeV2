@@ -66,7 +66,7 @@
         $('#calendar').fullCalendar({
             theme: true,
             fixedWeekCount : false,
-            aspectRatio: 2,
+//            aspectRatio: 2,
             header: {
                 left: 'prev,next today',
                 center: 'title',

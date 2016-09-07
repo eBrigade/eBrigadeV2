@@ -27,7 +27,6 @@
                 right: 'month,agendaWeek,agendaDay'
             },
             fixedWeekCount : false,
-            aspectRatio: 2,
             theme: true,
             defaultDate: <?php echo "'$date'"  ?>,
             lang: initialLangCode,
