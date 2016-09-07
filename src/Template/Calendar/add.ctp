@@ -107,7 +107,7 @@ if (count($ev, COUNT_RECURSIVE) > 1){
             title: '$ev[2]',
             start: '$ev[0]',
             end: '$ev[1]',
-            color: 'yellow'
+            color: '#a1c927'
         },
             ";
             break;
@@ -200,7 +200,7 @@ if (count($ev, COUNT_RECURSIVE) > 1){
             title: title,
             start: start,
             end: end,
-            color: 'yellow',
+            color: '#a1c927',
             id: id
         };
         }

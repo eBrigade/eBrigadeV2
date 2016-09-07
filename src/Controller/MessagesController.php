@@ -19,7 +19,13 @@ class MessagesController extends AppController
                 ->where(['to_user' => $user])
                 ->andWhere(['send' => 0])
         );
+        $sendmp = $this->Messages->find()
+                ->where(['from_user' => $user])
+                ->andWhere(['send' => 1])
+        ;
+        $sendmpcount = $sendmp->count();
         $users = TableRegistry::get('users');
+         $this->set(compact('sendmpcount'));
         $this->set(compact('users'));
         $this->set(compact('messages'));
         $this->set('_serialize', ['messages']);
@@ -148,6 +154,7 @@ class MessagesController extends AppController
             $notifSave->to_user = $touserid->id;
             $obj = 'Message privé de  '.$frommp->lastname.' '.$frommp->firstname.'';
             $notifSave->content = $obj;
+                $notifSave->type = 0;
             $notifTable->save($notifSave);
 
             }

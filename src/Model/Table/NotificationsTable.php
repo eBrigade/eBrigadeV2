@@ -18,6 +18,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Notification patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Notification[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Notification findOrCreate($search, callable $callback = null)
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class NotificationsTable extends Table
 {
@@ -36,7 +38,18 @@ class NotificationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Messages', [
+        'foreignKey' => 'source_id',
+        'joinType' => 'INNER'
+    ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'source_id',
+            'joinType' => 'INNER'
+        ]);
+      
     }
 
     /**
@@ -50,11 +63,6 @@ class NotificationsTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
-
-        $validator
-            ->boolean('is_read')
-            ->requirePresence('is_read', 'create')
-            ->notEmpty('is_read');
 
         $validator
             ->integer('to_user')
@@ -73,5 +81,12 @@ class NotificationsTable extends Table
         return $validator;
     }
 
-
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    
 }

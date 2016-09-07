@@ -10,13 +10,13 @@ class NotificationsCell extends Cell
 
     public function display()
     {
-        $this->loadModel('Messages');
         $this->loadModel('Notifications');
         $user= $this->request->session()->read('Auth.User.id');
 
         // compter le nbr de notifications
-        $check = $this->Notifications->find()->where(['to_user' => $user]);
+        $check = $this->Notifications->find()->where(['Notifications.to_user' => $user])->contain(['Messages','Users']);
         $notifCount = $check->count();
+
 
         $this->set(compact('notifCount'));
         $this->set(compact('check'));
