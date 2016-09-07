@@ -33,6 +33,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\Bill $bill
  * @property \App\Model\Entity\Barrack $barrack
+ * @property \App\Model\Entity\EventType $event_type
  * @property \App\Model\Entity\Formation[] $formations
  * @property \App\Model\Entity\RescuePlan[] $rescue_plans
  * @property \App\Model\Entity\Material[] $materials

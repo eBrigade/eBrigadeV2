@@ -6,7 +6,8 @@ use App\Controller\AppController;
 /**
  * EventsVehicles Controller
  *
- * @property \App\Model\Table\EventsVehiclesTable $EventsVehicles */
+ * @property \App\Model\Table\EventsVehiclesTable $EventsVehicles
+ */
 class EventsVehiclesController extends AppController
 {
 

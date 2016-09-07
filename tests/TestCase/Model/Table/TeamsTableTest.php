@@ -61,7 +61,10 @@ class TeamsTableTest extends TestCase
         'app.rescue_plan_recommendations',
         'app.organizations',
         'app.formations',
+        'app.formation_types',
+        'app.operation_types',
         'app.bills',
+        'app.event_types',
         'app.events_teams'
     ];
 

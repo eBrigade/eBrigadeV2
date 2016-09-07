@@ -54,15 +54,15 @@ class EventTypesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('te_code', 'create')
-            ->notEmpty('te_code');
+            ->requirePresence('code', 'create')
+            ->notEmpty('code');
 
         $validator
             ->allowEmpty('title');
 
         $validator
-            ->requirePresence('cev_code', 'create')
-            ->notEmpty('cev_code');
+            ->requirePresence('module', 'create')
+            ->notEmpty('module');
 
         return $validator;
     }
