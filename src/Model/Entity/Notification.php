@@ -8,10 +8,11 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $source_id
- * @property int $to_user
- * @property string $content
+ * @property int $receiver
  * @property int $type
- * @property \Cake\I18n\Time $created
+ *
+ * @property \App\Model\Entity\Message $message
+ * @property \App\Model\Entity\User $user
  */
 class Notification extends Entity
 {

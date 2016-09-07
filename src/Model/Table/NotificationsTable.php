@@ -18,8 +18,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Notification patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Notification[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Notification findOrCreate($search, callable $callback = null)
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class NotificationsTable extends Table
 {
@@ -38,18 +36,13 @@ class NotificationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->addBehavior('Timestamp');
-
         $this->belongsTo('Messages', [
-        'foreignKey' => 'source_id',
-        'joinType' => 'INNER'
-    ]);
-
-        $this->belongsTo('Users', [
             'foreignKey' => 'source_id',
             'joinType' => 'INNER'
         ]);
-      
+
+
+
     }
 
     /**
@@ -65,13 +58,9 @@ class NotificationsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('to_user')
-            ->requirePresence('to_user', 'create')
-            ->notEmpty('to_user');
-
-        $validator
-            ->requirePresence('content', 'create')
-            ->notEmpty('content');
+            ->integer('receiver')
+            ->requirePresence('receiver', 'create')
+            ->notEmpty('receiver');
 
         $validator
             ->integer('type')
@@ -88,5 +77,5 @@ class NotificationsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    
+
 }

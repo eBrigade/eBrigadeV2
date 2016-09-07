@@ -14,7 +14,7 @@ class NotificationsCell extends Cell
         $user= $this->request->session()->read('Auth.User.id');
 
         // compter le nbr de notifications
-        $check = $this->Notifications->find()->where(['Notifications.to_user' => $user])->contain(['Messages','Users']);
+        $check = $this->Notifications->find()->where(['receiver' => $user])->contain(['Messages.Users']);
         $notifCount = $check->count();
 
 
