@@ -21,8 +21,6 @@ $cakeDescription = 'Ebrigade';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <?= $this->Html->script('jquery-3.1.0.min.js')?>
-    <?= $this->Html->script('bootstrap.min.js')?>
 
 
 </head>

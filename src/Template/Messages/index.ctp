@@ -36,7 +36,7 @@
                     <div class="navbar-collapse collapse sidebar-navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li><?= $this->Html->link(__('Envoyer un message'), ['action' => 'send']) ?></li>
-                            <li><a href="messages/dispatch">Messages envoyés <span class="badge">1,118</span></a></li>
+                            <li><a href="messages/dispatch">Messages envoyés <span class="badge"><?= $sendmpcount ?></span></a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
