@@ -11,11 +11,13 @@
 <?php
  foreach ($check as $alert){
  $text = $alert->message;
+ $mp = $alert->message->user;
 echo "
             <a class='content' href='/messages/view/$alert->source_id'>
 
                 <div class='notification-item' id='$alert->id'>
-                    <h4 class='item-title'>Message privé de $text->from_user</h4>
+                    <h4 class='item-title'>Message privé de $mp->firstname $mp->lastname</h4>
+                    <h4 class='item-title'>Sujet :  $text->subject</h4>
                     <p class='item-info delete'> Reçu le $text->created </p> <p class='item-info delete'><a href='#' id='delete'>Supprimer </a> | <a href='/messages/view/$alert->source_id'>Voir </a></p>
                 </div>
 

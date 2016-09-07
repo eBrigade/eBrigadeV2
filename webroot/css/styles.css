@@ -64,6 +64,7 @@
 
  .notifications {
      min-width:420px;
+     margin-left: -400px;
  }
 
  .notifications-wrapper {
