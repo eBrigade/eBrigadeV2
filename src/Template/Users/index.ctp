@@ -8,7 +8,6 @@
                 <th><?= $this->Paginator->sort('firstname') ?></th>
                 <th><?= $this->Paginator->sort('lastname') ?></th>
                 <th><?= h('Coordonnées') ?></th>
-                <th><?= $this->Paginator->sort('cellphone') ?></th>
                 <th><?= $this->Paginator->sort('caserne') ?></th>
                 <th><?= $this->Paginator->sort('is_active') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
