@@ -51,7 +51,7 @@ INSERT INTO `availabilities` (`id`, `result`, `user_id`, `modified`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `barracks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `address` varchar(255) NOT NULL,
   `city_id` int(11) NOT NULL,
@@ -59,6 +59,8 @@ CREATE TABLE IF NOT EXISTS `barracks` (
   `fax` varchar(14) NOT NULL,
   `email` varchar(100) NOT NULL,
   `website_url` varchar(255) NOT NULL,
+  `ordre` varchar(255) NOT NULL,
+  `rib` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
