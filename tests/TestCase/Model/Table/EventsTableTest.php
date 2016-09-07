@@ -62,7 +62,10 @@ class EventsTableTest extends TestCase
         'app.rescue_plan_recommendations',
         'app.organizations',
         'app.formations',
-        'app.bills'
+        'app.formation_types',
+        'app.operation_types',
+        'app.bills',
+        'app.event_types'
     ];
 
     /**

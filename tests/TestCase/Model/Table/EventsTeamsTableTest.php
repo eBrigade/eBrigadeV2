@@ -12,8 +12,10 @@ class EventsTeamsTableTest extends TestCase
 {
 
     /**
-     * Test subject     *
-     * @var \App\Model\Table\EventsTeamsTable     */
+     * Test subject
+     *
+     * @var \App\Model\Table\EventsTeamsTable
+     */
     public $EventsTeams;
 
     /**
@@ -74,7 +76,9 @@ class EventsTeamsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('EventsTeams') ? [] : ['className' => 'App\Model\Table\EventsTeamsTable'];        $this->EventsTeams = TableRegistry::get('EventsTeams', $config);    }
+        $config = TableRegistry::exists('EventsTeams') ? [] : ['className' => 'App\Model\Table\EventsTeamsTable'];
+        $this->EventsTeams = TableRegistry::get('EventsTeams', $config);
+    }
 
     /**
      * tearDown method

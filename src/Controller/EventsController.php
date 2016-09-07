@@ -19,7 +19,7 @@ class EventsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Cities', 'Bills', 'Barracks']
+            'contain' => ['Cities', 'Bills', 'Barracks', 'EventTypes']
         ];
         $events = $this->paginate($this->Events);
 
@@ -37,7 +37,7 @@ class EventsController extends AppController
     public function view($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => ['Cities', 'Bills', 'Barracks', 'Materials', 'Teams', 'Vehicles', 'Formations', 'RescuePlans']
+            'contain' => ['Cities', 'Bills', 'Barracks', 'EventTypes', 'Materials', 'Teams', 'Vehicles', 'Formations', 'RescuePlans']
         ]);
 
         $this->set('event', $event);
@@ -62,11 +62,14 @@ class EventsController extends AppController
                 $this->Flash->error(__('The event could not be saved. Please, try again.'));
             }
         }
-        $eventype = $this->Events->EventTypes->find('list', ['limit' => 200]);
-        $cities = $this->Events->Cities->find('list', ['valueField' => 'city']);
+        $cities = $this->Events->Cities->find('list', ['limit' => 200]);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
-        $barracks = $this->Events->Barracks->find('list', ['valueField' => 'name']);
-        $this->set(compact('event', 'cities', 'bills', 'barracks','eventype'));
+        $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
+        $eventTypes = $this->Events->EventTypes->find('list', ['limit' => 200]);
+        $materials = $this->Events->Materials->find('list', ['limit' => 200]);
+        $teams = $this->Events->Teams->find('list', ['limit' => 200]);
+        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
+        $this->set(compact('event', 'cities', 'bills', 'barracks', 'eventTypes', 'materials', 'teams', 'vehicles'));
         $this->set('_serialize', ['event']);
     }
 
@@ -80,7 +83,7 @@ class EventsController extends AppController
     public function edit($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => []
+            'contain' => ['Materials', 'Teams', 'Vehicles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $event = $this->Events->patchEntity($event, $this->request->data);
@@ -93,10 +96,13 @@ class EventsController extends AppController
             }
         }
         $cities = $this->Events->Cities->find('list', ['limit' => 200]);
-        $creators = $this->Events->Creators->find('list', ['limit' => 200]);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
         $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'cities', 'creators', 'bills', 'barracks'));
+        $eventTypes = $this->Events->EventTypes->find('list', ['limit' => 200]);
+        $materials = $this->Events->Materials->find('list', ['limit' => 200]);
+        $teams = $this->Events->Teams->find('list', ['limit' => 200]);
+        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
+        $this->set(compact('event', 'cities', 'bills', 'barracks', 'eventTypes', 'materials', 'teams', 'vehicles'));
         $this->set('_serialize', ['event']);
     }
 

@@ -7,9 +7,11 @@ use Cake\ORM\Entity;
  * EventType Entity
  *
  * @property int $id
- * @property string $te_code
+ * @property string $code
  * @property string $title
- * @property string $cev_code
+ * @property string $module
+ *
+ * @property \App\Model\Entity\Event[] $events
  */
 class EventType extends Entity
 {

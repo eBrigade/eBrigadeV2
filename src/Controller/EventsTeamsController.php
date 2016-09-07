@@ -6,7 +6,8 @@ use App\Controller\AppController;
 /**
  * EventsTeams Controller
  *
- * @property \App\Model\Table\EventsTeamsTable $EventsTeams */
+ * @property \App\Model\Table\EventsTeamsTable $EventsTeams
+ */
 class EventsTeamsController extends AppController
 {
 

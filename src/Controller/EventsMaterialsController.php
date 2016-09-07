@@ -6,7 +6,8 @@ use App\Controller\AppController;
 /**
  * EventsMaterials Controller
  *
- * @property \App\Model\Table\EventsMaterialsTable $EventsMaterials */
+ * @property \App\Model\Table\EventsMaterialsTable $EventsMaterials
+ */
 class EventsMaterialsController extends AppController
 {
 

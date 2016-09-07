@@ -51,9 +51,9 @@ class VehiclesFixture extends TestFixture
             'air_conditionner' => 1,
             'vehicle_type_id' => 1,
             'vehicle_model_id' => 1,
-            'bought' => '2016-09-06',
-            'end_warranty' => '2016-09-06',
-            'next_revision' => '2016-09-06'
+            'bought' => '2016-09-07',
+            'end_warranty' => '2016-09-07',
+            'next_revision' => '2016-09-07'
         ],
     ];
 }

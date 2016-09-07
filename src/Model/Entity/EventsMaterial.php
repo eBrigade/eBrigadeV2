@@ -11,7 +11,8 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Event $event
  * @property \App\Model\Entity\Material $material
- */class EventsMaterial extends Entity
+ */
+class EventsMaterial extends Entity
 {
 
     /**
