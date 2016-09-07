@@ -11,8 +11,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Event $event
  * @property \App\Model\Entity\Vehicle $vehicle
- */
-class EventsVehicle extends Entity
+ */class EventsVehicle extends Entity
 {
 
     /**

@@ -12,10 +12,8 @@ class EventsMaterialsTableTest extends TestCase
 {
 
     /**
-     * Test subject
-     *
-     * @var \App\Model\Table\EventsMaterialsTable
-     */
+     * Test subject     *
+     * @var \App\Model\Table\EventsMaterialsTable     */
     public $EventsMaterials;
 
     /**
@@ -62,7 +60,10 @@ class EventsMaterialsTableTest extends TestCase
         'app.rescue_plan_recommendations',
         'app.organizations',
         'app.formations',
-        'app.bills'
+        'app.formation_types',
+        'app.operation_types',
+        'app.bills',
+        'app.event_types'
     ];
 
     /**
@@ -73,9 +74,7 @@ class EventsMaterialsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('EventsMaterials') ? [] : ['className' => 'App\Model\Table\EventsMaterialsTable'];
-        $this->EventsMaterials = TableRegistry::get('EventsMaterials', $config);
-    }
+        $config = TableRegistry::exists('EventsMaterials') ? [] : ['className' => 'App\Model\Table\EventsMaterialsTable'];        $this->EventsMaterials = TableRegistry::get('EventsMaterials', $config);    }
 
     /**
      * tearDown method

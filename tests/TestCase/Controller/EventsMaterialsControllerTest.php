@@ -1,20 +1,14 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
+namespace App\Test\TestCase\Controller;
 
-use App\Model\Table\EventsTeamsTable;
-use Cake\ORM\TableRegistry;
-use Cake\TestSuite\TestCase;
+use App\Controller\EventsMaterialsController;
+use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Model\Table\EventsTeamsTable Test Case
+ * App\Controller\EventsMaterialsController Test Case
  */
-class EventsTeamsTableTest extends TestCase
+class EventsMaterialsControllerTest extends IntegrationTestCase
 {
-
-    /**
-     * Test subject     *
-     * @var \App\Model\Table\EventsTeamsTable     */
-    public $EventsTeams;
 
     /**
      * Fixtures
@@ -22,8 +16,7 @@ class EventsTeamsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.events_teams',
-        'app.teams',
+        'app.events_materials',
         'app.events',
         'app.cities',
         'app.barracks',
@@ -42,6 +35,9 @@ class EventsTeamsTableTest extends TestCase
         'app.orders_supplies',
         'app.providers_supplies',
         'app.barracks_users',
+        'app.teams',
+        'app.events_teams',
+        'app.materials_teams',
         'app.teams_users',
         'app.vehicles',
         'app.vehicle_types',
@@ -50,8 +46,6 @@ class EventsTeamsTableTest extends TestCase
         'app.events_vehicles',
         'app.teams_vehicles',
         'app.users_vehicles',
-        'app.events_materials',
-        'app.materials_teams',
         'app.rescue_plans',
         'app.rescue_plan_activities',
         'app.rescue_plan_environments',
@@ -67,43 +61,51 @@ class EventsTeamsTableTest extends TestCase
     ];
 
     /**
-     * setUp method
+     * Test index method
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $config = TableRegistry::exists('EventsTeams') ? [] : ['className' => 'App\Model\Table\EventsTeamsTable'];        $this->EventsTeams = TableRegistry::get('EventsTeams', $config);    }
-
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->EventsTeams);
-
-        parent::tearDown();
-    }
-
-    /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
+    public function testIndex()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test buildRules method
+     * Test view method
      *
      * @return void
      */
-    public function testBuildRules()
+    public function testView()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test add method
+     *
+     * @return void
+     */
+    public function testAdd()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test edit method
+     *
+     * @return void
+     */
+    public function testEdit()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test delete method
+     *
+     * @return void
+     */
+    public function testDelete()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

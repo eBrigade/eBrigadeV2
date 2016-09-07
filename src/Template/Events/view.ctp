@@ -1,30 +1,4 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Event'), ['action' => 'edit', $event->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Event'), ['action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $event->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Events'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Event'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Cities'), ['controller' => 'Cities', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New City'), ['controller' => 'Cities', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Creators'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Creator'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Bills'), ['controller' => 'Bills', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Bill'), ['controller' => 'Bills', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Event Equipments'), ['controller' => 'EventEquipments', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Event Equipment'), ['controller' => 'EventEquipments', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Event Teams'), ['controller' => 'EventTeams', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Event Team'), ['controller' => 'EventTeams', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Event Vehicles'), ['controller' => 'EventVehicles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Event Vehicle'), ['controller' => 'EventVehicles', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Formations'), ['controller' => 'Formations', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Formation'), ['controller' => 'Formations', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
+
 <div class="events view large-9 medium-8 columns content">
     <h3><?= h($event->title) ?></h3>
     <table class="vertical-table">
@@ -139,9 +113,9 @@
                 <td><?= h($eventEquipments->event_id) ?></td>
                 <td><?= h($eventEquipments->equipment_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'EventEquipments', 'action' => 'view', $eventEquipments->]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'EventEquipments', 'action' => 'edit', $eventEquipments->]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'EventEquipments', 'action' => 'delete', $eventEquipments->], ['confirm' => __('Are you sure you want to delete # {0}?', $eventEquipments->)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'EventEquipments', 'action' => 'view', $eventEquipments->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'EventEquipments', 'action' => 'edit', $eventEquipments->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'EventEquipments', 'action' => 'delete', $eventEquipments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $eventEquipments->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -166,9 +140,9 @@
                 <td><?= h($eventTeams->event_id) ?></td>
                 <td><?= h($eventTeams->team_chief_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'EventTeams', 'action' => 'view', $eventTeams->]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'EventTeams', 'action' => 'edit', $eventTeams->]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'EventTeams', 'action' => 'delete', $eventTeams->], ['confirm' => __('Are you sure you want to delete # {0}?', $eventTeams->)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'EventsTeams', 'action' => 'view', $eventTeams->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'EventsTeams', 'action' => 'edit', $eventTeams->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'EventsTeams', 'action' => 'delete', $eventTeams->id], ['confirm' => __('Are you sure you want to delete # {0}?', $eventTeams->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -189,9 +163,9 @@
                 <td><?= h($eventVehicles->event_id) ?></td>
                 <td><?= h($eventVehicles->vehicle_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'EventVehicles', 'action' => 'view', $eventVehicles->]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'EventVehicles', 'action' => 'edit', $eventVehicles->]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'EventVehicles', 'action' => 'delete', $eventVehicles->], ['confirm' => __('Are you sure you want to delete # {0}?', $eventVehicles->)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'EventVehicles', 'action' => 'view', $eventVehicles->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'EventVehicles', 'action' => 'edit', $eventVehicles->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'EventVehicles', 'action' => 'delete', $eventVehicles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $eventVehicles->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

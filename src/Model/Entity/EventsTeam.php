@@ -11,8 +11,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Team $team
  * @property \App\Model\Entity\Event $event
- */
-class EventsTeam extends Entity
+ */class EventsTeam extends Entity
 {
 
     /**

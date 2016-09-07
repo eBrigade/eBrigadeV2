@@ -12,10 +12,8 @@ class EventsVehiclesTableTest extends TestCase
 {
 
     /**
-     * Test subject
-     *
-     * @var \App\Model\Table\EventsVehiclesTable
-     */
+     * Test subject     *
+     * @var \App\Model\Table\EventsVehiclesTable     */
     public $EventsVehicles;
 
     /**
@@ -62,7 +60,10 @@ class EventsVehiclesTableTest extends TestCase
         'app.rescue_plan_recommendations',
         'app.organizations',
         'app.formations',
-        'app.bills'
+        'app.formation_types',
+        'app.operation_types',
+        'app.bills',
+        'app.event_types'
     ];
 
     /**
@@ -73,9 +74,7 @@ class EventsVehiclesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('EventsVehicles') ? [] : ['className' => 'App\Model\Table\EventsVehiclesTable'];
-        $this->EventsVehicles = TableRegistry::get('EventsVehicles', $config);
-    }
+        $config = TableRegistry::exists('EventsVehicles') ? [] : ['className' => 'App\Model\Table\EventsVehiclesTable'];        $this->EventsVehicles = TableRegistry::get('EventsVehicles', $config);    }
 
     /**
      * tearDown method
