@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property string $fax
  * @property string $email
  * @property string $website_url
+ * @property string $ordre
+ * @property string $rib
  *
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\Event[] $events

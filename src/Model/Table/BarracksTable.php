@@ -109,6 +109,14 @@ class BarracksTable extends Table
             ->requirePresence('website_url', 'create')
             ->notEmpty('website_url');
 
+        $validator
+            ->requirePresence('ordre', 'create')
+            ->notEmpty('ordre');
+
+        $validator
+            ->requirePresence('rib', 'create')
+            ->notEmpty('rib');
+
         return $validator;
     }
 
