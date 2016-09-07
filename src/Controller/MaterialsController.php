@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\Time;
 use Cake\I18n\Date;
+use Cake\Datasource\EntityInterface;
 
 /**
  * Materials Controller
@@ -268,7 +269,69 @@ class MaterialsController extends AppController
 
     public function back($id = null)
     {
-
+        $this->loadModel('UserMaterials');
+        $this->loadModel('MaterialTypes');
+        // les empruntés
+        $rented = $this->UserMaterials->find('all',[
+            'fields' => ['material_id']
+        ]);
+        // action du formulaire
+        if($this->request->is('post'))
+        {
+            $quantity = intval($this->request->data['quantity']);
+            while($quantity>0)
+            {
+                $type = explode('*',$this->request->data['material']);
+                // je configure $type[1] pour s'adapter à la requête
+                ($type[1] != 'null') ? $type[1] = 'LIKE "'.$type[1].'"' : $type[1] = 'IS NULL';
+                debug($type[1]);
+                $materialId = $this->UserMaterials->find('all',[
+                    'contain' => [
+                        'Materials.MaterialTypes'
+                    ],
+                    'fields' => [
+                        'id' => 'UserMaterials.material_id'
+                    ],
+                    'conditions' => [
+                        'UserMaterials.user_id' => $id,
+                        'MaterialTypes.id' => $type[0],
+                        'UserMaterials.to_date ' . $type[1]
+                    ]
+                ])->first();
+                $query = $this->UserMaterials->query();
+                $query->delete()
+                    ->where([
+                        'material_id' => $materialId->id
+                    ])
+                    ->execute();
+                $quantity--;
+            }
+        }
+        // la liste du matériel possédé
+        $materials = $this->UserMaterials->find('list',[
+            'contain' => [
+                'Users',
+                'Materials.MaterialTypes'
+            ],
+            'fields' => [
+                'material_type_id' => 'material_type_id',
+                'name' => 'MaterialTypes.name',
+                'count' => $this->Materials->find()->func()->count('material_type_id'),
+                'date' => 'to_date'
+            ],
+            'keyField' => function ($row) {
+                ($row['date'] != '') ? '' : $row['date'] = 'null';
+                return $row['material_type_id'] . '*' . $row['date'];
+            },
+            'valueField' => function ($row) {
+                return $row['name'] . ' (' . $row['count'] . ') Limite : ' . $row['date'];
+            },
+            'conditions' => [
+                'user_id' => $id
+            ],
+            'group' => 'name,date'
+        ]);
+        $this->set('materials',$materials);
     }
 
 }

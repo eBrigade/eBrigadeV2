@@ -58,4 +58,3 @@
         $(this).attr("max",result);
     });
 </script>
-<?= $this->Html->script('ajax.js') ?>
