@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `availabilities` (
   `user_id` int(11) NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ;
 
 --
 -- Dumping data for table `availabilities`
@@ -5716,6 +5716,7 @@ INSERT INTO `messages` (`id`, `to_user`, `from_user`, `subject`, `text`, `create
 --
 -- Table structure for table `notifications`
 --
+
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `source_id` int(11) NOT NULL,
@@ -5724,7 +5725,7 @@ CREATE TABLE `notifications` (
   `type` int(1) NOT NULL,
   `created` datetime NOT NULL,
     PRIMARY KEY (`id`)
-)
+);
 
 
 INSERT INTO `notifications` (`id`, `source_id`, `to_user`, `content`, `type`, `created`) VALUES
@@ -6206,7 +6207,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `birthplace` varchar(100) DEFAULT NULL,
   `skype` varchar(100) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
-  `external` tinyint(1) DEFAULT NULL
+  `external` tinyint(1) DEFAULT NULL,
   `created` date DEFAULT NULL,
   `modified` date DEFAULT NULL,
   `connected` date DEFAULT NULL,
@@ -6219,11 +6220,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthname`, `email`, `login`, `password`, `phone`, `cellphone`, `address`, `zipcode`, `city`, `birthday`, `birthplace`, `skype`, `is_active`, `external`, `permission_id`, `grade_id`, `role_id`, `created`, `modified`, `connected`) VALUES
-(1, 'Florent', 'Maillard', '', 'florent.maillard.pro@gmail.com', 'admin', '$2y$10$82fA2pFkODkaj6cbxD5S8Ob.KEzEE848qoAovzopb4stB8HAcLHVG', '0611214341', '', '', '', '', '1985-03-05', '', '', 1, NULL, NULL, 24, NULL, '2016-08-30', '2016-08-30', NULL),
-(2, 'Nicolas', 'Hel', '', 'znirgal@gmail.com', 'nirgal', '$2y$10$IS67pIEg25UG6lN556WDleoEGpbAXBE2k7bYYtRt/4y7BaOI2SMua', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
-(3, 'Gwenael', 'Prevot', '', 'prevotgwenael@gmail.com', 'frexwimsn', '$2y$10$zBLH6jfO99bjjNEif7qmquN0Ms2E7eE2we8BFrs2iODm7KKhxRbBi', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL),
-(4, 'Olivier', 'Perrin', '', 'perrinolivier88@gmail.com', 'kaki88', '$2y$10$8Wn4cnW9eqsdrNfqPRbxM.YuOw/JUE4GbhYUHTyvskiIE1vIxtBta', '', '', '', '', '', NULL, '', '', 0, NULL, NULL, NULL, NULL, '2016-08-31', '2016-08-31', NULL);
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `birthname`, `email`, `login`, `password`, `phone`, `cellphone`, `address`, `zipcode`, `city`, `birthday`, `birthplace`, `skype`, `is_active`, `external`, `created`, `modified`, `connected`) VALUES
+(1, 'Florent', 'Maillard', '', 'florent.maillard.pro@gmail.com', 'admin', '$2y$10$82fA2pFkODkaj6cbxD5S8Ob.KEzEE848qoAovzopb4stB8HAcLHVG', '0611214341', '', '', '', '', '1985-03-05', '', '', 1, NULL, '2016-08-30', '2016-08-30', NULL),
+(2, 'Nicolas', 'Hel', '', 'znirgal@gmail.com', 'nirgal', '$2y$10$IS67pIEg25UG6lN556WDleoEGpbAXBE2k7bYYtRt/4y7BaOI2SMua', '', '', '', '', '', NULL, '', '', 0, NULL, '2016-08-31', '2016-08-31', NULL),
+(3, 'Gwenael', 'Prevot', '', 'prevotgwenael@gmail.com', 'frexwimsn', '$2y$10$zBLH6jfO99bjjNEif7qmquN0Ms2E7eE2we8BFrs2iODm7KKhxRbBi', '', '', '', '', '', NULL, '', '', 0, NULL, '2016-08-31', '2016-08-31', NULL),
+(4, 'Olivier', 'Perrin', '', 'perrinolivier88@gmail.com', 'kaki88', '$2y$10$8Wn4cnW9eqsdrNfqPRbxM.YuOw/JUE4GbhYUHTyvskiIE1vIxtBta', '', '', '', '', '', NULL, '', '', 0, NULL, '2016-08-31', '2016-08-31', NULL);
 
 -- --------------------------------------------------------
 
