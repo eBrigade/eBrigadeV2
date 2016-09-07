@@ -6248,8 +6248,8 @@ CREATE TABLE IF NOT EXISTS `users_vehicles` (
 CREATE TABLE IF NOT EXISTS `user_materials` (
   `user_id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
-  `from` date NOT NULL,
-  `to` date DEFAULT NULL,
+  `from_date` date NOT NULL,
+  `to_date` date DEFAULT NULL,
   PRIMARY KEY (`user_id`,`material_id`),
   KEY `materials_key` (`material_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
