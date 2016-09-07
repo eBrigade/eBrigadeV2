@@ -20,7 +20,7 @@ class FormationsController extends AppController
         // Pourquoi faire un loadModel de Events alors qu'il est associé par table normalement ?
         $this->loadModel('Events');
         $this->paginate = [
-            'contain' => ['Organizations','Events','FormationTypes']
+            'contain' => ['Organizations','Events']
         ];
         $formations = $this->paginate($this->Formations);
 
@@ -69,6 +69,7 @@ class FormationsController extends AppController
 
         $this->loadModel('Cities');
         $this->loadModel('Barracks');
+        $this->loadModel('EventTypes');
 
         $formation = $this->Formations->newEntity();
 
@@ -88,7 +89,7 @@ class FormationsController extends AppController
         }
 
                 $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
-                $FormationTypes = $this->Formations->FormationTypes->find('list',['valueField'=> 'title']);
+                $FormationTypes = $this->EventTypes->find('list',['valueField'=> 'title'])->where(['module ='=>'forma']);
 
         $cities = $this->Cities->find('list', ['valueField' => 'city']);
         $barracks = $this->Barracks->find('list', ['valueField' => 'name']);
