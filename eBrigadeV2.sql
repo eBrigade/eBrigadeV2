@@ -5720,19 +5720,11 @@ INSERT INTO `messages` (`id`, `to_user`, `from_user`, `subject`, `text`, `create
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `source_id` int(11) NOT NULL,
-  `to_user` int(11) NOT NULL,
-  `content` text NOT NULL,
+  `receiver` int(11) NOT NULL,
   `type` int(1) NOT NULL,
-  `created` datetime NOT NULL,
-    PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`)
 );
 
-
-INSERT INTO `notifications` (`id`, `source_id`, `to_user`, `content`, `type`, `created`) VALUES
-(2, 21, 4, 'Message privé de  Perrin Olivier', 0, '2016-09-07 06:22:37'),
-(3, 21, 1, 'Message privé de  Perrin Olivier', 0, '2016-09-07 06:22:37'),
-(4, 21, 2, 'Message privé de  Perrin Olivier', 0, '2016-09-07 06:22:37'),
-(5, 21, 3, 'Message privé de  Perrin Olivier', 0, '2016-09-07 06:22:37');
 
 -- --------------------------------------------------------
 
