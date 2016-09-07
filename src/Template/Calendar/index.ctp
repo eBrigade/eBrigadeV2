@@ -8,7 +8,7 @@
 
 
 <?= $this->Html->css('fullcalendar.css') ?>
-<?= $this->Html->css('themes/hot-sneaks/jquery-ui.css') ?>
+<?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
 <?= $this->Html->script('jquery-ui.js')?>
 <?= $this->Html->script('moment.min.js')?>
 <?= $this->Html->script('fullcalendar.js')?>
