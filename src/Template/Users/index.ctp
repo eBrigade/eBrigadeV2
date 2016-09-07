@@ -23,13 +23,11 @@
                 <td>
                     <small>
                         <?= h($user->adress) ?><br />
-                        <?= h($user->zipcode) ?>&nbsp;<?= h($user->ville) ?>
-                        </hr>
-                        <?= h($user->email) ?>
+                        <?= h($user->zipcode) ?>&nbsp;<?= h($user->ville) ?><br />
+                        <?= h($user->email) ?><br />
+                        <?= h($user->phone) ?>&nbsp;<?= h($user->cellphone) ?>
                     </small>
                 </td>
-                <td><?= h($user->phone) ?></td>
-				<td><?= h($user->cellphone) ?></td>
                 <td><?= h('Liste des casernes d\'appartenance') ?></td>
                 <td>
 					<?php 
