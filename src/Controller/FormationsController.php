@@ -82,7 +82,7 @@ class FormationsController extends AppController
             if ($this->Formations->save($formation)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
-/*                return $this->redirect(['action' => 'index']);*/
+                return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
@@ -131,13 +131,17 @@ class FormationsController extends AppController
         }
         $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
         $teachers = $this->Users->find('list', ['valueField' => 'firstname']);
+        $materials = $this->Events->Materials->MaterialTypes->find('list', ['valueField' => 'name']);
+        $teams = $this->Events->Teams->find('list', ['valueField' => 'name']);
+        $vehicles = $this->Events->Vehicles->find('list', ['valueField' => 'matriculation']);
 
         $cities = $this->Cities->find('list', ['valueField' => 'city']);
         $barracks = $this->Barracks->find('list', ['valueField' => 'name']);
         $event = $this->Events->findAllById($formation['event_id'])->toArray();
 
 
-        $this->set(compact('formation', 'organizations', 'teachers','barracks','cities','event'));
+
+        $this->set(compact('formation', 'organizations', 'teachers','barracks','cities','event','materials','teams','vehicles'));
         $this->set('_serialize', ['formation']);
     }
 

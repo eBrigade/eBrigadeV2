@@ -13,7 +13,7 @@
         <li><?= $this->Html->link(__('New Rescue Plan'), ['controller' => 'RescuePlans', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="organizations view large-9 medium-8 columns content">
+<div class="organizations view col-lg-9 col-md-8 columns content">
     <h3><?= h($organization->title) ?></h3>
     <table class="vertical-table">
         <tr>

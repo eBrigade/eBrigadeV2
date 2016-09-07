@@ -7,7 +7,7 @@
         <li><?= $this->Html->link(__('New Formation'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="formations view large-9 medium-8 columns content">
+<div class="formations view col-lg-9 col-md-8 columns content">
     <h3><?= h($formation->id) ?></h3>
     <table class="vertical-table">
         <tr>
@@ -36,12 +36,6 @@
             <th><?=__('Facture')?></th>
             <td><?= $event[0]['bill_id'] ?></td>
         </tr>
-
-        <tr>
-            <th><?=__('cree par')?></th>
-            <td><?= $Users[0]['firstname'] ?></td>
-        </tr>
-
         <tr>
             <th><?=__('address')?></th>
             <td><?= $event[0]['address'] ?></td>

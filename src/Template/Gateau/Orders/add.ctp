@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('New Provider'), ['controller' => 'Providers', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="orders form large-9 medium-8 columns content">
+<div class="orders form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($order) ?>
     <fieldset>
         <legend><?= __('Add Order') ?></legend>

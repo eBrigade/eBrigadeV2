@@ -26,7 +26,7 @@
         <li><?= $this->Html->link(__('New Organization'), ['controller' => 'Organizations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="operations form large-9 medium-8 columns content">
+<div class="operations form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($operation) ?>
     <fieldset>
         <legend><?= __('Edit Operation') ?></legend>

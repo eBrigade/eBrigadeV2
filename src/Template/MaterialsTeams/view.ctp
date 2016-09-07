@@ -11,7 +11,7 @@
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="materialsTeams view large-9 medium-8 columns content">
+<div class="materialsTeams view col-lg-9 col-md-8 columns content">
     <h3><?= h($materialsTeam->team_id) ?></h3>
     <table class="vertical-table">
         <tr>

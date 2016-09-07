@@ -27,7 +27,7 @@
         <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="users view large-9 medium-8 columns content">
+<div class="users view col-lg-9 col-md-8 columns content">
     <h3><?= h($user->id) ?></h3>
     <table class="vertical-table">
         <tr>

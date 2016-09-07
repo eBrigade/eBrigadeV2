@@ -16,7 +16,7 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="vehicles form large-9 medium-8 columns content">
+<div class="vehicles form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($vehicle) ?>
     <fieldset>
         <legend><?= __('Edit Vehicle') ?></legend>

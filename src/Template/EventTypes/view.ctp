@@ -9,7 +9,7 @@
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="eventTypes view large-9 medium-8 columns content">
+<div class="eventTypes view col-lg-9 col-md-8 columns content">
     <h3><?= h($eventType->title) ?></h3>
     <table class="vertical-table">
         <tr>

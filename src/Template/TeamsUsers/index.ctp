@@ -8,7 +8,7 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="teamsUsers index large-9 medium-8 columns content">
+<div class="teamsUsers index col-lg-9 col-md-8 columns content">
     <h3><?= __('Teams Users') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

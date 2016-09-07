@@ -16,7 +16,7 @@
         <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="events index large-9 medium-8 columns content">
+<div class="events index col-lg-9 col-md-8 columns content">
     <h3><?= __('Events') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

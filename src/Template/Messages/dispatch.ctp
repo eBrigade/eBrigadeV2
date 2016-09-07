@@ -5,7 +5,7 @@
         <li><?= $this->Html->link(__('Messages envoyés'), ['action' => 'dispatch']) ?></li>
     </ul>
 </nav>
-<div class="messages index large-9 medium-8 columns content">
+<div class="messages index col-lg-9 col-md-8 columns content">
     <h3><?= __('Messages envoyés') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

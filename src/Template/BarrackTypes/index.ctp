@@ -4,7 +4,7 @@
         <li><?= $this->Html->link(__('New Barrack Type'), ['action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="barrackTypes index large-9 medium-8 columns content">
+<div class="barrackTypes index col-lg-9 col-md-8 columns content">
     <h3><?= __('Barrack Types') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

@@ -8,7 +8,7 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="teamsUsers form large-9 medium-8 columns content">
+<div class="teamsUsers form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($teamsUser) ?>
     <fieldset>
         <legend><?= __('Add Teams User') ?></legend>

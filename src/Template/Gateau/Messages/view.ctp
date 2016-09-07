@@ -7,7 +7,7 @@
         <li><?= $this->Html->link(__('New Message'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="messages view large-9 medium-8 columns content">
+<div class="messages view col-lg-9 col-md-8 columns content">
     <h3><?= h($message->id) ?></h3>
     <table class="vertical-table">
         <tr>

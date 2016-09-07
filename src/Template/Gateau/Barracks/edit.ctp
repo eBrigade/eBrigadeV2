@@ -18,7 +18,7 @@
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="barracks form large-9 medium-8 columns content">
+<div class="barracks form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($barrack) ?>
     <fieldset>
         <legend><?= __('Edit Barrack') ?></legend>

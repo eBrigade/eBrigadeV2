@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('New Rescue Plan'), ['controller' => 'RescuePlans', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="organizations form large-9 medium-8 columns content">
+<div class="organizations form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($organization) ?>
     <fieldset>
         <legend><?= __('Add Organization') ?></legend>

@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="materials form large-9 medium-8 columns content">
+<div class="materials form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($material) ?>
     <fieldset>
         <legend><?= __('Add Material') ?></legend>

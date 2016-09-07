@@ -1,5 +1,5 @@
 <h1>Opérations en cours</h1>
-<div class="rescuePlans index large-9 medium-8 columns content">
+<div class="rescuePlans index col-lg-9 col-md-8 columns content">
     <h3><?= __('Rescue Plans') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

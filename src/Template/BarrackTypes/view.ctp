@@ -7,7 +7,7 @@
         <li><?= $this->Html->link(__('New Barrack Type'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="barrackTypes view large-9 medium-8 columns content">
+<div class="barrackTypes view col-lg-9 col-md-8 columns content">
     <h3><?= h($barrackType->name) ?></h3>
     <table class="vertical-table">
         <tr>

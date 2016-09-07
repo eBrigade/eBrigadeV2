@@ -20,7 +20,7 @@
         <li><?= $this->Html->link(__('New Organization'), ['controller' => 'Organizations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="rescuePlans index large-9 medium-8 columns content">
+<div class="rescuePlans index col-lg-9 col-md-8 columns content">
     <h3><?= __('Rescue Plans') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

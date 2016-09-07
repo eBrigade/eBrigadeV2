@@ -14,7 +14,7 @@
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="eventsMaterials form large-9 medium-8 columns content">
+<div class="eventsMaterials form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($eventsMaterial) ?>
     <fieldset>
         <legend><?= __('Edit Events Material') ?></legend>

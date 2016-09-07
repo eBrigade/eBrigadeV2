@@ -16,7 +16,7 @@
         <li><?= $this->Html->link(__('New Borrowed Material'), ['controller' => 'BorrowedMaterials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="materials form large-9 medium-8 columns content">
+<div class="materials form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($material) ?>
     <fieldset>
         <legend><?= __('Edit Material') ?></legend>

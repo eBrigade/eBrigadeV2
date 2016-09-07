@@ -11,7 +11,7 @@
         <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="barracksVehicles view large-9 medium-8 columns content">
+<div class="barracksVehicles view col-lg-9 col-md-8 columns content">
     <h3><?= h($barracksVehicle->barrack_id) ?></h3>
     <table class="vertical-table">
         <tr>

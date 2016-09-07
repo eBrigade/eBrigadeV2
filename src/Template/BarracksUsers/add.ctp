@@ -8,7 +8,7 @@
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="barracksUsers form large-9 medium-8 columns content">
+<div class="barracksUsers form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($barracksUser) ?>
     <fieldset>
         <legend><?= __('Add Barracks User') ?></legend>

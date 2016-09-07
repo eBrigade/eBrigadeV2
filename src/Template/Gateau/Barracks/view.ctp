@@ -15,7 +15,7 @@
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="barracks view large-9 medium-8 columns content">
+<div class="barracks view col-lg-9 col-md-8 columns content">
     <h3><?= h($barrack->name) ?></h3>
     <table class="vertical-table">
         <tr>

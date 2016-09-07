@@ -8,7 +8,7 @@
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="eventsTeams index large-9 medium-8 columns content">
+<div class="eventsTeams index col-lg-9 col-md-8 columns content">
     <h3><?= __('Events Teams') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>

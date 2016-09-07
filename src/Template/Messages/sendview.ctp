@@ -6,7 +6,7 @@
         <li><?= $this->Html->link(__('Nouveau Message'), ['action' => 'send']) ?> </li>
     </ul>
 </nav>
-<div class="messages view large-9 medium-8 columns content">
+<div class="messages view col-lg-9 col-md-8 columns content">
     <table class="vertical-table">
         <tr>
             <th><?= __('Sujet') ?></th>

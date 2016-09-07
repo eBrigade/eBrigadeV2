@@ -4,7 +4,7 @@
         <li><?= $this->Html->link(__('Vos Messages'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="messages form large-9 medium-8 columns content">
+<div class="messages form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($message) ?>
     <fieldset>
         <legend><?= __('Envoyer un message privé') ?></legend>

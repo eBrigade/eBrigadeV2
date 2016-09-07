@@ -4,13 +4,13 @@
         <li><?= $this->Html->link(__('List Formations'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="formations form large-9 medium-8 columns content">
+<div class="formations form col-lg-9 col-md-8 columns content">
     <?=$this->Form->create($formation) ?>
     <fieldset>
         <legend><?= __('Add Formation') ?></legend>
         <?php
         echo $this->Form->input('event.title');
-        echo $this->Form->input('formation_type_id', ['options' => $FormationTypes]);
+        echo $this->Form->input('event.event_type_id', ['options' => $FormationTypes]);
         echo $this->Form->input('formation.organization_id');
         echo $this->Form->hidden('formation.event_id');
         echo $this->Form->input('event.city_id', ['options' => $cities]);

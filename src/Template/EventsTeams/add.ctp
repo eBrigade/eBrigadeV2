@@ -8,7 +8,7 @@
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
     </ul>
 </nav>
-<div class="eventsTeams form large-9 medium-8 columns content">
+<div class="eventsTeams form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($eventsTeam) ?>
     <fieldset>
         <legend><?= __('Add Events Team') ?></legend>

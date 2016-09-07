@@ -10,7 +10,7 @@
         <li><?= $this->Html->link(__('List Barrack Types'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
-<div class="barrackTypes form large-9 medium-8 columns content">
+<div class="barrackTypes form col-lg-9 col-md-8 columns content">
     <?= $this->Form->create($barrackType) ?>
     <fieldset>
         <legend><?= __('Edit Barrack Type') ?></legend>
