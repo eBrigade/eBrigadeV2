@@ -19,8 +19,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\EventsVehicle patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\EventsVehicle[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\EventsVehicle findOrCreate($search, callable $callback = null)
- */
-class EventsVehiclesTable extends Table
+ */class EventsVehiclesTable extends Table
 {
 
     /**

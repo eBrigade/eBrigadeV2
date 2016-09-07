@@ -19,7 +19,7 @@ class EventsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Cities', 'Creators', 'Bills', 'Barracks']
+            'contain' => ['Cities', 'Bills', 'Barracks']
         ];
         $events = $this->paginate($this->Events);
 
@@ -37,7 +37,7 @@ class EventsController extends AppController
     public function view($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => ['Cities', 'Creators', 'Bills', 'Barracks', 'EventEquipments', 'EventTeams', 'EventVehicles', 'Formations', 'Operations']
+            'contain' => ['Cities', 'Bills', 'Barracks', 'Materials', 'Teams', 'Vehicles', 'Formations', 'RescuePlans']
         ]);
 
         $this->set('event', $event);
@@ -63,11 +63,10 @@ class EventsController extends AppController
             }
         }
         $eventype = $this->Events->EventTypes->find('list', ['limit' => 200]);
-        $cities = $this->Events->Cities->find('list', ['limit' => 200]);
-        $creators = $this->Events->Creators->find('list', ['limit' => 200]);
+        $cities = $this->Events->Cities->find('list', ['valueField' => 'city']);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
-        $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'cities', 'creators', 'bills', 'barracks','eventype'));
+        $barracks = $this->Events->Barracks->find('list', ['valueField' => 'name']);
+        $this->set(compact('event', 'cities', 'bills', 'barracks','eventype'));
         $this->set('_serialize', ['event']);
     }
 
