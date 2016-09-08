@@ -10,7 +10,7 @@
         <legend><?= __('Add Formation') ?></legend>
         <?php
         echo $this->Form->input('event.title');
-        echo $this->Form->input('formation_type_id', ['options' => $FormationTypes]);
+        echo $this->Form->input('event.event_type_id', ['options' => $FormationTypes]);
         echo $this->Form->input('formation.organization_id');
         echo $this->Form->hidden('formation.event_id');
         echo $this->Form->input('event.city_id', ['options' => $cities]);

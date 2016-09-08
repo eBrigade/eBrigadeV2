@@ -42,18 +42,25 @@ class FormationsController extends AppController
         $this->loadModel('Cities');
         $this->loadModel('Users');
         $this->loadModel('Barracks');
+        $this->loadModel('EventsTeams');
+        $this->loadModel('Teams');
         $formation = $this->Formations->get($id, [
             'contain' => ['Organizations']
         ]);
 
 
         $event = $this->Events->findAllById($formation['event_id'])->toArray();
-
         $cities = $this->Cities->findAllById($event[0]['city_id'])->toArray();
         $Users = $this->Users->findAllById($event[0]['creator_id'])->toArray();
         $barracks = $this->Barracks->findAllById($event[0]['barrack_id'])->toArray();
+        $teamevents = $this->EventsTeams->find('all')->where(['event_id ='=> $formation['event_id']]);
+foreach ($teamevents as $teamevent) {
+    $teams = $this->Teams->findAllById($teamevent->team_id);
+    foreach ($teams as $team) {
+        debug($team->name);
 
-
+    }
+}
 
         $this->set(compact('formation', 'cities','Users','event','barracks','bills'));
         $this->set('_serialize', ['formation']);

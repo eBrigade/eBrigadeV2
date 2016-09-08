@@ -7,140 +7,198 @@
         <li><?= $this->Html->link(__('New Formation'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
-<div class="formations view large-9 medium-8 columns content">
-    <h3><?= h($formation->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($formation->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Organisation Id') ?></th>
-            <td><?= $this->Number->format($formation->organisation_id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Teacher Id') ?></th>
-            <td><?= $this->Number->format($formation->teacher_id) ?></td>
-        </tr>
-        <tr>
-            <th><?=__('event_id')?></th>
-            <td><?= $event[0]['id'] ?></td>
-        </tr>
+<body>
+<div class="container-fluid clearfix">
+    <div class="row">
+        <div class="col-xs-6 col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-danger">Détails importants de la mission</li>
+                <li class="list-group-item">
+                    <?= $event[0]['details'] ?>
+                </li>
+                <li class="list-group-item">
+                    A ce jour il manque toujours 2 équipiers
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">Informations générales sur la mission de secours</li>
+                <li class="list-group-item">
+                    <?= $event[0]['title'] ?>
+                </li>
+                <li class="list-group-item">
+                    <div class="row-fluid">
+                        <b>Localisation</b><p>Une belle petite carte google de localisation ? <?= $cities[0]['city'] ?></p></div>
 
-        <tr>
-            <th><?=__('title')?></th>
-            <td><?= $event[0]['title'] ?></td>
-        </tr>
+                    <div class="row-fluid">
+                        <b>Date</b><p><?= $event[0]['event_start_date'] ?> à <?= $event[0]['event_end_date'] ?></p>
+                    </div>
 
-        <tr>
-            <th><?=__('Facture')?></th>
-            <td><?= $event[0]['bill_id'] ?></td>
-        </tr>
+                    <div class="row-fluid">
+                        <b>Horraire</b><p><?= $event[0]['horaires'] ?></p>
+                    </div>
 
-        <tr>
-            <th><?=__('cree par')?></th>
-            <td><?= $Users[0]['firstname'] ?></td>
-        </tr>
+                    <div class="row-fluid">
+                        <b>Consignes générales</b><p><?= $event[0]['instructions'] ?></p>
+                    </div>
 
-        <tr>
-            <th><?=__('address')?></th>
-            <td><?= $event[0]['address'] ?></td>
-        </tr>
+                    <div class="row-fluid">
+                        <b>Consignes pour équipes public</b><p></p>
+                    </div>
+                    <div class="row-fluid">
+                        <b>Consignes pour équipes acteurs</b><p></p>
+                    </div>
+                    <div class="row-fluid">
+                        <b>Prix</b><p><?= $event[0]['price'] ?> €</p>
+                    </div>
+                </li>
 
-        <tr>
-            <th><?=__('latitude')?></th>
-            <td><?= $event[0]['latitude'] ?></td>
-        </tr>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">
+                    <button type="submit" class="btn btn-info btn-sm">Ajouter un document</button>
+                    Documents liés à la mission
+                </li>
+                <li class="list-group-item">
+                    Lien vers les documents
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-8">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">
+                    <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
+                    Détails de la mission
+                </li>
 
-        <tr>
-            <th><?=__('longitude')?></th>
-            <td><?= $event[0]['longitude'] ?></td>
-        </tr>
+                </li>
+                <li class="list-group-item">
 
-        <tr>
-            <th><?=__('created')?></th>
-            <td><?= $event[0]['created'] ?></td>
-        </tr>
+                    <div class="btn-group">
 
-        <tr>
-            <th><?=__('modified')?></th>
-            <td><?= $event[0]['modified'] ?></td>
-        </tr>
+                        <button type="button" class="btn btn-info btn-xs">Modifier cette équipe</button>
+                        <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Modifier les informations de l'équipe</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Supprimer l'équipe et ses moyens</a></li>
+                            <li><a href="#">Vider la liste des équipiers</a></li>
+                            <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
+                        </ul>
+                    </div>
+                    <div class="row-fluid">
+                        <p><b>Nom de l'équipe : </b>Equipe ALPHA 001</p>
+                        <p><b>Horaires : </b>de 8h à 12h</p>
+                        <p><b>Lieu de rendez-vous : </b>Caserne de Raon-aux-Bois</p>
+                        <p><b>Positionnement : </b>début de la course</p>
+                        <p><b>Mission principale : </b>Public et Acteurs</p>
+                        <p><b>Consignes : </b>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</p>
+                    </div>
+                    <div class="row-fluid clearfix">
 
-        <tr>
-            <th><?=__('is_closed')?></th>
-            <td><?= $event[0]['is_closed'] ?></td>
-        </tr>
+                        <ul class="list-group col-xs-6 col-sm-6 col-md-6">
+                            <li class="list-group-item list-group-item-info">
+                                <button type="button" class="btn btn-info btn-xs">Inscrire du personnel</button>
+                                <span class="badge badge-danger">3/4</span>
+                            </li>
+                            <li class="list-group-item">Champ d'ajout et bouton</li>
+                            <li class="list-group-item">Jean-Christophe</li>
+                            <li class="list-group-item">Nicolas</li>
+                        </ul>
 
-        <tr>
-            <th><?=__('closed')?></th>
-            <td><?= $event[0]['closed'] ?></td>
-        </tr>
+                        <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                            <li class="list-group-item list-group-item-info">
+                                <button type="button" class="btn btn-info btn-xs">Affecter du matériel</button>
+                                <span class="badge badge-danger">2</span>
+                            </li>
+                            <li class="list-group-item">Champ d'ajout et bouton</li>
+                            <li class="list-group-item">Nicolas</li>
+                        </ul>
 
-        <tr>
-            <th><?=__('prix')?></th>
-            <td><?= $event[0]['price'] ?></td>
-        </tr>
+                        <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                            <li class="list-group-item list-group-item-info">
+                                <button type="button" class="btn btn-info btn-xs">Affecter des véhicules</button>
+                                <span class="badge badge-danger">3</span>
+                            </li>
+                            <li class="list-group-item">VPSP 882 - AZ-852-FR</li>
+                            <li class="list-group-item">Jean-Christophe</li>
+                            <li class="list-group-item">Nicolas</li>
+                        </ul>
+                    </div>
 
-        <tr>
-            <th><?=__('annuler')?></th>
-            <td><?= $event[0]['canceled'] ?></td>
-        </tr>
+                </li>
+                <li class="list-group-item">
 
-        <tr>
-            <th><?=__('pourquoi annuller')?></th>
-            <td><?= $event[0]['canceled_detail'] ?></td>
-        </tr>
+                    <div class="btn-group">
 
-        <tr>
-            <th><?=__('activer')?></th>
-            <td><?= $event[0]['is_active'] ?></td>
-        </tr>
+                        <button type="button" class="btn btn-info btn-xs">Modifier cette équipe</button>
+                        <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Modifier les informations de l'équipe</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Supprimer l'équipe et ses moyens</a></li>
+                            <li><a href="#">Vider la liste des équipiers</a></li>
+                            <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
+                        </ul>
+                    </div>
+                    <div class="row-fluid">
+                        <p><b>Nom de l'équipe : </b>Equipe ALPHA 001</p>
+                        <p><b>Horaires : </b>de 8h à 12h</p>
+                        <p><b>Lieu de rendez-vous : </b>Caserne de Raon-aux-Bois</p>
+                        <p><b>Positionnement : </b>début de la course</p>
+                        <p><b>Mission principale : </b>Public et Acteurs</p>
+                        <p><b>Consignes : </b>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</p>
+                    </div>
+                    <div class="row-fluid clearfix">
 
-        <tr>
-            <th><?=__('consigne')?></th>
-            <td><?= $event[0]['instructions'] ?></td>
-        </tr>
+                        <ul class="list-group col-xs-6 col-sm-6 col-md-6">
+                            <li class="list-group-item list-group-item-info">
+                                <button type="button" class="btn btn-info btn-xs">Inscrire du personnel</button>
+                                <span class="badge badge-danger">3/4</span>
+                            </li>
+                            <li class="list-group-item">Champ d'ajout et bouton</li>
+                            <li class="list-group-item">Jean-Christophe</li>
+                            <li class="list-group-item">Nicolas</li>
+                        </ul>
 
-        <tr>
-            <th><?=__('responsable')?></th>
-            <td><?= $event[0]['responsible_id'] ?></td>
-        </tr>
+                        <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                            <li class="list-group-item list-group-item-info">
+                                <button type="button" class="btn btn-info btn-xs">Affecter du matériel</button>
+                                <span class="badge badge-danger">2</span>
+                            </li>
+                            <li class="list-group-item">Champ d'ajout et bouton</li>
+                            <li class="list-group-item">Nicolas</li>
+                        </ul>
 
-        <tr>
-            <th><?=__('detaile')?></th>
-            <td><?= $event[0]['details'] ?></td>
-        </tr>
+                        <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                            <li class="list-group-item list-group-item-info">
+                                <button type="button" class="btn btn-info btn-xs">Affecter des véhicules</button>
+                                <span class="badge badge-danger">3</span>
+                            </li>
+                            <li class="list-group-item">VPSP 882 - AZ-852-FR</li>
+                            <li class="list-group-item">Jean-Christophe</li>
+                            <li class="list-group-item">Nicolas</li>
+                        </ul>
+                    </div>
 
-
-        <tr>
-            <th><?=__('caserne')?></th>
-            <td><?= $barracks[0]['name'] ?></td>
-        </tr>
-
-        <tr>
-            <th><?=__('debut evenment')?></th>
-            <td><?= $event[0]['event_start_date'] ?></td>
-        </tr>
-
-        <tr>
-            <th><?=__('fin evenment')?></th>
-            <td><?= $event[0]['event_end_date'] ?></td>
-        </tr>
-
-        <tr>
-            <th><?=__('horraire')?></th>
-            <td><?= $event[0]['horaires'] ?></td>
-        </tr>
-
-        <tr>
-            <th><?=__('vue par le publique')?></th>
-            <td><?= $event[0]['public'] ?></td>
-        </tr>
-
-        <tr>
-            <th><?=__('Ville')?></th>
-            <td><?= $cities[0]['city'] ?></td>
-        </tr>
-    </table>
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">Bilan de la mission</li>
+                <li class="list-group-item">Un beau formulaire chiffres et textarea</li>
+            </ul>
+        </div>
+    </div>
 </div>
+<footer>
+</footer>
+</body>
