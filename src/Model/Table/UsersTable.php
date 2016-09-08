@@ -9,9 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Permissions
- * @property \Cake\ORM\Association\BelongsTo $Grades
- * @property \Cake\ORM\Association\BelongsTo $Roles
  * @property \Cake\ORM\Association\HasMany $Availabilities
  * @property \Cake\ORM\Association\HasMany $Orders
  * @property \Cake\ORM\Association\HasMany $UserMaterials
@@ -48,15 +45,6 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Permissions', [
-            'foreignKey' => 'permission_id'
-        ]);
-        $this->belongsTo('Grades', [
-            'foreignKey' => 'grade_id'
-        ]);
-        $this->belongsTo('Roles', [
-            'foreignKey' => 'role_id'
-        ]);
         $this->hasMany('Availabilities', [
             'foreignKey' => 'user_id'
         ]);
@@ -128,7 +116,15 @@ class UsersTable extends Table
             ->allowEmpty('cellphone');
 
         $validator
-            ->allowEmpty('address');
+            ->allowEmpty('workphone');
+
+        $validator
+            ->requirePresence('address', 'create')
+            ->notEmpty('address');
+
+        $validator
+            ->requirePresence('address_complement', 'create')
+            ->notEmpty('address_complement');
 
         $validator
             ->allowEmpty('zipcode');
@@ -172,9 +168,6 @@ class UsersTable extends Table
     {
         $rules->add($rules->isUnique(['email']));
         $rules->add($rules->isUnique(['login']));
-        $rules->add($rules->existsIn(['permission_id'], 'Permissions'));
-        $rules->add($rules->existsIn(['grade_id'], 'Grades'));
-        $rules->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;
     }

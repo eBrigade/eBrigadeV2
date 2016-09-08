@@ -63,7 +63,10 @@ class MaterialsController extends AppController
             }
         }
         $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
-        $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
+        $barracks = $this->Materials->Barracks->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'name',
+            'limit' => 200]);
         $events = $this->Materials->Events->find('list', ['limit' => 200]);
         $teams = $this->Materials->Teams->find('list', ['limit' => 200]);
         $this->set(compact('material', 'materialTypes', 'barracks', 'events', 'teams'));
