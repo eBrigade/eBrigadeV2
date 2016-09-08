@@ -49,7 +49,18 @@ class MaterialsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
+
     public function add()
+    {
+        $types = $this->Materials->MaterialTypes->find('list',[
+                'keyField' => 'type',
+                'valueField' => 'type'
+            ]
+        );
+        $this->set('types',$types);
+    }
+
+    public function addajax($cat = null)
     {
         $material = $this->Materials->newEntity();
         if ($this->request->is('post')) {
@@ -62,14 +73,13 @@ class MaterialsController extends AppController
                 $this->Flash->error(__('The material could not be saved. Please, try again.'));
             }
         }
-        $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
-        $barracks = $this->Materials->Barracks->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'name',
-            'limit' => 200]);
-        $events = $this->Materials->Events->find('list', ['limit' => 200]);
-        $teams = $this->Materials->Teams->find('list', ['limit' => 200]);
-        $this->set(compact('material', 'materialTypes', 'barracks', 'events', 'teams'));
+        $materialTypes = $this->Materials->MaterialTypes->find('list', [
+            'conditions' => [
+                'type' => $this->request->data['cat']
+            ]
+        ]);
+        $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
+        $this->set(compact('material', 'materialTypes','barracks'));
         $this->set('_serialize', ['material']);
     }
 
@@ -97,9 +107,7 @@ class MaterialsController extends AppController
         }
         $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
         $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
-        $events = $this->Materials->Events->find('list', ['limit' => 200]);
-        $teams = $this->Materials->Teams->find('list', ['limit' => 200]);
-        $this->set(compact('material', 'materialTypes', 'barracks', 'events', 'teams'));
+        $this->set(compact('material', 'materialTypes', 'barracks'));
         $this->set('_serialize', ['material']);
     }
 

@@ -15,18 +15,23 @@
     </ul>
 </nav>
 <div class="materials form large-9 medium-8 columns content">
-    <?= $this->Form->create($material) ?>
-    <fieldset>
-        <legend><?= __('Add Material') ?></legend>
-        <?php
-            echo $this->Form->input('material_type_id', ['options' => $materialTypes, 'empty' => true]);
-            echo $this->Form->input('barrack_id');
-            echo $this->Form->input('stock');
-            echo $this->Form->input('barracks._ids', ['options' => $barracks]);
-            echo $this->Form->input('events._ids', ['options' => $events]);
-            echo $this->Form->input('teams._ids', ['options' => $teams]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <legend><?= __('Add Material') ?></legend>
+    <?= $this->Form->create() ?>
+    <?= $this->Form->input('type',['options' => $types,'id' => 'type']) ?>
     <?= $this->Form->end() ?>
+    <div id="form"></div>
 </div>
+
+<script>
+    $('#type').on('change',function () {
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->Url->build(["controller" => "Materials","action" => "addajax"]); ?>',
+            data:"cat="+$("#type").val(),
+            success:function(data){
+                alert(data);
+                $('#form').html(data)
+            }
+        });
+    })
+</script>
