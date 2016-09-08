@@ -5593,7 +5593,7 @@ CREATE TABLE IF NOT EXISTS `materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `material_type_id` int(11) DEFAULT NULL,
   `barrack_id` int(11) DEFAULT NULL,
-  `stock` int(6) DEFAULT 0,
+  `stock` int(6) DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -6243,7 +6243,7 @@ CREATE TABLE IF NOT EXISTS `users_vehicles` (
 CREATE TABLE IF NOT EXISTS `user_materials` (
   `user_id` int(11) NOT NULL,
   `material_id` int(11) NOT NULL,
-  `quantity` int(6),
+  `quantity` int(6) DEFAULT 1,
   `from_date` date NOT NULL,
   `to_date` date DEFAULT NULL,
   PRIMARY KEY (`user_id`,`material_id`),
