@@ -29,7 +29,6 @@
             url: '<?= $this->Url->build(["controller" => "Materials","action" => "addajax"]); ?>',
             data:"cat="+$("#type").val(),
             success:function(data){
-                alert(data);
                 $('#form').html(data)
             }
         });
