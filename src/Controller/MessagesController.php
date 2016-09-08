@@ -17,15 +17,17 @@ class MessagesController extends AppController
         $messages = $this->paginate(
             $this->Messages->find()
                 ->where(['to_user' => $user])
-                ->andWhere(['send' => 0])
-        );
+                ->andWhere(['send' => 0]));
+
         $sendmp = $this->Messages->find()
-                ->where(['from_user' => $user])
-                ->andWhere(['send' => 1])
+            ->where(['from_user' => $user])
         ;
-        $sendmpcount = $sendmp->count();
+
+        $sendmpcount = $sendmp->andWhere(['send' => 1])->count();
+        $recmpcount = $messages->count();
         $users = TableRegistry::get('users');
-         $this->set(compact('sendmpcount'));
+        $this->set(compact('sendmpcount'));
+        $this->set(compact('recmpcount'));
         $this->set(compact('users'));
         $this->set(compact('messages'));
         $this->set('_serialize', ['messages']);
@@ -147,13 +149,15 @@ class MessagesController extends AppController
                     ->subject("Vous avez reçu un message privé de $frommp->firstname $frommp->lastname")
                     ->send($this->request->data['text']);
 
-            // notification sur le site
-            $notifTable = TableRegistry::get('notifications');
-            $notifSave = $notifTable->newEntity();
-            $notifSave->source_id =  $messageInsertId;
-            $notifSave->receiver = $touserid->id;
+                // notification sur le site
+                $notifTable = TableRegistry::get('notifications');
+                $notifSave = $notifTable->newEntity();
+                $notifSave->source_id =  $messageInsertId;
+                $notifSave->to_user = $touserid->id;
+                $obj = 'Message privé de  '.$frommp->lastname.' '.$frommp->firstname.'';
+                $notifSave->content = $obj;
                 $notifSave->type = 0;
-            $notifTable->save($notifSave);
+                $notifTable->save($notifSave);
 
             }
 
@@ -189,6 +193,28 @@ class MessagesController extends AppController
         $this->set(compact('lists'));
         $this->set(compact('message'));
         $this->set('_serialize', ['message']);
+    }
+
+//supprimer plusieurs messages
+    public function deleteAll()
+    {
+        #  désactive le rendu de la vue
+        $this->autoRender = false;
+
+        # si la requête est de type AJAX
+        if ($this->request->is('ajax')) {
+
+            #  retourner le tableau des ID
+            $elements = $this->request->data['id'];
+
+            #  pour chaque id dans le tableau, la rechercher puis l'effacer
+            foreach($elements as $element)
+            {
+                $ids = $this->Messages->get($element);
+                $this->Messages->delete($ids);
+            }
+
+        }
     }
 
 //supprimer un message
