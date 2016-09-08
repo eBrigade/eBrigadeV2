@@ -37,6 +37,11 @@ Il vous est possible de me faire des propositions par le même biai
 Prévoir une vue d'affichage des équipes d'une missions sous forme de diagramme de ganty :
 https://github.com/taitems/jQuery.Gantt/
 
+Pour Matérials, je ne comprends pas le coup du quantity et du while. Est il possible de me donner votre logique ?
+De ce que j'en ai compris, vous enregistrez les éléments un par un, je pense des facilités de comptage, mais il va aussi vite voir plus en charge serveur, de mettre un champ quantité et de jouer sur les stocks en affectant une quantité.
+Exemple j'ai acheté 100 pantalons, j'en ai 15 en stock, j'en alloue 5 sur les 15 restants a Mr X. Calcul du stock fait 100 - Pantalons affectés = reste 10. Peut même se faire directement en requête sql pour avoir le stock restant.
+Cela limite la charge serveur et requête. Surtout si en quantité j'en ai 100 : difficile de faire 100 save, et après des deletes manuels si besoin etc
+
 Travaillez bien ;)
 
 
