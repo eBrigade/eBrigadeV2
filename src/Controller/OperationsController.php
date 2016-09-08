@@ -16,35 +16,39 @@ class OperationsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
 
-        $this->loadModel('RescuePlans');
-        $this->paginate = [
-            'contain' => ['Events', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
-        ];
-        $rescuePlans = $this->paginate($this->RescuePlans);
-
-        $this->set(compact('rescuePlans'));
-        $this->set('_serialize', ['rescuePlans']);
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Rescue Plan id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $rescuePlan = $this->RescuePlans->get($id, [
-            'contain' => ['Events', 'Barracks', 'RescuePlanActivities', 'RescuePlanEnvironments', 'RescuePlanDelays', 'RescuePlanTypes', 'RescuePlanRecommendations', 'Organizations']
+    public function gestion($id = null) {
+        $this->loadModel('Events');
+        $event = $this->Events->get($id, [
+            'contain' => [ 'Cities', 'Barracks', 'Materials', 'Teams', 'Teams.Users', 'Teams.Vehicles', 'Vehicles', 'RescuePlans']
         ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $event = $this->Events->patchEntity($event, $this->request->data);
 
-        $this->set('rescuePlan', $rescuePlan);
-        $this->set('_serialize', ['rescuePlan']);
+            if ($this->Events->save($event)) {
+                $this->Flash->success(__('The event has been saved.'));
+
+                return $this->redirect(['action' => 'gestion/'.$id.'']);
+            } else {
+                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+            }
+        }
+
+        $cities = $this->Events->Cities->find('list', ['limit' => 200]);
+        $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
+        $materials = $this->Events->Materials->find('list', ['limit' => 200]);
+        $teams = $this->Events->Teams->find('list', ['limit' => 200]);
+        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
+        $users = $this->Events->Teams->Users->find('list', ['limit' => 200]);
+
+
+
+        $this->set('event', $event);
+        $this->set(compact('users', 'cities', 'bills', 'barracks', 'eventTypes', 'materials', 'teams', 'vehicles'));
+        $this->set('_serialize', ['event']);
     }
+
+
 
     /**
      * A
