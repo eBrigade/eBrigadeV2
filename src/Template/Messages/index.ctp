@@ -1,3 +1,4 @@
+
 <div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
@@ -35,6 +36,7 @@
                     </div>
                     <div class="navbar-collapse collapse sidebar-navbar-collapse">
                         <ul class="nav navbar-nav">
+                            <li><a href="messages">Messages reçus <span class="badge"><?= $recmpcount ?></span></a></li>
                             <li><?= $this->Html->link(__('Envoyer un message'), ['action' => 'send']) ?></li>
                             <li><a href="messages/dispatch">Messages envoyés <span class="badge"><?= $sendmpcount ?></span></a></li>
                         </ul>
@@ -48,28 +50,29 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th><?= $this->Form->checkbox('all', ['id' => 'all']); ?>Tous </th>
                     <th><?= $this->Paginator->sort('Reçu le') ?></th>
                     <th><?= $this->Paginator->sort('Expéditeur') ?></th>
                     <th><?= $this->Paginator->sort('Sujet') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($messages as $message): ?>
                 <tr>
+                    <td><?= $this->Form->checkbox('erase', ['value' => $message->id]); ?></td>
                     <td><?= $message->created->i18nformat('dd MMMM à HH:mm') ?></td>
                     <td><?php
                 $user = $users->find()->where(['id' => $message->from_user])->first();
                         echo $user->firstname.' '.$user->lastname;
                         ?></td>
-                    <td><?= h($message->subject) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('Voir'), ['action' => 'view', $message->id]) ?>
-                        <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $message->id], ['confirm' => __('Etes-vous sûr de vouloir supprimer le message # {0}?', $message->id)]) ?>
-                    </td>
+                    <!--<td><div id="subject"><?= h($message->subject) ?></div></td>-->
+                    <td><?=  $this->Html->link(__(h($message->subject)), ['action' => 'view', $message->id]) ?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
+
+                <?= $this->Form->button(__('<i class="glyphicon glyphicon-trash"></i> Supprimer'),['id' => 'bt-del', 'class' => 'btn btn-danger pull-right',]) ?>
+
             </table>
             <div class="paginator">
                 <ul class="pagination">
@@ -82,6 +85,49 @@
         </div>
     </div>
 </div>
+
+
+<?= $this->Html->script('jquery-3.1.0.min.js')?>
+
+<script>
+
+    $(document).ready(function() {
+
+        $("#all").change(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+
+        $('#bt-del').click(function(event) {
+            var array = [];
+            $.each($("input[name='erase']:checked"), function(){
+                array.push($(this).val());
+                $(this).closest('tr').remove();
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '<?= $this->Url->build(["controller" => "Messages","action" => "deleteAll"]); ?>',
+                data: {id: array},
+//                success : function(data) {
+//                    alert(data);
+//                }
+            });
+        });
+    });
+
+
+    //$('#subject').click(function() {
+    //    var id =  $(this).closest('input[name="erase"]').val();
+    //    console.log(id);
+    ////    $.ajax({
+    ////        type: 'POST',
+    ////        url: '<?= $this->Url->build(["controller" => "Messages","action" => "view"]); ?>',
+    ////        data: {id: id},
+    ////    });
+    //});
+</script>
+
+
 
 
 
