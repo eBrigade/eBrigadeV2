@@ -4,10 +4,14 @@
         <li><?= $this->Html->link(__('New Material'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Material Types'), ['controller' => 'MaterialTypes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material Type'), ['controller' => 'MaterialTypes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List User Materials'), ['controller' => 'UserMaterials', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Borrowed Materials'), ['controller' => 'BorrowedMaterials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Borrowed Material'), ['controller' => 'BorrowedMaterials', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="materials index large-9 medium-8 columns content">
@@ -18,6 +22,7 @@
                 <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('material_type_id') ?></th>
                 <th><?= $this->Paginator->sort('barrack_id') ?></th>
+                <th><?= $this->Paginator->sort('stock') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -26,7 +31,8 @@
             <tr>
                 <td><?= $this->Number->format($material->id) ?></td>
                 <td><?= $material->has('material_type') ? $this->Html->link($material->material_type->name, ['controller' => 'MaterialTypes', 'action' => 'view', $material->material_type->id]) : '' ?></td>
-                <td><?= $material->has('barrack') ? $this->Html->link($material->barrack->name, ['controller' => 'Barracks', 'action' => 'view', $material->barrack->id]) : '' ?></td>
+                <td><?= $this->Number->format($material->barrack_id) ?></td>
+                <td><?= $this->Number->format($material->stock) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $material->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $material->id]) ?>

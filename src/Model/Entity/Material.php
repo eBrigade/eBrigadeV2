@@ -9,6 +9,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $material_type_id
  * @property int $barrack_id
+ * @property int $stock
  *
  * @property \App\Model\Entity\MaterialType $material_type
  * @property \App\Model\Entity\Barrack[] $barracks

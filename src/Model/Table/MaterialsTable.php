@@ -79,6 +79,10 @@ class MaterialsTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
+        $validator
+            ->integer('stock')
+            ->allowEmpty('stock');
+
         return $validator;
     }
 
