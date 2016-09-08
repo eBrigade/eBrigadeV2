@@ -1,9 +1,8 @@
 <h1>Profil de <?= $user->login ?></h1>
-<?php
-    if($myProfile){
-        echo $this->Html->link(__('Editer'),['controller' => 'Users', 'action' => 'edit',$myId]);
-    }
-?>
+<?= ($userId) ? $this->Html->link($this->Html->icon('pencil'),
+    ['action' => 'edit',$user->id],
+    ['class'=>'btn btn-default','escape'=>false])
+    : '' ?>
 <div class="row">
     <div class="medium-1 column">
         <h5>Nom</h5>
@@ -20,15 +19,6 @@
     <div class="medium-6 column">
         Né le <?= ($user->birthday != null) ? $user->birthday : 'Non renseigné' ?>
         à <?= ($user->birthplace != null) ? $user->birthplace : 'Non renseigné' ?>
-    </div>
-    <hr>
-</div>
-<div class="row">
-    <div class="medium-1 column">
-        <h5>Grade</h5>
-    </div>
-    <div class="medium-6 column">
-        <?= $user->grade->name ?>
     </div>
     <hr>
 </div>
