@@ -36,11 +36,12 @@ $cakeDescription = 'Ebrigade';
         </ul>
         <?php $notif = $this->cell('Notifications');
         echo $notif; ?>
+        <?php $cell = $this->cell('Login');
+        echo $cell; ?>
     </div>
 </nav>
 <?= $this->Flash->render() ?>
-<?php $cell = $this->cell('Login');
-echo $cell; ?>
+
 
 <div class="container clearfix">
     <?= $this->fetch('content') ?>

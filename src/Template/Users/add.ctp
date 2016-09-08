@@ -42,7 +42,12 @@
             echo $this->Form->input('address_complement');
             echo $this->Form->input('zipcode');
             echo $this->Form->input('city');
-            echo $this->Form->input('birthday', ['empty' => true]);
+        echo $this->Form->input('birthday', array(
+        'label' => (__('Date of Birth')),
+        'type' => 'text',
+        'required' => false,
+        'class' => 'form-control date'
+        ));
             echo $this->Form->input('birthplace');
             echo $this->Form->input('skype');
             echo $this->Form->input('is_active');
@@ -76,3 +81,17 @@
     })
 </script>
 
+
+<?= $this->Html->css('themes/pepper-grinder/jquery-ui.css') ?>
+<script>
+
+    $(function() {
+        $( "#birthday").datepicker({
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true,
+            yearRange:"-100:+50"
+        });
+
+    });
+</script>
