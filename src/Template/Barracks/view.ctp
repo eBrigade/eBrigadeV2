@@ -5,6 +5,8 @@
 <?= $this->Form->button(__(' Ajouter du matériel à cette caserne'),['id' => 'bt-del', 'class' => 'btn btn-primary',]) ?>
 <br /><br />
 <?= $this->Form->button(__(' Ajouter des utilisateurs à cette caserne'),['id' => 'bt-user', 'class' => 'btn btn-alert',]) ?>
+<br /><br />
+<?= $this->Form->button(__(' Ajouter des véhicules à cette caserne'),['id' => 'bt-vehi', 'class' => 'btn btn-success',]) ?>
 
 
 
@@ -372,5 +374,18 @@ $('#bt-del').click(function() {
     });
 });
 
+$('#bt-vehi').click(function() {
+var url = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
+$('.my-modal-cont').load(url,function(result){
+    $('#myModal').modal({show:true});
+});
+});
+
+$('#bt-user').click(function() {
+    var url = '<?= $this->Url->build(["controller" => "Users","action" => "add", $barrack->id ]); ?>';
+    $('.my-modal-cont').load(url,function(result){
+        $('#myModal').modal({show:true});
+    });
+});
 </script>
 
