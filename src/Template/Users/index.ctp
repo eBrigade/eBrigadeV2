@@ -21,8 +21,8 @@
                 <td><?= h($user->lastname) ?></td>
                 <td>
                     <small>
-                        <?= h($user->adress) ?><br />
-                        <?= h($user->zipcode) ?>&nbsp;<?= h($user->ville) ?><br />
+                        <?= h($user->address) ?><br />
+                        <?= h($user->zipcode) ?>&nbsp;<?= h($user->city) ?><br />
                         <?= h($user->email) ?><br />
                         <?= h($user->phone) ?>&nbsp;<?= h($user->cellphone) ?>
                     </small>
