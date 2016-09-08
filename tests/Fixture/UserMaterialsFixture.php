@@ -21,6 +21,7 @@ class UserMaterialsFixture extends TestFixture
         'material_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'from_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'to_date' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'quantity' => ['type' => 'integer', 'length' => 6, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'materials_key' => ['type' => 'index', 'columns' => ['material_id'], 'length' => []],
         ],
@@ -45,8 +46,9 @@ class UserMaterialsFixture extends TestFixture
         [
             'user_id' => 1,
             'material_id' => 1,
-            'from_date' => '2016-09-06',
-            'to_date' => '2016-09-06'
+            'from_date' => '2016-09-08',
+            'to_date' => '2016-09-08',
+            'quantity' => 1
         ],
     ];
 }

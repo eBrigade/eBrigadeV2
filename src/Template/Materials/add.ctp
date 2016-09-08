@@ -4,10 +4,14 @@
         <li><?= $this->Html->link(__('List Materials'), ['action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('List Material Types'), ['controller' => 'MaterialTypes', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material Type'), ['controller' => 'MaterialTypes', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List User Materials'), ['controller' => 'UserMaterials', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Borrowed Materials'), ['controller' => 'BorrowedMaterials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Borrowed Material'), ['controller' => 'BorrowedMaterials', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="materials form large-9 medium-8 columns content">
@@ -15,31 +19,14 @@
     <fieldset>
         <legend><?= __('Add Material') ?></legend>
         <?php
-            echo $this->Form->input('material_type_id', ['id' => 'change', 'options' => $materialTypes, 'empty' => true]);
-            echo $this->Form->input('mtype',['id' => 'mtype', 'disabled' => 'disabled']);
-            echo $this->Form->input('description',['id' => 'description', 'disabled' => 'disabled']);
-            echo $this->Form->input('barrack_id', ['options' => $barracks, 'empty' => true]);
-            echo $this->Form->input('quantity',['value' => '1', 'type' => 'number']);
-            echo $this->Form->button(__('Ajouter'));
+            echo $this->Form->input('material_type_id', ['options' => $materialTypes, 'empty' => true]);
+            echo $this->Form->input('barrack_id');
+            echo $this->Form->input('stock');
+            echo $this->Form->input('barracks._ids', ['options' => $barracks]);
+            echo $this->Form->input('events._ids', ['options' => $events]);
+            echo $this->Form->input('teams._ids', ['options' => $teams]);
         ?>
     </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>
-<div id="divTypes" style="display:none;">
-    <?php foreach($types as $type): ?>
-    <span id="des-<?= $type->id ?>">
-        <?= $type->description ?>
-    </span>
-    <span id="typ-<?= $type->id ?>">
-        <?= $type->type ?>
-    </span>
-    <?php endforeach; ?>
-</div>
-<script type="text/javascript">
-        $("#change").change(function(){
-            var input = $("#change option:selected").val();
-            var typ = $("#typ-"+input).html();
-            var desc = $("#des-"+input).html();
-            $("#mtype").val(typ);
-            $("#description").val(desc);
-        });
-</script>

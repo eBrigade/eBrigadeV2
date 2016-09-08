@@ -64,6 +64,10 @@ class UserMaterialsTable extends Table
             ->date('to_date')
             ->allowEmpty('to_date');
 
+        $validator
+            ->integer('quantity')
+            ->allowEmpty('quantity');
+
         return $validator;
     }
 
