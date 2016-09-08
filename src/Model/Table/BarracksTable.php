@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $Events
  * @property \Cake\ORM\Association\HasMany $Materials
  * @property \Cake\ORM\Association\HasMany $RescuePlans
- * @property \Cake\ORM\Association\BelongsToMany $Materials
+ * @property \Cake\ORM\Association\BelongsToMany
  * @property \Cake\ORM\Association\BelongsToMany $Users
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
@@ -96,26 +96,13 @@ class BarracksTable extends Table
             ->requirePresence('phone', 'create')
             ->notEmpty('phone');
 
-        $validator
-            ->requirePresence('fax', 'create')
-            ->notEmpty('fax');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
             ->notEmpty('email');
 
-        $validator
-            ->requirePresence('website_url', 'create')
-            ->notEmpty('website_url');
 
-        $validator
-            ->requirePresence('ordre', 'create')
-            ->notEmpty('ordre');
-
-        $validator
-            ->requirePresence('rib', 'create')
-            ->notEmpty('rib');
 
         return $validator;
     }

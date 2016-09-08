@@ -25,14 +25,11 @@
             echo $this->Form->input('address');
             echo $this->Form->input('city_id', ['options' => $cities]);
             echo $this->Form->input('phone');
-            echo $this->Form->input('fax');
+            echo $this->Form->input('fax' , ['required' => false]);
             echo $this->Form->input('email');
-            echo $this->Form->input('website_url');
-            echo $this->Form->input('ordre');
-            echo $this->Form->input('rib');
-            echo $this->Form->input('materials._ids', ['options' => $materials]);
-            echo $this->Form->input('users._ids', ['options' => $users]);
-            echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
+            echo $this->Form->input('website_url' , ['required' => false]);
+            echo $this->Form->input('ordre' , ['required' => false]);
+            echo $this->Form->input('rib' , ['required' => false]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
