@@ -65,6 +65,13 @@ $cakeDescription = 'Ebrigade';
 
         <div class="container-fluid clearfix">
             <div class="row">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                        <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-xs-6 col-md-4">
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-danger">Détails importants de la mission</li>
