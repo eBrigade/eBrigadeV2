@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * RescuePlans Controller
@@ -20,11 +21,15 @@ class OperationsController extends AppController
     public function gestion($id = null) {
         $this->loadModel('Events');
         $event = $this->Events->get($id, [
-            'contain' => [ 'Cities', 'Barracks', 'Materials', 'Teams', 'Teams.Users', 'Teams.Vehicles', 'Vehicles', 'RescuePlans']
+            'contain' => [  'Materials', 'Teams', 'Teams.Users', 'Teams.Vehicles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $event = $this->Events->patchEntity($event, $this->request->data);
 
+
+            /*$event = $this->Events->Teams->link($event, [$team]);*/
+           $event = $this->Events->patchEntity($event, $this->request->data, [
+               'associated' => ['Teams', 'Teams.Users']
+           ]);
             if ($this->Events->save($event)) {
                 $this->Flash->success(__('The event has been saved.'));
 
@@ -33,6 +38,9 @@ class OperationsController extends AppController
                 $this->Flash->error(__('The event could not be saved. Please, try again.'));
             }
         }
+
+
+
 
         $cities = $this->Events->Cities->find('list', ['limit' => 200]);
         $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
@@ -44,8 +52,20 @@ class OperationsController extends AppController
 
 
         $this->set('event', $event);
-        $this->set(compact('users', 'cities', 'bills', 'barracks', 'eventTypes', 'materials', 'teams', 'vehicles'));
+        $this->set(compact('team', 'users', 'cities', 'bills', 'barracks', 'eventTypes', 'materials', 'teams', 'vehicles'));
         $this->set('_serialize', ['event']);
+    }
+
+    public function addTeam($eventID = null, $teamID = null) {
+
+        $eventsTeams = TableRegistry::get('EventsTeams');
+        $eventID = isset($this->request->query['eventID']) ? $this->request['eventID'] : null;
+        $teamID = isset($this->request->query['teamID']) ? $this->request->query['teamID'] : null;
+
+        $joinET = $eventsTeams->newEntity();
+        $joinET->team_id = $teamID;
+        $joinET->event_id = $eventID;
+        $eventsTeams->save($joinET);
     }
 
 
