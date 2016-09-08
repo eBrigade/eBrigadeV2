@@ -3,8 +3,8 @@
 </div>
 
 <?= $this->Form->button(__(' Ajouter du matériel à cette caserne'),['id' => 'bt-del', 'class' => 'btn btn-primary',]) ?>
-
-<div id='test' ></div>
+<br /><br />
+<?= $this->Form->button(__(' Ajouter des utilisateurs à cette caserne'),['id' => 'bt-user', 'class' => 'btn btn-alert',]) ?>
 
 
 
@@ -366,7 +366,7 @@ $('#bt-del').click(function() {
 //                }
 //    });
 
-    var url = '<?= $this->Url->build(["controller" => "Materials","action" => "ajaxaddmaterial", $barrack->id ]); ?>';
+    var url = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
     $('.my-modal-cont').load(url,function(result){
         $('#myModal').modal({show:true});
     });
