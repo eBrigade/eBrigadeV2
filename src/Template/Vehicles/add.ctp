@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Ajouter du matériel</h3>
+                <h3>Ajouter un véhicule</h3>
             </div>
             <div class="modal-body">
 
