@@ -1,25 +1,33 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Availabilities'), ['controller' => 'Availabilities', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Availability'), ['controller' => 'Availabilities', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Orders'), ['controller' => 'Orders', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Order'), ['controller' => 'Orders', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List User Materials'), ['controller' => 'UserMaterials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Ajouter du matériel</h3>
+            </div>
+            <div class="modal-body">
+
+                <!--<nav class="large-3 medium-4 columns" id="actions-sidebar">-->
+    <!--<ul class="side-nav">-->
+        <!--<li class="heading"><?= __('Actions') ?></li>-->
+        <!--<li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('List Availabilities'), ['controller' => 'Availabilities', 'action' => 'index']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('New Availability'), ['controller' => 'Availabilities', 'action' => 'add']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('List Orders'), ['controller' => 'Orders', 'action' => 'index']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('New Order'), ['controller' => 'Orders', 'action' => 'add']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('List User Materials'), ['controller' => 'UserMaterials', 'action' => 'index']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?></li>-->
+        <!--<li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?></li>-->
+    <!--</ul>-->
+<!--</nav>-->
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
         <?php
             echo $this->Form->input('firstname');
             echo $this->Form->input('lastname');
@@ -44,3 +52,27 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+
+
+
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Annuler</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    $('#type').on('change',function () {
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->Url->build(["controller" => "Materials","action" => "addajax"]); ?>',
+            data:"cat="+$("#type").val(),
+            success:function(data){
+                $('#form').html(data)
+            }
+        });
+    })
+</script>
+
