@@ -132,6 +132,8 @@
                         <?php foreach ($teamsList as $teams): ?>
                             <li><?= $this->Html->link($teams->name, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'add', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
                         <?php endforeach; ?>
+                        <li><?= $this->Html->link($teams->name, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'add', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
+
                     </ul>
                     <p id="teamNumber"></p>
                     Détails de la mission
@@ -270,3 +272,24 @@
     $('#teamNumber').html("Nombre d'équipes : " + <?= $teamNumber ?>);
 </script>
 
+
+<script>
+    $('a').on('click', function (e) {
+        e.preventDefault();
+        var phpParams = this.search.slice(1).split('&');
+        var hash =[];
+        var vars = [];
+        for(var i = 0; i < phpParams.length; i++)
+        {
+            hash = phpParams[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->Url->build(["controller" => "operations","action" => "megaJoints"]); ?>',
+            data: vars
+        });
+        console.log(vars);
+    })
+</script>

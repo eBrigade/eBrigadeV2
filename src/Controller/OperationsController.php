@@ -61,24 +61,27 @@ class OperationsController extends AppController
     }
 
 
-    public function megaJoints()
+    public function megaJoints($containerID = null, $contentID = null, $source = null, $containerType = null, $contentType = null, $action= null)
     {
 
         //id of the container from where to add/remove
-        $containerID = isset($this->request->query['containerID']) ? $this->request->query['containerID'] : null;
+        $containerID = isset($this->request->data['containerID']) ? $this->request->data['containerID'] : null;
+        $containerID = intval($containerID);
 
         //if of the content
-        $contentID = isset($this->request->query['contentID']) ? $this->request->query['contentID'] : null;
+        $contentID = isset($this->request->data['contentID']) ? $this->request->data['contentID'] : null;
+        $contentID = intval($contentID);
 
         //id of the event or else that contains all the rest, allows url redirect to initial page
-        $source = isset($this->request->query['source']) ? $this->request->query['source'] : null;
+        $source = isset($this->request->data['source']) ? $this->request->data['source'] : null;
+        $source = intval($source);
 
         //container and content types : to load model and contain and to determine switch cases for query objects
-        $containerType = isset($this->request->query['containerType']) ? $this->request->query['containerType'] : null;
-        $contentType = isset($this->request->query['contentType']) ? $this->request->query['contentType'] : null;
+        $containerType = isset($this->request->data['containerType']) ? $this->request->data['containerType'] : null;
+        $contentType = isset($this->request->data['contentType']) ? $this->request->data['contentType'] : null;
 
         //add or remove : link/unlink
-        $action = isset($this->request->query['action']) ? $this->request->query['action'] : null;
+        $action = isset($this->request->data['action']) ? $this->request->data['action'] : null;
 
         //loads container's model
         $this->loadModel($containerType);
