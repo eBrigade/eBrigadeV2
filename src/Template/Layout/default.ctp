@@ -12,11 +12,12 @@ $cakeDescription = 'Ebrigade';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-
     <?= $this->Html->css('bootstrap.css') ?>
     <?= $this->Html->css('bootstrap-theme.css') ?>
     <?= $this->Html->css('styles.css') ?>
+    <?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
 
+    <?= $this->Html->script('scripts.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
