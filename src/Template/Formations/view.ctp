@@ -53,6 +53,8 @@
                 </li>
 
             </ul>
+
+
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
                     <button type="submit" class="btn btn-info btn-sm">Ajouter un document</button>
@@ -66,11 +68,10 @@
         <div class="col-xs-12 col-sm-6 col-md-8">
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
-                    <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
+                    <button type="submit" class="btn btn-info btn-sm" id="bt-aj-eq-for">Ajouter une équipe</button>
                     Détails de la mission
                 </li>
-
-                </li>
+                <?php foreach ($teamz as $team):?>
                 <li class="list-group-item">
 
                     <div class="btn-group">
@@ -91,7 +92,7 @@
                         </ul>
                     </div>
                     <div class="row-fluid">
-                        <p><b>Nom de l'équipe : </b>Equipe ALPHA 001</p>
+                        <p><b>Nom de l'équipe : </b><?= $team->name ?></p>
                         <p><b>Horaires : </b>de 8h à 12h</p>
                         <p><b>Lieu de rendez-vous : </b>Caserne de Raon-aux-Bois</p>
                         <p><b>Positionnement : </b>début de la course</p>
@@ -103,11 +104,11 @@
                         <ul class="list-group col-xs-6 col-sm-6 col-md-6">
                             <li class="list-group-item list-group-item-info">
                                 <button type="button" class="btn btn-info btn-xs">Inscrire du personnel</button>
-                                <span class="badge badge-danger">3/4</span>
+                                <span class="badge badge-danger">0/4</span>
                             </li>
-                            <li class="list-group-item">Champ d'ajout et bouton</li>
-                            <li class="list-group-item">Jean-Christophe</li>
-                            <li class="list-group-item">Nicolas</li>
+                            <?php foreach ($userz as $user):?>
+                            <li class="list-group-item"><?= $user->firstname?></li>
+                            <?php endforeach; ?>
                         </ul>
 
                         <ul class="list-group col-xs-3 col-sm-3 col-md-3">
@@ -129,69 +130,9 @@
                             <li class="list-group-item">Nicolas</li>
                         </ul>
                     </div>
-
                 </li>
-                <li class="list-group-item">
-
-                    <div class="btn-group">
-
-                        <button type="button" class="btn btn-info btn-xs">Modifier cette équipe</button>
-                        <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Modifier les informations de l'équipe</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Supprimer l'équipe et ses moyens</a></li>
-                            <li><a href="#">Vider la liste des équipiers</a></li>
-                            <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
-                        </ul>
-                    </div>
-                    <div class="row-fluid">
-                        <p><b>Nom de l'équipe : </b>Equipe ALPHA 001</p>
-                        <p><b>Horaires : </b>de 8h à 12h</p>
-                        <p><b>Lieu de rendez-vous : </b>Caserne de Raon-aux-Bois</p>
-                        <p><b>Positionnement : </b>début de la course</p>
-                        <p><b>Mission principale : </b>Public et Acteurs</p>
-                        <p><b>Consignes : </b>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</p>
-                    </div>
-                    <div class="row-fluid clearfix">
-
-                        <ul class="list-group col-xs-6 col-sm-6 col-md-6">
-                            <li class="list-group-item list-group-item-info">
-                                <button type="button" class="btn btn-info btn-xs">Inscrire du personnel</button>
-                                <span class="badge badge-danger">3/4</span>
-                            </li>
-                            <li class="list-group-item">Champ d'ajout et bouton</li>
-                            <li class="list-group-item">Jean-Christophe</li>
-                            <li class="list-group-item">Nicolas</li>
-                        </ul>
-
-                        <ul class="list-group col-xs-3 col-sm-3 col-md-3">
-                            <li class="list-group-item list-group-item-info">
-                                <button type="button" class="btn btn-info btn-xs">Affecter du matériel</button>
-                                <span class="badge badge-danger">2</span>
-                            </li>
-                            <li class="list-group-item">Champ d'ajout et bouton</li>
-                            <li class="list-group-item">Nicolas</li>
-                        </ul>
-
-                        <ul class="list-group col-xs-3 col-sm-3 col-md-3">
-                            <li class="list-group-item list-group-item-info">
-                                <button type="button" class="btn btn-info btn-xs">Affecter des véhicules</button>
-                                <span class="badge badge-danger">3</span>
-                            </li>
-                            <li class="list-group-item">VPSP 882 - AZ-852-FR</li>
-                            <li class="list-group-item">Jean-Christophe</li>
-                            <li class="list-group-item">Nicolas</li>
-                        </ul>
-                    </div>
-
-                </li>
-            </ul>
+                    </ul>
+                <?php endforeach; ?>
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">Bilan de la mission</li>
                 <li class="list-group-item">Un beau formulaire chiffres et textarea</li>
@@ -199,6 +140,4 @@
         </div>
     </div>
 </div>
-<footer>
-</footer>
 </body>

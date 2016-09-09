@@ -44,7 +44,10 @@ class FormationsController extends AppController
         $this->loadModel('Users');
         $this->loadModel('Barracks');
         $this->loadModel('EventsTeams');
+        $this->loadModel('TeamsUsers');
+        $this->loadModel('Users');
         $this->loadModel('Teams');
+
         $formation = $this->Formations->get($id, [
             'contain' => ['Organizations']
         ]);
@@ -59,16 +62,26 @@ class FormationsController extends AppController
 
 
 
-/*        $teamevents = $this->EventsTeams->find('all')->where(['event_id =' => $formation['event_id']]);
+        $teamevents = $this->EventsTeams->find('all')->where(['event_id =' => $formation['event_id']]);
+
         foreach ($teamevents as $teamevent) {
+
             $teams = $this->Teams->findAllById($teamevent->team_id);
+            $equipes = $this->TeamsUsers->find('all')->where(['team_id ='=>$teamevent->team_id])->toArray();
+            $users = $this->Users->find('all')->where(['id ='=> $equipes[0]['user_id']]);
+
             foreach ($teams as $team) {
-                debug($team->name);
+
+                $teamz[] = $team;
 
             }
-        }*/
+            foreach ($users as $user ){
 
-        $this->set(compact('formation', 'cities', 'Users', 'event', 'barracks', 'bills'));
+                $userz[] = $user ;
+            }
+        }
+
+        $this->set(compact('formation', 'cities', 'Users', 'event', 'barracks', 'bills','teamz','userz'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -180,5 +193,27 @@ class FormationsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    public function addequipeformation($id = NULL){
+        $this->loadModel('Teams');
+
+        $formation_team = $this->Events->get($id, [
+            'contain' => ['Events']
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $formation_team = $this->Events->patchEntity($formation_team, $this->request->data);
+            if ($this->Events->save($formation_team)) {
+                $this->Flash->success(__('The event has been saved.'));
+
+                return $this->redirect(['action' => 'view',$id]);
+            } else {
+                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+            }
+        }
+        $teams = $this->Teams->find('list', ['limit' => 200]);
+        $this->set(compact('teams','$formation_team'));
+        $this->set('_serialize', ['$formation_team']);
     }
 }
