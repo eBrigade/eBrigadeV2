@@ -1,1 +1,1 @@
-<div class="message warning" onclick="this.classList.add('hidden')"><?= h($message) ?></div>
+<?= $this->Html->alert( h($message) , 'warning' ) ?>

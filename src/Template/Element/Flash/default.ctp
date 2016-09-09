@@ -1,7 +1,4 @@
-<?php
-$class = 'message';
-if (!empty($params['class'])) {
-    $class .= ' ' . $params['class'];
-}
-?>
-<div class="<?= h($class) ?>"><?= h($message) ?></div>
+<?= $this->Html->alert( h($message) , [
+        'id' => 'alert-success',
+        'type' => 'info'
+    ]) ?>

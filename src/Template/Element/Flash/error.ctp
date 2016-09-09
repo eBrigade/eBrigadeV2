@@ -1,1 +1,4 @@
-<div class="message error" onclick="this.classList.add('hidden');"><?= h($message) ?></div>
+<?= $this->Html->alert( h($message) , [
+        'id' => 'alert-error',
+        'type' => 'danger'
+    ]) ?>
