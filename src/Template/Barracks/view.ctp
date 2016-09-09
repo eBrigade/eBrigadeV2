@@ -2,12 +2,76 @@
     <div class="my-modal-cont"></div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Caserne <?= h($barrack->name) ?></div>
+            <div class="panel-body">
+            <div class="col-md-6">
+                <div class="panel-heading">Informations</div>
+                Adresse : <?= h($barrack->address) ?> <br/>
+                Ville : <?= h($barrack->city->city) ?> <br/>
+                Téléphone : <?= h($barrack->phone) ?> <br/>
+                Fax : <?= h($barrack->fax) ?> <br/>
+                Email : <?= h($barrack->email) ?> <br/>
+                Site web : <?= h($barrack->website_url) ?> <br/>
+                Ordre : <?= h($barrack->ordre) ?> <br/>
+                R.I.B. : <?= h($barrack->rib) ?>
+            </div>
+            <div class="col-md-6">
+                <div class="panel-heading">Statistiques</div>
+                Date de création : <br/>
+                Personnel affecté : <br/>
+                Etc :
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-5"> <!--colonne gauche-->
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Matériels <?= $this->Html->badge(count($barrack->materials))  ?></div>
+            <div class="panel-body">
+                <?php foreach ($barrack->materials as $matos)
+                echo $matos->material_type->name."<br/>";
+                ?>
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">Véhicules <?= $this->Html->badge(count($barrack->vehicles))  ?></div>
+            <div class="panel-body">
+                <?php foreach ($barrack->vehicles as $veh)
+                echo $veh->vehicle_type->name."<br/>";
+                ?>
+            </div>
+        </div>
+
+    </div> <!--colonne gauche-->
+
+
+    <div class="col-md-7"> <!--colonne droite-->
+        <div class="panel panel-info">
+            <div class="panel-heading">Personnels <?= $this->Html->badge(count($barrack->users))  ?></div>
+            <div class="panel-body">
+                <?php foreach ($barrack->users as $user)
+                echo $user->firstname.' '.$user->lastname."<br/>";
+                ?>
+            </div>
+        </div>
+    </div><!--colonne droite-->
+</div>  <!--row global-->
+
+
 <?= $this->Form->button(__(' Créer du matériel'),['id' => 'bt-del', 'class' => 'btn btn-primary',]) ?> &nbsp;
 <?= $this->Form->button(__('Lier du matériel'),['id' => 'bt-join-mat', 'class' => 'btn btn-primary',]) ?>
-<br /><br />
+<br/><br/>
 <?= $this->Form->button(__(' Créer des utilisateurs'),['id' => 'bt-user', 'class' => 'btn btn-alert',]) ?>&nbsp;
 <?= $this->Form->button(__(' Lier des utilisateurs'),['id' => 'bt-join-user', 'class' => 'btn btn-alert',]) ?>
-<br /><br />
+<br/><br/>
 <?= $this->Form->button(__(' Créer des véhicules'),['id' => 'bt-vehi', 'class' => 'btn btn-success',]) ?>&nbsp;
 <?= $this->Form->button(__(' Lier des véhicules'),['id' => 'bt-join-vehi', 'class' => 'btn btn-success',]) ?>
 
@@ -25,7 +89,9 @@
         </tr>
         <tr>
             <th><?= __('City') ?></th>
-            <td><?= $barrack->has('city') ? $this->Html->link($barrack->city->id, ['controller' => 'Cities', 'action' => 'view', $barrack->city->id]) : '' ?></td>
+            <td><?= $barrack->has('city') ? $this->Html->link($barrack->city->id, ['controller' => 'Cities', 'action' =>
+                'view', $barrack->city->id]) : '' ?>
+            </td>
         </tr>
         <tr>
             <th><?= __('Phone') ?></th>
@@ -74,9 +140,12 @@
                 <td><?= h($materials->material_type_id) ?></td>
                 <td><?= h($materials->barrack_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Materials', 'action' => 'delete', $materials->id], ['confirm' => __('Are you sure you want to delete # {0}?', $materials->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id])
+                    ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id])
+                    ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Materials', 'action' => 'delete',
+                    $materials->id], ['confirm' => __('Are you sure you want to delete # {0}?', $materials->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -133,7 +202,8 @@
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Users', 'action' => 'delete', $users->id], ['confirm' => __('Are you sure you want to delete # {0}?', $users->id)]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Users', 'action' => 'delete', $users->id],
+                    ['confirm' => __('Are you sure you want to delete # {0}?', $users->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -170,9 +240,12 @@
                 <td><?= h($vehicles->end_warranty) ?></td>
                 <td><?= h($vehicles->next_revision) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Vehicles', 'action' => 'view', $vehicles->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Vehicles', 'action' => 'edit', $vehicles->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Vehicles', 'action' => 'delete', $vehicles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vehicles->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'Vehicles', 'action' => 'view', $vehicles->id])
+                    ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Vehicles', 'action' => 'edit', $vehicles->id])
+                    ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Vehicles', 'action' => 'delete',
+                    $vehicles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vehicles->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -182,16 +255,10 @@
 </div>
 
 
-
-
-
 <script>
 
 
-
-
-
-$('#bt-del').click(function() {
+    $('#bt-del').click(function () {
 
 //    $.ajax({
 //        type: 'POST',
@@ -202,25 +269,25 @@ $('#bt-del').click(function() {
 //                }
 //    });
 
-    var url = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
-    $('.my-modal-cont').load(url,function(result){
-        $('#myModal').modal({show:true});
+        var url = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
+        $('.my-modal-cont').load(url, function (result) {
+            $('#myModal').modal({show: true});
+        });
     });
-});
 
-$('#bt-vehi').click(function() {
-var url = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
-$('.my-modal-cont').load(url,function(result){
-    $('#myModal').modal({show:true});
-});
-});
-
-$('#bt-user').click(function() {
-    var url = '<?= $this->Url->build(["controller" => "Users","action" => "add", $barrack->id ]); ?>';
-    $('.my-modal-cont').load(url,function(result){
-        $('#myModal').modal({show:true});
+    $('#bt-vehi').click(function () {
+        var url = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
+        $('.my-modal-cont').load(url, function (result) {
+            $('#myModal').modal({show: true});
+        });
     });
-});
+
+    $('#bt-user').click(function () {
+        var url = '<?= $this->Url->build(["controller" => "Users","action" => "add", $barrack->id ]); ?>';
+        $('.my-modal-cont').load(url, function (result) {
+            $('#myModal').modal({show: true});
+        });
+    });
 </script>
 
 <?= $this->Html->script('jquery-ui.js')?>
