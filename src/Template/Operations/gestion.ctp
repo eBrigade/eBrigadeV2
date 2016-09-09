@@ -1,3 +1,5 @@
+<?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
+
 <div class="container-fluid clearfix">
     <div class="row">
         <div class="col-xs-6 col-md-4">
@@ -13,6 +15,33 @@
                 </li>
                 <li class="list-group-item">
                     A ce jour il manque toujours 2 équipiers
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <?php
+                    $map_options = array(
+                        'id' => 'map_canvas',
+                        'width' => '300px',
+                        'height' => '300px',
+                        'style' => '',
+                        'zoom' => 7,
+                        'type' => 'HYBRID',
+                        'custom' => null,
+                        'localize' => true,
+                        'latitude' => 40.69847032728747,
+                        'longitude' => -1.9514422416687,
+                        'address' => '1 Infinite Loop, Cupertino',
+                        'marker' => true,
+                        'markerTitle' => 'This is my position',
+                        'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
+                        'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
+                        'infoWindow' => true,
+                        'windowText' => 'My Position',
+                        'draggableMarker' => false
+                    );
+                    echo $this->GoogleMap->map($map_options);
+                    ?>
                 </li>
             </ul>
             <ul class="list-group">
@@ -63,7 +92,6 @@
                         <b>Enfin bref, toutes les infos du formulaires qui sont utiles</b>
                     </div>
                 </li>
-
             </ul>
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
@@ -78,7 +106,6 @@
         <div class="col-xs-12 col-sm-6 col-md-8">
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
-
                     <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
                     <button type="button" class="btn btn-info dropdown-toggle btn-xs"
                             data-toggle="dropdown"
@@ -94,11 +121,9 @@
                     <p id="teamNumber"></p>
                     Détails de la mission
                 </li>
-
                 <?php
                 $teamNumber = 0;
                 if (!empty($event->teams)): ?>
-
                     <?php foreach ($event->teams as $teams): ?>
                         <?php $teamNumber++ ?>
                         <li class="list-group-item">
@@ -156,7 +181,6 @@
 
 
                                     <?php if (!empty($teams->users)): ?>
-
                                         <?php foreach ($teams->users as $users): ?>
                                             <li class="list-group-item"><?= $this->Html->link($users->firstname . ' ' . $users->lastname, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $users->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Users')]) ?></li>
                                         <?php endforeach; ?>
@@ -185,7 +209,6 @@
                                         <?php foreach ($teams->materials as $materials): ?>
                                             <li class="list-group-item"><?= $this->Html->link(' material ID : ' . $materials->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $materials->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Materials')]) ?></li>
                                         <?php endforeach; ?>
-
                                     <?php endif; ?>
                                 </ul>
 
@@ -206,13 +229,11 @@
                                         </ul>
                                         <span class="badge badge-danger">2</span>
                                     </li>
-                                    <li class="list-group-item">Champ d'ajout et bouton</li>
-                                    <?php if (!empty($teams->vehicles)): ?>
 
+                                    <?php if (!empty($teams->vehicles)): ?>
                                         <?php foreach ($teams->vehicles as $vehicle): ?>
                                             <li class="list-group-item"><?= $this->Html->link(' vehicle ID : ' . $vehicle->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $vehicle->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Vehicles')]) ?></li>
                                         <?php endforeach; ?>
-
                                     <?php endif; ?>
                                 </ul>
                             </div>
@@ -233,3 +254,4 @@
 <script>
     $('#teamNumber').html("Nombre d'équipes : " + <?= $teamNumber ?>);
 </script>
+
