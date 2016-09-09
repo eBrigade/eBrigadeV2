@@ -27,6 +27,7 @@
         echo $this->Form->input('event.horaires');
         echo $this->Form->input('event.public');
         echo $this->Form->hidden('event.is_active');
+        echo $this->Form->input('event.events._ids', ['options' => $events]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -69,7 +69,8 @@ class EventsController extends AppController
         $materials = $this->Events->Materials->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'cities', 'bills', 'barracks', 'eventTypes', 'materials', 'teams', 'vehicles'));
+        $formation = $this->Events->Formations->find('list', ['limit' => 200]);
+        $this->set(compact('event', 'cities', 'bills', 'barracks', 'eventTypes', 'materials', 'teams', 'vehicles','formation'));
         $this->set('_serialize', ['event']);
     }
 
@@ -125,4 +126,23 @@ class EventsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-}
+
+public function addequipe($id = NULL){
+
+    $event_team = $this->Events->get($id, [
+        'contain' => ['Materials', 'Teams', 'Vehicles']
+    ]);
+    if ($this->request->is(['patch', 'post', 'put'])) {
+        $event_team = $this->Events->patchEntity($event_team, $this->request->data);
+        if ($this->Events->save($event_team)) {
+            $this->Flash->success(__('The event has been saved.'));
+
+            return $this->redirect(['action' => 'view',$id]);
+        } else {
+            $this->Flash->error(__('The event could not be saved. Please, try again.'));
+        }
+    }
+    $teams = $this->Events->Teams->find('list', ['limit' => 200]);
+    $this->set(compact('teams','event_team'));
+    $this->set('_serialize', ['event_team']);
+}}
