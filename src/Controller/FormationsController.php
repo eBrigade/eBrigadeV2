@@ -6,7 +6,8 @@ use App\Controller\AppController;
 /**
  * Formations Controller
  *
- * @property \App\Model\Table\FormationsTable $Formations */
+ * @property \App\Model\Table\FormationsTable $Formations
+ */
 class FormationsController extends AppController
 {
 
@@ -20,12 +21,12 @@ class FormationsController extends AppController
         // Pourquoi faire un loadModel de Events alors qu'il est associé par table normalement ?
         $this->loadModel('Events');
         $this->paginate = [
-            'contain' => ['Organizations','Events']
+            'contain' => ['Organizations', 'Events']
         ];
         $formations = $this->paginate($this->Formations);
 
 
-        $this->set(compact('formations','events'));
+        $this->set(compact('formations', 'events'));
         $this->set('_serialize', ['formations']);
     }
 
@@ -42,6 +43,8 @@ class FormationsController extends AppController
         $this->loadModel('Cities');
         $this->loadModel('Users');
         $this->loadModel('Barracks');
+        $this->loadModel('EventsTeams');
+        $this->loadModel('Teams');
         $formation = $this->Formations->get($id, [
             'contain' => ['Organizations']
         ]);
@@ -49,13 +52,23 @@ class FormationsController extends AppController
 
         $event = $this->Events->findAllById($formation['event_id'])->toArray();
 
+
         $cities = $this->Cities->findAllById($event[0]['city_id'])->toArray();
         $Users = $this->Users->findAllById($event[0]['creator_id'])->toArray();
         $barracks = $this->Barracks->findAllById($event[0]['barrack_id'])->toArray();
 
 
 
-        $this->set(compact('formation', 'cities','Users','event','barracks','bills'));
+/*        $teamevents = $this->EventsTeams->find('all')->where(['event_id =' => $formation['event_id']]);
+        foreach ($teamevents as $teamevent) {
+            $teams = $this->Teams->findAllById($teamevent->team_id);
+            foreach ($teams as $team) {
+                debug($team->name);
+
+            }
+        }*/
+
+        $this->set(compact('formation', 'cities', 'Users', 'event', 'barracks', 'bills'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -75,26 +88,27 @@ class FormationsController extends AppController
 
         if ($this->request->is('post')) {
             $formation = $this->Formations->patchEntity($formation, $this->request->data, ['associated' => [
-                    'Events',
-                    'Events.Formations'
+                'Events',
+                'Events.Formations'
             ]]);
 
             if ($this->Formations->save($formation)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
-/*                return $this->redirect(['action' => 'index']);*/
+                /*                return $this->redirect(['action' => 'index']);*/
             } else {
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
 
-                $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
-                $FormationTypes = $this->EventTypes->find('list',['valueField'=> 'title'])->where(['module ='=>'forma']);
+        $organizations = $this->Formations->Organizations->find('list', ['valueField' => 'title']);
+        $FormationTypes = $this->EventTypes->find('list', ['valueField' => 'title'])->where(['module =' => 'forma']);
 
         $cities = $this->Cities->find('list', ['valueField' => 'city']);
         $barracks = $this->Barracks->find('list', ['valueField' => 'name']);
+        $events = $this->Formations->Events->find('list', ['limit' => 200]);
 
-        $this->set(compact('formation', 'organizations','barracks','cities','FormationTypes'));
+        $this->set(compact('formation', 'organizations', 'barracks', 'cities', 'FormationTypes','events'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -117,7 +131,7 @@ class FormationsController extends AppController
             'contain' => ['Events']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $formation = $this->Formations->patchEntity($formation, $this->request->data,['associated' => [
+            $formation = $this->Formations->patchEntity($formation, $this->request->data, ['associated' => [
                 'Events',
                 'Events.Formations'
             ]]);
@@ -137,7 +151,7 @@ class FormationsController extends AppController
         $event = $this->Events->findAllById($formation['event_id'])->toArray();
 
 
-        $this->set(compact('formation', 'organizations', 'teachers','barracks','cities','event'));
+        $this->set(compact('formation', 'organizations', 'teachers', 'barracks', 'cities', 'event'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -155,9 +169,9 @@ class FormationsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $formation = $this->Formations->get($id);
 
-      $event = $this->Events->get($formation['event_id']);
+        $event = $this->Events->get($formation['event_id']);
 
-         $this->Events->delete($event);
+        $this->Events->delete($event);
 
         if ($this->Formations->delete($formation)) {
             $this->Flash->success(__('The formation has been deleted.'));

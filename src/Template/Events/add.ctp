@@ -50,6 +50,7 @@
             echo $this->Form->input('materials._ids', ['options' => $materials]);
             echo $this->Form->input('teams._ids', ['options' => $teams]);
             echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
+        echo $this->Form->input('formations._ids', ['options' => $formation]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -124,157 +124,162 @@
     <div class="related">
         <h4><?= __('Related Formations') ?></h4>
         <?php if (!empty($event->formations)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Organization Id') ?></th>
-                <th><?= __('Event Id') ?></th>
-                <th><?= __('Formation Type Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($event->formations as $formations): ?>
-            <tr>
-                <td><?= h($formations->id) ?></td>
-                <td><?= h($formations->organization_id) ?></td>
-                <td><?= h($formations->event_id) ?></td>
-                <td><?= h($formations->formation_type_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Formations', 'action' => 'view', $formations->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Formations', 'action' => 'edit', $formations->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Formations', 'action' => 'delete', $formations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $formations->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <th><?= __('Organization Id') ?></th>
+                    <th><?= __('Event Id') ?></th>
+                    <th><?= __('Formation Type Id') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+                <?php foreach ($event->formations as $formations): ?>
+                    <tr>
+                        <td><?= h($formations->id) ?></td>
+                        <td><?= h($formations->organization_id) ?></td>
+                        <td><?= h($formations->event_id) ?></td>
+                        <td><?= h($formations->formation_type_id) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('View'), ['controller' => 'Formations', 'action' => 'view', $formations->id]) ?>
+                            <?= $this->Html->link(__('Edit'), ['controller' => 'Formations', 'action' => 'edit', $formations->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Formations', 'action' => 'delete', $formations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $formations->id)]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
     </div>
     <div class="related">
         <h4><?= __('Related Rescue Plans') ?></h4>
         <?php if (!empty($event->rescue_plans)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Event Id') ?></th>
-                <th><?= __('Barrack Id') ?></th>
-                <th><?= __('Public Headcount') ?></th>
-                <th><?= __('Rescue Plan Activity Id') ?></th>
-                <th><?= __('Rescue Plan Environment Id') ?></th>
-                <th><?= __('Rescue Plan Delay Id') ?></th>
-                <th><?= __('Public Ris') ?></th>
-                <th><?= __('Rescue Plan Type Id') ?></th>
-                <th><?= __('Rescue Plan Recommendation Id') ?></th>
-                <th><?= __('Public Reinforcement') ?></th>
-                <th><?= __('Public Total') ?></th>
-                <th><?= __('Organization Id') ?></th>
-                <th><?= __('Actors Headcount') ?></th>
-                <th><?= __('Rescuers Total') ?></th>
-                <th><?= __('Headcount Total') ?></th>
-                <th><?= __('Actors Organization') ?></th>
-                <th><?= __('General Organization') ?></th>
-                <th><?= __('Transport Organization') ?></th>
-                <th><?= __('Team Instructions') ?></th>
-                <th><?= __('Report Assisted') ?></th>
-                <th><?= __('Report Slight') ?></th>
-                <th><?= __('Report Medicalized') ?></th>
-                <th><?= __('Report Reinforcement') ?></th>
-                <th><?= __('Report Evacuated') ?></th>
-                <th><?= __('Report Bilan Notes') ?></th>
-                <th><?= __('Meals Morning') ?></th>
-                <th><?= __('Meals Lunch') ?></th>
-                <th><?= __('Meals Dinner') ?></th>
-                <th><?= __('Meals Unit Cost') ?></th>
-                <th><?= __('Meals Charge') ?></th>
-                <th><?= __('Meals Cost') ?></th>
-                <th><?= __('Cost Kilometers Vps') ?></th>
-                <th><?= __('Cost Kilometers Other') ?></th>
-                <th><?= __('Discount Percentage') ?></th>
-                <th><?= __('Discount Reason') ?></th>
-                <th><?= __('Cost Percentage Adpc') ?></th>
-                <th><?= __('Total Cost') ?></th>
-                <th><?= __('Date') ?></th>
-                <th><?= __('Operation Type Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($event->rescue_plans as $rescuePlans): ?>
-            <tr>
-                <td><?= h($rescuePlans->id) ?></td>
-                <td><?= h($rescuePlans->event_id) ?></td>
-                <td><?= h($rescuePlans->barrack_id) ?></td>
-                <td><?= h($rescuePlans->public_headcount) ?></td>
-                <td><?= h($rescuePlans->rescue_plan_activity_id) ?></td>
-                <td><?= h($rescuePlans->rescue_plan_environment_id) ?></td>
-                <td><?= h($rescuePlans->rescue_plan_delay_id) ?></td>
-                <td><?= h($rescuePlans->public_ris) ?></td>
-                <td><?= h($rescuePlans->rescue_plan_type_id) ?></td>
-                <td><?= h($rescuePlans->rescue_plan_recommendation_id) ?></td>
-                <td><?= h($rescuePlans->public_reinforcement) ?></td>
-                <td><?= h($rescuePlans->public_total) ?></td>
-                <td><?= h($rescuePlans->organization_id) ?></td>
-                <td><?= h($rescuePlans->actors_headcount) ?></td>
-                <td><?= h($rescuePlans->rescuers_total) ?></td>
-                <td><?= h($rescuePlans->headcount_total) ?></td>
-                <td><?= h($rescuePlans->actors_organization) ?></td>
-                <td><?= h($rescuePlans->general_organization) ?></td>
-                <td><?= h($rescuePlans->transport_organization) ?></td>
-                <td><?= h($rescuePlans->team_instructions) ?></td>
-                <td><?= h($rescuePlans->report_assisted) ?></td>
-                <td><?= h($rescuePlans->report_slight) ?></td>
-                <td><?= h($rescuePlans->report_medicalized) ?></td>
-                <td><?= h($rescuePlans->report_reinforcement) ?></td>
-                <td><?= h($rescuePlans->report_evacuated) ?></td>
-                <td><?= h($rescuePlans->report_bilan_notes) ?></td>
-                <td><?= h($rescuePlans->meals_morning) ?></td>
-                <td><?= h($rescuePlans->meals_lunch) ?></td>
-                <td><?= h($rescuePlans->meals_dinner) ?></td>
-                <td><?= h($rescuePlans->meals_unit_cost) ?></td>
-                <td><?= h($rescuePlans->meals_charge) ?></td>
-                <td><?= h($rescuePlans->meals_cost) ?></td>
-                <td><?= h($rescuePlans->cost_kilometers_vps) ?></td>
-                <td><?= h($rescuePlans->cost_kilometers_other) ?></td>
-                <td><?= h($rescuePlans->discount_percentage) ?></td>
-                <td><?= h($rescuePlans->discount_reason) ?></td>
-                <td><?= h($rescuePlans->cost_percentage_adpc) ?></td>
-                <td><?= h($rescuePlans->total_cost) ?></td>
-                <td><?= h($rescuePlans->date) ?></td>
-                <td><?= h($rescuePlans->operation_type_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'RescuePlans', 'action' => 'view', $rescuePlans->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'RescuePlans', 'action' => 'edit', $rescuePlans->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'RescuePlans', 'action' => 'delete', $rescuePlans->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rescuePlans->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <th><?= __('Event Id') ?></th>
+                    <th><?= __('Barrack Id') ?></th>
+                    <th><?= __('Public Headcount') ?></th>
+                    <th><?= __('Rescue Plan Activity Id') ?></th>
+                    <th><?= __('Rescue Plan Environment Id') ?></th>
+                    <th><?= __('Rescue Plan Delay Id') ?></th>
+                    <th><?= __('Public Ris') ?></th>
+                    <th><?= __('Rescue Plan Type Id') ?></th>
+                    <th><?= __('Rescue Plan Recommendation Id') ?></th>
+                    <th><?= __('Public Reinforcement') ?></th>
+                    <th><?= __('Public Total') ?></th>
+                    <th><?= __('Organization Id') ?></th>
+                    <th><?= __('Actors Headcount') ?></th>
+                    <th><?= __('Rescuers Total') ?></th>
+                    <th><?= __('Headcount Total') ?></th>
+                    <th><?= __('Actors Organization') ?></th>
+                    <th><?= __('General Organization') ?></th>
+                    <th><?= __('Transport Organization') ?></th>
+                    <th><?= __('Team Instructions') ?></th>
+                    <th><?= __('Report Assisted') ?></th>
+                    <th><?= __('Report Slight') ?></th>
+                    <th><?= __('Report Medicalized') ?></th>
+                    <th><?= __('Report Reinforcement') ?></th>
+                    <th><?= __('Report Evacuated') ?></th>
+                    <th><?= __('Report Bilan Notes') ?></th>
+                    <th><?= __('Meals Morning') ?></th>
+                    <th><?= __('Meals Lunch') ?></th>
+                    <th><?= __('Meals Dinner') ?></th>
+                    <th><?= __('Meals Unit Cost') ?></th>
+                    <th><?= __('Meals Charge') ?></th>
+                    <th><?= __('Meals Cost') ?></th>
+                    <th><?= __('Cost Kilometers Vps') ?></th>
+                    <th><?= __('Cost Kilometers Other') ?></th>
+                    <th><?= __('Discount Percentage') ?></th>
+                    <th><?= __('Discount Reason') ?></th>
+                    <th><?= __('Cost Percentage Adpc') ?></th>
+                    <th><?= __('Total Cost') ?></th>
+                    <th><?= __('Date') ?></th>
+                    <th><?= __('Operation Type Id') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+                <?php foreach ($event->rescue_plans as $rescuePlans): ?>
+                    <tr>
+                        <td><?= h($rescuePlans->id) ?></td>
+                        <td><?= h($rescuePlans->event_id) ?></td>
+                        <td><?= h($rescuePlans->barrack_id) ?></td>
+                        <td><?= h($rescuePlans->public_headcount) ?></td>
+                        <td><?= h($rescuePlans->rescue_plan_activity_id) ?></td>
+                        <td><?= h($rescuePlans->rescue_plan_environment_id) ?></td>
+                        <td><?= h($rescuePlans->rescue_plan_delay_id) ?></td>
+                        <td><?= h($rescuePlans->public_ris) ?></td>
+                        <td><?= h($rescuePlans->rescue_plan_type_id) ?></td>
+                        <td><?= h($rescuePlans->rescue_plan_recommendation_id) ?></td>
+                        <td><?= h($rescuePlans->public_reinforcement) ?></td>
+                        <td><?= h($rescuePlans->public_total) ?></td>
+                        <td><?= h($rescuePlans->organization_id) ?></td>
+                        <td><?= h($rescuePlans->actors_headcount) ?></td>
+                        <td><?= h($rescuePlans->rescuers_total) ?></td>
+                        <td><?= h($rescuePlans->headcount_total) ?></td>
+                        <td><?= h($rescuePlans->actors_organization) ?></td>
+                        <td><?= h($rescuePlans->general_organization) ?></td>
+                        <td><?= h($rescuePlans->transport_organization) ?></td>
+                        <td><?= h($rescuePlans->team_instructions) ?></td>
+                        <td><?= h($rescuePlans->report_assisted) ?></td>
+                        <td><?= h($rescuePlans->report_slight) ?></td>
+                        <td><?= h($rescuePlans->report_medicalized) ?></td>
+                        <td><?= h($rescuePlans->report_reinforcement) ?></td>
+                        <td><?= h($rescuePlans->report_evacuated) ?></td>
+                        <td><?= h($rescuePlans->report_bilan_notes) ?></td>
+                        <td><?= h($rescuePlans->meals_morning) ?></td>
+                        <td><?= h($rescuePlans->meals_lunch) ?></td>
+                        <td><?= h($rescuePlans->meals_dinner) ?></td>
+                        <td><?= h($rescuePlans->meals_unit_cost) ?></td>
+                        <td><?= h($rescuePlans->meals_charge) ?></td>
+                        <td><?= h($rescuePlans->meals_cost) ?></td>
+                        <td><?= h($rescuePlans->cost_kilometers_vps) ?></td>
+                        <td><?= h($rescuePlans->cost_kilometers_other) ?></td>
+                        <td><?= h($rescuePlans->discount_percentage) ?></td>
+                        <td><?= h($rescuePlans->discount_reason) ?></td>
+                        <td><?= h($rescuePlans->cost_percentage_adpc) ?></td>
+                        <td><?= h($rescuePlans->total_cost) ?></td>
+                        <td><?= h($rescuePlans->date) ?></td>
+                        <td><?= h($rescuePlans->operation_type_id) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('View'), ['controller' => 'RescuePlans', 'action' => 'view', $rescuePlans->id]) ?>
+                            <?= $this->Html->link(__('Edit'), ['controller' => 'RescuePlans', 'action' => 'edit', $rescuePlans->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'RescuePlans', 'action' => 'delete', $rescuePlans->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rescuePlans->id)]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
     </div>
     <div class="related">
         <h4><?= __('Related Materials') ?></h4>
         <?php if (!empty($event->materials)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Material Type Id') ?></th>
-                <th><?= __('Barrack Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($event->materials as $materials): ?>
-            <tr>
-                <td><?= h($materials->id) ?></td>
-                <td><?= h($materials->material_type_id) ?></td>
-                <td><?= h($materials->barrack_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Materials', 'action' => 'delete', $materials->id], ['confirm' => __('Are you sure you want to delete # {0}?', $materials->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <th><?= __('Material Type Id') ?></th>
+                    <th><?= __('Barrack Id') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+                <?php foreach ($event->materials as $materials): ?>
+                    <tr>
+                        <td><?= h($materials->id) ?></td>
+                        <td><?= h($materials->material_type_id) ?></td>
+                        <td><?= h($materials->barrack_id) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
+                            <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Materials', 'action' => 'delete', $materials->id], ['confirm' => __('Are you sure you want to delete # {0}?', $materials->id)]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
     </div>
+    <div class="my-modal-base">
+        <div class="my-modal-cont"></div>
+    </div>
+
+    <?php if (!empty($event->teams)): ?>
     <div class="related">
         <h4><?= __('Related Teams') ?></h4>
-        <?php if (!empty($event->teams)): ?>
+        <?= $this->Form->button(__(' Ajouter une equipe à cette events'), ['id' => 'bt-aj-eq-ev', 'class' => 'btn btn-primary']) ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
@@ -283,16 +288,17 @@
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($event->teams as $teams): ?>
-            <tr>
-                <td><?= h($teams->id) ?></td>
-                <td><?= h($teams->name) ?></td>
-                <td><?= h($teams->description) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Teams', 'action' => 'view', $teams->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Teams', 'action' => 'delete', $teams->id], ['confirm' => __('Are you sure you want to delete # {0}?', $teams->id)]) ?>
-                </td>
-            </tr>
+
+                <tr>
+                    <td><?= h($teams->id) ?></td>
+                    <td><?= h($teams->name) ?></td>
+                    <td><?= h($teams->description) ?></td>
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['controller' => 'Teams', 'action' => 'view', $teams->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Teams', 'action' => 'delete', $teams->id], ['confirm' => __('Are you sure you want to delete # {0}?', $teams->id)]) ?>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
@@ -300,40 +306,48 @@
     <div class="related">
         <h4><?= __('Related Vehicles') ?></h4>
         <?php if (!empty($event->vehicles)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Matriculation') ?></th>
-                <th><?= __('Number Kilometer') ?></th>
-                <th><?= __('Snow') ?></th>
-                <th><?= __('Air Conditionner') ?></th>
-                <th><?= __('Vehicle Type Id') ?></th>
-                <th><?= __('Vehicle Model Id') ?></th>
-                <th><?= __('Bought') ?></th>
-                <th><?= __('End Warranty') ?></th>
-                <th><?= __('Next Revision') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($event->vehicles as $vehicles): ?>
-            <tr>
-                <td><?= h($vehicles->id) ?></td>
-                <td><?= h($vehicles->matriculation) ?></td>
-                <td><?= h($vehicles->number_kilometer) ?></td>
-                <td><?= h($vehicles->snow) ?></td>
-                <td><?= h($vehicles->air_conditionner) ?></td>
-                <td><?= h($vehicles->vehicle_type_id) ?></td>
-                <td><?= h($vehicles->vehicle_model_id) ?></td>
-                <td><?= h($vehicles->bought) ?></td>
-                <td><?= h($vehicles->end_warranty) ?></td>
-                <td><?= h($vehicles->next_revision) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Vehicles', 'action' => 'view', $vehicles->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Vehicles', 'action' => 'edit', $vehicles->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Vehicles', 'action' => 'delete', $vehicles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vehicles->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <th><?= __('Matriculation') ?></th>
+                    <th><?= __('Number Kilometer') ?></th>
+                    <th><?= __('Snow') ?></th>
+                    <th><?= __('Air Conditionner') ?></th>
+                    <th><?= __('Vehicle Type Id') ?></th>
+                    <th><?= __('Vehicle Model Id') ?></th>
+                    <th><?= __('Bought') ?></th>
+                    <th><?= __('End Warranty') ?></th>
+                    <th><?= __('Next Revision') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+                <?php foreach ($event->vehicles as $vehicles): ?>
+                    <tr>
+                        <td><?= h($vehicles->id) ?></td>
+                        <td><?= h($vehicles->matriculation) ?></td>
+                        <td><?= h($vehicles->number_kilometer) ?></td>
+                        <td><?= h($vehicles->snow) ?></td>
+                        <td><?= h($vehicles->air_conditionner) ?></td>
+                        <td><?= h($vehicles->vehicle_type_id) ?></td>
+                        <td><?= h($vehicles->vehicle_model_id) ?></td>
+                        <td><?= h($vehicles->bought) ?></td>
+                        <td><?= h($vehicles->end_warranty) ?></td>
+                        <td><?= h($vehicles->next_revision) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('View'), ['controller' => 'Vehicles', 'action' => 'view', $vehicles->id]) ?>
+                            <?= $this->Html->link(__('Edit'), ['controller' => 'Vehicles', 'action' => 'edit', $vehicles->id]) ?>
+                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Vehicles', 'action' => 'delete', $vehicles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vehicles->id)]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
         <?php endif; ?>
     </div>
 </div>
+<script>
+    $('#bt-aj-eq-ev').click(function () {
+        var url = '<?= $this->Url->build(['controller' => 'Events', 'action' => 'addequipe', $event->id]); ?>';
+        $('.my-modal-cont').load(url, function (result) {
+            $('#myModal').modal({show: true});
+        });
+    });
+</script>
