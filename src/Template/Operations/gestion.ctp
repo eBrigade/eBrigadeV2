@@ -28,7 +28,7 @@
                         'zoom' => 7,
                         'type' => 'HYBRID',
                         'custom' => null,
-                        /*'localize' => true,*/
+                        'localize' => false,
                         'latitude' => $event->latitude,
                         'longitude' => $event->longitude,
                         'address' => '1 Infinite Loop, Cupertino',
@@ -42,10 +42,21 @@
                     );
 
                     echo $this->GoogleMap->map($map_options);
-                    $this->GoogleMap->addMarker("map_canvas", 1, array('latitude' => $event->latitude, 'longitude' => $event->longitude));
-                    echo $event->latitude;
-                    echo $event->longitude;
+                    $marker_options = array(
+                        'showWindow' => true,
+                        'windowText' => 'Marker',
+                        'markerTitle' => 'Title',
+                        'markerIcon' => 'http://labs.google.com/ridefinder/images/mm_20_purple.png',
+                        'markerShadow' => 'http://labs.google.com/ridefinder/images/mm_20_purpleshadow.png',
+                        'draggableMarker' => true
+                    );
+
                     ?>
+
+
+                    <?= $this->GoogleMap->addMarker("map_canvas", 1, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
+                    <input type="text" id="latitude_1" />
+                    <input type="text" id="longitude_1" />
                 </li>
             </ul>
             <ul class="list-group">
