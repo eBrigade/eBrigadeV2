@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\Query;
+use Cake\I18n\Time;
 
 /**
  * UserMaterials Controller
@@ -49,11 +51,19 @@ class UserMaterialsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
-        $userMaterial = $this->UserMaterials->newEntity();
+
         if ($this->request->is('post')) {
-            $userMaterial = $this->UserMaterials->patchEntity($userMaterial, $this->request->data);
+            $userMaterial = $this->UserMaterials->newEntity();
+            $userMaterial->user_id = $this->Auth->user('id');
+            $userMaterial->material_id = $this->request->data['material_id'];
+            $now = Time::now();
+            $now->timezone = 'Europe/Paris';
+            $now->i18nFormat('yyyy-MM-dd');
+            $userMaterial->from_date = $now;
+            ($this->request->data['to_date'] != '') ? $userMaterial->to_date = $this->request->data['to_date'] : '';
+            $userMaterial->quantity = $this->request->data['quantity'];
             if ($this->UserMaterials->save($userMaterial)) {
                 $this->Flash->success(__('The user material has been saved.'));
 
@@ -62,10 +72,28 @@ class UserMaterialsController extends AppController
                 $this->Flash->error(__('The user material could not be saved. Please, try again.'));
             }
         }
-        $users = $this->UserMaterials->Users->find('list', ['limit' => 200]);
-        $materials = $this->UserMaterials->Materials->find('list', ['limit' => 200]);
-        $this->set(compact('userMaterial', 'users', 'materials'));
-        $this->set('_serialize', ['userMaterial']);
+        $this->loadModel('Materials');
+        $materials = $this->UserMaterials->Materials->find('list',[
+            'contain' => [
+                'MaterialTypes',
+                'UserMaterials'
+            ],
+            'fields' => [
+                'id' => 'Materials.id',
+                'name' => 'MaterialTypes.name'
+            ],
+            'keyField' => 'id',
+            'valueField' => 'name',
+            'conditions' => [
+                'Materials.barrack_id' => $id
+            ]
+        ]);
+        $this->set('materials',$materials);
+    }
+
+    public function stock($id = null)
+    {
+
     }
 
     /**
