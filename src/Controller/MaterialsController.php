@@ -132,6 +132,13 @@ class MaterialsController extends AppController
     }
 
 
+    public function deleteliaison($id = null)
+    {
+        $id = $this->request->data['id'];
+        $entity = $this->Materials->get($id);
+        $this->Materials->delete($entity);
+    }
+
 
 
 }
