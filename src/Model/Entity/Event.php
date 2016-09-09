@@ -11,8 +11,8 @@ use Cake\ORM\Entity;
  * @property int $bill_id
  * @property string $title
  * @property string $address
- * @property int $latitude
- * @property int $longitude
+ * @property float $latitude
+ * @property float $longitude
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  * @property bool $is_closed
@@ -29,6 +29,7 @@ use Cake\ORM\Entity;
  * @property string $horaires
  * @property bool $public
  * @property int $event_type_id
+ * @property int $module_id
  *
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\Bill $bill
@@ -54,8 +55,6 @@ class Event extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false,
-        'teams' => true
-
+        'id' => false
     ];
 }

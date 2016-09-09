@@ -28,9 +28,9 @@
                         'zoom' => 7,
                         'type' => 'HYBRID',
                         'custom' => null,
-                        'localize' => true,
-                        'latitude' => 40.69847032728747,
-                        'longitude' => -1.9514422416687,
+                        /*'localize' => true,*/
+                        'latitude' => $event->latitude,
+                        'longitude' => $event->longitude,
                         'address' => '1 Infinite Loop, Cupertino',
                         'marker' => true,
                         'markerTitle' => 'This is my position',
@@ -40,7 +40,11 @@
                         'windowText' => 'My Position',
                         'draggableMarker' => false
                     );
+
                     echo $this->GoogleMap->map($map_options);
+                    $this->GoogleMap->addMarker("map_canvas", 1, array('latitude' => $event->latitude, 'longitude' => $event->longitude));
+                    echo $event->latitude;
+                    echo $event->longitude;
                     ?>
                 </li>
             </ul>
