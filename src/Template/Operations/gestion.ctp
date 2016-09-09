@@ -1,4 +1,3 @@
-
 <div class="container-fluid clearfix">
     <div class="row">
         <div class="col-xs-6 col-md-4">
@@ -79,14 +78,19 @@
         <div class="col-xs-12 col-sm-6 col-md-8">
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">
-                    <?= $this->Form->create($event); ?>
-                    <?= $this->Form->input('teams._ids', ['options' => $teams, 'multiple' => 'checkbox']); ?>
-                    <?= $this->Form->button(__('Submit')); ?>
-                    <?= $this->Form->end() ?>
-                    <?= $this->Html->link('add team 1', ['controller' => 'operations', 'action' => 'addTeam', '?' => array('eventID' => $event->id, 'teamID' => 1)]) ?>
-
 
                     <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
+                    <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                            data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <?php foreach ($teamsList as $teams): ?>
+                            <li><?= $this->Html->link($teams->name, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'add', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                     <p id="teamNumber"></p>
                     Détails de la mission
                 </li>
@@ -111,7 +115,7 @@
                                 <ul class="dropdown-menu">
                                     <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><?= $this->Html->link(__("Supprimer l'équipe et ses moyens"), ['controller' => 'Teams', 'action' => 'delete', $teams->id]) ?></li>
+                                    <li><?= $this->Html->link(__("Retirer l'équipe de l'événement"), ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'remove', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
                                     <li><a href="#">Vider la liste des équipiers</a></li>
                                     <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
                                     <li role="separator" class="divider"></li>
@@ -125,26 +129,12 @@
                                 <p><b>Lieu de rendez-vous : </b>Caserne de Raon-aux-Bois</p>
                                 <p><b>Positionnement : </b>début de la course</p>
                                 <p><b>Mission principale : </b>Public et Acteurs</p>
-                                <p><b>Consignes : <?= h($teams->description) ?></b>Le Lorem Ipsum est simplement du faux
-                                    texte
-                                    employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est
-                                    le faux
-                                    texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme
-                                    assembla
-                                    ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-                                    Il n'a
-                                    pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique
-                                    informatique,
-                                    sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960
-                                    grâce à la
-                                    vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus
-                                    récemment, par
-                                    son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+                                <p><b>Consignes : </b><?= h($teams->description) ?>
                                 </p>
                             </div>
                             <div class="row-fluid clearfix">
 
-                                <ul class="list-group col-xs-6 col-sm-6 col-md-6">
+                                <ul class="list-group col-xs-4 col-sm-4 col-md-4">
                                     <li class="list-group-item list-group-item-info">
                                         <button type="button" class="btn btn-info btn-xs">Inscrire du personnel</button>
                                         <button type="button" class="btn btn-info dropdown-toggle btn-xs"
@@ -154,12 +144,9 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <ul class="dropdown-menu">
-
-
-                                                <?php foreach ($userLists as $users): ?>
-                                                    <li><?= $this->Html->link($users->firstname.' '. $users->lastname, ['controller' => 'operations', 'action' => 'addUser', '?' => array('eventID' => $event->id, 'teamID' => $teams->id, 'userID' => $users->id)]) ?></li>
-                                                <?php endforeach; ?>
-
+                                            <?php foreach ($userLists as $users): ?>
+                                                <li><?= $this->Html->link($users->firstname . ' ' . $users->lastname, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $users->id, 'action' => 'add', 'containerType' => 'Teams', 'contentType' => 'Users')]) ?></li>
+                                            <?php endforeach; ?>
                                         </ul>
                                         <span class="badge badge-danger">3/4</span>
                                     </li>
@@ -171,37 +158,59 @@
                                     <?php if (!empty($teams->users)): ?>
 
                                         <?php foreach ($teams->users as $users): ?>
-                                            <li class="list-group-item"><?= $this->Html->link($users->firstname.' '. $users->lastname, ['controller' => 'operations', 'action' => 'removeUser', '?' => array('eventID' => $event->id, 'teamID' => $teams->id, 'userID' => $users->id)]) ?></li>
+                                            <li class="list-group-item"><?= $this->Html->link($users->firstname . ' ' . $users->lastname, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $users->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Users')]) ?></li>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
 
-                                <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                                <ul class="list-group col-xs-4 col-sm-4 col-md-4">
                                     <li class="list-group-item list-group-item-info">
                                         <button type="button" class="btn btn-info btn-xs">Affecter du matériel</button>
+                                        <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <?php foreach ($materialsList as $material): ?>
+                                                <li><?= $this->Html->link(' material ID : ' . $material->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $material->id, 'action' => 'add', 'containerType' => 'Teams', 'contentType' => 'Materials')]) ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
                                         <span class="badge badge-danger">3</span>
                                     </li>
-                                    <li class="list-group-item">Champ d'ajout et bouton</li>
+
                                     <?php if (!empty($teams->materials)): ?>
 
                                         <?php foreach ($teams->materials as $materials): ?>
-                                            <li class="list-group-item">vehicle ID : <?= h($materials->id) ?></li>
+                                            <li class="list-group-item"><?= $this->Html->link(' material ID : ' . $materials->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $materials->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Materials')]) ?></li>
                                         <?php endforeach; ?>
 
                                     <?php endif; ?>
                                 </ul>
 
-                                <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                                <ul class="list-group col-xs-4 col-sm-4 col-md-4">
                                     <li class="list-group-item list-group-item-info">
                                         <button type="button" class="btn btn-info btn-xs">Affecter des véhicules
                                         </button>
+                                        <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <?php foreach ($vehiclesList as $vehicle): ?>
+                                                <li><?= $this->Html->link(' vehicle ID : ' . $vehicle->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $vehicle->id, 'action' => 'add', 'containerType' => 'Teams', 'contentType' => 'Vehicles')]) ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
                                         <span class="badge badge-danger">2</span>
                                     </li>
                                     <li class="list-group-item">Champ d'ajout et bouton</li>
                                     <?php if (!empty($teams->vehicles)): ?>
 
-                                        <?php foreach ($teams->vehicles as $vehicles): ?>
-                                            <li class="list-group-item">vehicle ID : <?= h($vehicles->id) ?></li>
+                                        <?php foreach ($teams->vehicles as $vehicle): ?>
+                                            <li class="list-group-item"><?= $this->Html->link(' vehicle ID : ' . $vehicle->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $vehicle->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Vehicles')]) ?></li>
                                         <?php endforeach; ?>
 
                                     <?php endif; ?>

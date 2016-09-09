@@ -19,7 +19,7 @@
 
 <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Operation <span class="caret"></span></a>
     <ul class="dropdown-menu">
-        <li><?= $this->Html->link('Operations', ['controller' => 'Operations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link('Operations', ['controller' => 'Operations', 'action' => 'gestion/2']) ?></li>
         <li><?= $this->Html->link('add Operations', ['controller' => 'Operations', 'action' => 'add']) ?></li>
     </ul>
 </li>
