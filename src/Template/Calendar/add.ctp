@@ -29,7 +29,6 @@
 <?php $date = $now->i18nFormat('yyyy-MM-dd'); ?>
 
 <?= $this->Html->css('fullcalendar.css') ?>
-<?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
 <?= $this->Html->script('jquery-ui.js')?>
 <?= $this->Html->script('moment.min.js')?>
 <?= $this->Html->script('fullcalendar.js')?>

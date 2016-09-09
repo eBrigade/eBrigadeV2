@@ -153,9 +153,7 @@ class MessagesController extends AppController
                 $notifTable = TableRegistry::get('notifications');
                 $notifSave = $notifTable->newEntity();
                 $notifSave->source_id =  $messageInsertId;
-                $notifSave->to_user = $touserid->id;
-                $obj = 'Message privé de  '.$frommp->lastname.' '.$frommp->firstname.'';
-                $notifSave->content = $obj;
+                $notifSave->receiver = $touserid->id;
                 $notifSave->type = 0;
                 $notifTable->save($notifSave);
 

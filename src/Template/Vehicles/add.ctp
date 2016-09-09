@@ -36,9 +36,24 @@
             echo $this->Form->input('air_conditionner');
             echo $this->Form->input('vehicle_type_id', ['options' => $vehicleTypes, 'empty' => true]);
             echo $this->Form->input('vehicle_model_id', ['options' => $vehicleModels, 'empty' => true]);
-            echo $this->Form->input('bought', ['empty' => true]);
-            echo $this->Form->input('end_warranty', ['empty' => true]);
-            echo $this->Form->input('next_revision', ['empty' => true]);
+        echo $this->Form->input('bought', array(
+        'label' => (__('bought')),
+        'type' => 'text',
+        'required' => false,
+        'class' => 'form-control date'
+        ));
+        echo $this->Form->input('end_warranty', array(
+        'label' => (__('end_warranty')),
+        'type' => 'text',
+        'required' => false,
+        'class' => 'form-control date'
+        ));
+        echo $this->Form->input('next_revision', array(
+        'label' => (__('next_revision')),
+        'type' => 'text',
+        'required' => false,
+        'class' => 'form-control date'
+        ));
             echo $this->Form->input('barracks._ids', ['options' => $barracks]);
             echo $this->Form->input('events._ids', ['options' => $events]);
             echo $this->Form->input('teams._ids', ['options' => $teams]);
@@ -69,4 +84,9 @@
             }
         });
     })
+
+    //mise en place du datepicker jQuery
+    date('#bought', '-30:-0', '-5y');
+    date('#end-warranty', '-30:+20', '+2y');
+    date('#next-revision', '-0:+5', '+6m');
 </script>

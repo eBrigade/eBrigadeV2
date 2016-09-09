@@ -50,6 +50,7 @@
         ));
             echo $this->Form->input('birthplace');
             echo $this->Form->input('skype');
+        echo $this->Form->input('barracks._ids', ['options' => $barracks]);
             echo $this->Form->input('is_active');
             echo $this->Form->input('external');
         ?>
@@ -68,6 +69,9 @@
 </div>
 </div>
 </div>
+
+
+
 <script>
     $('#type').on('change',function () {
         $.ajax({
@@ -79,19 +83,7 @@
             }
         });
     })
-</script>
 
-
-<?= $this->Html->css('themes/pepper-grinder/jquery-ui.css') ?>
-<script>
-
-    $(function() {
-        $( "#birthday").datepicker({
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true,
-            yearRange:"-100:+50"
-        });
-
-    });
+//mise en place du datepicker jQuery
+    date('#birthday', '-90:-8', '-20y');
 </script>
