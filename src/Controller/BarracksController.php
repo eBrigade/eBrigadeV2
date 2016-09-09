@@ -40,7 +40,6 @@ class BarracksController extends AppController
             'contain' => ['Cities', 'Materials.MaterialTypes', 'Users', 'Vehicles.VehicleTypes', 'Events', 'RescuePlans']
         ]);
 
-        $this->set('count_material');
         $this->set('barrack', $barrack);
         $this->set('_serialize', ['barrack']);
     }
