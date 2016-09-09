@@ -25,7 +25,7 @@ class AlertesController extends AppController
     public function index()
     {
 
-        $alertes = $this->paginate($this->Alertes->find('all')->where(['liste' => 0]));
+        $alertes = $this->paginate($this->Alertes->find('all')->where(['liste' => 0])->order(['id'=>'DESC']));
 
         $this->set(compact('alertes'));
         $this->set('_serialize', ['alertes']);
@@ -42,8 +42,10 @@ class AlertesController extends AppController
 		
 		$alertes = $this->Alertes->find('all')
 									->distinct(['list'])
-									->where(['liste'=>1])
+									->where(['liste'=>1,'date_envoi >'=>date('Y-m-d H:i:s')])
 									->order(['date_envoi'=>'ASC']);
+		
+		$alerte->liste = 0;
 		
         if ($this->request->is('post')) {
 		
@@ -56,6 +58,43 @@ class AlertesController extends AppController
 				$alerte->success  = $this->send( $alerte ) ? 1 : 0;
 			}
 			
+			if ($this->Alertes->save($alerte)) {
+				
+				$this->Flash->success(__('The alerte has been saved.'));
+				return $this->redirect(['action' => 'index']);
+				
+			} else {
+				$this->Flash->error(__('The alerte could not be saved. Please, try again.'));
+			}
+
+        }
+
+        $this->set(compact('alerte','alertes'));
+        $this->set('_serialize', ['alerte']);
+    }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     */
+    public function liste()
+    {
+        $alerte = $this->Alertes->newEntity();
+		
+		$alertes = $this->Alertes->find('all')
+									->distinct(['list'])
+									->where(['liste'=>1,'date_envoi >'=>date('Y-m-d H:i:s')])
+									->order(['date_envoi'=>'ASC']);
+		$alerte->liste = 1;
+		
+        if ($this->request->is('post')) {
+		
+            $alerte = $this->Alertes->patchEntity($alerte, $this->request->data);
+
+			$alerte->list = str_replace('.','',$alerte->list);
+			$alerte->list = str_replace(' ','',$alerte->list);
+
 			if ($this->Alertes->save($alerte)) {
 				
 				$this->Flash->success(__('The alerte has been saved.'));
