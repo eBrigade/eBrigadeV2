@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Bills
  * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\BelongsTo $EventTypes
+ * @property \Cake\ORM\Association\BelongsTo $Modules
  * @property \Cake\ORM\Association\HasMany $Formations
  * @property \Cake\ORM\Association\HasMany $RescuePlans
  * @property \Cake\ORM\Association\BelongsToMany $Materials
@@ -42,6 +43,13 @@ class EventsTable extends Table
     {
         parent::initialize($config);
 
+        $this->addBehavior('Geocodable', [
+            'addressColumn' => [
+                'address',
+                'cities.name'
+            ]
+        ]);
+
         $this->table('events');
         $this->displayField('title');
         $this->primaryKey('id');
@@ -60,6 +68,9 @@ class EventsTable extends Table
         $this->belongsTo('EventTypes', [
             'foreignKey' => 'event_type_id'
         ]);
+     /*   $this->belongsTo('Modules', [
+            'foreignKey' => 'module_id'
+        ]);*/
         $this->hasMany('Formations', [
             'foreignKey' => 'event_id'
         ]);
@@ -102,11 +113,11 @@ class EventsTable extends Table
             ->allowEmpty('address');
 
         $validator
-            ->integer('latitude')
+            ->numeric('latitude')
             ->allowEmpty('latitude');
 
         $validator
-            ->integer('longitude')
+            ->numeric('longitude')
             ->allowEmpty('longitude');
 
         $validator
@@ -169,6 +180,7 @@ class EventsTable extends Table
         $rules->add($rules->existsIn(['bill_id'], 'Bills'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
         $rules->add($rules->existsIn(['event_type_id'], 'EventTypes'));
+        /*$rules->add($rules->existsIn(['module_id'], 'Modules'));*/
 
         return $rules;
     }
