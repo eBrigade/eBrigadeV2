@@ -2,8 +2,11 @@
     <h3>
 		<?= __('Module de gestion des alertes sms') ?>
 		<?= $this->Html->link( $this->Html->icon('plus').__(' Créer une alerte'), ['action' => 'add'],['escape'=>false,'class'=>'btn btn-primary btn-md active']) ?>
+		<?= $this->Html->link( $this->Html->icon('list').__(' Créer une liste'), ['action' => 'liste'],['escape'=>false,'class'=>'btn btn-primary btn-md active']) ?>
 	</h3>
-	
+	<p>
+		L'objectif de ce module étant de pouvoir être couplé au niveau opérationnel les équipes au système d'alerte SMS, les listes de numéros seront celles des équipiers, le nom celui de la tranche ou de l'équipe.
+	</p>	
     <table cellpadding="0" cellspacing="0" class="table table-striped">
         <thead>
             <tr>
