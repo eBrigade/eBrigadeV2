@@ -18,6 +18,8 @@ class OperationsController extends AppController
      * @return \Cake\Network\Response|null
      */
 
+    public $helpers = array('GoogleMap');
+
     public function gestion($id = null)
     {
         $this->loadModel('Events');
@@ -98,6 +100,7 @@ class OperationsController extends AppController
             case 'EventsTeams':
                 $containerTable = $this->Events;
                 $contentTable = $this->Events->Teams;
+                break;
         }
 
         //get container query object
