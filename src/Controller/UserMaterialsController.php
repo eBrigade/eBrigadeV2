@@ -93,7 +93,9 @@ class UserMaterialsController extends AppController
 
     public function stock($id = null)
     {
-
+        $this->loadModel('Materials');
+        $material = $this->Materials->findById($this->request->data['id']);
+        $this->set('material',$material);
     }
 
     /**
