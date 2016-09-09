@@ -1,3 +1,4 @@
+
 <div class="container-fluid clearfix">
     <div class="row">
         <div class="col-xs-6 col-md-4">
@@ -80,20 +81,22 @@
                 <li class="list-group-item list-group-item-info">
                     <?= $this->Form->create($event); ?>
                     <?= $this->Form->input('teams._ids', ['options' => $teams, 'multiple' => 'checkbox']); ?>
-                    <?= $this->Form->hidden('bite', ['caca']); ?>
                     <?= $this->Form->button(__('Submit')); ?>
                     <?= $this->Form->end() ?>
-                    <?= $this->Html->link('add team 1', ['controller' => 'operations', 'action' => 'addTeam', '?' => array('eventID' => $event->id, 'teamID' => 1)])?>
+                    <?= $this->Html->link('add team 1', ['controller' => 'operations', 'action' => 'addTeam', '?' => array('eventID' => $event->id, 'teamID' => 1)]) ?>
 
 
                     <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
+                    <p id="teamNumber"></p>
                     Détails de la mission
                 </li>
 
-                </li>
-                <?php if (!empty($event->teams)): ?>
+                <?php
+                $teamNumber = 0;
+                if (!empty($event->teams)): ?>
 
                     <?php foreach ($event->teams as $teams): ?>
+                        <?php $teamNumber++ ?>
                         <li class="list-group-item">
 
                             <div class="btn-group">
@@ -144,18 +147,31 @@
                                 <ul class="list-group col-xs-6 col-sm-6 col-md-6">
                                     <li class="list-group-item list-group-item-info">
                                         <button type="button" class="btn btn-info btn-xs">Inscrire du personnel</button>
+                                        <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+
+
+                                                <?php foreach ($userLists as $users): ?>
+                                                    <li><?= $this->Html->link($users->firstname.' '. $users->lastname, ['controller' => 'operations', 'action' => 'addUser', '?' => array('eventID' => $event->id, 'teamID' => $teams->id, 'userID' => $users->id)]) ?></li>
+                                                <?php endforeach; ?>
+
+                                        </ul>
                                         <span class="badge badge-danger">3/4</span>
                                     </li>
-                                    <li class="list-group-item">
-                                        <?= $this->Form->create($event) ?>
-                                        <?= $this->Form->input('teams.users._ids', [$users]) ?>
-                                        <?= $this->Form->button(__('Submit')) ?>
-                                        <?= $this->Form->end() ?>
-                                    </li>
+                                    <li class="list-group-item list-group-item-info">
+
+                                    <li class="list-group-item"></li>
+
+
                                     <?php if (!empty($teams->users)): ?>
 
                                         <?php foreach ($teams->users as $users): ?>
-                                            <li class="list-group-item"><?= h($users->firstname) ?> <?= h($users->lastname) ?></li>
+                                            <li class="list-group-item"><?= $this->Html->link($users->firstname.' '. $users->lastname, ['controller' => 'operations', 'action' => 'removeUser', '?' => array('eventID' => $event->id, 'teamID' => $teams->id, 'userID' => $users->id)]) ?></li>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
@@ -205,5 +221,6 @@
         </div>
     </div>
 </div>
-<footer>
-</footer>
+<script>
+    $('#teamNumber').html("Nombre d'équipes : " + <?= $teamNumber ?>);
+</script>
