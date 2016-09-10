@@ -87,7 +87,6 @@
 </div>
 
 
-<?= $this->Html->script('jquery-3.1.0.min.js')?>
 
 <script>
 
