@@ -1,5 +1,5 @@
 <div class="materials form large-9 medium-8 columns content">
-    <?= $this->Form->create($material, array("id"=>"formulaire")) ?>
+    <?= $this->Form->create($material, array("id"=>"form-mat")) ?>
     <fieldset>
         <?php
         echo $this->Form->input('material_type_id', ['options' => $materialTypes, 'empty' => true]);
@@ -10,25 +10,22 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#formulaire').submit(function(){
+
+        $('#form-mat').submit(function(){
             var array = $(this).serialize();
+            var id =  $('select[name=barrack_id]').val();
             $.ajax({
                 type: "POST",
-                url: '<?= $this->Url->build(["controller" => "Materials","action" => "addajax"]); ?>',
+                url: '<?= $this->Url->build(["controller" => "Materials","action" => "saveajax"]); ?>',
                 data: array,
                 success: function () {
-
+                    $('#myModal').modal('toggle');
+                    $('#tbl-material').load('/Barracks/view/' + id + '/material');
                 }
         });
-            $('#myModal').modal('toggle');
-            $('#tbl').prepend('<tr bgcolor="#90ee90"><td>' + $('#stock').val() + '</td><td>'
-                    + $('#material-type-id :selected').html() + '</td><td></td></tr>');
             return false;
         });
-    });
 
-/*    var id =  $('select[name=barrack_id]').val();
-    $('#tbl').load('/Barracks/viewmaterial/' + id);*/
 </script>

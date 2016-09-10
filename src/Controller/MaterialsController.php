@@ -10,7 +10,13 @@ use App\Controller\AppController;
  */
 class MaterialsController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Flash');
+        $this->loadComponent('RequestHandler');
 
+    }
     /**
      * Index method
      *
@@ -63,16 +69,6 @@ class MaterialsController extends AppController
     public function addajax($cat = null)
     {
         $material = $this->Materials->newEntity();
-        if ($this->request->is('post')) {
-            $material = $this->Materials->patchEntity($material, $this->request->data);
-            if ($this->Materials->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The material could not be saved. Please, try again.'));
-            }
-        }
         $materialTypes = $this->Materials->MaterialTypes->find('list', [
             'conditions' => [
                 'type' => $this->request->data['cat']
@@ -83,6 +79,20 @@ class MaterialsController extends AppController
         $this->set('_serialize', ['material']);
     }
 
+    public function saveajax()
+    {
+        $this->autoRender = false;
+        $material = $this->Materials->newEntity();
+        if ($this->request->is('post')) {
+            $material = $this->Materials->patchEntity($material, $this->request->data);
+            if ($this->Materials->save($material)) {
+                $this->Flash->success(__('The material has been saved.'));
+            } else {
+                $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            }
+        }
+
+    }
     /**
      * Edit method
      *
@@ -134,6 +144,7 @@ class MaterialsController extends AppController
 
     public function deleteliaison($id = null)
     {
+        $this->autoRender = false;
         $id = $this->request->data['id'];
         $entity = $this->Materials->get($id);
         $this->Materials->delete($entity);

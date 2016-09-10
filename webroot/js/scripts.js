@@ -1,3 +1,5 @@
+// ---------------------------------------------------------------------------------------------GENERAL
+
 // datepicker jquery
 function date(selector, range, def) {
     $(selector).datepicker({
@@ -9,5 +11,14 @@ function date(selector, range, def) {
         changeMonth: true,
         changeYear: true,
         yearRange: range
+    });
+}
+
+// modal
+function modal(selector, controller) {
+    $(selector).click(function () {
+        $('.my-modal-cont').load(controller, function () {
+            $('#myModal').modal({show: true});
+        });
     });
 }

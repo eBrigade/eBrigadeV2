@@ -1,6 +1,3 @@
-<?php
-$c_mat = count($barrack->materials)
-?>
 
 <div class="my-modal-base">
     <div class="my-modal-cont"></div>
@@ -38,35 +35,15 @@ $c_mat = count($barrack->materials)
     <div class="col-md-5"> <!--colonne gauche-->
 
         <div class="panel panel-success">
-            <div class="panel-heading">Matériels dans la caserne <?= $this->Html->badge($c_mat, ['id' => 'bdg-mat']) ?>
+            <div class="panel-heading">Matériels dans la caserne <?= $this->Html->badge('', ['id' => 'bdg-mat']) ?>
 
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-del', 'class' =>
                 'btn btn-success pull-right btn-add',]) ?>
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-mat',
                 'class' => 'btn btn-success pull-right btn-add',]) ?>
             </div>
-            <div class="panel-body">
-                <table class="table table-hover" width="100%" id="tbl">
-                    <thead>
-                    <tr>
-                        <th>Qté</th>
-                        <th>Désignation</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($barrack->materials as $matos)
-                    echo "
-                    <tr id=".$matos->id.">
-                        <td>".$matos->stock."</td>
-                        <td>".$matos->material_type->name."</td>
-                        <td><span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
-                        </td>
-                    </tr>
-                    ";
-                    ?>
-                    </tbody>
-                </table>
+            <div class="panel-body"  id="tbl-material">
+                            <!--Ici ce charge la table matériel-->
             </div>
         </div>
         <div class="panel panel-warning">
@@ -126,56 +103,24 @@ $c_mat = count($barrack->materials)
         </div>
     </div><!--colonne droite-->
 
-
 </div>  <!--row global-->
 
 
 <script>
+    // charge les différentes vues
+    var id = '<?= $barrack->id ?>';
+    $('#tbl-material').load('/Barracks/view/' + id + '/material');
+
     // boutons ouvre les formulaires en modal
-    $('#bt-del').click(function () {
-        var url = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
-        $('.my-modal-cont').load(url, function (result) {
-            $('#myModal').modal({show: true});
-        });
-    });
+    var Materials = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
+    var Users = '<?= $this->Url->build(["controller" => "Users","action" => "add", $barrack->id ]); ?>';
+    var UserMaterials = '<?= $this->Url->build(["controller" => "UserMaterials","action" => "add", $barrack->id ]); ?>';
+    var vehicles = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
 
-    $('#bt-vehi').click(function () {
-        var url = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
-        $('.my-modal-cont').load(url, function (result) {
-            $('#myModal').modal({show: true});
-        });
-    });
-
-    $('#bt-user').click(function () {
-        var url = '<?= $this->Url->build(["controller" => "Users","action" => "add", $barrack->id ]); ?>';
-        $('.my-modal-cont').load(url, function (result) {
-            $('#myModal').modal({show: true});
-        });
-    });
-
-    $('#bt-join-mat').click(function () {
-        var url = '<?= $this->Url->build(["controller" => "UserMaterials","action" => "add", $barrack->id ]); ?>';
-        $('.my-modal-cont').load(url, function (result) {
-            $('#myModal').modal({show: true});
-        });
-    });
-
-    // boutons pour supprimer des liaisons entre la caserne
-    var c_mat = '<?= $c_mat ?>';
-    $('.hidecross').click(function () {
-        c_mat--;
-        $("#bdg-mat").text(c_mat);
-        var array = [];
-        array.push($(this).closest('tr').attr('id'));
-        $(this).parents('tr').first().remove();
-        $.ajax({
-            type: 'POST',
-            url: '<?= $this->Url->build(["controller" => "Materials","action" => "deleteliaison"]); ?>',
-            data: {id: array},
-        });
-//        $( "#tbl" ).prepend( "Ce matériel a bien été supprimé de la caserne" );
-    });
-
+    modal('#bt-del',Materials);
+    modal('#bt-user',Users);
+    modal('#bt-join-mat',UserMaterials);
+    modal('#bt-vehi',vehicles);
 </script>
 
 <?= $this->Html->script('jquery-ui.js')?>

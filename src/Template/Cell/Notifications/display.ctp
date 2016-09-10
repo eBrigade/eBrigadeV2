@@ -1,5 +1,5 @@
 <div class="dropdown">
-    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">
+    <a id="dLabel" role="button" data-toggle="dropdown" data-target="" href="#">
         <i class="glyphicon glyphicon-bell"></i>
         <span class="badge badge-notify bdg-not" id="count"><?= $notifCount ?></span>
     <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
@@ -30,8 +30,7 @@ echo "
     </ul>
 </div>
 
-<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
-<script type='text/javascript' src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
 
 <script>
     var count = <?= $notifCount ?>;

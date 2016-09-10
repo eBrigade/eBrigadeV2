@@ -17,6 +17,8 @@ $cakeDescription = 'Ebrigade';
     <?= $this->Html->css('styles.css') ?>
     <?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
 
+    <?= $this->Html->script('jquery-min.js')?>
+    <?= $this->Html->script('bootstrap-min.js')?>
     <?= $this->Html->script('scripts.js') ?>
 
     <?= $this->fetch('meta') ?>
