@@ -20,6 +20,13 @@ class OperationsController extends AppController
 
     public $helpers = array('GoogleMap');
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
+
     public function gestion($id = null)
     {
         $this->loadModel('Events');
@@ -60,21 +67,86 @@ class OperationsController extends AppController
         $this->set('_serialize', ['event']);
     }
 
+    //ajax version of joints function that manages add and remove for joint tables.
+    public function ajoints()
+    {
+        debug($_POST);
+        //id of the container from where to add/remove
+        $containerID = $this->request->data('containerID');
+        debug($containerID);
+        //if of the content
+        $contentID = $this->request->data('contentID');
 
-    public function megaJoints($containerID = null, $contentID = null, $source = null, $containerType = null, $contentType = null, $action= null)
+
+        //id of the event or else that contains all the rest, allows url redirect to initial page
+        $source = $this->request->data('source');
+
+
+        //container and content types : to load model and contain and to determine switch cases for query objects
+        $containerType = $this->request->data('containerType');
+        $contentType = $this->request->data('contentType');
+
+        debug($contentType);
+
+
+        //add or remove : link/unlink
+        $action = $this->request->data('action');
+
+        //loads container's model
+        $this->loadModel($containerType);
+
+        //cases to populate with joint table
+        switch ($containerType . $contentType) {
+            case 'TeamsUsers':
+                $containerTable = $this->Teams;
+                $contentTable = $this->Teams->Users;
+                break;
+            case 'TeamsMaterials':
+                $containerTable = $this->Teams;
+                $contentTable = $this->Teams->Materials;
+                break;
+            case 'TeamsVehicles':
+                $containerTable = $this->Teams;
+                $contentTable = $this->Teams->Vehicles;
+                break;
+            case 'EventsTeams':
+                $containerTable = $this->Events;
+                $contentTable = $this->Events->Teams;
+                break;
+        }
+
+        //get container query object
+        $container = $containerTable->get($containerID, ['contain' => [$contentType]]);
+        //get content
+        $content = $contentTable->findById($contentID)->toArray();
+
+        //links or unlinks container and content
+        if ($action == 'add') {
+            $contentTable->link($container, $content);
+        } elseif ($action == 'remove') {
+            $contentTable->unlink($container, $content);
+        }
+
+        //redirect to event view
+        /*return $this->redirect(['action' => 'gestion/' . $source . '']);*/
+    }
+
+
+    //manages add and remove for joint tables.
+    public function megaJoints()
     {
 
         //id of the container from where to add/remove
         $containerID = isset($this->request->data['containerID']) ? $this->request->data['containerID'] : null;
-        $containerID = intval($containerID);
+
 
         //if of the content
         $contentID = isset($this->request->data['contentID']) ? $this->request->data['contentID'] : null;
-        $contentID = intval($contentID);
+
 
         //id of the event or else that contains all the rest, allows url redirect to initial page
         $source = isset($this->request->data['source']) ? $this->request->data['source'] : null;
-        $source = intval($source);
+
 
         //container and content types : to load model and contain and to determine switch cases for query objects
         $containerType = isset($this->request->data['containerType']) ? $this->request->data['containerType'] : null;
@@ -121,10 +193,5 @@ class OperationsController extends AppController
         //redirect to event view
         return $this->redirect(['action' => 'gestion/' . $source . '']);
     }
-
-
-    /**
-     * A
-     */
 
 }

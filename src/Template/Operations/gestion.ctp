@@ -18,48 +18,6 @@
                 </li>
             </ul>
             <ul class="list-group">
-                <li class="list-group-item">
-                    <?php
-                    $map_options = array(
-                        'id' => 'map_canvas',
-                        'width' => '300px',
-                        'height' => '300px',
-                        'style' => '',
-                        'zoom' => 7,
-                        'type' => 'HYBRID',
-                        'custom' => null,
-                        'localize' => false,
-                        'latitude' => $event->latitude,
-                        'longitude' => $event->longitude,
-                        'address' => '1 Infinite Loop, Cupertino',
-                        'marker' => true,
-                        'markerTitle' => 'This is my position',
-                        'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
-                        'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
-                        'infoWindow' => true,
-                        'windowText' => 'My Position',
-                        'draggableMarker' => false
-                    );
-
-                    echo $this->GoogleMap->map($map_options);
-                    $marker_options = array(
-                        'showWindow' => true,
-                        'windowText' => 'Marker',
-                        'markerTitle' => 'Title',
-                        'markerIcon' => 'http://labs.google.com/ridefinder/images/mm_20_purple.png',
-                        'markerShadow' => 'http://labs.google.com/ridefinder/images/mm_20_purpleshadow.png',
-                        'draggableMarker' => true
-                    );
-
-                    ?>
-
-
-                    <?= $this->GoogleMap->addMarker("map_canvas", 1, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
-                    <input type="text" id="latitude_1" />
-                    <input type="text" id="longitude_1" />
-                </li>
-            </ul>
-            <ul class="list-group">
                 <li class="list-group-item list-group-item-info">Informations générales sur la mission de secours</li>
                 <li class="list-group-item">
                     Foire à la Choucroute de Strasbourg
@@ -67,7 +25,46 @@
                 <li class="list-group-item">
                     <div class="row-fluid">
                         <b>Localisation</b>
-                        <p>Une belle petite carte google de localisation ?</p></div>
+                        <?php
+                        $map_options = array(
+                            'id' => 'map_canvas',
+                            'width' => '300px',
+                            'height' => '300px',
+                            'style' => '',
+                            'zoom' => 7,
+                            'type' => 'HYBRID',
+                            'custom' => null,
+                            'localize' => false,
+                            'latitude' => $event->latitude,
+                            'longitude' => $event->longitude,
+                            'address' => '1 Infinite Loop, Cupertino',
+                            'marker' => true,
+                            'markerTitle' => 'This is my position',
+                            'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
+                            'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
+                            'infoWindow' => true,
+                            'windowText' => 'My Position',
+                            'draggableMarker' => false
+                        );
+
+                        echo $this->GoogleMap->map($map_options);
+                        $marker_options = array(
+                            'showWindow' => true,
+                            'windowText' => 'Marker',
+                            'markerTitle' => 'Title',
+                            'markerIcon' => 'http://labs.google.com/ridefinder/images/mm_20_purple.png',
+                            'markerShadow' => 'http://labs.google.com/ridefinder/images/mm_20_purpleshadow.png',
+                            'draggableMarker' => true
+                        );
+
+                        ?>
+
+
+                        <?= $this->GoogleMap->addMarker("map_canvas", 1, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
+                        <input type="text" id="latitude_1"/>
+                        <input type="text" id="longitude_1"/>
+
+                    </div>
 
                     <div class="row-fluid">
                         <b>Consignes générales</b>
@@ -132,7 +129,6 @@
                         <?php foreach ($teamsList as $teams): ?>
                             <li><?= $this->Html->link($teams->name, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'add', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
                         <?php endforeach; ?>
-                        <li><?= $this->Html->link($teams->name, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'add', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
 
                     </ul>
                     <p id="teamNumber"></p>
@@ -268,28 +264,61 @@
         </div>
     </div>
 </div>
+<div id="log"></div>
+
 <script>
     $('#teamNumber').html("Nombre d'équipes : " + <?= $teamNumber ?>);
 </script>
 
 
 <script>
+
+    //ajax query to add and remove content.
+    //todo : separate lists generation in other controllers in order to update them dynamically + add filters
+    //todo : find a cleaner way to generate data in PHP foreach loops for the joints function
     $('a').on('click', function (e) {
         e.preventDefault();
+        var values = [];
+        var data = [];
+
+        //splits dat shit
         var phpParams = this.search.slice(1).split('&');
-        var hash =[];
-        var vars = [];
-        for(var i = 0; i < phpParams.length; i++)
-        {
-            hash = phpParams[i].split('=');
-            vars.push(hash[0]);
-            vars[hash[0]] = hash[1];
+
+        for (var i = 0; i < phpParams.length; i++) {
+            data = phpParams[i].split('=');
+            values.push(data[1]);
         }
-        $.ajax({
+
+        //ugly and temporary data builder, will need to find other way than generate data in php for loop and then translate it to php to then translate it to php. :x
+        function datax(source, containerID, contentID, action, containerType, contentType) {
+            this.source = source;
+            this.containerID = containerID;
+            this.contentID = contentID;
+            this.action = action;
+            this.containerType = containerType;
+            this.contentType = contentType;
+        }
+
+        var datajax = new datax(values[0], values[1], values[2], values[3], values[4], values[5]);
+
+        console.log(datajax);
+        var request = $.ajax({
             type: 'POST',
-            url: '<?= $this->Url->build(["controller" => "operations","action" => "megaJoints"]); ?>',
-            data: vars
+            data: datajax,
+            url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
         });
-        console.log(vars);
+
+
+        //for debug purpose
+        /*request.done(function( msg ) {
+         $( "#log" ).html( msg );
+         });
+
+         request.fail(function( jqXHR, textStatus ) {
+         alert( "Request failed: " + textStatus );
+         });*/
+
+
     })
 </script>
+
