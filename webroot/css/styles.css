@@ -248,10 +248,36 @@ ul.form {
     color: red;
 }
 
+.green {
+    color: green;
+}
+
 .hidecross{
-    visibility:hidden
+    visibility:hidden;
+    margin-left: 10px;
 }
 
 tr:hover .hidecross{
-    visibility:visible
+    visibility:visible;
+    margin-left: 10px;
+}
+
+.hideedit{
+    visibility:hidden
+}
+
+tr:hover .hideedit{
+    visibility:visible;
+}
+
+#nbr {
+    width : 50px;
+}
+
+.stock {
+    width: 23%;
+}
+
+#img-veh{
+    width: 30px;
 }

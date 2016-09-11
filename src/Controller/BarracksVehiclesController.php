@@ -115,4 +115,18 @@ class BarracksVehiclesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function deleteliaison()
+    {
+        $this->autoRender = false;
+        $id = $this->request->data['id'];
+        $vid = $this->request->data['vid'];
+        if ($this->request->is('post')) {
+            $this->BarracksVehicles->deleteAll(
+                [
+                    'vehicle_id' => $vid,
+                    'barrack_id' => $id
+                ], false);
+        }
+    }
 }

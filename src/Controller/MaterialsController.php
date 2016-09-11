@@ -150,6 +150,18 @@ class MaterialsController extends AppController
         $this->Materials->delete($entity);
     }
 
+    public function editliaison()
+    {
+        $this->autoRender = false;
 
+        if ($this->request->is('post')) {
+        $id = $this->request->data['id'];
+        $stock = $this->request->data['stock'];
 
+        $this->Materials->updateAll(
+            ['stock' => $stock],
+            ['id' => $id]);
+
+    }
+    }
 }
