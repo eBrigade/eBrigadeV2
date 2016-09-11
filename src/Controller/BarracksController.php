@@ -42,7 +42,10 @@ class BarracksController extends AppController
 
     switch ($view) {
         case 'material':
-            $this->viewBuilder()->template('material');
+        $this->viewBuilder()->template('material');
+        break;
+        case 'vehicle':
+            $this->viewBuilder()->template('vehicle');
             break;
     }
 

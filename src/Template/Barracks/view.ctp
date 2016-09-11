@@ -27,6 +27,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="panel panel-warning">
+            <div class="panel-heading">Véhicules  dans la caserne <?= $this->Html->badge('', ['id' => 'bdg-veh']) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-vehi', 'class' =>
+                'btn btn-warning pull-right btn-add',]) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-vehi',
+                'class' => 'btn btn-warning pull-right btn-add',]) ?>
+            </div>
+            <div class="panel-body" id="tbl-vehi">
+                <!--Ici ce charge la table vehicule-->
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -46,19 +59,7 @@
                             <!--Ici ce charge la table matériel-->
             </div>
         </div>
-        <div class="panel panel-warning">
-            <div class="panel-heading">Véhicules <?= $this->Html->badge(count($barrack->vehicles)) ?>
-                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-vehi', 'class' =>
-                'btn btn-warning pull-right btn-add',]) ?>
-                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-vehi',
-                'class' => 'btn btn-warning pull-right btn-add',]) ?>
-            </div>
-            <div class="panel-body">
-                <?php foreach ($barrack->vehicles as $veh)
-                echo $veh->vehicle_type->name."<br/>";
-                ?>
-            </div>
-        </div>
+
 
     </div> <!--colonne gauche-->
 
@@ -110,6 +111,7 @@
     // charge les différentes vues
     var id = '<?= $barrack->id ?>';
     $('#tbl-material').load('/Barracks/view/' + id + '/material');
+    $('#tbl-vehi').load('/Barracks/view/' + id + '/vehicle');
 
     // boutons ouvre les formulaires en modal
     var Materials = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
