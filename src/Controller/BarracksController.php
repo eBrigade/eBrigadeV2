@@ -34,15 +34,24 @@ class BarracksController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
-        $barrack = $this->Barracks->get($id, [
-            'contain' => ['Cities', 'Materials.MaterialTypes', 'Users', 'Vehicles.VehicleTypes', 'Events', 'RescuePlans']
-        ]);
+    public function view($id = null, $view = null)
+{
+    $barrack = $this->Barracks->get($id, [
+        'contain' => ['Cities', 'Materials.MaterialTypes', 'Users', 'Vehicles.VehicleTypes', 'Events', 'RescuePlans']
+    ]);
 
-        $this->set('barrack', $barrack);
-        $this->set('_serialize', ['barrack']);
+    switch ($view) {
+        case 'material':
+        $this->viewBuilder()->template('material');
+        break;
+        case 'vehicle':
+            $this->viewBuilder()->template('vehicle');
+            break;
     }
+
+    $this->set('barrack', $barrack);
+    $this->set('_serialize', ['barrack']);
+}
 
     /**
      * Add method
