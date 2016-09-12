@@ -18,8 +18,6 @@ class FormationsController extends AppController
      */
     public function index()
     {
-        // Pourquoi faire un loadModel de Events alors qu'il est associé par table normalement ?
-        $this->loadModel('Events');
         $this->paginate = [
             'contain' => ['Organizations', 'Events']
         ];
@@ -214,5 +212,41 @@ class FormationsController extends AppController
         $teams = $this->Teams->find('list', ['limit' => 200]);
         $this->set(compact('teams','$formation_team'));
         $this->set('_serialize', ['$formation_team']);
+    }
+
+    public function filtre(){
+
+        $array = [];
+
+        if (!empty($this->request->data['event_type_id'])) {
+            $type_ad_id = $this->request->data['event_type_id'];
+            $type_ad_id_find = "event_type_id = " . $type_ad_id;
+            array_push($array, $type_ad_id_find);
+        }
+        if (!empty($this->request->data['canceled'])) {
+            $canceled = $this->request->data['canceled'];
+            $canceled_find = "canceled = " . $canceled;
+            array_push($array, $canceled_find);
+        }
+        if (!empty($this->request->data['barrack_id'])) {
+            $barrack_id = $this->request->data['barrack_id'];
+            $barrack_id_find = "barrack_id = " . $barrack_id;
+            array_push($array, $barrack_id_find);
+        }
+
+        $this->paginate = [
+            'contain' => ['Organizations', 'Events']
+        ];
+        $formations = $this->paginate($this->Formations);
+            $sql = implode(" AND ", $array) . " ";
+            $events = $this->Formations->Events->find('all', [
+                'conditions' => ['is_active =' => 1,$sql]]) ;
+
+        $typeEvents = $this->Formations->Events->EventTypes->find('list', ['ValueField' => 'type_name']);
+        $typeEvents = $this->Formations->Events->EventTypes->find('list', ['ValueField' => 'type_name']);
+        $typeEvents = $this->Formations->Events->EventTypes->find('list', ['ValueField' => 'type_name']);
+        $this->set(compact('formations', 'events','typeEvents'));
+        $this->set('_serialize', ['formations']);
+
     }
 }
