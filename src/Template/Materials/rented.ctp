@@ -28,12 +28,11 @@
         <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="paginator">
+    <div class="paginator text-center">
         <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->prev($this->Html->icon('chevron-left'),['escape' => false]) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->next($this->Html->icon('chevron-right'),['escape' => false]) ?>
         </ul>
-        <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
