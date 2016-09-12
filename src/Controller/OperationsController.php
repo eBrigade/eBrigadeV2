@@ -67,27 +67,74 @@ class OperationsController extends AppController
         $this->set('_serialize', ['event']);
     }
 
+    //dynamic loading of lists
+    public function loadlist() {
+
+        //gets context
+        $source = $this->request->data('source');
+        $containerID = $this->request->data('containerID');
+        $containerType = $this->request->data('containerType');
+        $contentType = $this->request->data('contentType');
+
+        //loads model
+        $this->loadModel($containerType);
+
+        //cases to load container query object
+        switch ($containerType) {
+            case 'Teams':
+                $containerTable = $this->Teams;
+                break;
+            case 'Events':
+                $containerTable = $this->Events;
+                break;
+        }
+
+        //get container object with container id
+        $content = $containerTable->get($containerID, [
+            'contain' => $contentType
+        ]);
+
+        //cases to load content tables
+        switch ($contentType) {
+            case 'Users':
+                $list = $content->users;
+                break;
+            case 'Materials':
+                $list = $content->materials;
+                break;
+            case 'Vehicles':
+                $list = $content->vehicles;
+                break;
+            case 'Teams':
+                $list = $content->teams;
+                break;
+        }
+
+        //sets vars
+        $this->set('list', $list);
+        $this->set(compact('containerID', 'source', 'contentType', 'containerType'));
+        $this->set('_serialize', [$list]);
+    }
+
+
+
     //ajax version of joints function that manages add and remove for joint tables.
     public function ajoints()
     {
-        debug($_POST);
+        $this->autoRender = false;
+
         //id of the container from where to add/remove
         $containerID = $this->request->data('containerID');
-        debug($containerID);
+
         //if of the content
         $contentID = $this->request->data('contentID');
-
 
         //id of the event or else that contains all the rest, allows url redirect to initial page
         $source = $this->request->data('source');
 
-
         //container and content types : to load model and contain and to determine switch cases for query objects
         $containerType = $this->request->data('containerType');
         $contentType = $this->request->data('contentType');
-
-        debug($contentType);
-
 
         //add or remove : link/unlink
         $action = $this->request->data('action');
