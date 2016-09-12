@@ -10,6 +10,12 @@ function date(selector, range, def) {
         firstDay: 1,
         changeMonth: true,
         changeYear: true,
+        beforeShow: function(input, inst) {
+            $(document).off('focusin.bs.modal');
+        },
+        onClose:function(){
+            $(document).on('focusin.bs.modal');
+        },
         yearRange: range
     });
 }

@@ -51,6 +51,10 @@ class UsersTable extends Table
         $this->hasMany('Orders', [
             'foreignKey' => 'user_id'
         ]);
+         $this->belongsTo('Cities', [
+                    'foreignKey' => 'city_id',
+                    'joinType' => 'INNER'
+                ]);
         $this->hasMany('UserMaterials', [
             'foreignKey' => 'user_id'
         ]);
