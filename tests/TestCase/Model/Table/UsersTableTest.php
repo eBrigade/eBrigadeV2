@@ -25,20 +25,14 @@ class UsersTableTest extends TestCase
      */
     public $fixtures = [
         'app.users',
-        'app.permissions',
-        'app.grades',
-        'app.roles',
         'app.availabilities',
         'app.orders',
         'app.providers',
         'app.supplies',
         'app.orders_supplies',
         'app.providers_supplies',
-        'app.user_materials',
-        'app.materials',
-        'app.material_types',
-        'app.barracks',
         'app.cities',
+        'app.barracks',
         'app.events',
         'app.bills',
         'app.event_types',
@@ -52,6 +46,10 @@ class UsersTableTest extends TestCase
         'app.rescue_plan_recommendations',
         'app.operation_types',
         'app.formation_types',
+        'app.materials',
+        'app.material_types',
+        'app.barracks_materials',
+        'app.user_materials',
         'app.events_materials',
         'app.teams',
         'app.events_teams',
@@ -64,7 +62,6 @@ class UsersTableTest extends TestCase
         'app.events_vehicles',
         'app.teams_vehicles',
         'app.users_vehicles',
-        'app.barracks_materials',
         'app.barracks_users'
     ];
 

@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\HasMany $Availabilities
  * @property \Cake\ORM\Association\HasMany $Orders
  * @property \Cake\ORM\Association\HasMany $UserMaterials
@@ -45,16 +46,15 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Cities', [
+            'foreignKey' => 'city_id'
+        ]);
         $this->hasMany('Availabilities', [
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Orders', [
             'foreignKey' => 'user_id'
         ]);
-         $this->belongsTo('Cities', [
-                    'foreignKey' => 'city_id',
-                    'joinType' => 'INNER'
-                ]);
         $this->hasMany('UserMaterials', [
             'foreignKey' => 'user_id'
         ]);
@@ -134,9 +134,6 @@ class UsersTable extends Table
             ->allowEmpty('zipcode');
 
         $validator
-            ->allowEmpty('city');
-
-        $validator
             ->date('birthday')
             ->allowEmpty('birthday');
 
@@ -172,6 +169,7 @@ class UsersTable extends Table
     {
         $rules->add($rules->isUnique(['email']));
         $rules->add($rules->isUnique(['login']));
+        $rules->add($rules->existsIn(['city_id'], 'Cities'));
 
         return $rules;
     }
