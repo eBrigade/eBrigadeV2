@@ -79,7 +79,7 @@
     <div class="col-md-7"> <!--colonne droite-->
 
         <div class="panel panel-danger">
-            <div class="panel-heading">Matériels empruntés
+            <div class="panel-heading">Matériels empruntés <?= $this->Html->badge('', ['id' => 'bdg-rent']) ?>
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-del', 'class' =>
                 'btn btn-danger pull-right btn-add',]) ?>
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-mat',
