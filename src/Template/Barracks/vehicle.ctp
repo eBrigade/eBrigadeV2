@@ -7,36 +7,38 @@
         <th> </th>
         <th>Type</th>
         <th>Désignation</th>
-        <th class="hidden-sm">Matricule</th>
-        <th class="hidden-sm">Km</th>
-        <th class="hidden-sm">Acquis le</th>
-        <th class="hidden-sm">Garantie</th>
-        <th class="hidden-sm">Revision</th>
-        <th class="hidden-sm">Option</th>
-        <th class="hidden-sm"></th>
+        <th class="hidden-sm hidden-xs">Matricule</th>
+        <th class="hidden-sm hidden-xs">Km</th>
+        <th class="hidden-sm hidden-xs">Acquis le</th>
+        <th class="hidden-sm hidden-xs">Garantie</th>
+        <th class="hidden-sm hidden-xs">Revision</th>
+        <th class="hidden-sm hidden-xs">Eqp</th>
+        <th class="hidden-sm hidden-xs"></th>
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($barrack->vehicles as $vehi)
 
-    echo "
-    <tr id=".$vehi->id.">
-        <td><img id='img-veh' src=". $this->Url->image($vehi->vehicle_type->picture)."></td>
-        <td>".$vehi->vehicle_type->type."</td>
-        <td>".$vehi->vehicle_type->name."</td>
-        <td class='hidden-sm' id='mat'>".$vehi->matriculation."</td>
-        <td class='hidden-sm' id='klm'>".$vehi->number_kilometer."</td>
-        <td class='hidden-sm' id='buy'>".$vehi->bought."</td>
-        <td class='hidden-sm' id='end'>".$vehi->end_warranty."</td>
-        <td class='hidden-sm' id='rev'>".$vehi->next_revision."</td>
-
-        <td class='hidden-sm' id= 'icon'>
+    <?php foreach ($barrack->vehicles as $vehi): ?>
+    <tr id='<?= $vehi->id ?>'>
+        <td><img id='img-veh' src='<?= $this->Url->image($vehi->vehicle_type->picture) ?>'></td>
+        <td><?= $vehi->vehicle_type->type ?></td>
+        <td><?= $vehi->vehicle_type->name ?></td>
+        <td class='hidden-sm hidden-xs' id='mat'><?= $vehi->matriculation ?></td>
+        <td class='hidden-sm hidden-xs' id='klm'><?= $vehi->number_kilometer ?></td>
+        <td class='hidden-sm hidden-xs' id='buy'><?= $vehi->bought ?></td>
+        <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
+        <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
+        <td class='hidden-sm hidden-xs id='opt'>
+            <?= ($vehi->snow) ? "<span class='glyphicon glyphicon-asterisk' aria-hidden='true' data-toggle='tooltip' title='Véhicule équipé de pneux hiver'></span>" : "" ?>
+            <?= ($vehi->air_conditionner) ? "<span class='glyphicon glyphicon-random' aria-hidden='true' data-toggle='tooltip' title='Véhicule avec climatisation'></span>" : "" ?>
+        </td>
+        <td class='hidden-sm hidden-xs' id= 'icon'>
             <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
             <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
         </td>
     </tr>
-    ";
-    ?>
+    <?php endforeach;  ?>
+
     </tbody>
 </table>
 
@@ -121,14 +123,6 @@
         });
     });
 
-
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
 
-<!--<td id='opt'>";-->
-
-    <!--if ($vehi->snow){echo '<span class="glyphicon glyphicon-remove">neigeg</span>';}-->
-    <!--if ($vehi->air_conditionner){echo '<span class="glyphicon glyphicon-remove">cklim</span>';}-->
-
-
-    <!--echo "-->
-<!--</td>-->

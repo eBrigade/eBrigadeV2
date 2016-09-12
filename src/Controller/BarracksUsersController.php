@@ -115,4 +115,16 @@ class BarracksUsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function deleteliaison()
+    {
+        $this->autoRender = false;
+        if ($this->request->is('post')) {
+            $this->BarracksUsers->deleteAll(
+                [
+                    'user_id' => $this->request->data['uid'],
+                    'barrack_id' => $this->request->data['id']
+                ], false);
+        }
+    }
 }

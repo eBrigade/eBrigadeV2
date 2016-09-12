@@ -20,6 +20,7 @@ $cakeDescription = 'Ebrigade';
     <?= $this->Html->script('jquery-min.js')?>
     <?= $this->Html->script('bootstrap-min.js')?>
     <?= $this->Html->script('scripts.js') ?>
+    <?= $this->Html->script('tooltip.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
