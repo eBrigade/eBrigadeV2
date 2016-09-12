@@ -30,7 +30,7 @@ class UsersFixture extends TestFixture
         'address' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'address_complement' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'zipcode' => ['type' => 'string', 'length' => 5, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'city' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'city_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'birthday' => ['type' => 'date', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'birthplace' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'skype' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -71,15 +71,15 @@ class UsersFixture extends TestFixture
             'address' => 'Lorem ipsum dolor sit amet',
             'address_complement' => 'Lorem ipsum dolor sit amet',
             'zipcode' => 'Lor',
-            'city' => 'Lorem ipsum dolor sit amet',
-            'birthday' => '2016-09-08',
+            'city_id' => 1,
+            'birthday' => '2016-09-12',
             'birthplace' => 'Lorem ipsum dolor sit amet',
             'skype' => 'Lorem ipsum dolor sit amet',
             'is_active' => 1,
             'external' => 1,
-            'created' => '2016-09-08',
-            'modified' => '2016-09-08',
-            'connected' => '2016-09-08'
+            'created' => '2016-09-12',
+            'modified' => '2016-09-12',
+            'connected' => '2016-09-12'
         ],
     ];
 }

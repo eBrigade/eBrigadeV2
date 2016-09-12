@@ -20,9 +20,30 @@
             <div class="panel-body">
                 <li class="list-unstyled"><label>Prénom : </label><?= $user->firstname ?></li>
                 <li class="list-unstyled"><label>Nom : </label><?= $user->lastname ?></li>
+                <li class="list-unstyled"><label>Ville : </label><?= ucfirst($user->city->city) ?></li>
                 <hr>
+                <li class="list-unstyled"><label>Caserne : </label>
+                    <?php foreach($user->barracks as $barrack)
+                    {
+                        echo $barrack->name . ' ';
+                        echo $this->Html->link($this->Html->icon('eye-open'),[
+                                'controller' => 'Barracks',
+                                'action' => 'view',
+                                $barrack->id
+                            ],
+                            [
+                                'class' => 'btn btn-primary btn-xs',
+                                'escape' => false
+                            ]
+                        );
+                    }
+                    ?>
+                </li>
                 <li class="list-unstyled"><label>Membre depuis le : </label><?= $user->created ?></li>
                 <li class="list-unstyled"><label>Actif : </label><?= ($user->is_active) ? 'Oui' : 'Non' ?></li>
+            </div>
+            <div class="panel-footer">
+
             </div>
         </div>
     </div>
