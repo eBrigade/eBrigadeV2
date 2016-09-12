@@ -10,11 +10,16 @@ use App\Controller\AppController;
  */
 class MaterialsController extends AppController
 {
+    public $paginate = [
+        'limit' => 20
+    ];
+
     public function initialize()
     {
         parent::initialize();
         $this->loadComponent('Flash');
         $this->loadComponent('RequestHandler');
+        $this->loadComponent('Paginator');
 
     }
     /**
@@ -163,5 +168,26 @@ class MaterialsController extends AppController
             ['id' => $id]);
 
     }
+    }
+
+    public function rented($id = null)
+    {
+        $this->loadModel('UserMaterials');
+        $materials = $this->Materials->find('all',[
+            'contain' => [
+                'MaterialTypes',
+                'UserMaterials.Users'
+            ],
+            'conditions' => [
+                'barrack_id' => $id,
+                'Materials.id IN' => $this->UserMaterials->find('all',[
+                    'fields' => [
+                        'id' => 'material_id'
+                    ]
+                ])
+            ]
+        ]);
+        $materials = $this->paginate($materials);
+        $this->set(compact('materials'));
     }
 }

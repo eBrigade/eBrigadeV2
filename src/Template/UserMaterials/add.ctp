@@ -10,16 +10,15 @@
 
                 <div class="materials form large-9 medium-8 columns content">
                     <legend><?= __('Add User Material') ?></legend>
-                    <?php
-                    echo $this->Form->input('material_id', ['options' => $materials,'id' => 'material']);
-                    echo '<div id="stock-control"></div>';
-                    echo $this->Form->input('quantity',[
+                    <?= $this->Form->create() ?>
+                    <?= $this->Form->input('material_id', ['options' => $materials,'id' => 'material']) ?>
+                    <div id="stock-control"></div>
+                    <?= $this->Form->input('quantity',[
                         'type' => 'number',
                         'min' => 1,
                         'value' => 1
-                    ]);
-                    echo $this->Form->input('to_date',['id' => 'datepicker']);
-                    ?>
+                    ]) ?>
+                    <?= $this->Form->input('to_date',['id' => 'datepicker']) ?>
                     </fieldset>
                     <?= $this->Form->button(__('Submit')) ?>
                     <?= $this->Form->end() ?>
