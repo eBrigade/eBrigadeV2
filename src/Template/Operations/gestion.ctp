@@ -206,18 +206,14 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <?php foreach ($materialsList as $material): ?>
-                                                <li><?= $this->Html->link(' material ID : ' . $material->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $material->id, 'action' => 'add', 'containerType' => 'Teams', 'contentType' => 'Materials')]) ?></li>
+                                                <li class="list-group-item" onclick="clickAction(<?= $event->id ?>, <?= $teams->id?>, <?= $material->id ?>, 'add', 'Teams', 'Materials')">material ID : <?=$material->id ?></li>
                                             <?php endforeach; ?>
+
                                         </ul>
                                         <span class="badge badge-danger">3</span>
                                     </li>
-
-                                    <?php if (!empty($teams->materials)): ?>
-
-                                        <?php foreach ($teams->materials as $materials): ?>
-                                            <li class="list-group-item"><?= $this->Html->link(' material ID : ' . $materials->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $materials->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Materials')]) ?></li>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
+                                    <li class="list-group-item team"
+                                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Materials"></li>
                                 </ul>
 
                                 <ul class="list-group col-xs-4 col-sm-4 col-md-4">
@@ -232,17 +228,14 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <?php foreach ($vehiclesList as $vehicle): ?>
-                                                <li><?= $this->Html->link(' vehicle ID : ' . $vehicle->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $vehicle->id, 'action' => 'add', 'containerType' => 'Teams', 'contentType' => 'Vehicles')]) ?></li>
+                                                <li class="list-group-item" onclick="clickAction(<?= $event->id ?>, <?= $teams->id?>, <?= $vehicle->id ?>, 'add', 'Teams', 'Vehicles')">vehicle ID : <?=$vehicle->id ?></li>
                                             <?php endforeach; ?>
                                         </ul>
                                         <span class="badge badge-danger">2</span>
                                     </li>
+                                            <li class="list-group-item team"
+                                                id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Vehicles"></li>
 
-                                    <?php if (!empty($teams->vehicles)): ?>
-                                        <?php foreach ($teams->vehicles as $vehicle): ?>
-                                            <li class="list-group-item"><?= $this->Html->link(' vehicle ID : ' . $vehicle->id, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $teams->id, 'contentID' => $vehicle->id, 'action' => 'remove', 'containerType' => 'Teams', 'contentType' => 'Vehicles')]) ?></li>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
                                 </ul>
                             </div>
 
@@ -290,29 +283,29 @@
 
 
     //ajax query to add and remove content.
-    //todo : separate lists generation in other controllers in order to update them dynamically + add filters
-    //todo : find a cleaner way to generate data in PHP foreach loops for the joints function
+    //todo : add filters to 'add lists'
     function clickAction(source, containerID, contentID, action, containerType, contentType) {
 
-        //ugly and temporary data builder, will need to find other way than generate data in php for loop and then translate it to php to then translate it to php. :x
+        //populates data var for ajax
         var datax = {
             source: source,
             containerID: containerID,
             contentID: contentID,
             action: action,
-            containerType: containerType.toString(),
-            contentType: contentType.toString()
+            containerType: containerType,
+            contentType: contentType
         };
 
+        //ajax
         var request = $.ajax({
             type: 'POST',
             data: datax,
             url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
         });
+        //reload list at callback
         request.done(function () {
             loadlist();
         });
-
 
         //for debug purpose
         /*request.done(function( msg ) {
@@ -322,8 +315,6 @@
          request.fail(function( jqXHR, textStatus ) {
          alert( "Request failed: " + textStatus );
          });*/
-
-
     }
 </script>
 

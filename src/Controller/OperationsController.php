@@ -70,22 +70,50 @@ class OperationsController extends AppController
     //dynamic loading of lists
     public function loadlist() {
 
-
+        //gets context
         $source = $this->request->data('source');
         $containerID = $this->request->data('containerID');
         $containerType = $this->request->data('containerType');
         $contentType = $this->request->data('contentType');
 
+        //loads model
         $this->loadModel($containerType);
 
-        $team = $this->Teams->get($containerID, [
-            'contain' => 'Users'
+        //cases to load container query object
+        switch ($containerType) {
+            case 'Teams':
+                $containerTable = $this->Teams;
+                break;
+            case 'Events':
+                $containerTable = $this->Events;
+                break;
+        }
+
+        //get container object with container id
+        $content = $containerTable->get($containerID, [
+            'contain' => $contentType
         ]);
 
-        $this->set('team', $team);
-        $this->set(compact('source', 'contentType', 'containerType'));
-        $this->set('_serialize', [$team]);
+        //cases to load content tables
+        switch ($contentType) {
+            case 'Users':
+                $list = $content->users;
+                break;
+            case 'Materials':
+                $list = $content->materials;
+                break;
+            case 'Vehicles':
+                $list = $content->vehicles;
+                break;
+            case 'Teams':
+                $list = $content->teams;
+                break;
+        }
 
+        //sets vars
+        $this->set('list', $list);
+        $this->set(compact('containerID', 'source', 'contentType', 'containerType'));
+        $this->set('_serialize', [$list]);
     }
 
 
@@ -97,7 +125,7 @@ class OperationsController extends AppController
 
         //id of the container from where to add/remove
         $containerID = $this->request->data('containerID');
-        debug($containerID);
+
         //if of the content
         $contentID = $this->request->data('contentID');
 
