@@ -67,6 +67,31 @@ class OperationsController extends AppController
         $this->set('_serialize', ['event']);
     }
 
+    public function loadteams() {
+        $this->loadModel('Events');
+        $this->loadModel('Users');
+        $this->loadModel('Materials');
+        $this->loadModel('Vehicles');
+        $this->loadModel('Teams');
+
+        $eventID = $this->request->data('eventID');
+
+        $event = $this->Events->get($eventID, [
+            'contain' => ['Teams']
+        ]);
+
+        $userLists = $this->Users->find('all');
+        $materialsList = $this->Materials->find('all');
+        $vehiclesList = $this->Vehicles->find('all');
+        $teamsList = $this->Teams->find('all');
+
+        $this->set('event', $event);
+        $this->set(compact('teamsList', 'vehiclesList', 'materialsList', 'userLists'));
+        $this->set('_serialize', ['event']);
+
+    }
+
+
     //dynamic loading of lists
     public function loadlist() {
 
