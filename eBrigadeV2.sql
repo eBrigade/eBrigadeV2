@@ -67,19 +67,6 @@ CREATE TABLE IF NOT EXISTS `barracks` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `barracks_materials`
---
-
-CREATE TABLE IF NOT EXISTS `barracks_materials` (
-  `barrack_id` int(11) NOT NULL DEFAULT '0',
-  `material_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`barrack_id`,`material_id`),
-  KEY `material_id` (`material_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `barracks_users`
 --
 
@@ -6263,25 +6250,11 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `snow` tinyint(1) DEFAULT '0',
   `air_conditionner` tinyint(1) DEFAULT '0',
   `vehicle_type_id` int(11) DEFAULT NULL,
-  `vehicle_model_id` int(11) DEFAULT NULL,
+  `model` VARCHAR(40) DEFAULT NULL,
   `bought` date DEFAULT NULL,
   `end_warranty` date DEFAULT NULL,
   `next_revision` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vehicle_models`
---
-
-CREATE TABLE IF NOT EXISTS `vehicle_models` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `label` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -6339,13 +6312,6 @@ INSERT INTO `vehicle_types` (`id`, `code`, `name`, `type`, `picture`) VALUES
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `barracks_materials`
---
-ALTER TABLE `barracks_materials`
-  ADD CONSTRAINT `barracks_materials_ibfk_1` FOREIGN KEY (`barrack_id`) REFERENCES `barracks` (`id`),
-  ADD CONSTRAINT `barracks_materials_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `materials` (`id`);
 
 --
 -- Constraints for table `barracks_users`
