@@ -38,7 +38,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Barracks', 'Teams', 'Vehicles', 'Availabilities', 'Orders', 'UserMaterials']
+            'contain' => ['Barracks', 'Teams', 'Vehicles', 'Availabilities', 'Orders', 'UserMaterials', 'Cities'],
         ]);
         ($id == $this->Auth->user('id')) ? $userId = true : $userId = false;
         $this->set('user', $user);

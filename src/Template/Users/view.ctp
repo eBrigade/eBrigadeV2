@@ -1,68 +1,42 @@
-<h1>Profil de <?= $user->login ?></h1>
-<?= ($userId) ? $this->Html->link($this->Html->icon('pencil'),
-    ['action' => 'edit',$user->id],
-    ['class'=>'btn btn-default','escape'=>false])
-    : '' ?>
 <div class="row">
-    <div class="medium-1 column">
-        <h5>Nom</h5>
+    <div class="col-sm-12 col-md-12 text-center">
+        <div class="btn-group">
+            <h1>Profil de <?= $user->login ?></h1>
+        </div>
+        <div class="btn-group">
+            <?= ($userId) ? $this->Html->link($this->Html->icon('pencil'),
+                ['action' => 'edit',$user->id],
+                ['class'=>'btn btn-info btn-small','escape'=>false])
+                : '' ?>
+        </div>
     </div>
-    <div class="medium-6 column">
-        <?= $user->firstname . ' ' . $user->lastname ?>
-    </div>
-    <hr>
 </div>
 <div class="row">
-    <div class="medium-1 column">
-        <h5>Naissance</h5>
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Informations
+            </div>
+            <div class="panel-body">
+                <li class="list-unstyled"><label>Prénom : </label><?= $user->firstname ?></li>
+                <li class="list-unstyled"><label>Nom : </label><?= $user->lastname ?></li>
+                <hr>
+                <li class="list-unstyled"><label>Membre depuis le : </label><?= $user->created ?></li>
+                <li class="list-unstyled"><label>Actif : </label><?= ($user->is_active) ? 'Oui' : 'Non' ?></li>
+            </div>
+        </div>
     </div>
-    <div class="medium-6 column">
-        Né le <?= ($user->birthday != null) ? $user->birthday : 'Non renseigné' ?>
-        à <?= ($user->birthplace != null) ? $user->birthplace : 'Non renseigné' ?>
+
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                Contact
+            </div>
+            <div class="panel-body">
+                <li class="list-unstyled"><label>Téléphone : </label><?= ($user->workphone != null) ? $user->workphone : 'Non renseigné' ?></li>
+                <li class="list-unstyled"><label>Skype : </label><?= ($user->skype != null) ? $user->skype : 'Non renseigné' ?></li>
+
+            </div>
+        </div>
     </div>
-    <hr>
-</div>
-<div class="row">
-    <div class="medium-1 column">
-        <h5>Adresse</h5>
-    </div>
-    <div class="medium-6 column">
-        <?php
-            if($user->address != null && $user->zipcode != null && $user->city != null){
-                echo $user->address . '<br>';
-                echo $user->zipcode . ' - ' . $user->city;
-            }
-            else{
-                echo 'Non renseignée';
-            }
-        ?>
-    </div>
-    <hr>
-</div>
-<div class="row">
-    <div class="medium-1 column">
-        <h5>Téléphone</h5>
-    </div>
-    <div class="medium-6 column">
-        <?= ($user->phone != null) ? $user->phone : 'Non renseigné' ?>
-    </div>
-    <hr>
-</div>
-<div class="row">
-    <div class="medium-1 column">
-        <h5>Portable</h5>
-    </div>
-    <div class="medium-6 column">
-        <?= ($user->cellphone != null) ? $user->cellphone : 'Non renseigné' ?>
-    </div>
-    <hr>
-</div>
-<div class="row">
-    <div class="medium-1 column">
-        <h5>Skype</h5>
-    </div>
-    <div class="medium-6 column">
-        <?= ($user->skype != null) ? $user->phone : 'Non renseigné' ?>
-    </div>
-    <hr>
 </div>
