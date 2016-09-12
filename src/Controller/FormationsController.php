@@ -54,12 +54,8 @@ class FormationsController extends AppController
 
 
         $event = $this->Events->findAllById($formation['event_id'])->toArray();
-
-
         $cities = $this->Cities->findAllById($event[0]['city_id'])->toArray();
-        $Users = $this->Users->findAllById($event[0]['creator_id'])->toArray();
         $barracks = $this->Barracks->findAllById($event[0]['barrack_id'])->toArray();
-
 
 
         $teamevents = $this->EventsTeams->find('all')->where(['event_id =' => $formation['event_id']]);
@@ -67,20 +63,23 @@ class FormationsController extends AppController
         foreach ($teamevents as $teamevent) {
 
             $teams = $this->Teams->findAllById($teamevent->team_id);
-            $equipes = $this->TeamsUsers->find('all')->where(['team_id ='=>$teamevent->team_id])->toArray();
-            $users = $this->Users->find('all')->where(['id ='=> $equipes[0]['user_id']]);
 
             foreach ($teams as $team) {
 
                 $teamz[] = $team;
+                $equipes = $this->TeamsUsers->find('all')->where(['team_id =' => $team->id])->toArray();
 
-            }
-            foreach ($users as $user ){
+                foreach ($equipes as $equipe) {
 
-                $userz[] = $user ;
+                    $users = $this->Users->find('all')->where(['id =' => $equipe->user_id]);
+
+                    foreach ($users as $user) {
+
+                        $userz[] = $user;
+                    }
+                }
             }
         }
-
         $this->set(compact('formation', 'cities', 'Users', 'event', 'barracks', 'bills','teamz','userz'));
         $this->set('_serialize', ['formation']);
     }
