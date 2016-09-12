@@ -85,19 +85,7 @@
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-mat',
                 'class' => 'btn btn-danger pull-right btn-add',]) ?>
             </div>
-            <div class="panel-body">
-                <table class="table table-hover" width="100%" id="">
-                    <thead>
-                    <tr>
-                        <th>a voir</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>a voir</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="panel-body" id="tbl-user-material">
             </div>
         </div>
 
@@ -113,6 +101,7 @@
     $('#tbl-user').load('/Barracks/view/' + id + '/user');
     $('#tbl-vehi').load('/Barracks/view/' + id + '/vehicle');
     $('#tbl-material').load('/Barracks/view/' + id + '/material');
+    $('#tbl-user-material').load('/Materials/rented/'+id);
 
 
     // boutons ouvre les formulaires en modal
