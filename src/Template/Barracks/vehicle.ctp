@@ -7,13 +7,13 @@
         <th> </th>
         <th>Type</th>
         <th>Désignation</th>
-        <th>Matricule</th>
-        <th>Km</th>
-        <th>Acquis le</th>
-        <th>Garantie</th>
-        <th>Revision</th>
-        <th>Option</th>
-        <th></th>
+        <th class="hidden-sm">Matricule</th>
+        <th class="hidden-sm">Km</th>
+        <th class="hidden-sm">Acquis le</th>
+        <th class="hidden-sm">Garantie</th>
+        <th class="hidden-sm">Revision</th>
+        <th class="hidden-sm">Option</th>
+        <th class="hidden-sm"></th>
     </tr>
     </thead>
     <tbody>
@@ -24,13 +24,13 @@
         <td><img id='img-veh' src=". $this->Url->image($vehi->vehicle_type->picture)."></td>
         <td>".$vehi->vehicle_type->type."</td>
         <td>".$vehi->vehicle_type->name."</td>
-        <td id='mat'>".$vehi->matriculation."</td>
-        <td id='klm'>".$vehi->number_kilometer."</td>
-        <td id='buy'>".$vehi->bought."</td>
-        <td id='end'>".$vehi->end_warranty."</td>
-        <td id='rev'>".$vehi->next_revision."</td>
+        <td class='hidden-sm' id='mat'>".$vehi->matriculation."</td>
+        <td class='hidden-sm' id='klm'>".$vehi->number_kilometer."</td>
+        <td class='hidden-sm' id='buy'>".$vehi->bought."</td>
+        <td class='hidden-sm' id='end'>".$vehi->end_warranty."</td>
+        <td class='hidden-sm' id='rev'>".$vehi->next_revision."</td>
 
-        <td id= 'icon'>
+        <td class='hidden-sm' id= 'icon'>
             <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
             <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
         </td>

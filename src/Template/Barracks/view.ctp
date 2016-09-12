@@ -40,6 +40,18 @@
             </div>
         </div>
 
+        <div class="panel panel-info">
+            <div class="panel-heading">Personnels <?= $this->Html->badge('', ['id' => 'bdg-user']) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-user', 'class' =>
+                'btn btn-info pull-right btn-add',]) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-user',
+                'class' => 'btn btn-info pull-right btn-add',]) ?>
+            </div>
+            <div class="panel-body" id="tbl-user">
+                <!--Ici ce charge la table utilisateur-->
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -89,19 +101,7 @@
             </div>
         </div>
 
-        <div class="panel panel-info">
-            <div class="panel-heading">Personnels <?= $this->Html->badge(count($barrack->users)) ?>
-                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-user', 'class' =>
-                'btn btn-info pull-right btn-add',]) ?>
-                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-user',
-                'class' => 'btn btn-info pull-right btn-add',]) ?>
-            </div>
-            <div class="panel-body">
-                <?php foreach ($barrack->users as $user)
-                echo $user->firstname.' '.$user->lastname."<br/>";
-                ?>
-            </div>
-        </div>
+
     </div><!--colonne droite-->
 
 </div>  <!--row global-->
@@ -110,6 +110,7 @@
 <script>
     // charge les différentes vues
     var id = '<?= $barrack->id ?>';
+    $('#tbl-user').load('/Barracks/view/' + id + '/user');
     $('#tbl-vehi').load('/Barracks/view/' + id + '/vehicle');
     $('#tbl-material').load('/Barracks/view/' + id + '/material');
 

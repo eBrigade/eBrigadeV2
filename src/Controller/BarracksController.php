@@ -37,7 +37,7 @@ class BarracksController extends AppController
     public function view($id = null, $view = null)
 {
     $barrack = $this->Barracks->get($id, [
-        'contain' => ['Cities', 'Materials.MaterialTypes', 'Users', 'Vehicles.VehicleTypes', 'Events', 'RescuePlans']
+        'contain' => ['Cities', 'Materials.MaterialTypes', 'Users','Users.Cities', 'Vehicles.VehicleTypes', 'Events', 'RescuePlans']
     ]);
 
     switch ($view) {
@@ -46,6 +46,9 @@ class BarracksController extends AppController
         break;
         case 'vehicle':
             $this->viewBuilder()->template('vehicle');
+            break;
+        case 'user':
+            $this->viewBuilder()->template('user');
             break;
     }
 
