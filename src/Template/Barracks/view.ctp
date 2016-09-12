@@ -29,7 +29,7 @@
         </div>
 
         <div class="panel panel-warning">
-            <div class="panel-heading">Véhicules  dans la caserne <?= $this->Html->badge('', ['id' => 'bdg-veh']) ?>
+            <div class="panel-heading">Véhicules <?= $this->Html->badge('', ['id' => 'bdg-veh']) ?>
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-vehi', 'class' =>
                 'btn btn-warning pull-right btn-add',]) ?>
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-vehi',
@@ -110,8 +110,9 @@
 <script>
     // charge les différentes vues
     var id = '<?= $barrack->id ?>';
-    $('#tbl-material').load('/Barracks/view/' + id + '/material');
     $('#tbl-vehi').load('/Barracks/view/' + id + '/vehicle');
+    $('#tbl-material').load('/Barracks/view/' + id + '/material');
+
 
     // boutons ouvre les formulaires en modal
     var Materials = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
