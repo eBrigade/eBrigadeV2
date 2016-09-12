@@ -9,9 +9,11 @@ use Cake\Validation\Validator;
 /**
  * Cities Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Dpts
  * @property \Cake\ORM\Association\HasMany $Barracks
  * @property \Cake\ORM\Association\HasMany $Events
  * @property \Cake\ORM\Association\HasMany $Organizations
+ * @property \Cake\ORM\Association\HasMany $Users
  *
  * @method \App\Model\Entity\City get($primaryKey, $options = [])
  * @method \App\Model\Entity\City newEntity($data = null, array $options = [])
@@ -38,6 +40,9 @@ class CitiesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->belongsTo('Departments', [
+            'foreignKey' => 'dpt_id'
+        ]);
         $this->hasMany('Barracks', [
             'foreignKey' => 'city_id'
         ]);
@@ -45,6 +50,9 @@ class CitiesTable extends Table
             'foreignKey' => 'city_id'
         ]);
         $this->hasMany('Organizations', [
+            'foreignKey' => 'city_id'
+        ]);
+        $this->hasMany('Users', [
             'foreignKey' => 'city_id'
         ]);
     }
@@ -67,6 +75,28 @@ class CitiesTable extends Table
         $validator
             ->allowEmpty('zipcode');
 
+        $validator
+            ->numeric('longitude')
+            ->allowEmpty('longitude');
+
+        $validator
+            ->numeric('latitude')
+            ->allowEmpty('latitude');
+
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['dpt_id'], 'Departments'));
+
+        return $rules;
     }
 }
