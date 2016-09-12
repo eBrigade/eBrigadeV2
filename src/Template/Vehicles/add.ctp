@@ -32,10 +32,26 @@
         <?php
             echo $this->Form->input('matriculation');
             echo $this->Form->input('number_kilometer');
-            echo $this->Form->input('snow');
-            echo $this->Form->input('air_conditionner');
+            echo $this->Form->input('snow',[
+                'label' => __('snow'),
+                'type' => 'radio',
+                'options' => [
+                    ['value' => 1, 'text' => __('Yes')],
+                    ['value' => 0, 'text' => __('No')]
+                ],
+                'inline' => 'true'
+            ]);
+            echo $this->Form->input('air_conditionner',[
+                'label' => __('air_conditionner'),
+                'type' => 'radio',
+                'options' => [
+                    ['value' => 1, 'text' => __('Yes')],
+                    ['value' => 0, 'text' => __('No')]
+                ],
+                'inline' => 'true'
+            ]);
             echo $this->Form->input('vehicle_type_id', ['options' => $vehicleTypes, 'empty' => true]);
-            echo $this->Form->input('vehicle_model_id', ['options' => $vehicleModels, 'empty' => true]);
+            echo $this->Form->input('model', ['placeholder' => 'Optionnel','empty' => true]);
         echo $this->Form->input('bought', array(
         'label' => (__('bought')),
         'type' => 'text',
@@ -54,13 +70,11 @@
         'required' => false,
         'class' => 'form-control date'
         ));
-            echo $this->Form->input('barracks._ids', ['options' => $barracks]);
-            echo $this->Form->input('events._ids', ['options' => $events]);
-            echo $this->Form->input('teams._ids', ['options' => $teams]);
-            echo $this->Form->input('users._ids', ['options' => $users]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <div class="text-center">
+        <?= $this->Form->button(__('Submit'),['class' => 'btn btn-success']) ?>
+    </div>
     <?= $this->Form->end() ?>
 </div>
 
