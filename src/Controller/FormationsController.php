@@ -44,31 +44,43 @@ class FormationsController extends AppController
         $this->loadModel('Users');
         $this->loadModel('Barracks');
         $this->loadModel('EventsTeams');
+        $this->loadModel('TeamsUsers');
+        $this->loadModel('Users');
         $this->loadModel('Teams');
+
         $formation = $this->Formations->get($id, [
             'contain' => ['Organizations']
         ]);
 
 
         $event = $this->Events->findAllById($formation['event_id'])->toArray();
-
-
         $cities = $this->Cities->findAllById($event[0]['city_id'])->toArray();
-        $Users = $this->Users->findAllById($event[0]['creator_id'])->toArray();
         $barracks = $this->Barracks->findAllById($event[0]['barrack_id'])->toArray();
 
 
+        $teamevents = $this->EventsTeams->find('all')->where(['event_id =' => $formation['event_id']]);
 
-/*        $teamevents = $this->EventsTeams->find('all')->where(['event_id =' => $formation['event_id']]);
         foreach ($teamevents as $teamevent) {
+
             $teams = $this->Teams->findAllById($teamevent->team_id);
+
             foreach ($teams as $team) {
-                debug($team->name);
 
+                $teamz[] = $team;
+                $equipes = $this->TeamsUsers->find('all')->where(['team_id =' => $team->id])->toArray();
+
+                foreach ($equipes as $equipe) {
+
+                    $users = $this->Users->find('all')->where(['id =' => $equipe->user_id]);
+
+                    foreach ($users as $user) {
+
+                        $userz[] = $user;
+                    }
+                }
             }
-        }*/
-
-        $this->set(compact('formation', 'cities', 'Users', 'event', 'barracks', 'bills'));
+        }
+        $this->set(compact('formation', 'cities', 'Users', 'event', 'barracks', 'bills','teamz','userz'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -180,5 +192,27 @@ class FormationsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    public function addequipeformation($id = NULL){
+        $this->loadModel('Teams');
+
+        $formation_team = $this->Events->get($id, [
+            'contain' => ['Events']
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $formation_team = $this->Events->patchEntity($formation_team, $this->request->data);
+            if ($this->Events->save($formation_team)) {
+                $this->Flash->success(__('The event has been saved.'));
+
+                return $this->redirect(['action' => 'view',$id]);
+            } else {
+                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+            }
+        }
+        $teams = $this->Teams->find('list', ['limit' => 200]);
+        $this->set(compact('teams','$formation_team'));
+        $this->set('_serialize', ['$formation_team']);
     }
 }
