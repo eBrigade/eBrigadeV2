@@ -281,6 +281,18 @@
     }
     loadlist();
 
+    function refreshlist(source, containerID, containerType, contentType) {
+        var datalist = {
+            source: source,
+            containerID: containerID,
+            containerType: containerType,
+            contentType: contentType
+        };
+        var id = source + '-' + containerID + '-' + containerType + '-' + contentType;
+        $('#'+id+'').load('/Operations/loadlist/', datalist);
+
+    }
+
 
     //ajax query to add and remove content.
     //todo : add filters to 'add lists'
@@ -296,6 +308,8 @@
             contentType: contentType
         };
 
+
+
         //ajax
         var request = $.ajax({
             type: 'POST',
@@ -304,7 +318,7 @@
         });
         //reload list at callback
         request.done(function () {
-            loadlist();
+            refreshlist(source, containerID, containerType, contentType);
         });
 
         //for debug purpose
