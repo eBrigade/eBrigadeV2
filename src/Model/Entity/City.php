@@ -7,12 +7,16 @@ use Cake\ORM\Entity;
  * City Entity
  *
  * @property int $id
+ * @property string $dpt_id
  * @property string $city
  * @property string $zipcode
+ * @property float $longitude
+ * @property float $latitude
  *
  * @property \App\Model\Entity\Barrack[] $barracks
  * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Organization[] $organizations
+ * @property \App\Model\Entity\User[] $users
  */
 class City extends Entity
 {
