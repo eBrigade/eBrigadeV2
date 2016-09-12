@@ -1,3 +1,4 @@
+<?php $c_rent = count($materials) ?>
 <div class="table-responsive">
     <table cellpadding="0" cellspacing="0" class="table table-striped">
         <thead>
@@ -5,8 +6,8 @@
                 <th>Matériel</th>
                 <th>Emprunté par</th>
                 <th>Quantité</th>
-                <th>Depuis le</th>
-                <th>Jusqu'au</th>
+                <th class="hidden-xs hidden-sm">Depuis le</th>
+                <th class="hidden-xs hidden-sm">Jusqu'au</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +20,8 @@
                         <td><?= $material->material_type->name ?></td>
                         <td><?= ($user_material->user->firstname != null && $user_material->user->lastname != null) ? $user_material->user->firstname . ' ' . $user_material->user->lastname : 'Nope' ?></td>
                         <td><?= ($user_material->quantity != null) ? $user_material->quantity : '-/-' ?></td>
-                        <td><?= ($user_material->from_date != null) ? $user_material->from_date : 'Inconnu' ?></td>
-                        <td><?= ($user_material->from_to != null) ? $user_material->from_to : 'Inconnu' ?></td>
+                        <td class="hidden-xs hidden-sm"><?= ($user_material->from_date != null) ? $user_material->from_date : 'Inconnu' ?></td>
+                        <td class="hidden-xs hidden-sm"><?= ($user_material->from_to != null) ? $user_material->from_to : 'Inconnu' ?></td>
                     </tr>
                 <?php
                     }
@@ -36,3 +37,7 @@
         </ul>
     </div>
 </div>
+<script>
+    var c_rent = '<?= $c_rent ?>';
+    $("#bdg-rent").text(c_rent);
+</script>
