@@ -25,7 +25,7 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('address');
-            echo $this->Form->input('ac_city');
+            echo $this->Form->input('ville');
             echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
             echo $this->Form->input('phone');
             echo $this->Form->input('fax' , ['required' => false]);
