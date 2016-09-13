@@ -62,6 +62,9 @@ class BarracksController extends AppController
                 $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
             }
         }
+        $parentBarracks = $this->Barracks->find('treeList');
+
+        $this->set(compact('barrack', 'cities','parentBarracks'));
         $parentBarracks = $this->Barracks->ParentBarracks->find('list', ['limit' => 200]);
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
@@ -93,6 +96,9 @@ class BarracksController extends AppController
                 $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
             }
         }
+        $parentBarracks = $this->Barracks->find('treeList');
+
+        $this->set(compact('barrack', 'cities','parentBarracks'));
         $parentBarracks = $this->Barracks->ParentBarracks->find('list', ['limit' => 200]);
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
