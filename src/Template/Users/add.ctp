@@ -37,7 +37,8 @@
             echo $this->Form->input('address');
             echo $this->Form->input('address_complement');
             echo $this->Form->input('zipcode');
-            echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
+        echo $this->Form->input('ville');
+        echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
             echo $this->Form->input('birthday', ['empty' => true]);
             echo $this->Form->input('birthplace');
             echo $this->Form->input('skype');
@@ -53,3 +54,6 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+<script>
+    $("#ville").easyAutocomplete(options_ac);
+</script>
