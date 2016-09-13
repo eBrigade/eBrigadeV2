@@ -9,11 +9,13 @@ use Cake\Validation\Validator;
 /**
  * Barracks Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $ParentBarracks
  * @property \Cake\ORM\Association\BelongsTo $Cities
+ * @property \Cake\ORM\Association\HasMany $ChildBarracks
  * @property \Cake\ORM\Association\HasMany $Events
  * @property \Cake\ORM\Association\HasMany $Materials
- * @property \Cake\ORM\Association\HasMany $RescuePlans
- * @property \Cake\ORM\Association\BelongsToMany
+ * @property \Cake\ORM\Association\HasMany $Operations
+ * @property \Cake\ORM\Association\BelongsToMany $Materials
  * @property \Cake\ORM\Association\BelongsToMany $Users
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
@@ -24,6 +26,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Barrack patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Barrack[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Barrack findOrCreate($search, callable $callback = null)
+ *
+ * @mixin \Cake\ORM\Behavior\TreeBehavior
  */
 class BarracksTable extends Table
 {
@@ -42,9 +46,19 @@ class BarracksTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
+        $this->addBehavior('Tree');
+
+        $this->belongsTo('ParentBarracks', [
+            'className' => 'Barracks',
+            'foreignKey' => 'parent_id'
+        ]);
         $this->belongsTo('Cities', [
             'foreignKey' => 'city_id',
             'joinType' => 'INNER'
+        ]);
+        $this->hasMany('ChildBarracks', [
+            'className' => 'Barracks',
+            'foreignKey' => 'parent_id'
         ]);
         $this->hasMany('Events', [
             'foreignKey' => 'barrack_id'
@@ -52,8 +66,13 @@ class BarracksTable extends Table
         $this->hasMany('Materials', [
             'foreignKey' => 'barrack_id'
         ]);
-        $this->hasMany('RescuePlans', [
+        $this->hasMany('Operations', [
             'foreignKey' => 'barrack_id'
+        ]);
+        $this->belongsToMany('Materials', [
+            'foreignKey' => 'barrack_id',
+            'targetForeignKey' => 'material_id',
+            'joinTable' => 'barracks_materials'
         ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'barrack_id',
@@ -88,16 +107,43 @@ class BarracksTable extends Table
             ->notEmpty('address');
 
         $validator
+            ->requirePresence('address_complement', 'create')
+            ->notEmpty('address_complement');
+
+        $validator
             ->requirePresence('phone', 'create')
             ->notEmpty('phone');
 
+        $validator
+            ->requirePresence('fax', 'create')
+            ->notEmpty('fax');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
             ->notEmpty('email');
 
+        $validator
+            ->requirePresence('website_url', 'create')
+            ->notEmpty('website_url');
 
+        $validator
+            ->requirePresence('ordre', 'create')
+            ->notEmpty('ordre');
+
+        $validator
+            ->requirePresence('rib', 'create')
+            ->notEmpty('rib');
+
+        $validator
+            ->integer('lft')
+            ->requirePresence('lft', 'create')
+            ->notEmpty('lft');
+
+        $validator
+            ->integer('rght')
+            ->requirePresence('rght', 'create')
+            ->notEmpty('rght');
 
         return $validator;
     }
@@ -112,6 +158,7 @@ class BarracksTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->existsIn(['parent_id'], 'ParentBarracks'));
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
 
         return $rules;
