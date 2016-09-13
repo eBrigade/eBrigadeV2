@@ -31,7 +31,7 @@ function modal(selector, controller) {
 
 // autcomplete ville
 var options_ac = {
-    url: "../files/cities.json",
+    url: window.location.origin + "/files/cities.json",
 
     getValue: function(element) {
         return element.zipcode + ' | ' + element.city.toUpperCase();

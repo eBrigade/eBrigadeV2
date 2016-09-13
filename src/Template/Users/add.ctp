@@ -41,7 +41,8 @@
             echo $this->Form->input('address');
             echo $this->Form->input('address_complement');
             echo $this->Form->input('zipcode');
-            echo $this->Form->input('city');
+        echo $this->Form->input('ville');
+        echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
         echo $this->Form->input('birthday', array(
         'label' => (__('Date of Birth')),
         'type' => 'text',
@@ -86,4 +87,8 @@
 
 //mise en place du datepicker jQuery
     date('#birthday', '-90:-8', '-20y');
+
+    // mise en place de l'auto complete
+    $("#ville").easyAutocomplete(options_ac);
+
 </script>
