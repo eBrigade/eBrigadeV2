@@ -246,8 +246,26 @@ CREATE TABLE IF NOT EXISTS `events_vehicles` (
 
 CREATE TABLE IF NOT EXISTS `formations` (
   `id` int(11) NOT NULL,
-  `organization_id` int(11) DEFAULT NULL,
+  `organization_id` int(11) DEFAULT NULL, --< A revoir
   `event_id` int(11) DEFAULT NULL,
+  `diploma` varchar(100) DEFAULT NULL,
+  `skills` varchar(100) DEFAULT NULL,
+  `type_formation_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `formations_types`
+--
+
+CREATE TABLE IF NOT EXISTS `formations_types` (
+  `id` int(11) NOT NULL,
+  `name` int(11) DEFAULT NULL,
+  `level` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
