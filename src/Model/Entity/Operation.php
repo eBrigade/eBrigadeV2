@@ -7,7 +7,6 @@ use Cake\ORM\Entity;
  * Operation Entity
  *
  * @property int $id
- * @property int $event_id
  * @property int $barrack_id
  * @property int $city_id
  * @property string $address
@@ -47,8 +46,10 @@ use Cake\ORM\Entity;
  * @property int $total_cost
  * @property \Cake\I18n\Time $date
  * @property int $operation_type_id
+ * @property float $latitude
+ * @property float $longitude
+ * @property string $title
  *
- * @property \App\Model\Entity\Event $event
  * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\OperationActivity $operation_activity

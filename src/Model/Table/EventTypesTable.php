@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * EventTypes Model
  *
- * @property \Cake\ORM\Association\HasMany $Events
- *
  * @method \App\Model\Entity\EventType get($primaryKey, $options = [])
  * @method \App\Model\Entity\EventType newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\EventType[] newEntities(array $data, array $options = [])
@@ -35,10 +33,6 @@ class EventTypesTable extends Table
         $this->table('event_types');
         $this->displayField('title');
         $this->primaryKey('id');
-
-        $this->hasMany('Events', [
-            'foreignKey' => 'event_type_id'
-        ]);
     }
 
     /**

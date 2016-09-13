@@ -56,7 +56,8 @@
                 <th><?= __('Event End Date') ?></th>
                 <th><?= __('Horaires') ?></th>
                 <th><?= __('Public') ?></th>
-                <th><?= __('Event Type Id') ?></th>
+                <th><?= __('Module') ?></th>
+                <th><?= __('Module Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($eventType->events as $events): ?>
@@ -83,7 +84,8 @@
                 <td><?= h($events->event_end_date) ?></td>
                 <td><?= h($events->horaires) ?></td>
                 <td><?= h($events->public) ?></td>
-                <td><?= h($events->event_type_id) ?></td>
+                <td><?= h($events->module) ?></td>
+                <td><?= h($events->module_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Events', 'action' => 'view', $events->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Events', 'action' => 'edit', $events->id]) ?>

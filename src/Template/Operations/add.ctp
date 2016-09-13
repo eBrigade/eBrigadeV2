@@ -2,8 +2,6 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Operations'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Cities'), ['controller' => 'Cities', 'action' => 'index']) ?></li>
@@ -27,7 +25,6 @@
     <fieldset>
         <legend><?= __('Add Operation') ?></legend>
         <?php
-            echo $this->Form->input('event_id', ['options' => $events]);
             echo $this->Form->input('barrack_id', ['options' => $barracks]);
             echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
             echo $this->Form->input('address');
@@ -67,6 +64,9 @@
             echo $this->Form->input('total_cost');
             echo $this->Form->input('date');
             echo $this->Form->input('operation_type_id', ['options' => $operationTypes, 'empty' => true]);
+            echo $this->Form->input('latitude');
+            echo $this->Form->input('longitude');
+            echo $this->Form->input('title');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

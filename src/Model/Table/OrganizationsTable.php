@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\HasMany $Formations
- * @property \Cake\ORM\Association\HasMany $RescuePlans
+ * @property \Cake\ORM\Association\HasMany $Operations
  *
  * @method \App\Model\Entity\Organization get($primaryKey, $options = [])
  * @method \App\Model\Entity\Organization newEntity($data = null, array $options = [])
@@ -44,7 +44,7 @@ class OrganizationsTable extends Table
         $this->hasMany('Formations', [
             'foreignKey' => 'organization_id'
         ]);
-        $this->hasMany('RescuePlans', [
+        $this->hasMany('Operations', [
             'foreignKey' => 'organization_id'
         ]);
     }

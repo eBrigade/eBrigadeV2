@@ -18,8 +18,6 @@
         <li><?= $this->Html->link(__('New Event Type'), ['controller' => 'EventTypes', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Formations'), ['controller' => 'Formations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Formation'), ['controller' => 'Formations', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Rescue Plans'), ['controller' => 'RescuePlans', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Rescue Plan'), ['controller' => 'RescuePlans', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
@@ -52,7 +50,8 @@
             echo $this->Form->input('event_end_date', ['empty' => true]);
             echo $this->Form->input('horaires');
             echo $this->Form->input('public');
-            echo $this->Form->input('event_type_id', ['options' => $eventTypes, 'empty' => true]);
+            echo $this->Form->input('module');
+            echo $this->Form->input('module_id');
             echo $this->Form->input('materials._ids', ['options' => $materials]);
             echo $this->Form->input('teams._ids', ['options' => $teams]);
             echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);

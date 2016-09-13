@@ -19,7 +19,7 @@ class OperationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Events', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'Organizations', 'OperationTypes']
+            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
         ];
         $operations = $this->paginate($this->Operations);
 
@@ -37,7 +37,7 @@ class OperationsController extends AppController
     public function view($id = null)
     {
         $operation = $this->Operations->get($id, [
-            'contain' => ['Events', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'Organizations', 'OperationTypes']
+            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
         ]);
 
         $this->set('operation', $operation);
@@ -62,7 +62,6 @@ class OperationsController extends AppController
                 $this->Flash->error(__('The operation could not be saved. Please, try again.'));
             }
         }
-        $events = $this->Operations->Events->find('list', ['limit' => 200]);
         $barracks = $this->Operations->Barracks->find('list', ['limit' => 200]);
         $cities = $this->Operations->Cities->find('list', ['limit' => 200]);
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
@@ -71,7 +70,7 @@ class OperationsController extends AppController
         $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
         $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
         $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'events', 'barracks', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationRecommendations', 'organizations', 'operationTypes'));
+        $this->set(compact('operation', 'barracks', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationRecommendations', 'organizations', 'operationTypes'));
         $this->set('_serialize', ['operation']);
     }
 
@@ -97,7 +96,6 @@ class OperationsController extends AppController
                 $this->Flash->error(__('The operation could not be saved. Please, try again.'));
             }
         }
-        $events = $this->Operations->Events->find('list', ['limit' => 200]);
         $barracks = $this->Operations->Barracks->find('list', ['limit' => 200]);
         $cities = $this->Operations->Cities->find('list', ['limit' => 200]);
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
@@ -106,7 +104,7 @@ class OperationsController extends AppController
         $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
         $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
         $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'events', 'barracks', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationRecommendations', 'organizations', 'operationTypes'));
+        $this->set(compact('operation', 'barracks', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationRecommendations', 'organizations', 'operationTypes'));
         $this->set('_serialize', ['operation']);
     }
 
