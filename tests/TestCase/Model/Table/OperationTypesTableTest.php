@@ -25,18 +25,17 @@ class OperationTypesTableTest extends TestCase
      */
     public $fixtures = [
         'app.operation_types',
-        'app.operations',
+        'app.rescue_plans',
         'app.events',
         'app.cities',
+        'app.departments',
+        'app.regions',
         'app.barracks',
         'app.materials',
         'app.material_types',
         'app.barracks_materials',
         'app.user_materials',
         'app.users',
-        'app.permissions',
-        'app.grades',
-        'app.roles',
         'app.availabilities',
         'app.orders',
         'app.providers',
@@ -56,19 +55,16 @@ class OperationTypesTableTest extends TestCase
         'app.teams_vehicles',
         'app.users_vehicles',
         'app.events_materials',
-        'app.rescue_plans',
+        'app.organizations',
+        'app.formations',
+        'app.formation_types',
+        'app.bills',
+        'app.event_types',
         'app.rescue_plan_activities',
         'app.rescue_plan_environments',
         'app.rescue_plan_delays',
         'app.rescue_plan_types',
-        'app.rescue_plan_recommendations',
-        'app.organizations',
-        'app.formations',
-        'app.bills',
-        'app.operation_activities',
-        'app.operation_environments',
-        'app.operation_delays',
-        'app.operation_recommendations'
+        'app.rescue_plan_recommendations'
     ];
 
     /**

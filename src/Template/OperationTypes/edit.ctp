@@ -8,8 +8,6 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Operation Types'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="operationTypes form large-9 medium-8 columns content">
