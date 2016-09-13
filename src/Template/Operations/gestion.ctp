@@ -127,7 +127,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <?php foreach ($teamsList as $teams): ?>
-                            <li><?= $this->Html->link($teams->name, ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'add', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
+                            <li class="list-group-item" onclick="clickAction(<?= $event->id ?>, <?= $event->id?>, <?= $teams->id ?>, 'add', 'Events', 'Teams')"><?= $teams->name ?> </li>
                         <?php endforeach; ?>
 
                     </ul>
@@ -157,7 +157,6 @@
         var teamlist = $('.teamlist');
         var data = parseInt(teamlist.attr('id'));
         var datajax = {eventID: data};
-        console.log(datajax);
 
         teamlist.load('/Operations/loadteams/', datajax, function () {
             loadlist()
@@ -222,7 +221,11 @@
         });
         //reload list at callback
         request.done(function () {
-            refreshlist(source, containerID, containerType, contentType);
+            if (contentType == "Teams") {
+                loadteams();
+            } else {
+                refreshlist(source, containerID, containerType, contentType);
+            }
         });
 
         //for debug purpose
