@@ -36,7 +36,7 @@ class NotificationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Sources', [
+        $this->belongsTo('Messages', [
             'foreignKey' => 'source_id',
             'joinType' => 'INNER'
         ]);

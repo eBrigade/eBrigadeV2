@@ -36,6 +36,11 @@ class MessagesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'from_user',
+            'joinType' => 'INNER'
+        ]);
+        
         $this->addBehavior('Timestamp');
     }
 
