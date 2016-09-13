@@ -9,7 +9,7 @@ use Cake\ORM\TableRegistry;
  *
  * @property \App\Model\Table\RescuePlansTable $RescuePlans
  */
-class OperationsController extends AppController
+class OperaController extends AppController
 {
 
     /**

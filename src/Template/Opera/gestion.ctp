@@ -50,10 +50,8 @@
                         echo $this->GoogleMap->map($map_options);
                         $marker_options = array(
                             'showWindow' => true,
-                            'windowText' => 'Marker',
+                            'windowText' => $event->title,
                             'markerTitle' => 'Title',
-                            'markerIcon' => 'http://labs.google.com/ridefinder/images/mm_20_purple.png',
-                            'markerShadow' => 'http://labs.google.com/ridefinder/images/mm_20_purpleshadow.png',
                             'draggableMarker' => true
                         );
 
@@ -158,7 +156,7 @@
         var data = parseInt(teamlist.attr('id'));
         var datajax = {eventID: data};
 
-        teamlist.load('/Operations/loadteams/', datajax, function () {
+        teamlist.load('/Opera/loadteams/', datajax, function () {
             loadlist()
         });
     }
@@ -179,7 +177,7 @@
             var data = $(this).attr('id').split('-');
             var datajax = new datalist(data[0], data[1], data[2], data[3]);
 
-            $(this).load('/Operations/loadlist/', datajax);
+            $(this).load('/Opera/loadlist/', datajax);
         });
 
     }
@@ -194,7 +192,7 @@
             contentType: contentType
         };
         var id = source + '-' + containerID + '-' + containerType + '-' + contentType;
-        $('#'+id+'').load('/Operations/loadlist/', datalist);
+        $('#'+id+'').load('/Opera/loadlist/', datalist);
 
     }
 
@@ -217,7 +215,7 @@
         var request = $.ajax({
             type: 'POST',
             data: datax,
-            url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
+            url: '<?= $this->Url->build(["controller" => "Opera", "action" => "ajoints"]); ?>'
         });
         //reload list at callback
         request.done(function () {
