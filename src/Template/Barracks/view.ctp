@@ -1,4 +1,7 @@
-
+<?php $c_rent = count($materials) ?>
+<?php $c_mat = count($barrack->materials) ?>
+<?php $c_user = count($barrack->users) ?>
+<?php $c_veh = count($barrack->vehicles) ?>
 <div class="my-modal-base">
     <div class="my-modal-cont"></div>
 </div>
@@ -36,7 +39,46 @@
                 'class' => 'btn btn-warning pull-right btn-add',]) ?>
             </div>
             <div class="panel-body" id="tbl-vehi">
-                <!--Ici ce charge la table vehicule-->
+                <table class="table table-hover" width="100%" id="tbl-vehicule">
+                    <thead>
+                    <tr>
+                        <th> </th>
+                        <th>Type</th>
+                        <th>Désignation</th>
+                        <th class="hidden-sm hidden-xs">Matricule</th>
+                        <th class="hidden-sm hidden-xs">Km</th>
+                        <th class="hidden-sm hidden-xs">Acquis le</th>
+                        <th class="hidden-sm hidden-xs">Garantie</th>
+                        <th class="hidden-sm hidden-xs">Revision</th>
+                        <th class="hidden-sm hidden-xs">Eqp</th>
+                        <th class="hidden-sm hidden-xs"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php foreach ($barrack->vehicles as $vehi): ?>
+                    <tr id='<?= $vehi->id ?>'>
+                        <td><img id='img-veh' src='<?= $this->Url->image($vehi->vehicle_type->picture) ?>'></td>
+                        <td><?= $vehi->vehicle_type->type ?></td>
+                        <td><?= $vehi->vehicle_type->name ?></td>
+                        <td class='hidden-sm hidden-xs' id='mat'><?= $vehi->matriculation ?></td>
+                        <td class='hidden-sm hidden-xs' id='klm'><?= $vehi->number_kilometer ?></td>
+                        <td class='hidden-sm hidden-xs' id='buy'><?= $vehi->bought ?></td>
+                        <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
+                        <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
+                        <td class='hidden-sm hidden-xs id='opt'>
+                        <?= ($vehi->snow) ? "<span class='glyphicon glyphicon-asterisk' aria-hidden='true' data-toggle='tooltip' title='Véhicule équipé de pneux hiver'></span>" : "" ?>
+                        <?= ($vehi->air_conditionner) ? "<span class='glyphicon glyphicon-random' aria-hidden='true' data-toggle='tooltip' title='Véhicule avec climatisation'></span>" : "" ?>
+                        </td>
+                        <td class='hidden-sm hidden-xs' id= 'icon'>
+                            <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
+                            <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
+                        </td>
+                    </tr>
+                    <?php endforeach;  ?>
+
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -48,7 +90,36 @@
                 'class' => 'btn btn-info pull-right btn-add',]) ?>
             </div>
             <div class="panel-body" id="tbl-user">
-                <!--Ici ce charge la table utilisateur-->
+                <table class="table table-hover" width="100%" id="tbl-vehicule">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Cp</th>
+                        <th>Ville</th>
+                        <th>Téléphone</th>
+                        <th>Actif</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($barrack->users as $user): ?>
+                    <tr id="<?= $user->id ?>">
+                        <td><?=  $user->firstname ?></td>
+                        <td><?= $user->lastname ?></td>
+                        <td><?= $user->zipcode ?></td>
+                        <td><?= $user->city->city ?></td>
+                        <td><?= $user->workphone ?></td>
+                        <td><?= ($user->is_active) ? 'Oui' : 'Non' ?>
+                        </td>
+                        <td class='hidden-sm hidden-xs' id= 'icon'>
+                            <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
+                        </td>
+                    </tr>
+
+                    <?php endforeach;  ?>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -68,7 +139,32 @@
                 'class' => 'btn btn-success pull-right btn-add',]) ?>
             </div>
             <div class="panel-body"  id="tbl-material">
-                            <!--Ici ce charge la table matériel-->
+                <table class="table table-hover" width="100%" id="tbl-mat">
+                    <thead>
+                    <tr>
+                        <th>Stock</th>
+                        <th>Type</th>
+                        <th>Désignation</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($barrack->materials as $matos)
+                    echo "
+                    <tr id=".$matos->id.">
+                        <td class='stock'>".$matos->stock."</td>
+                        <td>".$matos->material_type->type."</td>
+                        <td>".$matos->material_type->name."</td>
+                        <td>
+                            <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
+                            <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
+                        </td>
+                    </tr>
+                    ";
+                    ?>
+                    </tbody>
+                </table>
+
             </div>
         </div>
 
@@ -86,6 +182,42 @@
                 'class' => 'btn btn-danger pull-right btn-add',]) ?>
             </div>
             <div class="panel-body" id="tbl-user-material">
+                <table cellpadding="0" cellspacing="0" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Matériel</th>
+                        <th>Emprunté par</th>
+                        <th>Quantité</th>
+                        <th class="hidden-xs hidden-sm">Depuis le</th>
+                        <th class="hidden-xs hidden-sm">Jusqu'au</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($materials as $material): ?>
+
+                    <?php foreach($material->user_materials as $user_material)
+                    {
+                    ?>
+                    <tr>
+                        <td><?= $material->material_type->name ?></td>
+                        <td><?= ($user_material->user->firstname != null && $user_material->user->lastname != null) ? $user_material->user->firstname . ' ' . $user_material->user->lastname : 'Nope' ?></td>
+                        <td><?= ($user_material->quantity != null) ? $user_material->quantity : '-/-' ?></td>
+                        <td class="hidden-xs hidden-sm"><?= ($user_material->from_date != null) ? $user_material->from_date : 'Inconnu' ?></td>
+                        <td class="hidden-xs hidden-sm"><?= ($user_material->from_to != null) ? $user_material->from_to : 'Inconnu' ?></td>
+                    </tr>
+                    <?php
+                    }
+                ?>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="paginator text-center">
+                    <ul class="pagination">
+                        <?= $this->Paginator->prev($this->Html->icon('chevron-left'),['escape' => false]) ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next($this->Html->icon('chevron-right'),['escape' => false]) ?>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -96,13 +228,15 @@
 
 
 <script>
-    // charge les différentes vues
-    var id = '<?= $barrack->id ?>';
-    $('#tbl-user').load('/Barracks/view/' + id + '/user');
-    $('#tbl-vehi').load('/Barracks/view/' + id + '/vehicle');
-    $('#tbl-material').load('/Barracks/view/' + id + '/material');
-    $('#tbl-user-material').load('/Materials/rented/'+id);
-
+    // charge les différentes compteurs
+    var c_rent = '<?= $c_rent ?>';
+    $("#bdg-rent").text(c_rent);
+    var c_mat = '<?= $c_mat ?>';
+    $("#bdg-mat").text(c_mat);
+    var c_user = '<?= $c_user ?>';
+    $("#bdg-user").text(c_user);
+    var c_veh = '<?= $c_veh ?>';
+    $("#bdg-veh").text(c_veh);
 
     // boutons ouvre les formulaires en modal
     var Materials = '<?= $this->Url->build(["controller" => "Materials","action" => "add", $barrack->id ]); ?>';
