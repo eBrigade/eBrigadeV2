@@ -6,7 +6,7 @@
         <div class="btn-group">
             <?= ($userId) ? $this->Html->link($this->Html->icon('pencil'),
                 ['action' => 'edit',$user->id],
-                ['class'=>'btn btn-info btn-small','escape'=>false])
+                ['class'=>'btn btn-info btn-sm','escape'=>false])
                 : '' ?>
         </div>
     </div>
@@ -32,7 +32,7 @@
                                 $barrack->id
                             ],
                             [
-                                'class' => 'btn btn-primary btn-xs',
+                                'class' => 'btn btn-xs',
                                 'escape' => false
                             ]
                         );
@@ -41,9 +41,6 @@
                 </li>
                 <li class="list-unstyled"><label>Membre depuis le : </label><?= $user->created ?></li>
                 <li class="list-unstyled"><label>Actif : </label><?= ($user->is_active) ? 'Oui' : 'Non' ?></li>
-            </div>
-            <div class="panel-footer">
-
             </div>
         </div>
     </div>
@@ -57,6 +54,28 @@
                 <li class="list-unstyled"><label>Téléphone : </label><?= ($user->workphone != null) ? $user->workphone : 'Non renseigné' ?></li>
                 <li class="list-unstyled"><label>Skype : </label><?= ($user->skype != null) ? $user->skype : 'Non renseigné' ?></li>
 
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                Formations
+            </div>
+            <div class="panel-body">
+                <li class="list-unstyled">A remplir</li>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Equipes
+            </div>
+            <div class="panel-body">
+                <li class="list-unstyled">A remplir</li>
             </div>
         </div>
     </div>
