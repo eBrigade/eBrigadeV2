@@ -7,11 +7,11 @@ use Cake\ORM\Entity;
  * OperationType Entity
  *
  * @property int $id
- * @property string $te_code
  * @property string $title
- * @property string $cev_code
+ * @property int $min
+ * @property int $max
  *
- * @property \App\Model\Entity\Operation[] $operations
+ * @property \App\Model\Entity\RescuePlan[] $rescue_plans
  */
 class OperationType extends Entity
 {

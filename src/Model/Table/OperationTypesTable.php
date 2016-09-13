@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * OperationTypes Model
  *
- * @property \Cake\ORM\Association\HasMany $RescuePlans
+ * @property \Cake\ORM\Association\HasMany $Operations
  *
  * @method \App\Model\Entity\OperationType get($primaryKey, $options = [])
  * @method \App\Model\Entity\OperationType newEntity($data = null, array $options = [])
@@ -36,7 +36,7 @@ class OperationTypesTable extends Table
         $this->displayField('title');
         $this->primaryKey('id');
 
-        $this->hasMany('RescuePlans', [
+        $this->hasMany('Operations', [
             'foreignKey' => 'operation_type_id'
         ]);
     }
@@ -54,15 +54,15 @@ class OperationTypesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('te_code', 'create')
-            ->notEmpty('te_code');
-
-        $validator
             ->allowEmpty('title');
 
         $validator
-            ->requirePresence('cev_code', 'create')
-            ->notEmpty('cev_code');
+            ->integer('min')
+            ->allowEmpty('min');
+
+        $validator
+            ->integer('max')
+            ->allowEmpty('max');
 
         return $validator;
     }

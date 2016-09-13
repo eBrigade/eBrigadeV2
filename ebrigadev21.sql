@@ -359,17 +359,13 @@ CREATE TABLE IF NOT EXISTS `formations` (
 -- Dumping data for table `formations`
 --
 
-INSERT INTO `formations` (`id`, `organization_id`, `event_id`) VALUES
-(1, NULL, 4),
-(2, NULL, 13);
-
 -- --------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `formation_types` (
- +  `id` int(11) NOT NULL,
- +  `name` int(11) DEFAULT NULL,
- +  `level` varchar(50) DEFAULT NULL,
-    PRIMARY KEY (`id`)		    PRIMARY KEY (`id`)
+   `id` int(11) NOT NULL,
+   `name` int(11) DEFAULT NULL,
+  `level` varchar(50) DEFAULT NULL,
+    PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -769,7 +765,7 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `operation_environment_id` int(11) NOT NULL DEFAULT '0',
   `operation_delay_id` int(11) NOT NULL DEFAULT '0',
   `public_ris` float NOT NULL DEFAULT '0',
-  `operation_type_id` int(11) NOT NULL DEFAULT '0',
+  `operation_type_id` int(11) DEFAULT NULL,
   `operation_recommendation_id` int(11) NOT NULL DEFAULT '0',
   `public_reinforcement` varchar(255) NOT NULL DEFAULT '0',
   `public_total` int(11) NOT NULL DEFAULT '0',
@@ -800,17 +796,12 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `cost_percentage_adpc` int(11) NOT NULL DEFAULT '0',
   `total_cost` int(11) NOT NULL DEFAULT '0',
   `date` date NOT NULL,
-  `operation_type_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `operations`
 --
-
-INSERT INTO `operations` (`id`, `event_id`, `barrack_id`, `public_headcount`, `operation_activity_id`, `operation_environment_id`, `operation_delay_id`, `public_ris`, `operation_type_id`, `operation_recommendation_id`, `public_reinforcement`, `public_total`, `organization_id`, `actors_headcount`, `rescuers_total`, `headcount_total`, `actors_organization`, `general_organization`, `transport_organization`, `team_instructions`, `report_assisted`, `report_slight`, `report_medicalized`, `report_reinforcement`, `report_evacuated`, `report_bilan_notes`, `meals_morning`, `meals_lunch`, `meals_dinner`, `meals_unit_cost`, `meals_charge`, `meals_cost`, `cost_kilometers_vps`, `cost_kilometers_other`, `discount_percentage`, `discount_reason`, `cost_percentage_adpc`, `total_cost`, `date`, `operation_type_id`) VALUES
-(1, 5, 1, 23425, 1, 1, 1, 17.57, 3, 16, '0', 0, 0, 0, 0, 0, 'aux abords du bar', 'déploiement en rosace', 'à pied', '5 équipes minimum', NULL, NULL, NULL, NULL, NULL, '', 5, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, '2016-09-13', NULL),
-(2, 14, 1, 23423, 1, 1, 1, 17.57, 4, 18, '0', 0, 0, 0, 0, 0, 'sdqfqsdg', 'qsdgqsdg', 'qsdgqdsg', 'qsdgqdsg', NULL, NULL, NULL, NULL, NULL, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 0, 0, '2016-09-13', NULL);
 
 -- --------------------------------------------------------
 
