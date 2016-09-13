@@ -17,13 +17,16 @@
     </ul>
 </nav>
 <div class="barracks form large-9 medium-8 columns content">
+
+
     <?= $this->Form->create($barrack) ?>
     <fieldset>
         <legend><?= __('Add Barrack') ?></legend>
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('address');
-            echo $this->Form->input('city_id', ['options' => $cities]);
+            echo $this->Form->input('ac_city');
+            echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
             echo $this->Form->input('phone');
             echo $this->Form->input('fax' , ['required' => false]);
             echo $this->Form->input('email');
@@ -35,3 +38,8 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+
+<script>
+$("#ville").easyAutocomplete(options_ac);
+</script>
