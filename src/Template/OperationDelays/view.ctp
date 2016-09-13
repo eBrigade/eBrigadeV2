@@ -31,7 +31,6 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
-                <th><?= __('Event Id') ?></th>
                 <th><?= __('Barrack Id') ?></th>
                 <th><?= __('City Id') ?></th>
                 <th><?= __('Address') ?></th>
@@ -71,12 +70,14 @@
                 <th><?= __('Total Cost') ?></th>
                 <th><?= __('Date') ?></th>
                 <th><?= __('Operation Type Id') ?></th>
+                <th><?= __('Latitude') ?></th>
+                <th><?= __('Longitude') ?></th>
+                <th><?= __('Title') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($operationDelay->operations as $operations): ?>
             <tr>
                 <td><?= h($operations->id) ?></td>
-                <td><?= h($operations->event_id) ?></td>
                 <td><?= h($operations->barrack_id) ?></td>
                 <td><?= h($operations->city_id) ?></td>
                 <td><?= h($operations->address) ?></td>
@@ -116,6 +117,9 @@
                 <td><?= h($operations->total_cost) ?></td>
                 <td><?= h($operations->date) ?></td>
                 <td><?= h($operations->operation_type_id) ?></td>
+                <td><?= h($operations->latitude) ?></td>
+                <td><?= h($operations->longitude) ?></td>
+                <td><?= h($operations->title) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Operations', 'action' => 'view', $operations->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Operations', 'action' => 'edit', $operations->id]) ?>

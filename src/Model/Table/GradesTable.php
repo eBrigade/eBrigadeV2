@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Grades Model
  *
- * @property \Cake\ORM\Association\HasMany $Users
- *
  * @method \App\Model\Entity\Grade get($primaryKey, $options = [])
  * @method \App\Model\Entity\Grade newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Grade[] newEntities(array $data, array $options = [])
@@ -35,10 +33,6 @@ class GradesTable extends Table
         $this->table('grades');
         $this->displayField('name');
         $this->primaryKey('id');
-
-        $this->hasMany('Users', [
-            'foreignKey' => 'grade_id'
-        ]);
     }
 
     /**

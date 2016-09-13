@@ -49,11 +49,10 @@ class VehiclesController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null)
+    public function add()
     {
         $vehicle = $this->Vehicles->newEntity();
         if ($this->request->is('post')) {
-            $this->request->data['barrack_id'] = $id;
             $vehicle = $this->Vehicles->patchEntity($vehicle, $this->request->data);
             if ($this->Vehicles->save($vehicle)) {
                 $this->Flash->success(__('The vehicle has been saved.'));
@@ -123,20 +122,5 @@ class VehiclesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function editliaison()
-    {
-        $this->autoRender = false;
-
-        if ($this->request->is('post')) {
-            $this->Vehicles->updateAll(
-                ['matriculation' => $this->request->data['matriculation'],
-                'number_kilometer' => $this->request->data['number_kilometer'],
-                'bought' => $this->request->data['bought'],
-                'end_warranty' =>  $this->request->data['end_warranty'],
-                'next_revision' => $this->request->data['next_revision']],
-                ['id' => $this->request->data['id']]);
-        }
     }
 }

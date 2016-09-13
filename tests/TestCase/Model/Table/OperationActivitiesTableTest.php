@@ -55,21 +55,14 @@ class OperationActivitiesTableTest extends TestCase
         'app.teams_vehicles',
         'app.users_vehicles',
         'app.events_materials',
-        'app.rescue_plans',
-        'app.rescue_plan_activities',
-        'app.rescue_plan_environments',
-        'app.rescue_plan_delays',
-        'app.rescue_plan_types',
-        'app.rescue_plan_recommendations',
         'app.organizations',
         'app.formations',
         'app.formation_types',
-        'app.operation_types',
         'app.bills',
-        'app.event_types',
         'app.operation_environments',
         'app.operation_delays',
-        'app.operation_recommendations'
+        'app.operation_recommendations',
+        'app.operation_types'
     ];
 
     /**

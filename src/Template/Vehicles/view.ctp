@@ -69,25 +69,37 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
+                <th><?= __('Parent Id') ?></th>
                 <th><?= __('Name') ?></th>
                 <th><?= __('Address') ?></th>
+                <th><?= __('Address Complement') ?></th>
                 <th><?= __('City Id') ?></th>
                 <th><?= __('Phone') ?></th>
                 <th><?= __('Fax') ?></th>
                 <th><?= __('Email') ?></th>
                 <th><?= __('Website Url') ?></th>
+                <th><?= __('Ordre') ?></th>
+                <th><?= __('Rib') ?></th>
+                <th><?= __('Lft') ?></th>
+                <th><?= __('Rght') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($vehicle->barracks as $barracks): ?>
             <tr>
                 <td><?= h($barracks->id) ?></td>
+                <td><?= h($barracks->parent_id) ?></td>
                 <td><?= h($barracks->name) ?></td>
                 <td><?= h($barracks->address) ?></td>
+                <td><?= h($barracks->address_complement) ?></td>
                 <td><?= h($barracks->city_id) ?></td>
                 <td><?= h($barracks->phone) ?></td>
                 <td><?= h($barracks->fax) ?></td>
                 <td><?= h($barracks->email) ?></td>
                 <td><?= h($barracks->website_url) ?></td>
+                <td><?= h($barracks->ordre) ?></td>
+                <td><?= h($barracks->rib) ?></td>
+                <td><?= h($barracks->lft) ?></td>
+                <td><?= h($barracks->rght) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Barracks', 'action' => 'view', $barracks->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Barracks', 'action' => 'edit', $barracks->id]) ?>
@@ -125,7 +137,8 @@
                 <th><?= __('Event End Date') ?></th>
                 <th><?= __('Horaires') ?></th>
                 <th><?= __('Public') ?></th>
-                <th><?= __('Event Type Id') ?></th>
+                <th><?= __('Module') ?></th>
+                <th><?= __('Module Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($vehicle->events as $events): ?>
@@ -152,7 +165,8 @@
                 <td><?= h($events->event_end_date) ?></td>
                 <td><?= h($events->horaires) ?></td>
                 <td><?= h($events->public) ?></td>
-                <td><?= h($events->event_type_id) ?></td>
+                <td><?= h($events->module) ?></td>
+                <td><?= h($events->module_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Events', 'action' => 'view', $events->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Events', 'action' => 'edit', $events->id]) ?>
@@ -206,7 +220,7 @@
                 <th><?= __('Address') ?></th>
                 <th><?= __('Address Complement') ?></th>
                 <th><?= __('Zipcode') ?></th>
-                <th><?= __('City') ?></th>
+                <th><?= __('City Id') ?></th>
                 <th><?= __('Birthday') ?></th>
                 <th><?= __('Birthplace') ?></th>
                 <th><?= __('Skype') ?></th>
@@ -232,7 +246,7 @@
                 <td><?= h($users->address) ?></td>
                 <td><?= h($users->address_complement) ?></td>
                 <td><?= h($users->zipcode) ?></td>
-                <td><?= h($users->city) ?></td>
+                <td><?= h($users->city_id) ?></td>
                 <td><?= h($users->birthday) ?></td>
                 <td><?= h($users->birthplace) ?></td>
                 <td><?= h($users->skype) ?></td>

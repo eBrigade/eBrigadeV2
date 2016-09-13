@@ -44,18 +44,18 @@
             <tr>
                 <th><?= __('User Id') ?></th>
                 <th><?= __('Material Id') ?></th>
+                <th><?= __('Quantity') ?></th>
                 <th><?= __('From Date') ?></th>
                 <th><?= __('To Date') ?></th>
-                <th><?= __('Quantity') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($material->user_materials as $userMaterials): ?>
             <tr>
                 <td><?= h($userMaterials->user_id) ?></td>
                 <td><?= h($userMaterials->material_id) ?></td>
+                <td><?= h($userMaterials->quantity) ?></td>
                 <td><?= h($userMaterials->from_date) ?></td>
                 <td><?= h($userMaterials->to_date) ?></td>
-                <td><?= h($userMaterials->quantity) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'UserMaterials', 'action' => 'view', $userMaterials->user_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'UserMaterials', 'action' => 'edit', $userMaterials->user_id]) ?>
@@ -72,8 +72,10 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
+                <th><?= __('Parent Id') ?></th>
                 <th><?= __('Name') ?></th>
                 <th><?= __('Address') ?></th>
+                <th><?= __('Address Complement') ?></th>
                 <th><?= __('City Id') ?></th>
                 <th><?= __('Phone') ?></th>
                 <th><?= __('Fax') ?></th>
@@ -81,13 +83,17 @@
                 <th><?= __('Website Url') ?></th>
                 <th><?= __('Ordre') ?></th>
                 <th><?= __('Rib') ?></th>
+                <th><?= __('Lft') ?></th>
+                <th><?= __('Rght') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($material->barracks as $barracks): ?>
             <tr>
                 <td><?= h($barracks->id) ?></td>
+                <td><?= h($barracks->parent_id) ?></td>
                 <td><?= h($barracks->name) ?></td>
                 <td><?= h($barracks->address) ?></td>
+                <td><?= h($barracks->address_complement) ?></td>
                 <td><?= h($barracks->city_id) ?></td>
                 <td><?= h($barracks->phone) ?></td>
                 <td><?= h($barracks->fax) ?></td>
@@ -95,6 +101,8 @@
                 <td><?= h($barracks->website_url) ?></td>
                 <td><?= h($barracks->ordre) ?></td>
                 <td><?= h($barracks->rib) ?></td>
+                <td><?= h($barracks->lft) ?></td>
+                <td><?= h($barracks->rght) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Barracks', 'action' => 'view', $barracks->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Barracks', 'action' => 'edit', $barracks->id]) ?>
@@ -132,7 +140,8 @@
                 <th><?= __('Event End Date') ?></th>
                 <th><?= __('Horaires') ?></th>
                 <th><?= __('Public') ?></th>
-                <th><?= __('Event Type Id') ?></th>
+                <th><?= __('Module') ?></th>
+                <th><?= __('Module Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($material->events as $events): ?>
@@ -159,7 +168,8 @@
                 <td><?= h($events->event_end_date) ?></td>
                 <td><?= h($events->horaires) ?></td>
                 <td><?= h($events->public) ?></td>
-                <td><?= h($events->event_type_id) ?></td>
+                <td><?= h($events->module) ?></td>
+                <td><?= h($events->module_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Events', 'action' => 'view', $events->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Events', 'action' => 'edit', $events->id]) ?>

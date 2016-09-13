@@ -58,7 +58,8 @@
                 <th><?= __('Event End Date') ?></th>
                 <th><?= __('Horaires') ?></th>
                 <th><?= __('Public') ?></th>
-                <th><?= __('Event Type Id') ?></th>
+                <th><?= __('Module') ?></th>
+                <th><?= __('Module Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($team->events as $events): ?>
@@ -85,7 +86,8 @@
                 <td><?= h($events->event_end_date) ?></td>
                 <td><?= h($events->horaires) ?></td>
                 <td><?= h($events->public) ?></td>
-                <td><?= h($events->event_type_id) ?></td>
+                <td><?= h($events->module) ?></td>
+                <td><?= h($events->module_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Events', 'action' => 'view', $events->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Events', 'action' => 'edit', $events->id]) ?>
@@ -104,6 +106,7 @@
                 <th><?= __('Id') ?></th>
                 <th><?= __('Material Type Id') ?></th>
                 <th><?= __('Barrack Id') ?></th>
+                <th><?= __('Stock') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($team->materials as $materials): ?>
@@ -111,6 +114,7 @@
                 <td><?= h($materials->id) ?></td>
                 <td><?= h($materials->material_type_id) ?></td>
                 <td><?= h($materials->barrack_id) ?></td>
+                <td><?= h($materials->stock) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>
@@ -139,7 +143,7 @@
                 <th><?= __('Address') ?></th>
                 <th><?= __('Address Complement') ?></th>
                 <th><?= __('Zipcode') ?></th>
-                <th><?= __('City') ?></th>
+                <th><?= __('City Id') ?></th>
                 <th><?= __('Birthday') ?></th>
                 <th><?= __('Birthplace') ?></th>
                 <th><?= __('Skype') ?></th>
@@ -165,7 +169,7 @@
                 <td><?= h($users->address) ?></td>
                 <td><?= h($users->address_complement) ?></td>
                 <td><?= h($users->zipcode) ?></td>
-                <td><?= h($users->city) ?></td>
+                <td><?= h($users->city_id) ?></td>
                 <td><?= h($users->birthday) ?></td>
                 <td><?= h($users->birthplace) ?></td>
                 <td><?= h($users->skype) ?></td>

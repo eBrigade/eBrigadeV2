@@ -56,6 +56,10 @@ class UserMaterialsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
+            ->integer('quantity')
+            ->allowEmpty('quantity');
+
+        $validator
             ->date('from_date')
             ->requirePresence('from_date', 'create')
             ->notEmpty('from_date');
@@ -63,10 +67,6 @@ class UserMaterialsTable extends Table
         $validator
             ->date('to_date')
             ->allowEmpty('to_date');
-
-        $validator
-            ->integer('quantity')
-            ->allowEmpty('quantity');
 
         return $validator;
     }

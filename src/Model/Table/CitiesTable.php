@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Dpts
  * @property \Cake\ORM\Association\HasMany $Barracks
  * @property \Cake\ORM\Association\HasMany $Events
+ * @property \Cake\ORM\Association\HasMany $Operations
  * @property \Cake\ORM\Association\HasMany $Organizations
  * @property \Cake\ORM\Association\HasMany $Users
  *
@@ -40,13 +41,16 @@ class CitiesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Departments', [
+        $this->belongsTo('Dpts', [
             'foreignKey' => 'dpt_id'
         ]);
         $this->hasMany('Barracks', [
             'foreignKey' => 'city_id'
         ]);
         $this->hasMany('Events', [
+            'foreignKey' => 'city_id'
+        ]);
+        $this->hasMany('Operations', [
             'foreignKey' => 'city_id'
         ]);
         $this->hasMany('Organizations', [
@@ -95,7 +99,7 @@ class CitiesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['dpt_id'], 'Departments'));
+        $rules->add($rules->existsIn(['dpt_id'], 'Dpts'));
 
         return $rules;
     }

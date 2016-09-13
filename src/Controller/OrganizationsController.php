@@ -37,7 +37,7 @@ class OrganizationsController extends AppController
     public function view($id = null)
     {
         $organization = $this->Organizations->get($id, [
-            'contain' => ['Cities', 'Formations', 'RescuePlans']
+            'contain' => ['Cities', 'Formations', 'Operations']
         ]);
 
         $this->set('organization', $organization);

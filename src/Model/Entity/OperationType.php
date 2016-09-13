@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property int $min
  * @property int $max
  *
- * @property \App\Model\Entity\RescuePlan[] $rescue_plans
+ * @property \App\Model\Entity\Operation[] $operations
  */
 class OperationType extends Entity
 {

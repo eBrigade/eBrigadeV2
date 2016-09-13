@@ -12,7 +12,6 @@ use Cake\ORM\Entity;
  * @property int $type
  *
  * @property \App\Model\Entity\Message $message
- * @property \App\Model\Entity\User $user
  */
 class Notification extends Entity
 {

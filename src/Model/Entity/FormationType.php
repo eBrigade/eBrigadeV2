@@ -7,9 +7,8 @@ use Cake\ORM\Entity;
  * FormationType Entity
  *
  * @property int $id
- * @property string $te_code
- * @property string $title
- * @property string $cev_code
+ * @property int $name
+ * @property string $level
  *
  * @property \App\Model\Entity\Formation[] $formations
  */

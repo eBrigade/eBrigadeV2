@@ -50,6 +50,7 @@ use Cake\ORM\Entity;
  * @property float $longitude
  * @property string $title
  *
+ * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\OperationActivity $operation_activity

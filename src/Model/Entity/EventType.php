@@ -10,8 +10,6 @@ use Cake\ORM\Entity;
  * @property string $code
  * @property string $title
  * @property string $module
- *
- * @property \App\Model\Entity\Event[] $events
  */
 class EventType extends Entity
 {

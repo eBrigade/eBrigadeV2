@@ -8,6 +8,8 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Cities'), ['controller' => 'Cities', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New City'), ['controller' => 'Cities', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Availabilities'), ['controller' => 'Availabilities', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Availability'), ['controller' => 'Availabilities', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Orders'), ['controller' => 'Orders', 'action' => 'index']) ?></li>
@@ -16,6 +18,8 @@
         <li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Skills'), ['controller' => 'Skills', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Skill'), ['controller' => 'Skills', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?></li>
@@ -39,12 +43,17 @@
             echo $this->Form->input('address');
             echo $this->Form->input('address_complement');
             echo $this->Form->input('zipcode');
-            echo $this->Form->input('city');
+            echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
             echo $this->Form->input('birthday', ['empty' => true]);
             echo $this->Form->input('birthplace');
             echo $this->Form->input('skype');
             echo $this->Form->input('is_active');
             echo $this->Form->input('external');
+            echo $this->Form->input('connected', ['empty' => true]);
+            echo $this->Form->input('barracks._ids', ['options' => $barracks]);
+            echo $this->Form->input('skills._ids', ['options' => $skills]);
+            echo $this->Form->input('teams._ids', ['options' => $teams]);
+            echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

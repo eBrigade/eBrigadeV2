@@ -9,8 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Permissions Model
  *
- * @property \Cake\ORM\Association\HasMany $Users
- *
  * @method \App\Model\Entity\Permission get($primaryKey, $options = [])
  * @method \App\Model\Entity\Permission newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Permission[] newEntities(array $data, array $options = [])
@@ -35,10 +33,6 @@ class PermissionsTable extends Table
         $this->table('permissions');
         $this->displayField('name');
         $this->primaryKey('id');
-
-        $this->hasMany('Users', [
-            'foreignKey' => 'permission_id'
-        ]);
     }
 
     /**
