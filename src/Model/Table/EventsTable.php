@@ -12,10 +12,8 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\BelongsTo $Bills
  * @property \Cake\ORM\Association\BelongsTo $Barracks
- * @property \Cake\ORM\Association\BelongsTo $EventTypes
  * @property \Cake\ORM\Association\BelongsTo $Modules
  * @property \Cake\ORM\Association\HasMany $Formations
- * @property \Cake\ORM\Association\HasMany $RescuePlans
  * @property \Cake\ORM\Association\BelongsToMany $Materials
  * @property \Cake\ORM\Association\BelongsToMany $Teams
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
@@ -46,15 +44,22 @@ class EventsTable extends Table
         $this->addBehavior('Geocodable', [
             'addressColumn' => [
                 'address',
-                'cities.name'
+                'cities.city'
             ]
         ]);
+
 
         $this->table('events');
         $this->displayField('title');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Operations', [
+            'className' => 'Operations',
+            'foreignKey' => 'module_id',
+            'condition' => ['module' => 'operations']
+        ]);
 
         $this->belongsTo('Cities', [
             'foreignKey' => 'city_id'
@@ -65,16 +70,8 @@ class EventsTable extends Table
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id'
         ]);
-        $this->belongsTo('EventTypes', [
-            'foreignKey' => 'event_type_id'
-        ]);
-     /*   $this->belongsTo('Modules', [
-            'foreignKey' => 'module_id'
-        ]);*/
+
         $this->hasMany('Formations', [
-            'foreignKey' => 'event_id'
-        ]);
-        $this->hasMany('RescuePlans', [
             'foreignKey' => 'event_id'
         ]);
         $this->belongsToMany('Materials', [
@@ -150,11 +147,11 @@ class EventsTable extends Table
             ->allowEmpty('details');
 
         $validator
-            ->date('event_start_date')
+            ->dateTime('event_start_date')
             ->allowEmpty('event_start_date');
 
         $validator
-            ->date('event_end_date')
+            ->dateTime('event_end_date')
             ->allowEmpty('event_end_date');
 
         $validator
@@ -163,6 +160,9 @@ class EventsTable extends Table
         $validator
             ->boolean('public')
             ->allowEmpty('public');
+
+        $validator
+            ->allowEmpty('module');
 
         return $validator;
     }
@@ -179,8 +179,7 @@ class EventsTable extends Table
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
         $rules->add($rules->existsIn(['bill_id'], 'Bills'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
-        $rules->add($rules->existsIn(['event_type_id'], 'EventTypes'));
-        /*$rules->add($rules->existsIn(['module_id'], 'Modules'));*/
+      /*  $rules->add($rules->existsIn(['module_id'], 'Modules'));*/
 
         return $rules;
     }

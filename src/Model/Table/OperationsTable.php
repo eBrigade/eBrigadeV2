@@ -9,7 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Operations Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Events
  * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\BelongsTo $OperationActivities
@@ -40,14 +39,24 @@ class OperationsTable extends Table
     {
         parent::initialize($config);
 
+        $this->addBehavior('Geocodable', [
+            'addressColumn' => [
+                'address',
+                'cities.city'
+            ]
+        ]);
+
         $this->table('operations');
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Events', [
-            'foreignKey' => 'event_id',
-            'joinType' => 'INNER'
+        $this->hasMany('Events', [
+           'className' => 'Events',
+            'foreignKey' => 'module_id',
+            'condition' => ['module' => 'operations']
         ]);
+
+
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id',
             'joinType' => 'INNER'
@@ -227,6 +236,17 @@ class OperationsTable extends Table
             ->requirePresence('date', 'create')
             ->notEmpty('date');
 
+        $validator
+            ->numeric('latitude')
+            ->allowEmpty('latitude');
+
+        $validator
+            ->numeric('longitude')
+            ->allowEmpty('longitude');
+
+        $validator
+            ->allowEmpty('title');
+
         return $validator;
     }
 
@@ -239,7 +259,6 @@ class OperationsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['event_id'], 'Events'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
         $rules->add($rules->existsIn(['operation_activity_id'], 'OperationActivities'));

@@ -28,7 +28,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $event_end_date
  * @property string $horaires
  * @property bool $public
- * @property int $event_type_id
+ * @property string $module
  * @property int $module_id
  *
  * @property \App\Model\Entity\City $city
