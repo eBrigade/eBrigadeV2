@@ -349,6 +349,9 @@ CREATE TABLE IF NOT EXISTS `formations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organization_id` int(11) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
+  `diploma` varchar(100) DEFAULT NULL,
+  `skills` varchar(100) DEFAULT NULL,
+  `formation_type_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -361,6 +364,13 @@ INSERT INTO `formations` (`id`, `organization_id`, `event_id`) VALUES
 (2, NULL, 13);
 
 -- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `formation_types` (
+ +  `id` int(11) NOT NULL,
+ +  `name` int(11) DEFAULT NULL,
+ +  `level` varchar(50) DEFAULT NULL,
+    PRIMARY KEY (`id`)		    PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `functions`
@@ -752,6 +762,8 @@ CREATE TABLE IF NOT EXISTS `operations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `event_id` int(11) NOT NULL DEFAULT '0',
   `barrack_id` int(11) NOT NULL DEFAULT '0',
+  `city_id` int(11) DEFAULT NULL,
+  `address` varchar(180) CHARACTER SET utf8 DEFAULT NULL,
   `public_headcount` int(11) NOT NULL DEFAULT '0',
   `operation_activity_id` int(11) NOT NULL DEFAULT '0',
   `operation_environment_id` int(11) NOT NULL DEFAULT '0',
