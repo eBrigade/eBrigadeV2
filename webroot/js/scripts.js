@@ -38,7 +38,7 @@ var options_ac = {
     },
     list: {
         onSelectItemEvent: function() {
-            var index = $("#ac-city").getSelectedItemData().id;
+            var index = $("#ville").getSelectedItemData().id;
             $("#city-id").val(index).trigger("change");
         },
         maxNumberOfElements: 100,
