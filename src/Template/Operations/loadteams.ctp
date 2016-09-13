@@ -17,7 +17,7 @@ if (!empty($event->teams)): ?>
                 <ul class="dropdown-menu">
                     <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
                     <li role="separator" class="divider"></li>
-                    <li><?= $this->Html->link(__("Retirer l'équipe de l'événement"), ['controller' => 'operations', 'action' => 'megaJoints', '?' => array('source' => $event->id, 'containerID' => $event->id, 'contentID' => $teams->id, 'action' => 'remove', 'containerType' => 'Events', 'contentType' => 'Teams')]) ?></li>
+                    <li onclick="clickAction(<?= $event->id ?>, <?= $event->id?>, <?= $teams->id ?>, 'remove', 'Events', 'Teams')">Retirer l'équipe de l'événement</li>
                     <li><a href="#">Vider la liste des équipiers</a></li>
                     <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
                     <li role="separator" class="divider"></li>
