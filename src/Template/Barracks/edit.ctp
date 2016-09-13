@@ -27,6 +27,10 @@
     <fieldset>
         <legend><?= __('Edit Barrack') ?></legend>
         <?php
+         echo $this->Form->input('parent_id', [
+        'options' => $parentBarracks,
+        'empty' => 'Pas de caserne parente'
+        ]);
             echo $this->Form->input('name');
             echo $this->Form->input('address');
             echo $this->Form->input('city_id', ['options' => $cities]);

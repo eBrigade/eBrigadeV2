@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $Events
  * @property \Cake\ORM\Association\HasMany $Materials
  * @property \Cake\ORM\Association\HasMany $Operations
- * @property \Cake\ORM\Association\BelongsToMany $Materials
+ * @property \Cake\ORM\Association\BelongsToMany 
  * @property \Cake\ORM\Association\BelongsToMany $Users
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
