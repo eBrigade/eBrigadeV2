@@ -10,6 +10,8 @@ use App\Controller\AppController;
  */
 class BarracksController extends AppController
 {
+
+    
     public function autocomplete() {
         $this->loadModel('Cities');
         if ($this->request->is('ajax')) {
@@ -63,7 +65,7 @@ class BarracksController extends AppController
     public function view($id = null, $view = null)
 {
     $barrack = $this->Barracks->get($id, [
-        'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes', 'Users','Users.Cities', 'Vehicles.VehicleTypes', 'Events', 'RescuePlans']
+        'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes', 'Users','Users.Cities', 'Vehicles.VehicleTypes', 'Events']
     ]);
 
     switch ($view) {
@@ -100,6 +102,10 @@ class BarracksController extends AppController
                 $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
             }
         }
+        $parentBarracks = $this->Barracks->find('treeList');
+
+        $this->set(compact('barrack', 'cities','parentBarracks'));
+
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
         $users = $this->Barracks->Users->find('list', ['limit' => 200]);
@@ -130,6 +136,10 @@ class BarracksController extends AppController
                 $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
             }
         }
+        $parentBarracks = $this->Barracks->find('treeList');
+
+        $this->set(compact('barrack', 'cities','parentBarracks'));
+
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
         $users = $this->Barracks->Users->find('list', ['limit' => 200]);
