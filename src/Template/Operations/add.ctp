@@ -26,7 +26,8 @@
         <legend><?= __('Add Operation') ?></legend>
         <?php
             echo $this->Form->input('barrack_id', ['options' => $barracks]);
-            echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
+        echo $this->Form->input('ville');
+        echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
             echo $this->Form->input('address');
             echo $this->Form->input('public_headcount');
             echo $this->Form->input('operation_activity_id', ['options' => $operationActivities]);
@@ -72,3 +73,6 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+<script>
+    $("#ville").easyAutocomplete(options_ac);
+</script>

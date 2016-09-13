@@ -18,7 +18,8 @@
             echo $this->Form->input('title');
             echo $this->Form->input('address1');
             echo $this->Form->input('address2');
-            echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
+        echo $this->Form->input('ville');
+        echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
             echo $this->Form->input('email');
             echo $this->Form->input('phone');
             echo $this->Form->input('cellphone');
@@ -27,3 +28,6 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+<script>
+    $("#ville").easyAutocomplete(options_ac);
+</script>
