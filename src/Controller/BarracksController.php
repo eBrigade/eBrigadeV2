@@ -10,7 +10,33 @@ use App\Controller\AppController;
  */
 class BarracksController extends AppController
 {
+    public function autocomplete() {
+        $this->loadModel('Cities');
+        if ($this->request->is('ajax')) {
+            $term = '%'.$this->request->query('term').'%';
 
+            $conditions = array('OR' => array(
+                array('Cities.zipcode LIKE' => $term),
+                array('Cities.city LIKE' => $term)
+            ));
+
+            $villes = $this->Cities->find('all', array(
+                'fields'=>array('Cities.id','Cities.zipcode','Cities.city'),
+                'conditions'=>$conditions,
+                'limit' => 7
+            ));
+            $data = [];
+            foreach ($villes as $ville) {
+                $data[] = array(
+                    'id'=>$ville['city']['id'],
+                    'value'=>$ville['city']['zipcode'].' - '.$ville['city']['zipcode']
+                );
+            }
+
+            $this->set(compact('city'));
+            $this->set('_serialize', 'city');
+        }
+    }
     /**
      * Index method
      *

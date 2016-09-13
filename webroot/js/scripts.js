@@ -28,3 +28,23 @@ function modal(selector, controller) {
         });
     });
 }
+
+// autcomplete ville
+var options_ac = {
+    url: "../files/cities.json",
+
+    getValue: function(element) {
+        return element.zipcode + ' | ' + element.city.toUpperCase();
+    },
+    list: {
+        onSelectItemEvent: function() {
+            var index = $("#ac-city").getSelectedItemData().id;
+            $("#city-id").val(index).trigger("change");
+        },
+        maxNumberOfElements: 100,
+        match: {
+            enabled: true
+        }
+    },
+    theme: "square"
+};
