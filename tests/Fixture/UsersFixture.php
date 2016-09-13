@@ -72,14 +72,14 @@ class UsersFixture extends TestFixture
             'address_complement' => 'Lorem ipsum dolor sit amet',
             'zipcode' => 'Lor',
             'city_id' => 1,
-            'birthday' => '2016-09-12',
+            'birthday' => '2016-09-13',
             'birthplace' => 'Lorem ipsum dolor sit amet',
             'skype' => 'Lorem ipsum dolor sit amet',
             'is_active' => 1,
             'external' => 1,
-            'created' => '2016-09-12',
-            'modified' => '2016-09-12',
-            'connected' => '2016-09-12'
+            'created' => '2016-09-13',
+            'modified' => '2016-09-13',
+            'connected' => '2016-09-13'
         ],
     ];
 }

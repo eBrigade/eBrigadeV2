@@ -54,15 +54,11 @@ class FormationTypesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('te_code', 'create')
-            ->notEmpty('te_code');
+            ->integer('name')
+            ->allowEmpty('name');
 
         $validator
-            ->allowEmpty('title');
-
-        $validator
-            ->requirePresence('cev_code', 'create')
-            ->notEmpty('cev_code');
+            ->allowEmpty('level');
 
         return $validator;
     }

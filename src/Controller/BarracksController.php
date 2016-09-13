@@ -11,34 +11,6 @@ use App\Controller\AppController;
 class BarracksController extends AppController
 {
 
-    
-    public function autocomplete() {
-        $this->loadModel('Cities');
-        if ($this->request->is('ajax')) {
-            $term = '%'.$this->request->query('term').'%';
-
-            $conditions = array('OR' => array(
-                array('Cities.zipcode LIKE' => $term),
-                array('Cities.city LIKE' => $term)
-            ));
-
-            $villes = $this->Cities->find('all', array(
-                'fields'=>array('Cities.id','Cities.zipcode','Cities.city'),
-                'conditions'=>$conditions,
-                'limit' => 7
-            ));
-            $data = [];
-            foreach ($villes as $ville) {
-                $data[] = array(
-                    'id'=>$ville['city']['id'],
-                    'value'=>$ville['city']['zipcode'].' - '.$ville['city']['zipcode']
-                );
-            }
-
-            $this->set(compact('city'));
-            $this->set('_serialize', 'city');
-        }
-    }
     /**
      * Index method
      *
@@ -47,7 +19,7 @@ class BarracksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Cities']
+            'contain' => ['ParentBarracks', 'Cities']
         ];
         $barracks = $this->paginate($this->Barracks);
 
@@ -62,27 +34,15 @@ class BarracksController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null, $view = null)
-{
-    $barrack = $this->Barracks->get($id, [
-        'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes', 'Users','Users.Cities', 'Vehicles.VehicleTypes', 'Events']
-    ]);
+    public function view($id = null)
+    {
+        $barrack = $this->Barracks->get($id, [
+            'contain' => ['ParentBarracks', 'Cities', 'Materials', 'Users', 'Vehicles', 'ChildBarracks', 'Events', 'Operations']
+        ]);
 
-    switch ($view) {
-        case 'material':
-        $this->viewBuilder()->template('material');
-        break;
-        case 'vehicle':
-            $this->viewBuilder()->template('vehicle');
-            break;
-        case 'user':
-            $this->viewBuilder()->template('user');
-            break;
+        $this->set('barrack', $barrack);
+        $this->set('_serialize', ['barrack']);
     }
-
-    $this->set('barrack', $barrack);
-    $this->set('_serialize', ['barrack']);
-}
 
     /**
      * Add method
@@ -102,15 +62,12 @@ class BarracksController extends AppController
                 $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
             }
         }
-        $parentBarracks = $this->Barracks->find('treeList');
-
-        $this->set(compact('barrack', 'cities','parentBarracks'));
-
+        $parentBarracks = $this->Barracks->ParentBarracks->find('list', ['limit' => 200]);
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
         $users = $this->Barracks->Users->find('list', ['limit' => 200]);
         $vehicles = $this->Barracks->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('barrack', 'cities', 'materials', 'users', 'vehicles'));
+        $this->set(compact('barrack', 'parentBarracks', 'cities', 'materials', 'users', 'vehicles'));
         $this->set('_serialize', ['barrack']);
     }
 
@@ -136,15 +93,12 @@ class BarracksController extends AppController
                 $this->Flash->error(__('The barrack could not be saved. Please, try again.'));
             }
         }
-        $parentBarracks = $this->Barracks->find('treeList');
-
-        $this->set(compact('barrack', 'cities','parentBarracks'));
-
+        $parentBarracks = $this->Barracks->ParentBarracks->find('list', ['limit' => 200]);
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
         $users = $this->Barracks->Users->find('list', ['limit' => 200]);
         $vehicles = $this->Barracks->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('barrack', 'cities', 'materials', 'users', 'vehicles'));
+        $this->set(compact('barrack', 'parentBarracks', 'cities', 'materials', 'users', 'vehicles'));
         $this->set('_serialize', ['barrack']);
     }
 

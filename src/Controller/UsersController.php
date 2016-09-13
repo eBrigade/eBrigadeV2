@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Event\Event;
+
 /**
  * Users Controller
  *
@@ -10,10 +10,6 @@ use Cake\Event\Event;
  */
 class UsersController extends AppController
 {
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-    }
 
     /**
      * Index method
@@ -22,6 +18,9 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Cities']
+        ];
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -38,11 +37,10 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Barracks', 'Teams', 'Vehicles', 'Availabilities', 'Orders', 'UserMaterials', 'Cities'],
+            'contain' => ['Cities', 'Barracks', 'Skills', 'Teams', 'Vehicles', 'Availabilities', 'Orders', 'UserMaterials']
         ]);
-        ($id == $this->Auth->user('id')) ? $userId = true : $userId = false;
+
         $this->set('user', $user);
-        $this->set('userId',$userId);
         $this->set('_serialize', ['user']);
     }
 
@@ -64,10 +62,12 @@ class UsersController extends AppController
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
+        $cities = $this->Users->Cities->find('list', ['limit' => 200]);
         $barracks = $this->Users->Barracks->find('list', ['limit' => 200]);
+        $skills = $this->Users->Skills->find('list', ['limit' => 200]);
         $teams = $this->Users->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Users->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'barracks', 'teams', 'vehicles'));
+        $this->set(compact('user', 'cities', 'barracks', 'skills', 'teams', 'vehicles'));
         $this->set('_serialize', ['user']);
     }
 
@@ -81,7 +81,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Barracks', 'Teams', 'Vehicles']
+            'contain' => ['Barracks', 'Skills', 'Teams', 'Vehicles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -93,10 +93,12 @@ class UsersController extends AppController
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
         }
+        $cities = $this->Users->Cities->find('list', ['limit' => 200]);
         $barracks = $this->Users->Barracks->find('list', ['limit' => 200]);
+        $skills = $this->Users->Skills->find('list', ['limit' => 200]);
         $teams = $this->Users->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Users->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'barracks', 'teams', 'vehicles'));
+        $this->set(compact('user', 'cities', 'barracks', 'skills', 'teams', 'vehicles'));
         $this->set('_serialize', ['user']);
     }
 
@@ -118,23 +120,5 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function login()
-    {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->error('Your username or password is incorrect.');
-        }
-    }
-
-    public function logout()
-    {
-        $this->Flash->success('You are now logged out.');
-        return $this->redirect($this->Auth->logout());
     }
 }

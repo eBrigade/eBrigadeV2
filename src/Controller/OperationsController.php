@@ -19,7 +19,7 @@ class OperationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
+            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'Organizations', 'OperationTypes']
         ];
         $operations = $this->paginate($this->Operations);
 
@@ -37,7 +37,7 @@ class OperationsController extends AppController
     public function view($id = null)
     {
         $operation = $this->Operations->get($id, [
-            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
+            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'Organizations', 'OperationTypes']
         ]);
 
         $this->set('operation', $operation);

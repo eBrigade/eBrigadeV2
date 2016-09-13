@@ -36,13 +36,10 @@ class NotificationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Messages', [
+        $this->belongsTo('Sources', [
             'foreignKey' => 'source_id',
             'joinType' => 'INNER'
         ]);
-
-
-
     }
 
     /**
@@ -77,5 +74,10 @@ class NotificationsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['source_id'], 'Sources'));
 
+        return $rules;
+    }
 }

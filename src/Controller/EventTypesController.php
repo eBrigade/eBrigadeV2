@@ -34,7 +34,7 @@ class EventTypesController extends AppController
     public function view($id = null)
     {
         $eventType = $this->EventTypes->get($id, [
-            'contain' => ['Events']
+            'contain' => []
         ]);
 
         $this->set('eventType', $eventType);

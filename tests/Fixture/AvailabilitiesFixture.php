@@ -41,7 +41,7 @@ class AvailabilitiesFixture extends TestFixture
             'id' => 1,
             'result' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'user_id' => 1,
-            'modified' => '2016-09-06 09:58:52'
+            'modified' => '2016-09-13 23:15:36'
         ],
     ];
 }

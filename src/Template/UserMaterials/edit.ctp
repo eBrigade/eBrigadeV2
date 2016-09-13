@@ -19,9 +19,9 @@
     <fieldset>
         <legend><?= __('Edit User Material') ?></legend>
         <?php
+            echo $this->Form->input('quantity');
             echo $this->Form->input('from_date');
             echo $this->Form->input('to_date', ['empty' => true]);
-            echo $this->Form->input('quantity');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -2,6 +2,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Operation Type'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="operationTypes index large-9 medium-8 columns content">

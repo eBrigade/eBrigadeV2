@@ -61,6 +61,12 @@ class FormationsTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
+        $validator
+            ->allowEmpty('diploma');
+
+        $validator
+            ->allowEmpty('skills');
+
         return $validator;
     }
 

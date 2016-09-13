@@ -39,23 +39,9 @@ class OperationsTable extends Table
     {
         parent::initialize($config);
 
-        $this->addBehavior('Geocodable', [
-            'addressColumn' => [
-                'address',
-                'cities.city'
-            ]
-        ]);
-
         $this->table('operations');
         $this->displayField('id');
         $this->primaryKey('id');
-
-        $this->hasMany('Events', [
-           'className' => 'Events',
-            'foreignKey' => 'module_id',
-            'condition' => ['module' => 'operations']
-        ]);
-
 
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id',

@@ -8,9 +8,9 @@ use Cake\ORM\Entity;
  *
  * @property int $user_id
  * @property int $material_id
+ * @property int $quantity
  * @property \Cake\I18n\Time $from_date
  * @property \Cake\I18n\Time $to_date
- * @property int $quantity
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Material $material

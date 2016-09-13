@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\Time $created
  * @property bool $send
  * @property string $recipients
+ *
+ * @property \App\Model\Entity\User $user
  */
 class Message extends Entity
 {

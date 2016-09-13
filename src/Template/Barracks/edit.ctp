@@ -8,12 +8,14 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Barracks'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Parent Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Parent Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Cities'), ['controller' => 'Cities', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New City'), ['controller' => 'Cities', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Rescue Plans'), ['controller' => 'RescuePlans', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Rescue Plan'), ['controller' => 'RescuePlans', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
@@ -27,12 +29,10 @@
     <fieldset>
         <legend><?= __('Edit Barrack') ?></legend>
         <?php
-         echo $this->Form->input('parent_id', [
-        'options' => $parentBarracks,
-        'empty' => 'Pas de caserne parente'
-        ]);
+            echo $this->Form->input('parent_id', ['options' => $parentBarracks]);
             echo $this->Form->input('name');
             echo $this->Form->input('address');
+            echo $this->Form->input('address_complement');
             echo $this->Form->input('city_id', ['options' => $cities]);
             echo $this->Form->input('phone');
             echo $this->Form->input('fax');

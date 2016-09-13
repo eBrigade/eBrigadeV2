@@ -34,7 +34,7 @@ class OperationTypesController extends AppController
     public function view($id = null)
     {
         $operationType = $this->OperationTypes->get($id, [
-            'contain' => ['RescuePlans']
+            'contain' => ['Operations']
         ]);
 
         $this->set('operationType', $operationType);

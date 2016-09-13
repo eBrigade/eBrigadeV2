@@ -15,9 +15,9 @@
             <tr>
                 <th><?= $this->Paginator->sort('user_id') ?></th>
                 <th><?= $this->Paginator->sort('material_id') ?></th>
+                <th><?= $this->Paginator->sort('quantity') ?></th>
                 <th><?= $this->Paginator->sort('from_date') ?></th>
                 <th><?= $this->Paginator->sort('to_date') ?></th>
-                <th><?= $this->Paginator->sort('quantity') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -26,9 +26,9 @@
             <tr>
                 <td><?= $userMaterial->has('user') ? $this->Html->link($userMaterial->user->id, ['controller' => 'Users', 'action' => 'view', $userMaterial->user->id]) : '' ?></td>
                 <td><?= $userMaterial->has('material') ? $this->Html->link($userMaterial->material->id, ['controller' => 'Materials', 'action' => 'view', $userMaterial->material->id]) : '' ?></td>
+                <td><?= $this->Number->format($userMaterial->quantity) ?></td>
                 <td><?= h($userMaterial->from_date) ?></td>
                 <td><?= h($userMaterial->to_date) ?></td>
-                <td><?= $this->Number->format($userMaterial->quantity) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $userMaterial->user_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $userMaterial->user_id]) ?>

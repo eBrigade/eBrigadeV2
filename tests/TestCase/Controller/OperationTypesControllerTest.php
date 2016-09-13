@@ -17,12 +17,16 @@ class OperationTypesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.operation_types',
-        'app.rescue_plans',
-        'app.events',
-        'app.cities',
-        'app.departments',
-        'app.regions',
+        'app.operations',
         'app.barracks',
+        'app.cities',
+        'app.dpts',
+        'app.events',
+        'app.bills',
+        'app.modules',
+        'app.formations',
+        'app.organizations',
+        'app.formation_types',
         'app.materials',
         'app.material_types',
         'app.barracks_materials',
@@ -35,6 +39,8 @@ class OperationTypesControllerTest extends IntegrationTestCase
         'app.orders_supplies',
         'app.providers_supplies',
         'app.barracks_users',
+        'app.skills',
+        'app.skills_users',
         'app.teams',
         'app.events_teams',
         'app.materials_teams',
@@ -47,16 +53,10 @@ class OperationTypesControllerTest extends IntegrationTestCase
         'app.teams_vehicles',
         'app.users_vehicles',
         'app.events_materials',
-        'app.organizations',
-        'app.formations',
-        'app.formation_types',
-        'app.bills',
-        'app.event_types',
-        'app.rescue_plan_activities',
-        'app.rescue_plan_environments',
-        'app.rescue_plan_delays',
-        'app.rescue_plan_types',
-        'app.rescue_plan_recommendations'
+        'app.operation_activities',
+        'app.operation_environments',
+        'app.operation_delays',
+        'app.operation_recommendations'
     ];
 
     /**

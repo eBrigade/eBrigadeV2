@@ -14,6 +14,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\HasMany $Orders
  * @property \Cake\ORM\Association\HasMany $UserMaterials
  * @property \Cake\ORM\Association\BelongsToMany $Barracks
+ * @property \Cake\ORM\Association\BelongsToMany $Skills
  * @property \Cake\ORM\Association\BelongsToMany $Teams
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
@@ -62,6 +63,11 @@ class UsersTable extends Table
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'barrack_id',
             'joinTable' => 'barracks_users'
+        ]);
+        $this->belongsToMany('Skills', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'skill_id',
+            'joinTable' => 'skills_users'
         ]);
         $this->belongsToMany('Teams', [
             'foreignKey' => 'user_id',
