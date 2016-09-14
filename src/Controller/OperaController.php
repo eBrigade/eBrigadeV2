@@ -20,19 +20,12 @@ class OperaController extends AppController
 
     public $helpers = array('GoogleMap');
 
-    public function initialize()
-    {
-        parent::initialize();
-        $this->loadComponent('RequestHandler');
-    }
-
 
     public function gestion($id = null)
     {
-        $this->loadModel('Events');
-        $this->loadModel('Teams');
+        $this->loadModel('Operations');
 
-        $event = $this->Events->get($id, [
+        $event = $this->Operations->Events->get($id, [
             'contain' => ['Teams.Materials', 'Teams', 'Teams.Users', 'Teams.Vehicles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
