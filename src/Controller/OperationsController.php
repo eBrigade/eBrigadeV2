@@ -21,23 +21,29 @@ class OperationsController extends AppController
         $this->paginate = [
             'contain' => ['Events', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
         ];
+
         $operations = $this->paginate($this->Operations);
+
         $this->set(compact('operations'));
         $this->set('_serialize', ['operations']);
     }
 
 
-    public function addteam() {
+    public function addevent($id = null) {
+
         $this->loadModel('Events');
         $event = $this->Events->newEntity();
+
+
+
         if ($this->request->is('post')) {
-            $event = $this->Events->patchEntity($event, $this->request->data, [
-                'associated' => 'Teams'
-            ]);
+            $event = $this->Events->patchEntity($event, $this->request->data);
+            $event->module_id = $id;
+            $event->module = 'operations';
             if ($this->Events->save($event)) {
+
                 $this->Flash->success(__('The event has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The event could not be saved. Please, try again.'));
             }
@@ -47,9 +53,141 @@ class OperationsController extends AppController
         $materials = $this->Events->Materials->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
+        $this->set(compact( 'event', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
         $this->set('_serialize', ['event']);
     }
+
+
+
+    public function gestion($id = null)
+    {
+        $operation = $this->Operations->get($id, [
+            'contain' => ['Events', 'Events.Teams', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
+        ]);
+        $this->loadModel('Teams');
+        $this->loadModel('Users');
+        $this->loadModel('Materials');
+        $this->loadModel('Vehicles');
+
+
+        $teamsList = $this->Teams->find('all');
+        $usersList = $this->Users->find('all');
+        $materialsList = $this->Materials->find('all');
+        $vehiclesList = $this->Vehicles->find('all');
+
+        $this->set(compact('teamsList', 'usersList', 'materialsList', 'vehiclesList' ));
+        $this->set('operation', $operation);
+        $this->set('_serialize', ['operation']);
+    }
+
+
+    //ajax version of joints function that manages add and remove for joint tables.
+    public function ajoints()
+    {
+        $this->autoRender = false;
+
+        //id of the container from where to add/remove
+        $containerID = $this->request->data('containerID');
+
+        //if of the content
+        $contentID = $this->request->data('contentID');
+
+        //id of the event or else that contains all the rest, allows url redirect to initial page
+        $source = $this->request->data('source');
+
+        //container and content types : to load model and contain and to determine switch cases for query objects
+        $containerType = $this->request->data('containerType');
+        $contentType = $this->request->data('contentType');
+
+        //add or remove : link/unlink
+        $action = $this->request->data('action');
+
+        //loads container's model
+        $this->loadModel($containerType);
+
+        //cases to populate with joint table
+        switch ($containerType . $contentType) {
+            case 'TeamsUsers':
+                $containerTable = $this->Teams;
+                $contentTable = $this->Teams->Users;
+                break;
+            case 'TeamsMaterials':
+                $containerTable = $this->Teams;
+                $contentTable = $this->Teams->Materials;
+                break;
+            case 'TeamsVehicles':
+                $containerTable = $this->Teams;
+                $contentTable = $this->Teams->Vehicles;
+                break;
+            case 'EventsTeams':
+                $containerTable = $this->Events;
+                $contentTable = $this->Events->Teams;
+                break;
+        }
+
+        //get container query object
+        $container = $containerTable->get($containerID, ['contain' => [$contentType]]);
+        //get content
+        $content = $contentTable->findById($contentID)->toArray();
+
+        //links or unlinks container and content
+        if ($action == 'add') {
+            $contentTable->link($container, $content);
+        } elseif ($action == 'remove') {
+            $contentTable->unlink($container, $content);
+        }
+    }
+
+    //dynamic loading of lists
+    public function loadlist() {
+
+        //gets context
+        $source = $this->request->data('source');
+        $containerID = $this->request->data('containerID');
+        $containerType = $this->request->data('containerType');
+        $contentType = $this->request->data('contentType');
+
+        //loads model
+        $this->loadModel($containerType);
+
+        //cases to load container query object
+        switch ($containerType) {
+            case 'Teams':
+                $containerTable = $this->Teams;
+                break;
+            case 'Events':
+                $containerTable = $this->Events;
+                break;
+        }
+
+        //get container object with container id
+        $content = $containerTable->get($containerID, [
+            'contain' => $contentType
+        ]);
+
+        //cases to load content tables
+        switch ($contentType) {
+            case 'Users':
+                $list = $content->users;
+                break;
+            case 'Materials':
+                $list = $content->materials;
+                break;
+            case 'Vehicles':
+                $list = $content->vehicles;
+                break;
+            case 'Teams':
+                $list = $content->teams;
+                break;
+        }
+
+        //sets vars
+        $this->set('list', $list);
+        $this->set(compact('containerID', 'source', 'contentType', 'containerType'));
+        $this->set('_serialize', [$list]);
+    }
+
+
 
     /**
      * View method
@@ -61,17 +199,7 @@ class OperationsController extends AppController
     public function view($id = null)
     {
         $operation = $this->Operations->get($id, [
-            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
-        ]);
-
-        $this->set('operation', $operation);
-        $this->set('_serialize', ['operation']);
-    }
-
-    public function gestion($id = null)
-    {
-        $operation = $this->Operations->get($id, [
-            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
+            'contain' => ['Events', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
         ]);
 
         $this->set('operation', $operation);

@@ -264,7 +264,7 @@ class OperationsTable extends Table
         $rules->add($rules->existsIn(['operation_environment_id'], 'OperationEnvironments'));
         $rules->add($rules->existsIn(['operation_delay_id'], 'OperationDelays'));
         $rules->add($rules->existsIn(['operation_recommendation_id'], 'OperationRecommendations'));
-        $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
+       /* $rules->add($rules->existsIn(['organization_id'], 'Organizations'));*/
         $rules->add($rules->existsIn(['operation_type_id'], 'OperationTypes'));
 
         return $rules;

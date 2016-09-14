@@ -181,6 +181,7 @@
         });
 
     }
+    loadlist()
 
 
     //refreshes changed list
