@@ -41,7 +41,7 @@ class CitiesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Dpts', [
+        $this->belongsTo('Departments', [
             'foreignKey' => 'dpt_id'
         ]);
         $this->hasMany('Barracks', [

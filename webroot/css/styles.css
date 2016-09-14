@@ -11,24 +11,24 @@
 .voffset9 { margin-top: 150px; }
 
 /*boite de reception messagerie privé*/
-@media (min-width: 768px) {
-    .sidebar-nav .navbar .navbar-collapse {
-        padding: 0;
-        max-height: none;
-    }
-    .sidebar-nav .navbar ul {
-        float: none;
-        display: block;
-    }
-    .sidebar-nav .navbar li {
-        float: none;
-        display: block;
-    }
-    .sidebar-nav .navbar li a {
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
+.jqte_tool.jqte_tool_1 .jqte_tool_label {
+    position:relative;
+    display:block;
+    padding:3px;
+    width:70px;
+    height:21px; /*change*/
+    overflow:hidden;
 }
+.jqte_tool_label{
+    padding-top: 1px !important; /*add*/
+    height: 25px !important; /*add*/
+}
+
+.delete{
+    margin-top: -5px;
+}
+.nav-pills>li>a {padding: 5px 10px;}
+hr { margin-top: 5px;margin-bottom: 10px; }
 
 .panel-right {
     border: none;

@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
  * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\HasMany $UserMaterials
- * @property \Cake\ORM\Association\BelongsToMany $Barracks
+ * @property \Cake\ORM\Association\BelongsToMany 
  * @property \Cake\ORM\Association\BelongsToMany $Events
  * @property \Cake\ORM\Association\BelongsToMany $Teams
  *

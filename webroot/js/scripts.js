@@ -29,7 +29,7 @@ function modal(selector, controller) {
     });
 }
 
-// autcomplete ville
+// autocomplete ville
 var options_ac = {
     url: window.location.origin + "/files/cities.json",
 

@@ -1,47 +1,47 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Nouveau Message'), ['action' => 'send']) ?></li>
-        <li><?= $this->Html->link(__('Messages envoyés'), ['action' => 'dispatch']) ?></li>
-    </ul>
-</nav>
-<div class="messages index large-9 medium-8 columns content">
-    <h3><?= __('Messages envoyés') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-        <tr>
-            <th><?= $this->Paginator->sort('Envoyé le') ?></th>
-            <th><?= $this->Paginator->sort('Destinataire') ?></th>
-            <th><?= $this->Paginator->sort('Sujet') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($messages as $message): ?>
-        <tr>
-            <td><?= $message->created->i18nformat(' dd MMMM à HH:mm') ?></td>
-            <td><?php
+<?php $cell = $this->cell('Mp',[$user]) ?>
+<?= $cell ?>
+
+<div class="col-md-10 ">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading" id="send-page">Messages envoyés </div>
+        <div class="panel-body">
+
+
+            <table class="table ">
+                <thead>
+                <tr>
+
+                    <th><?= $this->Paginator->sort('Expédié le') ?></th>
+                    <th><?= $this->Paginator->sort('Destinataire(s)') ?></th>
+                    <th><?= $this->Paginator->sort('Sujet') ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($messages as $message): ?>
+                <tr>
+
+                <td><?= $message->created->i18nformat(' dd MMMM à HH:mm') ?></td>
+                <td><?php
                 $recip = unserialize($message->recipients);
-               foreach ($recip as $recipId){
+                foreach ($recip as $recipId){
                 $user = $users->find()->where(['id' => $recipId])->first();
                 echo $user->firstname.' '.$user->lastname." <br/> ";
                 }
                 ?></td>
-            <td><?= h($message->subject) ?></td>
-            <td class="actions">
-                <?= $this->Html->link(__('Voir'), ['action' => 'sendview', $message->id]) ?>
-                <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $message->id], ['confirm' => __('Etes-vous sûr de vouloir supprimer le message # {0}?', $message->id)]) ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('précédant')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('suivant') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+                <td><?= h($message->subject) ?></td>
+                <td class="actions">
+                <?= $this->Html->link(__(''), ['action' => 'sendview', $message->id],['class' => 'btn btn-default glyphicon glyphicon-eye-open']) ?>
+                <?= $this->Form->postLink(__(''), ['action' => 'delete', $message->id],['class' => 'btn btn-danger glyphicon glyphicon-trash']) ?>
+                </td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
+
+
+            </table>
+        </div>
     </div>
+
 </div>

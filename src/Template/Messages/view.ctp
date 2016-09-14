@@ -1,46 +1,54 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Message'), ['action' => 'edit', $message->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Message'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Messages'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Message'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="messages view large-9 medium-8 columns content">
-    <h3><?= h($message->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Subject') ?></th>
-            <td><?= h($message->subject) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Recipients') ?></th>
-            <td><?= h($message->recipients) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($message->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('To User') ?></th>
-            <td><?= $this->Number->format($message->to_user) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('From User') ?></th>
-            <td><?= $this->Number->format($message->from_user) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Created') ?></th>
-            <td><?= h($message->created) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Send') ?></th>
-            <td><?= $message->send ? __('Yes') : __('No'); ?></td>
-        </tr>
-    </table>
-    <div class="row">
-        <h4><?= __('Text') ?></h4>
-        <?= $this->Text->autoParagraph(h($message->text)); ?>
+<?php $cell = $this->cell('Mp',[$user]) ?>
+<?= $cell ?>
+
+<div class="col-md-10 ">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Contenu du message
+            <?= $this->Form->postLink(__(''), ['action' => 'delete', $message->id],['class' => 'btn btn-large btn-danger delete pull-right glyphicon glyphicon-trash',]) ?>
+        </div>
+        <div class="panel-body">
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Sujet : <?=  $message->subject ?> <span class="pull-right">de : <?= $usert->firstname.' '.$usert->lastname ?></span></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <td><?= $message->text ; ?></td>
+                </tbody>
+
+
+            </table>
+            <?= $this->Form->button(__('Répondre à ce message'),['id' => 'rep-bt' , 'class' => 'btn-info ']) ?>
+            <div id="repondre">
+                <?= $this->Form->create($repondre) ?>
+                <fieldset>
+                    <?php
+             echo $this->Form->input('text',['label' => false,'id' => 'wysyg']);
+                    ?>
+
+                </fieldset>
+                <?= $this->Form->button(__('ENVOYER'),[ 'class' => 'btn-primary ']) ?>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
     </div>
+
 </div>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<?= $this->Html->css('jquery-te-1.4.0.css')?>
+<?= $this->Html->script('jquery-te-1.4.0.min.js')?>
+<script>
+    $("#wysyg").jqte();
+    $('#repondre').hide();
+    $("#rep-bt").click(function() {
+        $('#repondre').toggle( "slow");
+    });
+</script>
