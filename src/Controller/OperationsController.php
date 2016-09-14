@@ -62,18 +62,16 @@ class OperationsController extends AppController
     public function gestion($id = null)
     {
         $operation = $this->Operations->get($id, [
-            'contain' => ['Events', 'Events.Teams', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
+            'contain' => ['Events', 'Events.Teams', 'Barracks', 'Cities']
         ]);
-        $this->loadModel('Teams');
-        $this->loadModel('Users');
-        $this->loadModel('Materials');
-        $this->loadModel('Vehicles');
 
 
-        $teamsList = $this->Teams->find('all');
-        $usersList = $this->Users->find('all');
-        $materialsList = $this->Materials->find('all');
-        $vehiclesList = $this->Vehicles->find('all');
+
+
+        $teamsList = $this->Operations->Events->Teams->find('all');
+        $usersList = $this->Operations->Events->Teams->Users->find('all');
+        $materialsList = $this->Operations->Events->Teams->Materials->find('all');
+        $vehiclesList = $this->Operations->Events->Teams->Vehicles->find('all');
 
         $this->set(compact('teamsList', 'usersList', 'materialsList', 'vehiclesList' ));
         $this->set('operation', $operation);
