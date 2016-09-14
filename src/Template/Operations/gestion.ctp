@@ -1,61 +1,8 @@
 <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
 
 
-    <nav class="large-3 medium-4 columns" id="actions-sidebar">
-        <ul class="side-nav">
-            <li class="heading"><?= __('Actions') ?></li>
-            <li><?= $this->Html->link(__('Edit Operation'), ['action' => 'edit', $operation->id]) ?> </li>
-            <li><?= $this->Form->postLink(__('Delete Operation'), ['action' => 'delete', $operation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?> </li>
-        </ul>
-    </nav>
-
-    <button type="button" id="tacticbtn" class="btn btn-info btn-xs">Carte tactique :)</button>
-
     <div class="container-fluid clearfix">
-        <li class="list-group-item">
-            <div class="row-fluid" id="tacticview">
-                <b>Localisation des Equipes</b>
-                <?php
-                $map_options = array(
-                    'id' => 'map_gen',
-                    'width' => '800px',
-                    'height' => '800px',
-                    'style' => '',
-                    'zoom' => 7,
-                    'type' => 'HYBRID',
-                    'custom' => null,
-                    'localize' => false,
-                    'latitude' => $operation->latitude,
-                    'longitude' => $operation->longitude,
-                    'address' => '1 Infinite Loop, Cupertino',
-                    'marker' => true,
-                    'markerTitle' => 'This is my position',
-                    'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
-                    'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
-                    'infoWindow' => true,
-                    'windowText' => 'My Position',
-                    'draggableMarker' => false
-                );
-
-                echo $this->GoogleMap->map($map_options);
-                $marker_options = array(
-                    'showWindow' => true,
-                    'windowText' => $operation->title,
-                    'markerTitle' => 'Title',
-                    'draggableMarker' => true
-                );
-
-                ?>
-
-                <?php if (!empty($operation->events)): ?>
-                    <?php $num = 0 ?>
-                    <?php foreach ($operation->events as $event): ?>
-                        <?php $num++ ?>
-                        <?= $this->GoogleMap->addMarker("map_gen", $num, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
-                    <?php endforeach; ?>
-
-                <?php endif; ?>
-            </div>
+        <?= $this->Html->link("Basculer en affichage tactique", array('controller' => 'Operations','action'=> 'map', $operation->id), array( 'class' => 'btn btn-info btn-xs')) ?>
 
             <div class="row">
                 <div class="progress">
@@ -425,9 +372,6 @@
 
     <script>
 
-        $('#tacticbtn').on('click', function () {
-            $('#tacticview').toggle();
-        });
 
         $('#infobar-btn').on('click', function () {
             $('#event-gestion').toggleClass('col-md-8 col-md-12');

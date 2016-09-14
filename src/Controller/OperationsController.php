@@ -65,15 +65,21 @@ class OperationsController extends AppController
             'contain' => ['Events', 'Events.Teams', 'Barracks', 'Cities']
         ]);
 
-
-
-
         $teamsList = $this->Operations->Events->Teams->find('all');
         $usersList = $this->Operations->Events->Teams->Users->find('all');
         $materialsList = $this->Operations->Events->Teams->Materials->find('all');
         $vehiclesList = $this->Operations->Events->Teams->Vehicles->find('all');
 
         $this->set(compact('teamsList', 'usersList', 'materialsList', 'vehiclesList' ));
+        $this->set('operation', $operation);
+        $this->set('_serialize', ['operation']);
+    }
+
+    public function map($id = null) {
+        $operation = $this->Operations->get($id, [
+            'contain' => ['Events', 'Events.Teams', 'Barracks', 'Cities']
+        ]);
+
         $this->set('operation', $operation);
         $this->set('_serialize', ['operation']);
     }
