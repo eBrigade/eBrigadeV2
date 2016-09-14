@@ -30,8 +30,8 @@
                 <td><?= h($userMaterial->from_date) ?></td>
                 <td><?= h($userMaterial->to_date) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $userMaterial->user_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $userMaterial->user_id]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $userMaterial->user_id,$userMaterial->material_id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $userMaterial->user_id,$userMaterial->material_id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $userMaterial->user_id], ['confirm' => __('Are you sure you want to delete # {0}?', $userMaterial->user_id)]) ?>
                 </td>
             </tr>

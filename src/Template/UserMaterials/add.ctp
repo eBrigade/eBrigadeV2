@@ -1,23 +1,54 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List User Materials'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="userMaterials form large-9 medium-8 columns content">
-    <?= $this->Form->create($userMaterial) ?>
-    <fieldset>
-        <legend><?= __('Add User Material') ?></legend>
-        <?php
-            echo $this->Form->input('quantity');
-            echo $this->Form->input('from_date');
-            echo $this->Form->input('to_date', ['empty' => true]);
-        ?>
+<div class="materials form large-9 medium-8 columns content">
+    <?= $this->Form->create() ?>
+    <legend><?= __('Add User Material') ?></legend>
+    <?php
+    echo $this->Form->input('material_id', ['options' => $materials,'id' => 'material']);
+    echo '<div id="stock-control"></div>';
+    echo $this->Form->input('quantity',[
+        'type' => 'number',
+        'min' => 1
+    ]);
+    echo $this->Form->input('user_id',['options' => $users]);
+    echo $this->Form->input('from_date',['class' => 'datepicker']);
+    echo $this->Form->input('to_date',['class' => 'datepicker']);
+    ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+<?= $this->Html->script('jquery-ui.js') ?>
+<script>
+    $(function(){
+        loadStock();
+        $('.datepicker').datepicker({
+            dateFormat: "yy-mm-dd"
+        }).datepicker("setDate",new Date());
+        $('#material').on('change',function () {
+            loadStock();
+        })
+    })
+
+    function loadStock(){
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->Url->build(["controller" => "UserMaterials","action" => "stock"]); ?>',
+            data:"id="+$("#material").val(),
+            success:function(data){
+                var result = $(data);
+                $('#stock-control').html(result);
+                var max = result.find("input").val();
+                if(max === "0")
+                {
+                    $('#quantity').attr("min","0");
+                    $('#quantity').val(0);
+                }
+                else
+                {
+                    $('#quantity').attr("min","1");
+                    $('#quantity').val(1);
+                }
+                $('#quantity').attr("max",max);
+            }
+        })
+    }
+</script>

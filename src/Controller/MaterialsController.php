@@ -49,6 +49,7 @@ class MaterialsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
+    /*
     public function add()
     {
         $material = $this->Materials->newEntity();
@@ -67,6 +68,28 @@ class MaterialsController extends AppController
         $events = $this->Materials->Events->find('list', ['limit' => 200]);
         $teams = $this->Materials->Teams->find('list', ['limit' => 200]);
         $this->set(compact('material', 'materialTypes', 'barracks', 'events', 'teams'));
+        $this->set('_serialize', ['material']);
+    } */
+    public function add()
+    {
+
+    }
+    public function addajax($category=null)
+    {
+        $material = $this->Materials->newEntity();
+        if ($this->request->is('post')) {
+            $material = $this->Materials->patchEntity($material, $this->request->data);
+            if ($this->Materials->save($material)) {
+                $this->Flash->success(__('The material has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            }
+        }
+        $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
+        $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
+        $this->set(compact('material', 'materialTypes', 'barracks'));
         $this->set('_serialize', ['material']);
     }
 
