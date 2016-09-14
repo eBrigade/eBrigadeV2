@@ -46,7 +46,7 @@ class OperationsTable extends Table
         $this->addBehavior('Geocodable', [
             'addressColumn' => [
                 'address',
-                'cities.name'
+                'ville'
             ]
         ]);
 

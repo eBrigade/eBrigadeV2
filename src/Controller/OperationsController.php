@@ -22,9 +22,33 @@ class OperationsController extends AppController
             'contain' => ['Events', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
         ];
         $operations = $this->paginate($this->Operations);
-        debug($operations);
         $this->set(compact('operations'));
         $this->set('_serialize', ['operations']);
+    }
+
+
+    public function addteam() {
+        $this->loadModel('Events');
+        $event = $this->Events->newEntity();
+        if ($this->request->is('post')) {
+            $event = $this->Events->patchEntity($event, $this->request->data, [
+                'associated' => 'Teams'
+            ]);
+            if ($this->Events->save($event)) {
+                $this->Flash->success(__('The event has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+            }
+        }
+
+        $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
+        $materials = $this->Events->Materials->find('list', ['limit' => 200]);
+        $teams = $this->Events->Teams->find('list', ['limit' => 200]);
+        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
+        $this->set(compact('event', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
+        $this->set('_serialize', ['event']);
     }
 
     /**
@@ -37,7 +61,17 @@ class OperationsController extends AppController
     public function view($id = null)
     {
         $operation = $this->Operations->get($id, [
-            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'Organizations', 'OperationTypes']
+            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
+        ]);
+
+        $this->set('operation', $operation);
+        $this->set('_serialize', ['operation']);
+    }
+
+    public function gestion($id = null)
+    {
+        $operation = $this->Operations->get($id, [
+            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
         ]);
 
         $this->set('operation', $operation);
