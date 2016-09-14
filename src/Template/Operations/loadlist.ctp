@@ -8,10 +8,10 @@ if (!empty($list)): ?>
                 echo $lis->firstname . ' ' . $lis->lastname;
             }
             if ($contentType == 'Materials') {
-                echo 'Material id : ' . $lis->id;
+                echo $lis->material_type->name;
             }
             if ($contentType == 'Vehicles') {
-                echo 'vehicle ID : ' . $lis->id;
+                echo $lis->vehicle_type->name;
             }
  ?> </li>
     <?php endforeach; ?>
