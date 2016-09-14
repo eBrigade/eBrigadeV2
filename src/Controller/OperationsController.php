@@ -62,7 +62,7 @@ class OperationsController extends AppController
     public function gestion($id = null)
     {
         $operation = $this->Operations->get($id, [
-            'contain' => ['Events', 'Barracks', 'Cities']
+            'contain' => ['Events', 'Events.Teams', 'Barracks', 'Cities']
         ]);
 
 
