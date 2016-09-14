@@ -10,6 +10,7 @@
     </nav>
 
     <button type="button" id="tacticbtn" class="btn btn-info btn-xs">Carte tactique :)</button>
+
     <div class="container-fluid clearfix">
         <li class="list-group-item">
             <div class="row-fluid" id="tacticview">
@@ -65,8 +66,11 @@
                     </div>
                 </div>
             </div>
+            <button type="button" id="infobar-btn" class="btn btn-info btn-xs">afficher/masquer infos de l'opération
+            </button>
             <div class="row">
-                <div class="col-xs-6 col-md-4">
+
+                <div class="col-xs-6 col-md-4" id="infobar">
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-danger">Détails importants de la mission</li>
                         <li class="list-group-item">
@@ -159,9 +163,9 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-8">
+                <div class="col-xs-12 col-sm-6 col-md-8" id="event-gestion">
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-info">
+                        <li class="list-group-item">
                             <button type="submit" id="bt-add-event" class="btn btn-info btn-sm">Ajouter un événement
                             </button>
 
@@ -174,11 +178,42 @@
                         <?php if (!empty($operation->events)): ?>
                             <?php foreach ($operation->events as $event): ?>
                                 <?php $teamNumber++ ?>
-                                <li class="list-group-item">
-                                    <div class="btn-group">
 
-                                        <button type="button" class="btn btn-info btn-xs">Modifier cet événement
-                                        </button>
+                                <li class="list-group-item list-group-item-info">
+
+                                    <p><b>Nom de l'événement : </b><?= $event->title ?></p>
+                                    <p><b>de : </b><?= $event->event_start_date ?>
+                                        à <?= $event->event_end_date ?></p>
+                                    <p><b>Horaires : </b><?= $event->horaires ?></p>
+                                </li>
+                                <div class="row-fluid clearfix">
+                                    <div class="col-xs-6 col-md-6">
+                                        <p><b>Lieu de rendez-vous : </b>google map</p>
+                                        <p><b>Instructions : </b><?= $event->instructions ?></p>
+                                        <p><b>Détails : </b><?= $event->details ?></p>
+                                        <p><b>instructions : </b><?= $event->instructions ?></p>
+
+                                        <div class="btn-group">
+
+                                            <button type="button" class="btn btn-info btn-xs">Modifier cet événement
+                                            </button>
+                                            <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Modifier les informations de l'événement</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><?= $this->Html->link('Supprimer l\'événement et ses moyens', ['controller' => 'Events', 'action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?> </a></li>
+                                                <li><a href="#">Vider la liste des équipes</a></li>
+                                                <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
+                                                <li role="separator" class="divider"></li>
+                                                <li><a href="#">Dupliquer l'événement et ses moyens</a></li>
+                                            </ul>
+                                        </div>
+                                        <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
                                         <button type="button" class="btn btn-info dropdown-toggle btn-xs"
                                                 data-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
@@ -186,114 +221,59 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Modifier les informations de l'événement</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><?= $this->Html->link('Supprimer l\'événement et ses moyens', ['controller' => 'Events', 'action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?> </a></li>
-                                            <li><a href="#">Vider la liste des équipes</a></li>
-                                            <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="#">Dupliquer l'événement et ses moyens</a></li>
+                                            <?php foreach ($teamsList as $teams): ?>
+                                                <li class="list-group-item"
+                                                    onclick="clickAction(<?= $event->id ?>, <?= $event->id ?>, <?= $teams->id ?>, 'add', 'Events', 'Teams')"><?= $teams->name ?> </li>
+                                            <?php endforeach; ?>
+
                                         </ul>
+
                                     </div>
-                                    <div class="row-fluid clearfix">
-                                        <div class="col-xs-6 col-md-6">
-                                            <p><b>Nom de l'événement : </b><?= $event->title ?></p>
-                                            <p><b>de : </b><?= $event->event_start_date ?>
-                                                à <?= $event->event_end_date ?></p>
-                                            <p><b>Horaires : </b><?= $event->horaires ?></p>
-                                            <p><b>Lieu de rendez-vous : </b>google map</p>
-                                            <p><b>Instructions : </b><?= $event->instructions ?></p>
-                                            <p><b>Détails : </b><?= $event->details ?></p>
-                                            <p><b>instructions : </b><?= $event->instructions ?></p>
-                                        </div>
-                                        <div class="col-xs-6 col-md-6">
-                                            <?php
-                                            $map_options = array(
-                                                'id' => 'map_canvas' . $teamNumber,
-                                                'width' => '150px',
-                                                'height' => '150px',
-                                                'style' => '',
-                                                'zoom' => 7,
-                                                'type' => 'HYBRID',
-                                                'custom' => null,
-                                                'localize' => false,
-                                                'latitude' => $event->latitude,
-                                                'longitude' => $event->longitude,
-                                                'address' => '1 Infinite Loop, Cupertino',
-                                                'marker' => true,
-                                                'markerTitle' => 'This is my position',
-                                                'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
-                                                'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
-                                                'infoWindow' => true,
-                                                'windowText' => 'My Position',
-                                                'draggableMarker' => false
-                                            );
+                                    <div class="col-xs-6 col-md-6">
+                                        <?php
+                                        $map_options = array(
+                                            'id' => 'map_canvas' . $teamNumber,
+                                            'width' => '150px',
+                                            'height' => '150px',
+                                            'style' => '',
+                                            'zoom' => 7,
+                                            'type' => 'HYBRID',
+                                            'custom' => null,
+                                            'localize' => false,
+                                            'latitude' => $event->latitude,
+                                            'longitude' => $event->longitude,
+                                            'address' => '1 Infinite Loop, Cupertino',
+                                            'marker' => true,
+                                            'markerTitle' => 'This is my position',
+                                            'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
+                                            'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
+                                            'infoWindow' => true,
+                                            'windowText' => 'My Position',
+                                            'draggableMarker' => false
+                                        );
 
-                                            echo $this->GoogleMap->map($map_options);
-                                            $marker_options = array(
-                                                'showWindow' => true,
-                                                'windowText' => $event->title,
-                                                'markerTitle' => 'Title',
-                                                'draggableMarker' => true
-                                            );
+                                        echo $this->GoogleMap->map($map_options);
+                                        $marker_options = array(
+                                            'showWindow' => true,
+                                            'windowText' => $event->title,
+                                            'markerTitle' => 'Title',
+                                            'draggableMarker' => true
+                                        );
 
-                                            ?>
+                                        ?>
 
 
-                                            <?= $this->GoogleMap->addMarker("map_canvas" . $teamNumber, $teamNumber, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
-                                            <input type="text" id="latitude_<?= $teamNumber ?>"/>
-                                            <input type="text" id="longitude_<?= $teamNumber ?>"/>
-                                        </div>
+                                        <?= $this->GoogleMap->addMarker("map_canvas" . $teamNumber, $teamNumber, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
+                                        <input type="text" id="latitude_<?= $teamNumber ?>"/>
+                                        <input type="text" id="longitude_<?= $teamNumber ?>"/>
                                     </div>
+                                </div>
 
-                                </li>
-                                <li class="list-group-item list-group-item-info">
-                                    <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
-                                    <button type="button" class="btn btn-info dropdown-toggle btn-xs"
-                                            data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <?php foreach ($teamsList as $teams): ?>
-                                            <li class="list-group-item"
-                                                onclick="clickAction(<?= $event->id ?>, <?= $event->id ?>, <?= $teams->id ?>, 'add', 'Events', 'Teams')"><?= $teams->name ?> </li>
-                                        <?php endforeach; ?>
 
-                                    </ul>
-                                    <p id="teamNumber"></p>
-                                    Détails de la mission
-                                </li>
                                 <?php if (!empty($event->teams)): ?>
                                     <?php foreach ($event->teams as $teams): ?>
                                         <?php $teamNumber++ ?>
-                                        <li class="list-group-item">
-
-                                            <div class="btn-group">
-
-
-                                                <button type="button" class="btn btn-info btn-xs">Modifier cette
-                                                    équipe
-                                                </button>
-                                                <button type="button" class="btn btn-info dropdown-toggle btn-xs"
-                                                        data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                    <span class="caret"></span>
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li onclick="clickAction(<?= $event->id ?>, <?= $event->id ?>, <?= $teams->id ?>, 'remove', 'Events', 'Teams')">
-                                                        Retirer l'équipe de l'événement
-                                                    </li>
-                                                    <li><a href="#">Vider la liste des équipiers</a></li>
-                                                    <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
-                                                </ul>
-                                            </div>
+                                        <li class="list-group-item-success">
                                             <div class="row-fluid clearfix">
                                                 <div class="col-xs-6 col-md-6">
                                                     <p><b>ID de l'équipe : <?= h($teams->id) ?></b></p>
@@ -301,8 +281,49 @@
                                                     <p><b>Consignes : </b><?= h($teams->description) ?>
                                                     </p>
                                                 </div>
+                                                <div class="col-xs-6 col-md-6">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-info btn-xs">Modifier cette
+                                                            équipe
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-info dropdown-toggle btn-xs"
+                                                                data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                            <span class="caret"></span>
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
+                                                            <li role="separator" class="divider"></li>
+                                                            <li onclick="clickAction(<?= $event->id ?>, <?= $event->id ?>, <?= $teams->id ?>, 'remove', 'Events', 'Teams')">
+                                                                Retirer l'équipe de l'événement
+                                                            </li>
+                                                            <li><a href="#">Vider la liste des équipiers</a></li>
+                                                            <li><a href="#">Vider la liste des véhicules et du
+                                                                    matériel</a></li>
+                                                            <li role="separator" class="divider"></li>
+                                                            <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
 
                                             </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="row-fluid clearfix">
+                                                <div class="col-xs-6 col-md-6">
+                                                    <p><b>Consignes : </b><?= h($teams->description) ?>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                            <div class="row-fluid clearfix">
+
+
+                                            </div>
+
+
                                             <div class="row-fluid clearfix">
 
                                                 <ul class="list-group col-xs-4 col-sm-4 col-md-4">
@@ -406,6 +427,13 @@
 
         $('#tacticbtn').on('click', function () {
             $('#tacticview').toggle();
+        });
+
+        $('#infobar-btn').on('click', function () {
+            $('#event-gestion').toggleClass('col-md-8 col-md-12');
+            $('#infobar').toggle(500, function () {
+
+            });
         });
 
         var eventadd = $('#bt-add-event');
