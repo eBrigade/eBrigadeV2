@@ -1,49 +1,65 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Message'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="messages index large-9 medium-8 columns content">
-    <h3><?= __('Messages') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('to_user') ?></th>
-                <th><?= $this->Paginator->sort('from_user') ?></th>
-                <th><?= $this->Paginator->sort('subject') ?></th>
-                <th><?= $this->Paginator->sort('created') ?></th>
-                <th><?= $this->Paginator->sort('send') ?></th>
-                <th><?= $this->Paginator->sort('recipients') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($messages as $message): ?>
-            <tr>
-                <td><?= $this->Number->format($message->id) ?></td>
-                <td><?= $this->Number->format($message->to_user) ?></td>
-                <td><?= $this->Number->format($message->from_user) ?></td>
-                <td><?= h($message->subject) ?></td>
-                <td><?= h($message->created) ?></td>
-                <td><?= h($message->send) ?></td>
-                <td><?= h($message->recipients) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $message->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $message->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<?php $cell = $this->cell('Mp',[$user]) ?>
+<?= $cell ?>
+
+<div class="col-md-10 ">
+    <div class="panel panel-default">
+        <div class="panel-heading">Boîte de reception
+            <?= $this->Form->button(__('<i class="glyphicon glyphicon-trash"></i> '),['id' => 'bt-del', 'class' => 'btn
+            btn-large btn-danger delete pull-right',]) ?>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><?= $this->Form->checkbox('all', ['id' => 'all']); ?>Tous</th>
+                    <th><?= $this->Paginator->sort('Reçu le') ?></th>
+                    <th><?= $this->Paginator->sort('Expéditeur') ?></th>
+                    <th><?= $this->Paginator->sort('Sujet') ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($messages as $message): ?>
+                <tr>
+                    <td><?= $this->Form->checkbox('erase', ['value' => $message->id]); ?></td>
+                    <td><?= $message->created->i18nformat('dd MMMM à HH:mm') ?></td>
+                    <td><?php
+                $user = $table->find()->where(['id' => $message->from_user])->first();
+                        echo $user->firstname.' '.$user->lastname;
+                        ?>
+                    </td>
+                    <!--<td><div id="subject"><?= h($message->subject) ?></div></td>-->
+                    <td><?=  $this->Html->link(__(h($message->subject)), ['action' => 'view', $message->id]) ?></td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#all").change(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+        $('#bt-del').click(function (event) {
+            var array = [];
+            $.each($("input[name='erase']:checked"), function () {
+                array.push($(this).val());
+                $(this).closest('tr').remove();
+            });
+            $.ajax({
+                type: 'POST',
+                url: '<?= $this->Url->build(["controller" => "Messages","action" => "deleteAll"]); ?>',
+                data: {id: array}
+            });
+        });
+    });
+</script>
+
+
+
+
+
+

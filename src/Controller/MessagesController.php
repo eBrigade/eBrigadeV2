@@ -2,110 +2,213 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
+use Cake\Mailer\Email;
 
-/**
- * Messages Controller
- *
- * @property \App\Model\Table\MessagesTable $Messages
- */
+// controleur pour la messagerie privé
 class MessagesController extends AppController
 {
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+// affiche la liste des messages recus
     public function index()
     {
-        $messages = $this->paginate($this->Messages);
+        $table = TableRegistry::get('users');
+        $user= $this->Auth->user('id');
 
-        $this->set(compact('messages'));
+        $messages = $this->paginate(
+            $this->Messages->find()
+                ->where(['to_user' => $user])
+                ->andWhere(['send' => 0]));
+
+        $this->set(compact('table','user','messages'));
         $this->set('_serialize', ['messages']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Message id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+// affiche le message selectionné
     public function view($id = null)
     {
-        $message = $this->Messages->get($id, [
-            'contain' => []
-        ]);
+        $users = TableRegistry::get('users');
+        $user= $this->Auth->user('id');
+        $message = $this->Messages->get($id);
+        $repondre = $this->Messages->newEntity();
 
-        $this->set('message', $message);
-        $this->set('_serialize', ['message']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $message = $this->Messages->newEntity();
+// répondre au message
         if ($this->request->is('post')) {
-            $message = $this->Messages->patchEntity($message, $this->request->data);
-            if ($this->Messages->save($message)) {
-                $this->Flash->success(__('The message has been saved.'));
+            $text = $this->request->data['text'];
+            $repondre->from_user = $message->to_user;
+            $repondre->to_user = $message->from_user;
+            $repondre->subject = "re: $message->subject";
+            $repondre->text = $text;
+            $repondre->send = 0;
+            $repondre->recipients = '';
+            $this->Messages->save($repondre);
+            $rec = [];
+            if ($this->Messages->save($repondre)) {
+                $sendmessage = $this->Messages->newEntity();
+                $copy = $message->id;
+                $clone = $this->Messages->find()->where(['id' => $copy])->first();
+                array_push($rec, $clone->from_user);
+                $sendmessage->from_user = $clone->to_user;
+                $sendmessage->to_user = $clone->from_user;
+                $sendmessage->subject =  "re: $clone->subject";
+                $sendmessage->text =  $text;
+                $sendmessage->send =  1;
+                $sendmessage->recipients = serialize($rec);
+                $this->Messages->save($sendmessage);
 
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The message could not be saved. Please, try again.'));
+// notification par email
+                $recipient = $users->find()->select(['email'])->where(['id' => $clone->from_user])->first();
+                var_dump($recipient->email);
+                $email = new Email('default');
+                $email->template('default', 'default')
+                    ->emailFormat('html');
+                $email->to($recipient->email)
+                    ->subject('Vous avez reçu une réponse à votre message privé')
+                    ->send($this->request->data['text']);
             }
+            $this->Flash->success(__('Le message a été envoyé.'));
+            return $this->redirect(['action' => 'index']);
         }
-        $this->set(compact('message'));
+
+        $usert = $users->find()->where(['id' => $message->from_user])->first();
+
+        $this->set(compact('usert','user','users','message','repondre'));
         $this->set('_serialize', ['message']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Message id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
+// affiche le message envoyé
+    public function sendview($id = null)
     {
-        $message = $this->Messages->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $message = $this->Messages->patchEntity($message, $this->request->data);
-            if ($this->Messages->save($message)) {
-                $this->Flash->success(__('The message has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The message could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('message'));
+        $message = $this->Messages->get($id);
+        $users = TableRegistry::get('users');
+        $this->set(compact('users','message'));
         $this->set('_serialize', ['message']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Message id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+// affiche la liste des messages envoyés
+    public function dispatch()
+    {
+        $users = TableRegistry::get('users');
+        $user= $this->Auth->user('id');
+        $messages = $this->paginate(
+            $this->Messages->find()
+                ->where(['from_user' => $user])
+                ->andWhere(['send' => 1])
+        );
+
+        $this->set(compact('users','user','messages'));
+        $this->set('_serialize', ['messages']);
+    }
+
+// envoyer un message
+    public function send()
+    {
+        $users = TableRegistry::get('users');
+        $message = $this->Messages->newEntity();
+        $user= $this->Auth->user('id');
+        $frommp = $users->find()->where(['id' => $user])->first();
+        if ($this->request->is('post')) {
+            $this->request->data['from_user']= $user;
+            $too =  $this->request->data['to'];
+            $to =  substr($too, 0 , -2);
+            $extract = explode(",", $to);
+            $rec = [];
+            foreach ($extract as $exxx){
+                $message = $this->Messages->newEntity();
+                $extractf = explode(" ", $exxx);
+                $touserid = $users->find()->select(['id'])->where(['firstname' => $extractf[0]])->andWhere(['lastname' => $extractf[1]])->first();
+                array_push($rec, $touserid->id);
+                $message->from_user = $user;
+                $message->to_user = $touserid->id;
+                $message->subject =  $this->request->data['subject'];
+                $message->text =  $this->request->data['text'];
+                $message->send =  0;
+                $message->recipients =  '';
+                $this->Messages->save($message);
+                $messageInsertId = $message->id;
+
+// notification par email
+                $recipient = $users->find()->select(['email'])->where(['id' => $touserid->id])->first();
+                $email = new Email('default');
+                $email->template('default', 'default')
+                    ->emailFormat('html');
+                $email->to($recipient->email)
+                    ->subject("Vous avez reçu un message privé de $frommp->firstname $frommp->lastname")
+                    ->send($this->request->data['text']);
+
+// notification sur le site
+                $notifTable = TableRegistry::get('notifications');
+                $notifSave = $notifTable->newEntity();
+                $notifSave->source_id =  $messageInsertId;
+                $notifSave->receiver = $touserid->id;
+                $notifSave->type = 0;
+                $notifTable->save($notifSave);
+            }
+
+ // copie l'entrée pour historique des messages envoyés
+            if ($this->Messages->save($message)) {
+                $sendmessage = $this->Messages->newEntity();
+                $copy = $message->id;
+                $clone = $this->Messages->find()->where(['id' => $copy])->first();
+                $sendmessage->from_user = $clone->from_user;
+                $sendmessage->to_user = $clone->to_user;
+                $sendmessage->subject =  $clone->subject;
+                $sendmessage->text =  $clone->text;
+                $sendmessage->send =  1;
+                $sendmessage->recipients = serialize($rec);
+                $this->Messages->save($sendmessage);
+                $this->Flash->success(__('Le message a été envoyé.'));
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('Le message n\'a pas pu être envoyé. Svp, réessayez.'));
+            }
+        }
+
+        $listusers = $users->find();
+        $lists = [];
+        foreach ($listusers as $listuser) {
+            array_push($lists, $listuser->firstname.' '.$listuser->lastname);
+        }
+        $this->set(compact('lists','user','message'));
+        $this->set('_serialize', ['message']);
+    }
+
+//supprimer plusieurs messages
+    public function deleteAll()
+    {
+        #  désactive le rendu de la vue
+        $this->autoRender = false;
+        # si la requête est de type AJAX
+        if ($this->request->is('ajax')) {
+            #  retourner le tableau des ID
+            $elements = $this->request->data['id'];
+            #  pour chaque id dans le tableau, la rechercher puis l'effacer
+            foreach($elements as $element)
+            {
+                $ids = $this->Messages->get($element);
+                $this->Messages->delete($ids);
+            }
+        }
+    }
+
+//supprimer un message
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $message = $this->Messages->get($id);
         if ($this->Messages->delete($message)) {
-            $this->Flash->success(__('The message has been deleted.'));
+            $this->Flash->success(__('Le message a été supprimé.'));
         } else {
-            $this->Flash->error(__('The message could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Le message n\'a pas pu être supprimé. Svp, réessayez.'));
         }
-
         return $this->redirect(['action' => 'index']);
+    }
+
+    //supprimer une notification de mp
+    public function deletenotif()
+    {
+        $this->loadModel('Notifications');
+        $id = $this->request->data['id'];
+        $entity = $this->Notifications->get($id);
+        $this->Notifications->delete($entity);
     }
 }

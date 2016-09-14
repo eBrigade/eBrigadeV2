@@ -1,22 +1,22 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Vos Messages'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="messages form large-9 medium-8 columns content">
-    <?= $this->Form->create($message) ?>
-    <fieldset>
-        <legend><?= __('Envoyer un message privé') ?></legend>
-        <?php
-            echo $this->Form->input('to',['label' => 'Destinataire','type' => 'text','required' => true]);
-            echo $this->Form->input('subject',['label' => 'Sujet']);
-            echo $this->Form->input('text',['label' => 'Votre message']);
-        ?>
+<?php $cell = $this->cell('Mp',[$user]) ?>
+<?= $cell ?>
 
-    </fieldset>
-    <?= $this->Form->button(__('ENVOYER')) ?>
-    <?= $this->Form->end() ?>
+
+<div class="col-md-10 ">
+    <div class="panel panel-default">
+        <div id="mp-write" class="panel-heading">Envoyer un message
+        </div>
+        <div class="panel-body">
+            <?= $this->Form->create($message) ?>
+                <?php
+                echo $this->Form->input('to',['label' => 'Destinataire','type' => 'text','required' => true]);
+                echo $this->Form->input('subject',['label' => 'Sujet']);
+                echo $this->Form->input('text',['label' => 'Votre message','id' => 'wysyg']);
+                ?>
+            <?= $this->Form->button(__('ENVOYER'),['class' => 'btn btn-success']) ?>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
 </div>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
@@ -24,9 +24,8 @@
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <?= $this->Html->css('jquery-te-1.4.0.css')?>
 <?= $this->Html->script('jquery-te-1.4.0.min.js')?>
-
 <script>
-    $("textarea").jqte();
+    $("#wysyg").jqte();
 
     $( function() {
         var availableTags =[<?php
