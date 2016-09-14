@@ -19,7 +19,7 @@ class FormationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Organizations', 'Events', 'FormationTypes']
+            'contain' => ['Organizations', 'FormationTypes','Events']
         ];
         $formations = $this->paginate($this->Formations);
 
@@ -37,7 +37,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Organizations', 'Events', 'FormationTypes']
+            'contain' => ['Organizations', 'FormationTypes','Events']
         ]);
 
         $this->set('formation', $formation);
@@ -116,5 +116,31 @@ class FormationsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    public function addevent($id = NULL){
+
+
+        $formation_event = $this->Formations->Events->newEntity();
+        if ($this->request->is('post')) {
+            $formation_event = $this->Formations->Events->patchEntity($formation_event, $this->request->data);
+            $formation_event->module_id = $id;
+            if ($this->Formations->Events->save($formation_event)) {
+                $this->Flash->success(__('The formation has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The formation could not be saved. Please, try again.'));
+            }
+        }
+        $cities = $this->Formations->Events->Cities->find('list', ['limit' => 200]);
+        $bills = $this->Formations->Events->Bills->find('list', ['limit' => 200]);
+        $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
+        $materials = $this->Formations->Events->Materials->find('list', ['limit' => 200]);
+        $teams = $this->Formations->Events->Teams->find('list', ['limit' => 200]);
+        $vehicles = $this->Formations->Events->Vehicles->find('list', ['limit' => 200]);
+        $this->set(compact('formation_event', 'organizations', 'events', 'formationTypes', 'cities', 'bills', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
+        $this->set('_serialize', ['formation_event']);
     }
 }

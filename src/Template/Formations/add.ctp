@@ -16,7 +16,7 @@
         <legend><?= __('Add Formation') ?></legend>
         <?php
             echo $this->Form->input('organization_id', ['options' => $organizations, 'empty' => true]);
-            echo $this->Form->input('event_id', ['options' => $events, 'empty' => true]);
+            /*echo $this->Form->input('event_id', ['options' => $events, 'empty' => true]);*/
             echo $this->Form->input('diploma');
             echo $this->Form->input('skills');
             echo $this->Form->input('formation_type_id', ['options' => $formationTypes, 'empty' => true]);
