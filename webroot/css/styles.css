@@ -286,3 +286,27 @@ tr:hover .hideedit{
      width: 90px;
  }
 
+.tbl-user{
+    max-height: 700px !important;
+    overflow-y: scroll;
+}
+.tbl-material{
+    max-height: 300px !important;
+    overflow-y: scroll;
+}
+.tbl-usermaterial{
+    max-height: 300px !important;
+    overflow-y: scroll;
+}
+.tbl-vehicule{
+    max-height: 800px !important;
+    overflow-y: scroll;
+}
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
