@@ -5,11 +5,7 @@
         echo $this->Form->input('title');
         echo $this->Form->input('ville');
         echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
-
-
         echo $this->Form->input('address');
-        echo $this->Form->input('latitude');
-        echo $this->Form->input('longitude');
         echo $this->Form->input('instructions');
         echo $this->Form->input('details');
         echo $this->Form->input('barrack_id', ['options' => $barracks, 'empty' => true]);

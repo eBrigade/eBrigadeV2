@@ -54,6 +54,7 @@ class EventsTable extends Table
             ]
         ]);
 
+
         $this->belongsTo('Operations', [
             'className' => 'Operations',
             'condition' => ['module' => 'operations'],
@@ -184,7 +185,7 @@ class EventsTable extends Table
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
         $rules->add($rules->existsIn(['bill_id'], 'Bills'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
-        /*$rules->add($rules->existsIn(['module_id'], 'Modules'));*/
+        /*$rules->add($rules->existsIn(['module_id'], 'Operations'));*/
 
         return $rules;
     }
