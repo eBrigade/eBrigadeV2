@@ -127,4 +127,18 @@ class BarracksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function availabilities($id=null,$date=null)
+    {
+        ($date == null) ? $date = date('Y-m-d') : '';
+        $barrack = $this->Barracks->get($id, [
+            'contain' => ['Materials.MaterialTypes', 'Materials.UserMaterials.Users','Users.Teams.Events','Users.Cities', 'Vehicles.VehicleTypes', 'Events']
+        ]);
+        $users = $this->Barracks->Users->find('all');
+        $materials = $this->Barracks->Materials->find('all');
+
+        $this->set('barrack',$barrack);
+        $this->set('date',$date);
+
+    }
 }

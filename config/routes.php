@@ -55,7 +55,21 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-
+    $routes->connect('/userMaterials/view/:user_id/:material_id',['controller' => 'UserMaterials','action' => 'view'],[
+        'pass' => ['user_id','material_id'],
+        'user_id' => '[0-9]+',
+        'material_id' => '[0-9]+'
+    ]);
+    $routes->connect('/userMaterials/edit/:user_id/:material_id',['controller' => 'UserMaterials','action' => 'edit'],[
+        'pass' => ['user_id','material_id'],
+        'user_id' => '[0-9]+',
+        'material_id' => '[0-9]+'
+    ]);
+    $routes->connect('/barracks/availabilities/:id/:date',['controller' => 'Barracks','action' => 'availabilities'],[
+        'pass' => ['id','date'],
+        'id' => '[0-9]+',
+        'date' => '[0-9\-]+'
+    ]);
     /**
      * Connect catchall routes for all controllers.
      *
