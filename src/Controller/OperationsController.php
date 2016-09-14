@@ -19,10 +19,10 @@ class OperationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'Organizations', 'OperationTypes']
+            'contain' => ['Events', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
         ];
         $operations = $this->paginate($this->Operations);
-
+        debug($operations);
         $this->set(compact('operations'));
         $this->set('_serialize', ['operations']);
     }

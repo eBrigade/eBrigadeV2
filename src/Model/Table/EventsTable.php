@@ -47,6 +47,25 @@ class EventsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->addBehavior('Geocodable', [
+            'addressColumn' => [
+                'address',
+                'cities.name'
+            ]
+        ]);
+
+        $this->belongsTo('Operations', [
+            'className' => 'Operations',
+            'condition' => ['module' => 'operations'],
+            'foreignKey' => 'module_id'
+        ]);
+
+        $this->belongsTo('Formations', [
+            'className' => 'Formations',
+            'condition' => ['module' => 'formations'],
+            'foreignKey' => 'module_id'
+        ]);
+
         $this->belongsTo('Cities', [
             'foreignKey' => 'city_id'
         ]);
@@ -56,9 +75,7 @@ class EventsTable extends Table
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id'
         ]);
-        $this->belongsTo('Modules', [
-            'foreignKey' => 'module_id'
-        ]);
+
         $this->hasMany('Formations', [
             'foreignKey' => 'event_id'
         ]);
@@ -167,7 +184,7 @@ class EventsTable extends Table
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
         $rules->add($rules->existsIn(['bill_id'], 'Bills'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
-        $rules->add($rules->existsIn(['module_id'], 'Modules'));
+        /*$rules->add($rules->existsIn(['module_id'], 'Modules'));*/
 
         return $rules;
     }

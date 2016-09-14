@@ -19,7 +19,7 @@ class EventsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Cities', 'Bills', 'Barracks', 'Modules']
+            'contain' => ['Cities', 'Bills', 'Barracks']
         ];
         $events = $this->paginate($this->Events);
 
@@ -37,7 +37,7 @@ class EventsController extends AppController
     public function view($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => ['Cities', 'Bills', 'Barracks', 'Modules', 'Materials', 'Teams', 'Vehicles', 'Formations']
+            'contain' => ['Cities', 'Bills', 'Barracks', 'Materials', 'Teams', 'Vehicles', 'Formations']
         ]);
 
         $this->set('event', $event);
@@ -65,7 +65,6 @@ class EventsController extends AppController
         $cities = $this->Events->Cities->find('list', ['limit' => 200]);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
         $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
-        $modules = $this->Events->Modules->find('list', ['limit' => 200]);
         $materials = $this->Events->Materials->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
@@ -98,7 +97,6 @@ class EventsController extends AppController
         $cities = $this->Events->Cities->find('list', ['limit' => 200]);
         $bills = $this->Events->Bills->find('list', ['limit' => 200]);
         $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
-        $modules = $this->Events->Modules->find('list', ['limit' => 200]);
         $materials = $this->Events->Materials->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);

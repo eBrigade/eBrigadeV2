@@ -38,6 +38,12 @@ class FormationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->hasMany('Events', [
+            'className' => 'Events',
+            'condition' => ['module' => 'formations'],
+            'foreignKey' => 'module_id'
+        ]);
+
         $this->belongsTo('Organizations', [
             'foreignKey' => 'organization_id'
         ]);

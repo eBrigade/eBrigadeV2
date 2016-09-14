@@ -43,6 +43,19 @@ class OperationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->addBehavior('Geocodable', [
+            'addressColumn' => [
+                'address',
+                'cities.name'
+            ]
+        ]);
+
+        $this->hasMany('Events', [
+            'className' => 'Events',
+            'condition' => ['module' => 'operations'],
+            'foreignKey' => 'module_id'
+        ]);
+
         $this->belongsTo('Barracks', [
             'foreignKey' => 'barrack_id',
             'joinType' => 'INNER'
