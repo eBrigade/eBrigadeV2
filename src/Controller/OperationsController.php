@@ -164,9 +164,24 @@ class OperationsController extends AppController
                 break;
         }
 
+        switch ($contentType) {
+            case 'Users':
+                $contain = $contentType;
+                break;
+            case 'Materials':
+                $contain = [$contentType, 'Materials.MaterialTypes'];
+                break;
+            case 'Vehicles':
+                $contain = [$contentType, 'Vehicles.VehicleTypes'];
+                break;
+            case 'Teams':
+                $contain = $contentType;
+                break;
+        }
+
         //get container object with container id
         $content = $containerTable->get($containerID, [
-            'contain' => $contentType
+            'contain' => $contain
         ]);
 
         //cases to load content tables
