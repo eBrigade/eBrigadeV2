@@ -1,432 +1,271 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Barrack'), ['action' => 'edit', $barrack->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Barrack'), ['action' => 'delete', $barrack->id], ['confirm' => __('Are you sure you want to delete # {0}?', $barrack->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Barracks'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Barrack'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Parent Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Parent Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Cities'), ['controller' => 'Cities', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New City'), ['controller' => 'Cities', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Operations'), ['controller' => 'Operations', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Operation'), ['controller' => 'Operations', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="barracks view large-9 medium-8 columns content">
-    <h3><?= h($barrack->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Parent Barrack') ?></th>
-            <td><?= $barrack->has('parent_barrack') ? $this->Html->link($barrack->parent_barrack->name, ['controller' => 'Barracks', 'action' => 'view', $barrack->parent_barrack->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Name') ?></th>
-            <td><?= h($barrack->name) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Address') ?></th>
-            <td><?= h($barrack->address) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Address Complement') ?></th>
-            <td><?= h($barrack->address_complement) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('City') ?></th>
-            <td><?= $barrack->has('city') ? $this->Html->link($barrack->city->id, ['controller' => 'Cities', 'action' => 'view', $barrack->city->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Phone') ?></th>
-            <td><?= h($barrack->phone) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Fax') ?></th>
-            <td><?= h($barrack->fax) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Email') ?></th>
-            <td><?= h($barrack->email) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Website Url') ?></th>
-            <td><?= h($barrack->website_url) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Ordre') ?></th>
-            <td><?= h($barrack->ordre) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Rib') ?></th>
-            <td><?= h($barrack->rib) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($barrack->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Lft') ?></th>
-            <td><?= $this->Number->format($barrack->lft) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Rght') ?></th>
-            <td><?= $this->Number->format($barrack->rght) ?></td>
-        </tr>
-    </table>
-    <div class="related">
-        <h4><?= __('Related Barracks') ?></h4>
-        <?php if (!empty($barrack->child_barracks)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Parent Id') ?></th>
-                <th><?= __('Name') ?></th>
-                <th><?= __('Address') ?></th>
-                <th><?= __('Address Complement') ?></th>
-                <th><?= __('City Id') ?></th>
-                <th><?= __('Phone') ?></th>
-                <th><?= __('Fax') ?></th>
-                <th><?= __('Email') ?></th>
-                <th><?= __('Website Url') ?></th>
-                <th><?= __('Ordre') ?></th>
-                <th><?= __('Rib') ?></th>
-                <th><?= __('Lft') ?></th>
-                <th><?= __('Rght') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($barrack->child_barracks as $childBarracks): ?>
-            <tr>
-                <td><?= h($childBarracks->id) ?></td>
-                <td><?= h($childBarracks->parent_id) ?></td>
-                <td><?= h($childBarracks->name) ?></td>
-                <td><?= h($childBarracks->address) ?></td>
-                <td><?= h($childBarracks->address_complement) ?></td>
-                <td><?= h($childBarracks->city_id) ?></td>
-                <td><?= h($childBarracks->phone) ?></td>
-                <td><?= h($childBarracks->fax) ?></td>
-                <td><?= h($childBarracks->email) ?></td>
-                <td><?= h($childBarracks->website_url) ?></td>
-                <td><?= h($childBarracks->ordre) ?></td>
-                <td><?= h($childBarracks->rib) ?></td>
-                <td><?= h($childBarracks->lft) ?></td>
-                <td><?= h($childBarracks->rght) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Barracks', 'action' => 'view', $childBarracks->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Barracks', 'action' => 'edit', $childBarracks->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Barracks', 'action' => 'delete', $childBarracks->id], ['confirm' => __('Are you sure you want to delete # {0}?', $childBarracks->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Events') ?></h4>
-        <?php if (!empty($barrack->events)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('City Id') ?></th>
-                <th><?= __('Bill Id') ?></th>
-                <th><?= __('Title') ?></th>
-                <th><?= __('Address') ?></th>
-                <th><?= __('Latitude') ?></th>
-                <th><?= __('Longitude') ?></th>
-                <th><?= __('Created') ?></th>
-                <th><?= __('Modified') ?></th>
-                <th><?= __('Is Closed') ?></th>
-                <th><?= __('Closed') ?></th>
-                <th><?= __('Price') ?></th>
-                <th><?= __('Canceled') ?></th>
-                <th><?= __('Canceled Detail') ?></th>
-                <th><?= __('Is Active') ?></th>
-                <th><?= __('Instructions') ?></th>
-                <th><?= __('Details') ?></th>
-                <th><?= __('Barrack Id') ?></th>
-                <th><?= __('Event Start Date') ?></th>
-                <th><?= __('Event End Date') ?></th>
-                <th><?= __('Horaires') ?></th>
-                <th><?= __('Public') ?></th>
-                <th><?= __('Module') ?></th>
-                <th><?= __('Module Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($barrack->events as $events): ?>
-            <tr>
-                <td><?= h($events->id) ?></td>
-                <td><?= h($events->city_id) ?></td>
-                <td><?= h($events->bill_id) ?></td>
-                <td><?= h($events->title) ?></td>
-                <td><?= h($events->address) ?></td>
-                <td><?= h($events->latitude) ?></td>
-                <td><?= h($events->longitude) ?></td>
-                <td><?= h($events->created) ?></td>
-                <td><?= h($events->modified) ?></td>
-                <td><?= h($events->is_closed) ?></td>
-                <td><?= h($events->closed) ?></td>
-                <td><?= h($events->price) ?></td>
-                <td><?= h($events->canceled) ?></td>
-                <td><?= h($events->canceled_detail) ?></td>
-                <td><?= h($events->is_active) ?></td>
-                <td><?= h($events->instructions) ?></td>
-                <td><?= h($events->details) ?></td>
-                <td><?= h($events->barrack_id) ?></td>
-                <td><?= h($events->event_start_date) ?></td>
-                <td><?= h($events->event_end_date) ?></td>
-                <td><?= h($events->horaires) ?></td>
-                <td><?= h($events->public) ?></td>
-                <td><?= h($events->module) ?></td>
-                <td><?= h($events->module_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Events', 'action' => 'view', $events->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Events', 'action' => 'edit', $events->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Events', 'action' => 'delete', $events->id], ['confirm' => __('Are you sure you want to delete # {0}?', $events->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Operations') ?></h4>
-        <?php if (!empty($barrack->operations)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Barrack Id') ?></th>
-                <th><?= __('City Id') ?></th>
-                <th><?= __('Address') ?></th>
-                <th><?= __('Public Headcount') ?></th>
-                <th><?= __('Operation Activity Id') ?></th>
-                <th><?= __('Operation Environment Id') ?></th>
-                <th><?= __('Operation Delay Id') ?></th>
-                <th><?= __('Public Ris') ?></th>
-                <th><?= __('Operation Recommendation Id') ?></th>
-                <th><?= __('Public Reinforcement') ?></th>
-                <th><?= __('Public Total') ?></th>
-                <th><?= __('Organization Id') ?></th>
-                <th><?= __('Actors Headcount') ?></th>
-                <th><?= __('Rescuers Total') ?></th>
-                <th><?= __('Headcount Total') ?></th>
-                <th><?= __('Actors Organization') ?></th>
-                <th><?= __('General Organization') ?></th>
-                <th><?= __('Transport Organization') ?></th>
-                <th><?= __('Team Instructions') ?></th>
-                <th><?= __('Report Assisted') ?></th>
-                <th><?= __('Report Slight') ?></th>
-                <th><?= __('Report Medicalized') ?></th>
-                <th><?= __('Report Reinforcement') ?></th>
-                <th><?= __('Report Evacuated') ?></th>
-                <th><?= __('Report Bilan Notes') ?></th>
-                <th><?= __('Meals Morning') ?></th>
-                <th><?= __('Meals Lunch') ?></th>
-                <th><?= __('Meals Dinner') ?></th>
-                <th><?= __('Meals Unit Cost') ?></th>
-                <th><?= __('Meals Charge') ?></th>
-                <th><?= __('Meals Cost') ?></th>
-                <th><?= __('Cost Kilometers Vps') ?></th>
-                <th><?= __('Cost Kilometers Other') ?></th>
-                <th><?= __('Discount Percentage') ?></th>
-                <th><?= __('Discount Reason') ?></th>
-                <th><?= __('Cost Percentage Adpc') ?></th>
-                <th><?= __('Total Cost') ?></th>
-                <th><?= __('Date') ?></th>
-                <th><?= __('Operation Type Id') ?></th>
-                <th><?= __('Latitude') ?></th>
-                <th><?= __('Longitude') ?></th>
-                <th><?= __('Title') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($barrack->operations as $operations): ?>
-            <tr>
-                <td><?= h($operations->id) ?></td>
-                <td><?= h($operations->barrack_id) ?></td>
-                <td><?= h($operations->city_id) ?></td>
-                <td><?= h($operations->address) ?></td>
-                <td><?= h($operations->public_headcount) ?></td>
-                <td><?= h($operations->operation_activity_id) ?></td>
-                <td><?= h($operations->operation_environment_id) ?></td>
-                <td><?= h($operations->operation_delay_id) ?></td>
-                <td><?= h($operations->public_ris) ?></td>
-                <td><?= h($operations->operation_recommendation_id) ?></td>
-                <td><?= h($operations->public_reinforcement) ?></td>
-                <td><?= h($operations->public_total) ?></td>
-                <td><?= h($operations->organization_id) ?></td>
-                <td><?= h($operations->actors_headcount) ?></td>
-                <td><?= h($operations->rescuers_total) ?></td>
-                <td><?= h($operations->headcount_total) ?></td>
-                <td><?= h($operations->actors_organization) ?></td>
-                <td><?= h($operations->general_organization) ?></td>
-                <td><?= h($operations->transport_organization) ?></td>
-                <td><?= h($operations->team_instructions) ?></td>
-                <td><?= h($operations->report_assisted) ?></td>
-                <td><?= h($operations->report_slight) ?></td>
-                <td><?= h($operations->report_medicalized) ?></td>
-                <td><?= h($operations->report_reinforcement) ?></td>
-                <td><?= h($operations->report_evacuated) ?></td>
-                <td><?= h($operations->report_bilan_notes) ?></td>
-                <td><?= h($operations->meals_morning) ?></td>
-                <td><?= h($operations->meals_lunch) ?></td>
-                <td><?= h($operations->meals_dinner) ?></td>
-                <td><?= h($operations->meals_unit_cost) ?></td>
-                <td><?= h($operations->meals_charge) ?></td>
-                <td><?= h($operations->meals_cost) ?></td>
-                <td><?= h($operations->cost_kilometers_vps) ?></td>
-                <td><?= h($operations->cost_kilometers_other) ?></td>
-                <td><?= h($operations->discount_percentage) ?></td>
-                <td><?= h($operations->discount_reason) ?></td>
-                <td><?= h($operations->cost_percentage_adpc) ?></td>
-                <td><?= h($operations->total_cost) ?></td>
-                <td><?= h($operations->date) ?></td>
-                <td><?= h($operations->operation_type_id) ?></td>
-                <td><?= h($operations->latitude) ?></td>
-                <td><?= h($operations->longitude) ?></td>
-                <td><?= h($operations->title) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Operations', 'action' => 'view', $operations->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Operations', 'action' => 'edit', $operations->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Operations', 'action' => 'delete', $operations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operations->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Materials') ?></h4>
-        <?php if (!empty($barrack->materials)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Material Type Id') ?></th>
-                <th><?= __('Barrack Id') ?></th>
-                <th><?= __('Stock') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($barrack->materials as $materials): ?>
-            <tr>
-                <td><?= h($materials->id) ?></td>
-                <td><?= h($materials->material_type_id) ?></td>
-                <td><?= h($materials->barrack_id) ?></td>
-                <td><?= h($materials->stock) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Materials', 'action' => 'delete', $materials->id], ['confirm' => __('Are you sure you want to delete # {0}?', $materials->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Users') ?></h4>
-        <?php if (!empty($barrack->users)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Firstname') ?></th>
-                <th><?= __('Lastname') ?></th>
-                <th><?= __('Birthname') ?></th>
-                <th><?= __('Email') ?></th>
-                <th><?= __('Login') ?></th>
-                <th><?= __('Password') ?></th>
-                <th><?= __('Phone') ?></th>
-                <th><?= __('Cellphone') ?></th>
-                <th><?= __('Workphone') ?></th>
-                <th><?= __('Address') ?></th>
-                <th><?= __('Address Complement') ?></th>
-                <th><?= __('Zipcode') ?></th>
-                <th><?= __('City Id') ?></th>
-                <th><?= __('Birthday') ?></th>
-                <th><?= __('Birthplace') ?></th>
-                <th><?= __('Skype') ?></th>
-                <th><?= __('Is Active') ?></th>
-                <th><?= __('External') ?></th>
-                <th><?= __('Created') ?></th>
-                <th><?= __('Modified') ?></th>
-                <th><?= __('Connected') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($barrack->users as $users): ?>
-            <tr>
-                <td><?= h($users->id) ?></td>
-                <td><?= h($users->firstname) ?></td>
-                <td><?= h($users->lastname) ?></td>
-                <td><?= h($users->birthname) ?></td>
-                <td><?= h($users->email) ?></td>
-                <td><?= h($users->login) ?></td>
-                <td><?= h($users->password) ?></td>
-                <td><?= h($users->phone) ?></td>
-                <td><?= h($users->cellphone) ?></td>
-                <td><?= h($users->workphone) ?></td>
-                <td><?= h($users->address) ?></td>
-                <td><?= h($users->address_complement) ?></td>
-                <td><?= h($users->zipcode) ?></td>
-                <td><?= h($users->city_id) ?></td>
-                <td><?= h($users->birthday) ?></td>
-                <td><?= h($users->birthplace) ?></td>
-                <td><?= h($users->skype) ?></td>
-                <td><?= h($users->is_active) ?></td>
-                <td><?= h($users->external) ?></td>
-                <td><?= h($users->created) ?></td>
-                <td><?= h($users->modified) ?></td>
-                <td><?= h($users->connected) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Users', 'action' => 'delete', $users->id], ['confirm' => __('Are you sure you want to delete # {0}?', $users->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Vehicles') ?></h4>
-        <?php if (!empty($barrack->vehicles)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Matriculation') ?></th>
-                <th><?= __('Number Kilometer') ?></th>
-                <th><?= __('Snow') ?></th>
-                <th><?= __('Air Conditionner') ?></th>
-                <th><?= __('Vehicle Type Id') ?></th>
-                <th><?= __('Vehicle Model Id') ?></th>
-                <th><?= __('Bought') ?></th>
-                <th><?= __('End Warranty') ?></th>
-                <th><?= __('Next Revision') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($barrack->vehicles as $vehicles): ?>
-            <tr>
-                <td><?= h($vehicles->id) ?></td>
-                <td><?= h($vehicles->matriculation) ?></td>
-                <td><?= h($vehicles->number_kilometer) ?></td>
-                <td><?= h($vehicles->snow) ?></td>
-                <td><?= h($vehicles->air_conditionner) ?></td>
-                <td><?= h($vehicles->vehicle_type_id) ?></td>
-                <td><?= h($vehicles->vehicle_model_id) ?></td>
-                <td><?= h($vehicles->bought) ?></td>
-                <td><?= h($vehicles->end_warranty) ?></td>
-                <td><?= h($vehicles->next_revision) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Vehicles', 'action' => 'view', $vehicles->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Vehicles', 'action' => 'edit', $vehicles->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Vehicles', 'action' => 'delete', $vehicles->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vehicles->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
+<?php $c_mat = count($barrack->materials) ?>
+<?php $c_user = count($barrack->users) ?>
+<?php $c_veh = count($barrack->vehicles) ?>
+<div class="my-modal-base">
+    <div class="my-modal-cont"></div>
+</div>
+
+
+<!--_______________________________________________________________________________DETAIL CASERNE-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Caserne <?= h($barrack->name) ?></div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="panel-heading">Informations</div>
+                    Adresse : <?= h($barrack->address) ?> <br/>
+                    Adresse complémentaire: <?= h($barrack->address_complement) ?> <br/>
+                    Ville : <?= h($barrack->city->city) ?> <br/>
+                    Téléphone : <?= h($barrack->phone) ?> <br/>
+                    Fax : <?= h($barrack->fax) ?> <br/>
+                    Email : <?= h($barrack->email) ?> <br/>
+                    Site web : <?= h($barrack->website_url) ?> <br/>
+                    Ordre : <?= h($barrack->ordre) ?> <br/>
+                    R.I.B. : <?= h($barrack->rib) ?>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel-heading">Statistiques, images ou autres ...a voir!</div>
+                    truc : <br/>
+                    machin : <br/>
+                    chose :
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col-md-6"> <!--colonne gauche-->
+        <!--_______________________________________________________________________________DETAIL PERSONNEL-->
+        <div class="panel panel-info">
+            <div class="panel-heading">Personnels <?= $this->Html->badge('', ['id' => 'bdg-user']) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-user', 'class' =>
+                'btn btn-info pull-right btn-add',]) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-user',
+                'class' => 'btn btn-info pull-right btn-add',]) ?>
+            </div>
+            <div class="panel-body tbl-user" id="tbl-user">
+
+                <table class="table table-hover" width="100%" id="tbl-us">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Adresse</th>
+                        <th>Téléphone</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($barrack->users as $user): ?>
+                    <tr  id="<?= $user->id ?>">
+                        <td><?=  $user->firstname ?><br><?=  $user->lastname ?></td>
+                        <td><?= $user->zipcode ?> <?= $user->city->city ?><br><?=  $user->address ?></td>
+                        <td><?= $user->phone ?><br><?= $user->cellphone ?><br><?= $user->workphone ?> </td>
+                        </td>
+                        <td>
+                        <a href='<?= $this->Url->build(["controller" => "messages","action" => "send" ]); ?>'  class="btn btn-primary  btn-xs "><i class="glyphicon glyphicon-envelope"></i> </a>
+                            <a href='<?= $this->Url->build(["controller" => "users","action" => "view", $user->id ]); ?>'  class="btn btn-success  btn-xs "><i class="glyphicon glyphicon-eye-open"></i> </a>
+                        </td>
+                    </tr>
+
+                    <?php endforeach;  ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer text-center" id="footer-user"><i class="glyphicon glyphicon-chevron-down"></i> TOUT VOIR  <i class="glyphicon glyphicon-chevron-down"></i></div>
+        </div>
+    </div> <!--colonne gauche-->
+
+
+    <div class="col-md-6"> <!--colonne droite-->
+
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Matériels dans la caserne <?= $this->Html->badge('', ['id' => 'bdg-mat']) ?>
+
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-del', 'class' =>
+                'btn btn-success pull-right btn-add',]) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-mat',
+                'class' => 'btn btn-success pull-right btn-add',]) ?>
+            </div>
+            <div class="panel-body tbl-material"  id="tbl-material">
+                <table class="table table-hover" width="100%" id="tbl-mat">
+                    <thead>
+                    <tr>
+                        <th>Stock</th>
+                        <th>Type</th>
+                        <th>Désignation</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($barrack->materials as $matos)
+                    echo "
+                    <tr id=".$matos->id.">
+                        <td class='stock'>".$matos->stock."</td>
+                        <td>".$matos->material_type->type."</td>
+                        <td>".$matos->material_type->name."</td>
+                        <td>
+                            <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
+                            <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
+                        </td>
+                    </tr>
+                    ";
+                    ?>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="panel-footer text-center" id="footer-mat"><i class="glyphicon glyphicon-chevron-down"></i> TOUT VOIR  <i class="glyphicon glyphicon-chevron-down"></i></div>
+
+        </div>
+        <!--_______________________________________________________________________________DETAIL MAT EMPRUNT-->
+        <div class="panel panel-danger">
+            <div class="panel-heading">Matériels empruntés <?= $this->Html->badge('', ['id' => 'bdg-rent']) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-del', 'class' =>
+                'btn btn-danger pull-right btn-add',]) ?>
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-mat',
+                'class' => 'btn btn-danger pull-right btn-add',]) ?>
+            </div>
+            <div class="panel-body tbl-usermaterial" id="tbl-usermaterial">
+                <table cellpadding="0" cellspacing="0" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Matériel</th>
+                        <th>Emprunté par</th>
+                        <th>Quantité</th>
+                        <th class="hidden-xs hidden-sm">Depuis le</th>
+                        <th class="hidden-xs hidden-sm">Jusqu'au</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($barrack->users as $material): ?>
+                    <?php $mat = $material->user_materials ?>
+                    <tr>
+                        <?php foreach ($mat as $material): ?>
+                        <td><?=$material->material_id ?></td>
+                        <td><?= $material->user_id ?></td>
+                        <td><?= ($material->quantity != null) ? $material->quantity : '-/-' ?></td>
+                        <td class="hidden-xs hidden-sm"><?= ($material->from_date != null) ? $material->from_date : 'Inconnu' ?></td>
+                        <td class="hidden-xs hidden-sm"><?= ($material->from_to != null) ? $material->from_to : 'Inconnu' ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <!--<div class="paginator text-center">-->
+                    <!--<ul class="pagination">-->
+                        <!--<?= $this->Paginator->prev($this->Html->icon('chevron-left'),['escape' => false]) ?>-->
+                        <!--<?= $this->Paginator->numbers() ?>-->
+                        <!--<?= $this->Paginator->next($this->Html->icon('chevron-right'),['escape' => false]) ?>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            </div>
+            <div class="panel-footer text-center" id="footer-usmat"><i class="glyphicon glyphicon-chevron-down"></i> TOUT VOIR  <i class="glyphicon glyphicon-chevron-down"></i></div>
+
+        </div>
+
+
+    </div><!--colonne droite-->
+</div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!--_______________________________________________________________________________DETAIL VEHICULE-->
+            <div class="panel panel-warning">
+                <div class="panel-heading">Véhicules <?= $this->Html->badge('', ['id' => 'bdg-veh']) ?>
+                    <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-vehi', 'class' =>
+                    'btn btn-warning pull-right btn-add',]) ?>
+
+                </div>
+                <div class="panel-body" id="tbl-vehi">
+                    <table class="table table-hover tbl-vehicule" width="100%" id="tbl-vehicule">
+                        <thead>
+                        <tr>
+                            <th> </th>
+                            <th>Type</th>
+                            <th>Désignation</th>
+                            <th class="hidden-sm hidden-xs">Matricule</th>
+                            <th class="hidden-sm hidden-xs">Km</th>
+                            <th class="hidden-sm hidden-xs">Acquis le</th>
+                            <th class="hidden-sm hidden-xs">Garantie</th>
+                            <th class="hidden-sm hidden-xs">Revision</th>
+                            <th class="hidden-sm hidden-xs">Eqp</th>
+                            <th class="hidden-sm hidden-xs"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <?php foreach ($barrack->vehicles as $vehi): ?>
+                        <tr id='<?= $vehi->id ?>'>
+                            <td><img id='img-veh' src='<?= $this->Url->image($vehi->vehicle_type->picture) ?>'></td>
+                            <td><?= $vehi->vehicle_type->type ?></td>
+                            <td><?= $vehi->vehicle_type->name ?></td>
+                            <td class='hidden-sm hidden-xs' id='mat'><?= $vehi->matriculation ?></td>
+                            <td class='hidden-sm hidden-xs' id='klm'><?= $vehi->number_kilometer ?></td>
+                            <td class='hidden-sm hidden-xs' id='buy'><?= $vehi->bought ?></td>
+                            <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
+                            <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
+                            <td class='hidden-sm hidden-xs id='opt'>
+                            <?= ($vehi->snow) ? "<span class='glyphicon glyphicon-asterisk' aria-hidden='true' data-toggle='tooltip' title='Véhicule équipé de pneux hiver'></span>" : "" ?>
+                            <?= ($vehi->air_conditionner) ? "<span class='glyphicon glyphicon-random' aria-hidden='true' data-toggle='tooltip' title='Véhicule avec climatisation'></span>" : "" ?>
+                            </td>
+                            <td class='hidden-sm hidden-xs' id= 'icon'>
+                                <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
+                                <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
+                            </td>
+                        </tr>
+                        <?php endforeach;  ?>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer text-center" id="footer-vehi"><i class="glyphicon glyphicon-chevron-down"></i> TOUT VOIR  <i class="glyphicon glyphicon-chevron-down"></i></div>
+
+            </div>
+
+    </div>
+
+
+
+
+
+
+
+<script>
+
+    // boutons ouvre les formulaires en modal
+    var vehicles = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
+    modal('#bt-vehi',vehicles);
+
+    // collapse sur les tables
+    expand('#footer-user','#tbl-user' ,'tbl-user');
+    expand('#footer-mat','#tbl-material' ,'tbl-material');
+    expand('#footer-usmat','#tbl-usermaterial' ,'tbl-usermaterial');
+    expand('#footer-vehi','#tbl-vehicule' ,'tbl-vehicule');
+
+    function expand(div, footer, classe){
+    $(div).click(function(){
+       $(footer).toggleClass(classe);
+        if ($(footer).hasClass(classe)) {
+            $(div).html('<i class="glyphicon glyphicon-chevron-down"></i> TOUT VOIR  <i class="glyphicon glyphicon-chevron-down"></i>');
+        }
+        else {
+            $(div).html('<i class="glyphicon glyphicon-chevron-up"></i> REDUIRE  <i class="glyphicon glyphicon-chevron-up"></i>');
+        }
+    });
+    }
+</script>
+
+<?= $this->Html->script('jquery-ui.js')?>
+<!--// charge les différentes compteurs-->
+<!--//    var c_rent = '<?= $c_rent ?>';-->
+<!--//    $("#bdg-rent").text(c_rent);-->
+<!--//    var c_mat = '<?= $c_mat ?>';-->
+<!--//    $("#bdg-mat").text(c_mat);-->
+<!--//    var c_user = '<?= $c_user ?>';-->
+<!--//    $("#bdg-user").text(c_user);-->
+<!--//    var c_veh = '<?= $c_veh ?>';-->
+<!--//    $("#bdg-veh").text(c_veh);-->

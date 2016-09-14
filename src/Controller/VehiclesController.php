@@ -49,10 +49,11 @@ class VehiclesController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $vehicle = $this->Vehicles->newEntity();
         if ($this->request->is('post')) {
+            $this->request->data['barrack_id'] = $id;
             $vehicle = $this->Vehicles->patchEntity($vehicle, $this->request->data);
             if ($this->Vehicles->save($vehicle)) {
                 $this->Flash->success(__('The vehicle has been saved.'));
