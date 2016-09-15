@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Barracks Controller
@@ -37,11 +38,15 @@ class BarracksController extends AppController
     public function view($id = null)
     {
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['ParentBarracks', 'Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities','Users.UserMaterials', 'UserMaterials','Vehicles.VehicleTypes', 'ChildBarracks', 'Events', 'Operations']
+            'contain' => ['ParentBarracks', 'Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities','Users.UserMaterials', 'Vehicles.VehicleTypes', 'ChildBarracks', 'Events', 'Operations']
         ]);
 
+        $this->loadModel('UserMaterials');
+        $user_mat = $this->UserMaterials->find('all',[
+        'contain' => ['Users','Materials.MaterialTypes']]);
 
-        $this->set('barrack', $barrack);
+        $c_user_mat = $user_mat->count();
+        $this->set(compact('barrack', 'user_mat','c_user_mat'));
         $this->set('_serialize', ['barrack']);
     }
 

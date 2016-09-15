@@ -1,4 +1,4 @@
-/*espace entre les row*/
+/*espace vertical*/
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
 .voffset2 { margin-top: 10px; }
@@ -309,4 +309,8 @@ html {
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
+}
+
+.marge {
+    margin-left: 5px;
 }
