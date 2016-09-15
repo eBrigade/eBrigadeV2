@@ -276,26 +276,26 @@
                                                         </button>
                                                         <ul class="dropdown-menu">
                                                             <?php foreach ($usersList as $users): ?>
-                                                                <li class="list-group-item"
-                                                                    onclick="clickAction(<?= $event->id ?>, <?= $teams->id ?>, <?= $users->id ?>, 'add', 'Teams', 'Users')"><?= $users->firstname . ' ' . $users->lastname ?> </li>
+                                                                <li class="list-group-item action-btn" id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id?>-add-Teams-Users">
+                                                                    <?= $users->firstname . ' ' . $users->lastname ?>
+                                                                </li>
                                                             <?php endforeach; ?>
                                                         </ul>
                                                         <span class="badge badge-danger">3/4</span>
                                                     </li>
 
 
-                                                    <li class="list-group-item team"
-                                                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Users"></li>
+                                                    <ul class="list-group-item team"
+                                                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Users">
                                                     <?php
                                                     if (!empty($teams->users)): ?>
                                                         <?php foreach ($teams->users as $users): ?>
-                                                            <li class="list-group-item" onclick="clickAction(
-                                                            <?= $event->id ?>, <?= $teams->id?>, <?= $users->id ?>, 'remove', 'Teams', 'Users')">
+                                                            <li class="list-group-item action-btn" id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id?>-remove-Teams-Users">
                                                                 <?= $users->firstname . ' ' . $users->lastname; ?>
                                                                  </li>
                                                         <?php endforeach; ?>
                                                     <?php endif; ?>
-
+                                                    </ul>
 
                                                 </ul>
 
@@ -407,15 +407,53 @@
     </script>
     <script>
 
-        function loadteams() {
-            var teamlist = $('.teamlist');
-            var data = parseInt(teamlist.attr('id'));
-            var datajax = {eventID: data};
 
-            teamlist.load('/Operations/loadteams/', datajax, function () {
-                loadlist()
+
+        $('.action-btn').on('click', function () {
+
+            var item = $(this);
+
+            function datax(source, containerID, contentID, action, containerType, contentType) {
+                this.source = source;
+                this.containerID = containerID;
+                this.contentID = contentID;
+                this.action = action;
+                this.containerType = containerType;
+                this.contentType = contentType;
+            }
+
+            var data = $(this).attr('id').split('-');
+            var datajax = new datax(data[0], data[1], data[2], data[3], data[4], data[5]);
+
+            if (datajax.action == 'remove') {
+                item.remove();
+            }
+            var listpos = datajax.source + "-" + datajax.containerID + "-Teams-Users";
+
+            if (datajax.action == 'add') {
+                var clone = item.clone();
+                var cloneid = clone.attr('id');
+                cloneid.replace('add', 'remove');
+                console.log(cloneid);
+                $('#'+listpos).append(clone);
+            }
+
+
+            //ajax
+            var request = $.ajax({
+                type: 'POST',
+                data: datajax,
+                url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
             });
-        }
+            //reload list at callback
+           /* request.done(function () {
+                if (action == "remove") {
+                    item.hide();
+                } else {
+                    refreshlist(source, containerID, containerType, contentType);
+                }
+            });*/
+        });
 
 
         //loads every list
@@ -453,44 +491,7 @@
         }
 
 
-        //ajax query to add and remove content.
-        //todo : add filters to 'add lists'
-        function clickAction(source, containerID, contentID, action, containerType, contentType) {
 
-            //populates data var for ajax
-            var datax = {
-                source: source,
-                containerID: containerID,
-                contentID: contentID,
-                action: action,
-                containerType: containerType,
-                contentType: contentType
-            };
-
-            //ajax
-            var request = $.ajax({
-                type: 'POST',
-                data: datax,
-                url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
-            });
-            //reload list at callback
-            request.done(function () {
-                if (contentType == "Teams") {
-                    loadteams();
-                } else {
-                    refreshlist(source, containerID, containerType, contentType);
-                }
-            });
-
-            //for debug purpose
-            /*request.done(function( msg ) {
-             $( "#log" ).html( msg );
-             });
-
-             request.fail(function( jqXHR, textStatus ) {
-             alert( "Request failed: " + textStatus );
-             });*/
-        }
     </script>
 
 <?= $this->Html->script('jquery-ui.js') ?>
