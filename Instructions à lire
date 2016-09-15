@@ -1,47 +1,29 @@
-Bonjour l'équipe
+Bonjour à tous,
 
-A ce jour, un conseil sur la méthodologie à employer :
-- Etape 1 - baker l'ensemble des tables le nécessitant pour générer tous les controllers, models, views de base
-- Etape 2 - travailler les fichiers baker au préalable
-- Ne pas prendre en compte le Auth-> sera fait à la fin du développement en fonction des fonctions créées dans vos controllers
+Alors quelques mise au point :
+- Je prends cet exemple : concernant matériel, pas question de palier par un appel ajax de la fonction add à la fonction addajax, ce sont deux choses distinctes, donc deux vues et deux protocoles différents. Obligatoirement. 
+Sinon il y a une problématique avec les droits d'accès pour qui chaque fonction a un droit.
+Merci de vérifier toutes les vues et de corriger en respectant à la lettre cette consigne. Tout devra être corrigé pour le vendredi soir impérativement.
 
-Un projet en cakephp se bake dans son intégralité (peut être déjà fait, mais dans le github il n'y a pas tous les fichiers donc pas évident d'en dire plus) puis est modifié à convenance.
-Cette méthode offre une version fonctionnelle complète dès le début, de telle sort qu'il ne reste plus qu'à modifier et ajuster, sinon vous allez perdre du temps à créer des fichiers et les bidouiller un par un.
+- Il manque des vues, comme déjà dit il faut baker tous les items qui ne le sont pas
 
-Pour inclure Bootstrap, il existe un plugin pour cela, ce qui fait que votre affichage serait déjà presque conforme.
+- Concernant matériel, il y a une grosse confusion avec matériel types que je n'avais pas vu, voila ce qui doit être effectué :
+Matériel : Seau d'eau - Seau d'eau bleu servant au nettoyage - Caserne Id (nom, description, materiel_types_id, barracks_id)
+Matériel Types : Logistique, Affecté à la logistique de la caserne de Raon, identifié par un code barre .... (nom,description)
+Matériel Stocks : 45, 1, 10, materiels, 0 (materiel_id, stock, affectation, affectation_id)
+exemple d'affectation de matériel : 46, 1, -1, users, 2 (id, materiel_id, stock, affectation, affectation_id)
+exemple de retour de matériel : 47, 1, 1, materiel_stocks, 46 (id, materiel_id, stock, affectation, affectation_id)
 
-Fonctionnalité à implémenter en priorité (pour la fin de semaine) :
-- Baker absolument tous les controllers, models et views
-- Formations + Events multiples + Affectation (personnels, matériels, véhicules, équipes, ...)
-- Opérationnels + Events multiples + Affectation (personnels, matériels, véhicules, équipes, ...)
-- Gestion de barracks avec arborescence (http://book.cakephp.org/3.0/fr/tutorials-and-examples/blog/part-three.html)
-- Boostrap en plugin
+Relation de barraks avec matériels : barracks as many matériels
 
-Souhaits :
-- Calendar case plus grandes en hauteur
-- Dans barracks : adresse et adresse complément, ordre des chèques, champ RIB bancaire
-- Dans user ajouter un champ adresse complémentaire, et supprimer les champs grade et rôle (un user peut avoir plusieurs rôles, et plusieurs grades suivant sont barracks d'appartenance)
+- tous les index doivent être formatés en mode bootstrap
 
-Souhaits pour la semaine prochaine
-- Mise en page et options d'ergonomie (ajax, js) de formations, opérationnels, matériels, barracks, ...
-- Implémentation du système d'alerte SMS
-- Events standards
+- MVC à vérifier et corriger : cities, dpts,  EventsEquipments, events_tems, events_vehicle, teams, 
 
-Semaine prochaine je serai peu disponible, ormis le soir et lundi ou je pense passer comme cette semaine.
+- Vue des barracks en index sous forme de liste en arbre (treelist), et vue actuelle a enregistrer sous forme d'une autre view (avec filtres à appliquer)
 
-Précision, j'ai ajouté dans le master 2 pages  d'exemples pour formation et opéerationnels
-accessibles via pages/operationnel ou page/operationnelbis
-J'ai un penchant pour la solution épurée du bis
-Il vous est possible de me faire des propositions par le même biai
+- 3 champs à ajouter dans user
 
-Prévoir une vue d'affichage des équipes d'une missions sous forme de diagramme de ganty :
-https://github.com/taitems/jQuery.Gantt/
+- opérationnel et formation fonctionnels
 
-Pour Matérials, je ne comprends pas le coup du quantity et du while. Est il possible de me donner votre logique ?
-De ce que j'en ai compris, vous enregistrez les éléments un par un, je pense des facilités de comptage, mais il va aussi vite voir plus en charge serveur, de mettre un champ quantité et de jouer sur les stocks en affectant une quantité.
-Exemple j'ai acheté 100 pantalons, j'en ai 15 en stock, j'en alloue 5 sur les 15 restants a Mr X. Calcul du stock fait 100 - Pantalons affectés = reste 10. Peut même se faire directement en requête sql pour avoir le stock restant.
-Cela limite la charge serveur et requête. Surtout si en quantité j'en ai 100 : difficile de faire 100 save, et après des deletes manuels si besoin etc
-
-Travaillez bien ;)
-
-
+Normalement tout cela est largement faisable pour ce vendredi soir, tout devra être commit sur le master afin que je fasse la synthèse de test samedi et dimanche pour test lundi et affinage dans le début de semaine
