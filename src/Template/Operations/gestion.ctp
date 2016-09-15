@@ -169,8 +169,10 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <?php foreach ($teamsList as $teams): ?>
-                                                <li class="list-group-item"
-                                                    onclick="clickAction(<?= $event->id ?>, <?= $event->id ?>, <?= $teams->id ?>, 'add', 'Events', 'Teams')"><?= $teams->name ?> </li>
+                                                <li class="list-group-item action-btn"
+                                                    id="<?= $event->id ?>-<?= $event->id ?>-<?= $teams->id ?>-add-Events-Teams">
+                                                    <?= $teams->name  ?>
+                                                </li>
                                             <?php endforeach; ?>
 
                                         </ul>
@@ -216,12 +218,12 @@
                                     </div>
                                 </div>
 
-
+                                <ul class="list-group-item team"
+                                    id="<?= $event->id ?>-<?= $event->id ?>-Events-Teams">
                                 <?php if (!empty($event->teams)): ?>
                                     <?php foreach ($event->teams as $teams): ?>
-                                        <?php $teamNumber++ ?>
 
-                                        <li class="list-group-item-success">
+                                        <li class="list-group-item-success team-col-<?= $event->id?>-<?= $teams->id?>">
                                             <div class="row-fluid clearfix">
                                                 <div class="col-xs-6 col-md-6">
                                                     <p><b>ID de l'équipe : <?= h($teams->id) ?></b></p>
@@ -244,7 +246,8 @@
                                                         <ul class="dropdown-menu">
                                                             <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
                                                             <li role="separator" class="divider"></li>
-                                                            <li onclick="clickAction(<?= $event->id ?>, <?= $event->id ?>, <?= $teams->id ?>, 'remove', 'Events', 'Teams')">
+                                                            <li class="list-group-item action-btn"
+                                                                     id="<?= $event->id ?>-<?= $event->id ?>-<?= $teams->id ?>-remove-Events-Teams">
                                                                 Retirer l'équipe de l'événement
                                                             </li>
                                                             <li><a href="#">Vider la liste des équipiers</a></li>
@@ -258,7 +261,7 @@
 
                                             </div>
                                         </li>
-                                        <li class="list-group-item">
+                                        <li class="list-group-item team-col-<?= $event->id?>-<?= $teams->id?>">
 
                                             <div class="row-fluid clearfix">
 
@@ -315,25 +318,27 @@
                                                         </button>
                                                         <ul class="dropdown-menu">
                                                             <?php foreach ($materialsList as $material): ?>
-                                                                <li class="list-group-item"
-                                                                    onclick="clickAction(<?= $event->id ?>, <?= $teams->id ?>, <?= $material->id ?>, 'add', 'Teams', 'Materials')">
-                                                                    material ID : <?= $material->id ?></li>
+                                                                <li class="list-group-item action-btn"
+                                                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $material->id ?>-add-Teams-Materials">
+                                                                    <?= $material->id ?>
+                                                                </li>
                                                             <?php endforeach; ?>
 
                                                         </ul>
                                                         <span class="badge badge-danger">3</span>
                                                     </li>
-                                                    <li class="list-group-item team"
-                                                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Materials"></li>
-                                                    <?php
-                                                    if (!empty($teams->materials)): ?>
-                                                        <?php foreach ($teams->materials as $materials): ?>
-                                                            <li class="list-group-item" onclick="clickAction(
-                                                            <?= $event->id ?>, <?= $teams->id ?>, <?= $materials->id ?>, 'remove', 'Teams', 'Materials')">
-                                                                <?= $materials->material_type->name ?>
-                                                            </li>
-                                                        <?php endforeach; ?>
-                                                    <?php endif; ?>
+                                                    <ul class="list-group-item team"
+                                                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Materials">
+                                                        <?php
+                                                        if (!empty($teams->materials)): ?>
+                                                            <?php foreach ($teams->materials as $materials): ?>
+                                                                <li class="list-group-item action-btn"
+                                                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $materials->id ?>-remove-Teams-Materials">
+                                                                    <?= $materials->material_type->name ?>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </ul>
                                                 </ul>
 
                                                 <ul class="list-group col-xs-4 col-sm-4 col-md-4">
@@ -350,25 +355,26 @@
                                                         </button>
                                                         <ul class="dropdown-menu">
                                                             <?php foreach ($vehiclesList as $vehicle): ?>
-                                                                <li class="list-group-item"
-                                                                    onclick="clickAction(<?= $event->id ?>, <?= $teams->id ?>, <?= $vehicle->id ?>, 'add', 'Teams', 'Vehicles')">
-                                                                    vehicle ID : <?= $vehicle->id ?></li>
+                                                                <li class="list-group-item action-btn"
+                                                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $vehicle->id ?>-add-Teams-Vehicles">
+                                                                    <?= $vehicle->id ?>
+                                                                </li>
                                                             <?php endforeach; ?>
                                                         </ul>
                                                         <span class="badge badge-danger">2</span>
                                                     </li>
-                                                    <li class="list-group-item team"
-                                                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Vehicles"></li>
-                                                    <?php
-                                                    if (!empty($teams->vehicles)): ?>
-                                                        <?php foreach ($teams->vehicles as $vehicles): ?>
-                                                            <li class="list-group-item" onclick="clickAction(
-                                                            <?= $event->id ?>, <?= $teams->id ?>, <?= $vehicles->id ?>, 'remove', 'Teams', 'Materials')">
-                                                                <?= $vehicles->vehicle_type->name ?>
-                                                            </li>
-                                                        <?php endforeach; ?>
-                                                    <?php endif; ?>
-
+                                                    <ul class="list-group-item team"
+                                                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Vehicles">
+                                                        <?php
+                                                        if (!empty($teams->vehicles)): ?>
+                                                            <?php foreach ($teams->vehicles as $vehicles): ?>
+                                                                <li class="list-group-item action-btn"
+                                                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $vehicles->id ?>-remove-Teams-Vehicles">
+                                                                    <?= $vehicles->vehicle_type->name ?>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </ul>
                                                 </ul>
                                             </div>
 
@@ -377,6 +383,7 @@
                                     <?php endforeach; ?>
 
                                 <?php endif; ?>
+                                </ul>
                             <?php endforeach; ?>
 
                         <?php endif; ?>
@@ -392,7 +399,7 @@
 
     <script>
 
-
+        //left-side panel toggle
         $('#infobar-btn').on('click', function () {
             $('#event-gestion').toggleClass('col-md-8 col-md-12');
             $('#infobar').toggle(500, function () {
@@ -400,6 +407,8 @@
             });
         });
 
+        //broken add event
+        //todo: proper add menus with filters for events, teams, users, materials and vehicles
         var eventadd = $('#bt-add-event');
         eventadd.on('click', function () {
             $('#teamadd').load('/Operations/addevent/' + <?= $operation->id ?>);
@@ -409,14 +418,18 @@
     </script>
     <script>
 
-
+        //manages ajax requests to server for add/remove on teams, users, materials and vehicles
+        //and updates dynamically lists
+        //todo: add team case, may necessitate a controller function and .ctp with ajax load.
         function actionButton() {
 
-
+            //event on button
             $('.action-btn').on('click', function () {
 
+                //item is clicked object
                 var item = $(this);
 
+                //Object constructor for ajax request and also used for list updates
                 function datax(source, containerID, contentID, action, containerType, contentType) {
                     this.source = source;
                     this.containerID = containerID;
@@ -426,24 +439,37 @@
                     this.contentType = contentType;
                 }
 
+                //gets data from clicked element's id
                 var data = $(this).attr('id').split('-');
+
+                //populates datajax object
                 var datajax = new datax(data[0], data[1], data[2], data[3], data[4], data[5]);
 
+                //updates lists when item is removed
                 if (datajax.action == 'remove') {
+                    if (datajax.contentType == 'Teams') {
+                        $('.team-col-' + datajax.containerID + '-' + datajax.contentID).remove();
+                    }
                     item.remove();
                 }
-                var listpos = datajax.source + "-" + datajax.containerID + "-Teams-Users";
 
+                //generates the id of where to add elements in case of add
+                var listpos = datajax.source + "-" + datajax.containerID + "-" + datajax.containerType + "-" + datajax.contentType;
+
+                //makes a clone of the clicked item, changes 'add' to 'remove' and appends it to the item list
                 if (datajax.action == 'add') {
-                    var cloneID = datajax.source + '-' + datajax.containerID + '-' + datajax.contentID + '-remove-'
-                    + datajax.containerType + '-' + datajax.contentType;
 
-                    if ($('#'+cloneID).length) {
-                    } else
-                    {
+                    var cloneID = datajax.source + '-' + datajax.containerID + '-' + datajax.contentID + '-remove-'
+                        + datajax.containerType + '-' + datajax.contentType;
+
+                    if ($('#' + cloneID).length) {
+                        //empty case to avoid useless remove and clone
+                    } else {
                         var clone = item.clone();
                         clone.attr('id', cloneID);
                         $('#' + listpos).append(clone);
+
+                        //refreshes event listener so that newly cloned items are clickable (removable)
                         actionButton();
                     }
                 }
@@ -454,7 +480,7 @@
                     data: datajax,
                     url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
                 });
-                //todo: double check actions in db to validate or not changes
+                //todo: double check actions if success or not in db to validate or not changes
                 /* request.done(function () {
                  if (action == "remove") {
                  item.hide();
@@ -466,7 +492,7 @@
         }
         actionButton();
 
-        //loads every list
+        //loads every list (obsolete but may be used for db check after item add/remove)
         function loadlist() {
             var teams = $('.team');
 
@@ -485,9 +511,8 @@
             });
 
         }
-        /*loadlist();*/
 
-        //refreshes changed list
+        //refreshes changed list  (obsolete but may be used for db check after item add/remove)
         function refreshlist(source, containerID, containerType, contentType) {
             var datalist = {
                 source: source,
