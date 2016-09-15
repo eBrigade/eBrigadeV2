@@ -1,7 +1,7 @@
 <?php $cell = $this->cell('Messagerie',[$user]) ?>
 <?= $cell ?>
 <div class="col-md-10 ">
-    <div class="panel panel-default">
+    <div class="panel panel-primary">
         <div class="panel-heading">Boîte de reception
             <?= $this->Form->button(__('<i class="glyphicon glyphicon-trash"></i> '),['id' => 'bt-del', 'class' => 'btn
             btn-large btn-danger delete pull-right',]) ?>
@@ -26,7 +26,6 @@
                         echo $user->firstname.' '.$user->lastname;
                         ?>
                     </td>
-                    <!--<td><div id="subject"><?= h($message->subject) ?></div></td>-->
                     <td><?=  $this->Html->link(__(h($message->subject)), ['action' => 'view', $message->id]) ?></td>
                 </tr>
                 <?php endforeach; ?>
