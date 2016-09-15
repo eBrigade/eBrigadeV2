@@ -80,7 +80,11 @@ class MessagesController extends AppController
     {
         $message = $this->Messages->get($id);
         $users = TableRegistry::get('users');
-        $this->set(compact('users','message'));
+        $user= $this->Auth->user('id');
+        $usert = $users->find()->where(['id' => $message->to_user]);
+
+
+        $this->set(compact('users','usert','user','message'));
         $this->set('_serialize', ['message']);
     }
 
