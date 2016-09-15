@@ -1,6 +1,8 @@
 <?php $c_mat = count($barrack->materials) ?>
 <?php $c_user = count($barrack->users) ?>
 <?php $c_veh = count($barrack->vehicles) ?>
+<?php $c_eve = count($barrack->events) ?>
+
 <div class="my-modal-base">
     <div class="my-modal-cont"></div>
 </div>
@@ -13,7 +15,10 @@
             <div class="panel-heading">A propos</div>
             <div class="panel-body">
                 <div class="col-md-6">
-                    <div class="panel-heading"><h3>Caserne <?= h($barrack->name) ?> </h3></div>
+                    <div class="panel-heading">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img src="<?= $this->Url->image('pro-civ.png') ?>" class="img-circle img-responsive"> </div>
+
+                        <h3>Caserne <?= h($barrack->name) ?> </h3></div>
                     <table class="table">
                         <tr>
                             <td><strong> Ville : </strong></td>
@@ -38,6 +43,14 @@
                             <td><strong> Site web : </strong></td>
                             <td><?= h($barrack->website_url) ?></td>
                         </tr>
+                        <tr>
+                            <td><strong> Ordre : </strong></td>
+                            <td><?= h($barrack->ordre) ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong> R.I.B. : </strong></td>
+                            <td><?= h($barrack->rib) ?></td>
+                        </tr>
 
                         <!--<br/>-->
                         <!--Ville : <?= h($barrack->city->city) ?> <br/>-->
@@ -51,16 +64,73 @@
                 </div>
                 <div class="col-md-6">
                     <div class="panel-heading">Statistiques, images ou autres ...a voir!</div>
-                    truc : <br/>
-                    machin : <br/>
-                    chose :
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <!--_______________________________________________________________________________DETAIL EVENEMENTS-->
+        <div class="panel panel-default">
+            <div class="panel-heading">Les 10 derniers événements
+    </div>
+            <div class="panel-body" id="tbl-event">
+                <table class="table table-hover tbl-vehicule" width="100%" id="tbl-ev">
+                    <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Intitulé</th>
+                        <th>Lieu</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
+                    <?php foreach ($barrack->events as $event): ?>
+                    <?php if ($event->module == "operations"): ?>
+                    <?php $operation = $event->operation; ?>
+                    <tr>
+                        <td>Opération</td>
+                        <td><?= $operation->title ?></td>
+                        <td><?= $operation->city->city ?></td>
+                        <td>le <?= $operation->date ?></td>
+                        <td>
+                            <a href='<?= $this->Url->build(["controller" => "operations","action" => "view", $operation->id ]); ?>'
+                               class="btn btn-default   "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    <?php foreach ($barrack->formations as $formation): ?>
+                    <?php if (!empty($formation)): ?>
+                    <tr>
+                        <td>Formation</td>
+                        <td><?= $formation->title ?></td>
+                        <td><?= $formation->city->city ?></td>
+                        <td>du <?= $formation->formation_start->i18nFormat('dd/MM/yyyy') ?> au <?= $formation->formation_end->i18nFormat('dd/MM/yyyy') ?></td>
+                        <td>
+                            <a href='<?= $this->Url->build(["controller" => "formations","action" => "view", $formation->id ]); ?>'
+                               class="btn btn-default   "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer text-center" id="footer-event"><i class="glyphicon glyphicon-chevron-down"></i> TOUT
+                VOIR <i class="glyphicon glyphicon-chevron-down"></i></div>
+
+        </div>
+
+    </div>
+</div>
 <div class="row">
     <div class="col-md-6"> <!--colonne gauche-->
         <!--_______________________________________________________________________________DETAIL PERSONNEL-->
@@ -255,7 +325,7 @@
         </div>
 
     </div>
-
+</div>
 
     <script>
 

@@ -43,7 +43,10 @@ class FormationsTable extends Table
             'condition' => ['module' => 'formations'],
             'foreignKey' => 'module_id'
         ]);
-
+        $this->belongsTo('Cities', [
+            'foreignKey' => 'city_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('Organizations', [
             'foreignKey' => 'organization_id'
         ]);
