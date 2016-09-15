@@ -1,9 +1,9 @@
 <div class="materials form large-9 medium-8 columns content">
-    <?= $this->Form->create($material, array("id"=>"form-mat")) ?>
+    <?= $this->Form->create($material) ?>
     <fieldset>
         <?php
         echo $this->Form->input('material_type_id', ['options' => $materialTypes, 'empty' => true]);
-        echo $this->Form->input('barrack_id');
+        echo $this->Form->input('barrack',['options' => $barracks]);
         echo $this->Form->input('stock');
         ?>
     </fieldset>

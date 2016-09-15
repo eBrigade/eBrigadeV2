@@ -21,7 +21,6 @@
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('material_type_id') ?></th>
-                <th><?= $this->Paginator->sort('barrack_id') ?></th>
                 <th><?= $this->Paginator->sort('stock') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -31,7 +30,6 @@
             <tr>
                 <td><?= $this->Number->format($material->id) ?></td>
                 <td><?= $material->has('material_type') ? $this->Html->link($material->material_type->name, ['controller' => 'MaterialTypes', 'action' => 'view', $material->material_type->id]) : '' ?></td>
-                <td><?= $this->Number->format($material->barrack_id) ?></td>
                 <td><?= $this->Number->format($material->stock) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $material->id]) ?>

@@ -41,7 +41,6 @@ class BarracksTableTest extends TestCase
         'app.bills',
         'app.materials',
         'app.material_types',
-        'app.barracks_materials',
         'app.user_materials',
         'app.users',
         'app.availabilities',
@@ -51,6 +50,8 @@ class BarracksTableTest extends TestCase
         'app.orders_supplies',
         'app.providers_supplies',
         'app.barracks_users',
+        'app.skills',
+        'app.skills_users',
         'app.teams',
         'app.events_teams',
         'app.materials_teams',
@@ -62,6 +63,7 @@ class BarracksTableTest extends TestCase
         'app.events_vehicles',
         'app.teams_vehicles',
         'app.users_vehicles',
+        'app.barracks_materials',
         'app.events_materials'
     ];
 

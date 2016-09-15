@@ -26,7 +26,6 @@
         <legend><?= __('Edit Material') ?></legend>
         <?php
             echo $this->Form->input('material_type_id', ['options' => $materialTypes, 'empty' => true]);
-            echo $this->Form->input('barrack_id');
             echo $this->Form->input('stock');
             echo $this->Form->input('barracks._ids', ['options' => $barracks]);
             echo $this->Form->input('events._ids', ['options' => $events]);

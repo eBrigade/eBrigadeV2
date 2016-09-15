@@ -25,8 +25,9 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\Barrack[] $child_barracks
  * @property \App\Model\Entity\Event[] $events
- * @property \App\Model\Entity\Material[] $materials
+ * @property \App\Model\Entity\UserMaterial[] $user_materials
  * @property \App\Model\Entity\Operation[] $operations
+ * @property \App\Model\Entity\Material[] $materials
  * @property \App\Model\Entity\User[] $users
  * @property \App\Model\Entity\Vehicle[] $vehicles
  */

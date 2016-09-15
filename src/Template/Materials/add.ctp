@@ -3,10 +3,10 @@
 
 <script>
     $("#categories").on("change",function(){
+        var url = '<?= $this->Url->build(["controller" => "Materials","action" => "addajax"]) ?>/'+$("#categories").val();
         $.ajax({
-            type:"POST",
-            url:'<?= $this->Url->build(["controller" => "Materials","action" => "addajax"]); ?>',
-            data:"category="+$("#categories").val(),
+            type:'GET',
+            url:url,
             success:function(data) {
                 $('#result').html(data);
             }

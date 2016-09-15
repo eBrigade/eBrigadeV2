@@ -19,7 +19,7 @@ class MaterialsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['MaterialTypes']
+            'contain' => ['MaterialTypes','Barracks']
         ];
         $materials = $this->paginate($this->Materials);
 
@@ -49,27 +49,6 @@ class MaterialsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    /*
-    public function add()
-    {
-        $material = $this->Materials->newEntity();
-        if ($this->request->is('post')) {
-            $material = $this->Materials->patchEntity($material, $this->request->data);
-            if ($this->Materials->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The material could not be saved. Please, try again.'));
-            }
-        }
-        $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
-        $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
-        $events = $this->Materials->Events->find('list', ['limit' => 200]);
-        $teams = $this->Materials->Teams->find('list', ['limit' => 200]);
-        $this->set(compact('material', 'materialTypes', 'barracks', 'events', 'teams'));
-        $this->set('_serialize', ['material']);
-    } */
     public function add()
     {
         $this->set('categories',$this->Materials->MaterialTypes->find('list',[
@@ -81,7 +60,14 @@ class MaterialsController extends AppController
     {
         $material = $this->Materials->newEntity();
         if ($this->request->is('post')) {
-            $material = $this->Materials->patchEntity($material, $this->request->data);
+            $data = [
+                'material_type_id' => $this->request->data['material_type_id'],
+                'stock' => $this->request->data['stock'],
+                'barracks' => [
+                    '_ids' => [$this->request->data['barrack']]
+                ]
+            ];
+            $material = $this->Materials->patchEntity($material, $data);
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('The material has been saved.'));
 
@@ -92,7 +78,7 @@ class MaterialsController extends AppController
         }
         $materialTypes = $this->Materials->MaterialTypes->find('list', [
             'conditions' => [
-                'type' => $this->request->data['category']
+                'type' => $category
             ]
         ]);
         $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
