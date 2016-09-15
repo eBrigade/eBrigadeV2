@@ -77,9 +77,7 @@ class EventsTable extends Table
             'foreignKey' => 'barrack_id'
         ]);
 
-        $this->hasMany('Formations', [
-            'foreignKey' => 'event_id'
-        ]);
+
         $this->belongsToMany('Materials', [
             'foreignKey' => 'event_id',
             'targetForeignKey' => 'material_id',

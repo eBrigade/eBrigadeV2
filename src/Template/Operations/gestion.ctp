@@ -276,7 +276,8 @@
                                                         </button>
                                                         <ul class="dropdown-menu">
                                                             <?php foreach ($usersList as $users): ?>
-                                                                <li class="list-group-item action-btn" id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id?>-add-Teams-Users">
+                                                                <li class="list-group-item action-btn"
+                                                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id ?>-add-Teams-Users">
                                                                     <?= $users->firstname . ' ' . $users->lastname ?>
                                                                 </li>
                                                             <?php endforeach; ?>
@@ -287,14 +288,15 @@
 
                                                     <ul class="list-group-item team"
                                                         id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Users">
-                                                    <?php
-                                                    if (!empty($teams->users)): ?>
-                                                        <?php foreach ($teams->users as $users): ?>
-                                                            <li class="list-group-item action-btn" id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id?>-remove-Teams-Users">
-                                                                <?= $users->firstname . ' ' . $users->lastname; ?>
-                                                                 </li>
-                                                        <?php endforeach; ?>
-                                                    <?php endif; ?>
+                                                        <?php
+                                                        if (!empty($teams->users)): ?>
+                                                            <?php foreach ($teams->users as $users): ?>
+                                                                <li class="list-group-item action-btn"
+                                                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id ?>-remove-Teams-Users">
+                                                                    <?= $users->firstname . ' ' . $users->lastname; ?>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
                                                     </ul>
 
                                                 </ul>
@@ -327,7 +329,7 @@
                                                     if (!empty($teams->materials)): ?>
                                                         <?php foreach ($teams->materials as $materials): ?>
                                                             <li class="list-group-item" onclick="clickAction(
-                                                            <?= $event->id ?>, <?= $teams->id?>, <?= $materials->id ?>, 'remove', 'Teams', 'Materials')">
+                                                            <?= $event->id ?>, <?= $teams->id ?>, <?= $materials->id ?>, 'remove', 'Teams', 'Materials')">
                                                                 <?= $materials->material_type->name ?>
                                                             </li>
                                                         <?php endforeach; ?>
@@ -361,7 +363,7 @@
                                                     if (!empty($teams->vehicles)): ?>
                                                         <?php foreach ($teams->vehicles as $vehicles): ?>
                                                             <li class="list-group-item" onclick="clickAction(
-                                                            <?= $event->id ?>, <?= $teams->id?>, <?= $vehicles->id ?>, 'remove', 'Teams', 'Materials')">
+                                                            <?= $event->id ?>, <?= $teams->id ?>, <?= $vehicles->id ?>, 'remove', 'Teams', 'Materials')">
                                                                 <?= $vehicles->vehicle_type->name ?>
                                                             </li>
                                                         <?php endforeach; ?>
@@ -408,53 +410,61 @@
     <script>
 
 
-
-        $('.action-btn').on('click', function () {
-
-            var item = $(this);
-
-            function datax(source, containerID, contentID, action, containerType, contentType) {
-                this.source = source;
-                this.containerID = containerID;
-                this.contentID = contentID;
-                this.action = action;
-                this.containerType = containerType;
-                this.contentType = contentType;
-            }
-
-            var data = $(this).attr('id').split('-');
-            var datajax = new datax(data[0], data[1], data[2], data[3], data[4], data[5]);
-
-            if (datajax.action == 'remove') {
-                item.remove();
-            }
-            var listpos = datajax.source + "-" + datajax.containerID + "-Teams-Users";
-
-            if (datajax.action == 'add') {
-                var clone = item.clone();
-                var cloneid = clone.attr('id');
-                cloneid.replace('add', 'remove');
-                console.log(cloneid);
-                $('#'+listpos).append(clone);
-            }
+        function actionButton() {
 
 
-            //ajax
-            var request = $.ajax({
-                type: 'POST',
-                data: datajax,
-                url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
-            });
-            //reload list at callback
-           /* request.done(function () {
-                if (action == "remove") {
-                    item.hide();
-                } else {
-                    refreshlist(source, containerID, containerType, contentType);
+            $('.action-btn').on('click', function () {
+
+                var item = $(this);
+
+                function datax(source, containerID, contentID, action, containerType, contentType) {
+                    this.source = source;
+                    this.containerID = containerID;
+                    this.contentID = contentID;
+                    this.action = action;
+                    this.containerType = containerType;
+                    this.contentType = contentType;
                 }
-            });*/
-        });
 
+                var data = $(this).attr('id').split('-');
+                var datajax = new datax(data[0], data[1], data[2], data[3], data[4], data[5]);
+
+                if (datajax.action == 'remove') {
+                    item.remove();
+                }
+                var listpos = datajax.source + "-" + datajax.containerID + "-Teams-Users";
+
+                if (datajax.action == 'add') {
+                    var cloneID = datajax.source + '-' + datajax.containerID + '-' + datajax.contentID + '-remove-'
+                    + datajax.containerType + '-' + datajax.contentType;
+
+                    if ($('#'+cloneID).length) {
+                    } else
+                    {
+                        var clone = item.clone();
+                        clone.attr('id', cloneID);
+                        $('#' + listpos).append(clone);
+                        actionButton();
+                    }
+                }
+
+                //ajax
+                var request = $.ajax({
+                    type: 'POST',
+                    data: datajax,
+                    url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
+                });
+                //todo: double check actions in db to validate or not changes
+                /* request.done(function () {
+                 if (action == "remove") {
+                 item.hide();
+                 } else {
+                 refreshlist(source, containerID, containerType, contentType);
+                 }
+                 });*/
+            });
+        }
+        actionButton();
 
         //loads every list
         function loadlist() {
@@ -489,7 +499,6 @@
             $('#' + id + '').load('/Operations/loadlist/', datalist);
 
         }
-
 
 
     </script>
