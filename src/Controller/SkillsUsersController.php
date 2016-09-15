@@ -1,5 +1,8 @@
 <?php
 namespace App\Controller;
+use Cake\ORM\Query;
+use Cake\I18n\Time;
+use Cake\I18n\Date;
 
 use App\Controller\AppController;
 
@@ -49,11 +52,26 @@ class SkillsUsersController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $skillsUser = $this->SkillsUsers->newEntity();
         if ($this->request->is('post')) {
-            $skillsUser = $this->SkillsUsers->patchEntity($skillsUser, $this->request->data);
+            // calculer la date
+            $until = $this->SkillsUsers->Skills->find('all',[
+                'conditions' => [
+                    'id' => $this->request->data['skill_id']
+                ],
+                'fields' => [
+                    'validity_date'
+                ]
+            ])->first();
+            $date = new Date($this->request->data['date_acquired']);
+            $date->modify('+'.$until['validity_date'].' day');
+
+            $skillsUser->skill_id = $this->request->data['skill_id'];
+            $skillsUser->user_id = $this->request->data['user_id'];
+            $skillsUser->date_acquired = $this->request->data['date_acquired'];
+            $skillsUser->validity_date = $date->format('Y-m-d');
             if ($this->SkillsUsers->save($skillsUser)) {
                 $this->Flash->success(__('The skills user has been saved.'));
 
@@ -62,10 +80,19 @@ class SkillsUsersController extends AppController
                 $this->Flash->error(__('The skills user could not be saved. Please, try again.'));
             }
         }
-        $skills = $this->SkillsUsers->Skills->find('list', ['limit' => 200]);
-        $users = $this->SkillsUsers->Users->find('list', ['limit' => 200]);
-        $this->set(compact('skillsUser', 'skills', 'users'));
-        $this->set('_serialize', ['skillsUser']);
+
+        $this->loadModel('Barracks');
+        $barracks = $this->Barracks->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'name'
+        ]);
+        $skills = $this->SkillsUsers->Skills->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'name'
+        ]);
+        $this->set(compact('user'));
+        $this->set('barracks',$barracks);
+        $this->set('skills',$skills);
     }
 
     /**
@@ -75,11 +102,15 @@ class SkillsUsersController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($skill_id = null,$user_id = null)
     {
-        $skillsUser = $this->SkillsUsers->get($id, [
-            'contain' => []
-        ]);
+        $skillsUser = $this->SkillsUsers->find('all', [
+            'contain' => [],
+            'conditions' => [
+                'skill_id' => $skill_id,
+                'user_id' => $user_id
+            ]
+        ])->first();
         if ($this->request->is(['patch', 'post', 'put'])) {
             $skillsUser = $this->SkillsUsers->patchEntity($skillsUser, $this->request->data);
             if ($this->SkillsUsers->save($skillsUser)) {
@@ -103,10 +134,15 @@ class SkillsUsersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($skill_id = null,$user_id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $skillsUser = $this->SkillsUsers->get($id);
+        $skillsUser = $this->SkillsUsers->find('all',[
+            'conditions' => [
+                'skill_id' => $skill_id,
+                'user_id' => $user_id
+            ]
+        ])->first();
         if ($this->SkillsUsers->delete($skillsUser)) {
             $this->Flash->success(__('The skills user has been deleted.'));
         } else {
@@ -114,5 +150,18 @@ class SkillsUsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function getuser($id=null)
+    {
+        $users = $this->SkillsUsers->Users->find('list',[
+            'keyField' => 'id',
+            'valueField' => function($q){
+                return $q['firstname'].' '.$q['lastname'];
+            }
+        ])->innerJoinWith('Barracks');
+        $users->where(['Barracks.id' => $id]);
+
+        $this->set('users',$users);
     }
 }

@@ -110,4 +110,57 @@ class SkillsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function adduser($id = null)
+    {
+        $user = $this->Skills->Users->newEntity();
+        if ($this->request->is('post')) {
+            // calculer la date
+            $until = $this->Skills->find('all',[
+                'conditions' => [
+                    'id' => $this->request->data['skill_id']
+                ],
+                'fields' => [
+                    'validity_date'
+                ]
+            ])->first();
+            $date = new Date($this->request->data['date_acquired']);
+            $date->modify('+'.$until['validity_date'].' day');
+            $date->format('Y-m-d');
+
+            $data = [
+                'skill_id' => $this->request->data['skill_id'],
+                'user_id' => $this->request->data['user_id'],
+                'date_acquired' => $this->request->data['date_acquired'],
+                'validity_date' => $date->format('Y-m-d')
+            ];
+            debug($data);
+        }
+
+        $this->loadModel('Barracks');
+        $barracks = $this->Barracks->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'name'
+        ]);
+        $skills = $this->Skills->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'name'
+        ]);
+        $this->set(compact('user'));
+        $this->set('barracks',$barracks);
+        $this->set('skills',$skills);
+    }
+
+    public function getuser($id=null)
+    {
+        $users = $this->Skills->Users->find('list',[
+            'keyField' => 'id',
+            'valueField' => function($q){
+                return $q['firstname'].' '.$q['lastname'];
+            }
+        ])->innerJoinWith('Barracks');
+        $users->where(['Barracks.id' => $id]);
+
+        $this->set('users',$users);
+    }
 }

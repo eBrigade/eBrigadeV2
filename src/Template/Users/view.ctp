@@ -18,7 +18,7 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Informations
+                <span class="glyphicon glyphicon-user"></span>  Informations
             </div>
             <div class="panel-body">
                 <table class="vertical-table">
@@ -58,13 +58,17 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
-                Contacts
+                <span class="glyphicon glyphicon-earphone"></span>  Contacts
             </div>
             <div class="panel-body">
                 <table class="vertical-table">
                     <tr>
                         <th><?= __('Email') ?></th>
                         <td><?= h($user->email) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= __('Phone') ?></th>
+                        <td><?= h($user->phone) ?></td>
                     </tr>
                     <tr>
                         <th><?= __('Cellphone') ?></th>
@@ -87,7 +91,7 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-danger">
             <div class="panel-heading">
-                Rattachement
+                <span class="glyphicon glyphicon-home"></span>  Rattachement
             </div>
             <div class="panel-body">
                 <table class="vertical-table">
@@ -118,14 +122,16 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-warning">
             <div class="panel-heading">
-                Compétences
+                <span class="glyphicon glyphicon-briefcase"></span>  Compétences
             </div>
             <div class="panel-body">
                 <ul class="list-unstyled">
                     <?php
                         foreach($user->skills as $skill)
                         {
-                            echo '<li>'.$skill->name.'</li>';
+                            echo '<li class="list-group-item"><label>'.$skill->name.' : </label><br>';
+                            echo 'Obtenu(e) le : '.$skill->_joinData->date_acquired.'<br>';
+                            echo 'Valable jusqu\'au : '.$skill->_joinData->validity_date.'</li>';
                         }
                     ?>
                 </ul>
