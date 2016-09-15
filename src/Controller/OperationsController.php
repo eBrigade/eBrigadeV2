@@ -33,13 +33,15 @@ class OperationsController extends AppController
 
         $this->loadModel('Events');
         $event = $this->Events->newEntity();
-
+        $operation = $this->Operations->get($id);
 
 
         if ($this->request->is('post')) {
             $event = $this->Events->patchEntity($event, $this->request->data);
             $event->module_id = $id;
             $event->module = 'operations';
+            $event->latitude = $operation->latitude - 0.01;
+            $event->longitude = $operation->longitude +0.01;
             if ($this->Events->save($event)) {
 
                 $this->Flash->success(__('The event has been saved.'));
@@ -56,8 +58,6 @@ class OperationsController extends AppController
         $this->set(compact( 'event', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
         $this->set('_serialize', ['event']);
     }
-
-
 
     public function gestion($id = null)
     {
