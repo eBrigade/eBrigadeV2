@@ -1,30 +1,47 @@
 <?php $cell = $this->cell('Messagerie',[$user]) ?>
 <?= $cell ?>
 
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(__('Supprimer ce Message'), ['action' => 'delete', $message->id], ['confirm' => __('Etes-vous sûr de vouloir supprimer le message # {0}?', $message->id)]) ?> </li>
-        <li><?= $this->Html->link(__('Boîte de réception'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('Nouveau Message'), ['action' => 'send']) ?> </li>
-    </ul>
-</nav>
-<div class="messages view large-9 medium-8 columns content">
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Sujet') ?></th>
-            <td><?= h($message->subject) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Destinataire') ?></th>
-            <td><?php
-                $user = $users->find()->where(['id' => $message->to_user])->first();
-                echo $user->firstname.' '.$user->lastname;
-                ?></td>
-        </tr>
-    </table>
-    <div class="row">
-        <h4><?= __('Contenu') ?></h4>
-        <?= $this->Text->autoParagraph(h($message->text)); ?>
+<div class="col-md-10 ">
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Contenu du message
+            <?= $this->Form->postLink(__(''), ['action' => 'delete', $message->id],['class' => 'btn btn-large btn-danger delete pull-right glyphicon glyphicon-trash',]) ?>
+        </div>
+        <div class="panel-body">
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Sujet : <?=  $message->subject ?> <span class="pull-right">à :
+                        <?php foreach ($usert as $rec): ?>
+                        <?=  $rec->firstname.' '.$rec->lastname ?>
+                        <?php endforeach; ?>
+                    </span></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <td><?= $message->text ; ?></td>
+                </tbody>
+
+
+            </table>
+
+        </div>
     </div>
+
 </div>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<?= $this->Html->css('jquery-te-1.4.0.css')?>
+<?= $this->Html->script('jquery-te-1.4.0.min.js')?>
+<script>
+    $("#wysyg").jqte();
+    $('#repondre').hide();
+    $("#rep-bt").click(function() {
+        $('#repondre').toggle( "slow");
+    });
+</script>
