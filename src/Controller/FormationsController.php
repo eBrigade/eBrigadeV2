@@ -150,16 +150,16 @@ class FormationsController extends AppController
         $test = $this->request->data('barracks._ids');
         $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
         $array = [];
+        $array2 = [];
         foreach ($barracks_users as $users):
             foreach ($users->_matchingData as $user):
-                if (!empty($user->id)) {
-                    $array_users = $user->id;
-                    array_push($array, $array_users);
+                if (!empty($user->firstname)) {
+                    $array_id = $user->id;
+                    $array_users = $user->firstname;
+                    $array[$array_id] = $array_users;
                 }
             endforeach;
         endforeach;
-
-
         $formation_event_user_team = $this->Formations->Events->newEntity();
         if ($this->request->is('post')) {
             $formation_event_user_team = $this->Formations->Events->patchEntity($formation_event_user_team, $this->request->data);
@@ -170,10 +170,10 @@ class FormationsController extends AppController
         }
 
         $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
-        /*        $users = $this->Formations->Events->Teams->Users->find('list')->where(['id'=>'1'])->where(['id'=>'2']);*/
+        $users = $this->Formations->Events->Teams->Users->find('list',['valueField'=>'firstname']);
 
 
-        $this->set(compact('formation_event_user_team', 'barracks', 'users', 'barracks_users', 'array'));
+        $this->set(compact('formation_event_user_team', 'barracks', 'users', 'barracks_users', 'array','array2'));
         $this->set('_serialize', ['formation_event']);
     }
 }

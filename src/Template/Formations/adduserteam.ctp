@@ -18,7 +18,11 @@
     <?= $this->Form->create($formation_event_user_team) ?>
     <fieldset>
         <?php
-        echo $this->Form->input('users._ids', ['options' => $array]);
+        if (!empty($array)) {
+            echo $this->Form->input('users._ids', ['options' => $array]);
+        } else{
+        echo $this->Form->input('users._ids', ['options' => $users]);
+        }
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
