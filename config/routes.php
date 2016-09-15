@@ -70,6 +70,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         'id' => '[0-9]+',
         'date' => '[0-9\-]+'
     ]);
+    $routes->connect('/skills-users/edit/:skill_id/:user_id',['controller' => 'SkillsUsers','action' => 'edit'],[
+        'pass' => ['skill_id','user_id'],
+        'skill_id' => '[0-9]+',
+        'user_id' => '[0-9]+'
+    ]);
     /**
      * Connect catchall routes for all controllers.
      *

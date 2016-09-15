@@ -62,7 +62,7 @@ class SkillsTable extends Table
             ->allowEmpty('category');
 
         $validator
-            ->date('validity_date')
+            ->integer('validity_date')
             ->allowEmpty('validity_date');
 
         return $validator;

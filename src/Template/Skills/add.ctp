@@ -13,8 +13,9 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('category');
-            echo $this->Form->input('validity_date', ['empty' => true]);
-            echo $this->Form->input('users._ids', ['options' => $users]);
+            echo $this->Form->input('validity_date', [
+                'placeholder '=> 'En jours, ex: 365',
+                'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

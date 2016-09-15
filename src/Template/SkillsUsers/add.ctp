@@ -1,22 +1,32 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Skills Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Skills'), ['controller' => 'Skills', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Skill'), ['controller' => 'Skills', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="skillsUsers form large-9 medium-8 columns content">
-    <?= $this->Form->create($skillsUser) ?>
-    <fieldset>
-        <legend><?= __('Add Skills User') ?></legend>
-        <?php
-            echo $this->Form->input('date_acquired');
-            echo $this->Form->input('validity_date');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+<?= $this->Form->create() ?>
+<?= $this->Form->input('barrack',['options' => $barracks]) ?>
+<div id="result"></div>
+<?= $this->Form->input('skill_id',['options' => $skills]) ?>
+<?= $this->Form->input('date_acquired',['id' => 'date']) ?>
+<?= $this->Form->button(__('Submit')) ?>
+<?= $this->Form->end() ?>
+
+<?= $this->Html->script('jquery-ui.js') ?>
+<script>
+    $(document).ready(function(){
+        loadAjax();
+
+    })
+    $("#barrack").on('change',function(){
+        loadAjax();
+    });
+    $('#date').datepicker({
+        dateFormat: "yy-mm-dd"
+    }).datepicker("setDate",new Date());
+
+    function loadAjax(){
+        var url = '<?= $this->Url->build(['action'=>'getuser']) ?>/'+$("#barrack").val();
+        $.ajax({
+            type:'GET',
+            url:url,
+            success:function(data) {
+                $('#result').html(data);
+            }
+        })
+    }
+</script>

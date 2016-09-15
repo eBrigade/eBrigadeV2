@@ -75,12 +75,11 @@ class UserMaterialsController extends AppController
             }
         }
         $users = $this->UserMaterials->Users->find('list',[
-            'contain' => ['Barracks'],
             'keyField' => 'id',
             'valueField' => function($q){
                 return $q['firstname'] . ' ' . $q['lastname'];
             }
-        ]);
+        ])->innerJoinWith('Barracks')->where(['Barracks.id' => $id]);
         $materials = $this->UserMaterials->Materials->find('list', [
             'contain' => ['MaterialTypes'],
             'fields' => [
@@ -88,11 +87,8 @@ class UserMaterialsController extends AppController
                 'name' => 'MaterialTypes.name'
             ],
             'keyField' => 'id',
-            'valueField' => 'name',
-            'conditions' => [
-                'Materials.barrack_id' => $id
-            ]
-        ]);
+            'valueField' => 'name'
+        ])->innerJoinWith('Barracks')->where(['Barracks.id' => $id]);
         $this->set(compact('userMaterial', 'users', 'materials'));
         $this->set('_serialize', ['userMaterial']);
     }

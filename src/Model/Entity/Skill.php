@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $category
- * @property \Cake\I18n\Time $validity_date
+ * @property int $validity_date
  *
  * @property \App\Model\Entity\User[] $users
  */
