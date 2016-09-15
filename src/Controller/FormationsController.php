@@ -19,7 +19,7 @@ class FormationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Organizations', 'FormationTypes','Events']
+            'contain' => ['Organizations', 'FormationTypes', 'Events']
         ];
         $formations = $this->paginate($this->Formations);
 
@@ -37,7 +37,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Organizations', 'FormationTypes','Events','Events.Teams','Events.Teams.Users','Events.Teams.Vehicles','Events.Teams.Materials']
+            'contain' => ['Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
         ]);
 
         $this->set('formation', $formation);
@@ -119,7 +119,8 @@ class FormationsController extends AppController
     }
 
 
-    public function addevent($id = NULL){
+    public function addevent($id = NULL)
+    {
 
 
         $formation_event = $this->Formations->Events->newEntity();
@@ -130,7 +131,7 @@ class FormationsController extends AppController
             if ($this->Formations->Events->save($formation_event)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
-                return $this->redirect(['action' => 'view',$id]);
+                return $this->redirect(['action' => 'view', $id]);
             } else {
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
@@ -143,41 +144,36 @@ class FormationsController extends AppController
     }
 
 
+    public function adduserteam($id = NULL)
+    {
 
-    public function adduserteam($id = NULL){
-
-        $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id'=>'1'])->matching('Users');
- $array = [] ;
- foreach ($barracks_users as $users):
-    foreach ($users->_matchingData as $test):
-        if (!empty($test->id)) {
-            $type_ad_id_find = "ads.type_ad_id = " . $test->id;
-            array_push($array, $type_ad_id_find);
-        }
-        debug($array) ;
-
-     endforeach;
- endforeach;
-
+        $test = $this->request->data('barracks._ids');
+        $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
+        $array = [];
+        foreach ($barracks_users as $users):
+            foreach ($users->_matchingData as $user):
+                if (!empty($user->id)) {
+                    $array_users = $user->id;
+                    array_push($array, $array_users);
+                }
+            endforeach;
+        endforeach;
 
 
         $formation_event_user_team = $this->Formations->Events->newEntity();
         if ($this->request->is('post')) {
             $formation_event_user_team = $this->Formations->Events->patchEntity($formation_event_user_team, $this->request->data);
             if ($this->Formations->Events->save($formation_event_user_team)) {
-                $this->Flash->success(__('The formation has been saved.'));
-
-                return $this->redirect(['action' => 'view',$id]);
+                return $this->redirect(['action' => 'view', $id]);
             } else {
-                $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
 
         $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
-        $users = $this->Formations->Events->Teams->Users->find('list');
+        /*        $users = $this->Formations->Events->Teams->Users->find('list')->where(['id'=>'1'])->where(['id'=>'2']);*/
 
 
-        $this->set(compact('formation_event_user_team','barracks','users','barracks_users'));
+        $this->set(compact('formation_event_user_team', 'barracks', 'users', 'barracks_users', 'array'));
         $this->set('_serialize', ['formation_event']);
     }
 }

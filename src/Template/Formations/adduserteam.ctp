@@ -5,11 +5,20 @@
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3>Ajouter une event à cette Formation</h3>-->
 <div class="events form large-9 medium-8 columns content">
-    <?= $this->Form->create($formation_event_user_team) ?>
+    <?= $this->Form->create($haha) ?>
     <fieldset>
         <?php
         echo $this->Form->input('barracks._ids', ['options' => $barracks]);
-        echo $this->Form->input('users._ids', ['options' => $users]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
+</div>
+<div class="events form large-9 medium-8 columns content">
+    <?= $this->Form->create($formation_event_user_team) ?>
+    <fieldset>
+        <?php
+        echo $this->Form->input('users._ids', ['options' => $array]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
