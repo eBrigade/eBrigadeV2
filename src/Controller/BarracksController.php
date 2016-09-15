@@ -20,7 +20,7 @@ class BarracksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['ParentBarracks', 'Cities']
+            'contain' => [ 'Cities']
         ];
         $barracks = $this->paginate($this->Barracks);
 
@@ -38,8 +38,8 @@ class BarracksController extends AppController
     public function view($id = null)
     {
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['ParentBarracks', 'Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users.UserMaterials', 'Vehicles.VehicleTypes', 'ChildBarracks', 'Events.Operations.Cities',
+            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
+                'Users.UserMaterials', 'Vehicles.VehicleTypes', 'Events.Operations.Cities',
                 'Formations.Cities'
                 ]
         ]);
@@ -74,12 +74,11 @@ class BarracksController extends AppController
         $parentBarracks = $this->Barracks->find('treeList');
 
         $this->set(compact('barrack', 'cities','parentBarracks'));
-        $parentBarracks = $this->Barracks->ParentBarracks->find('list', ['limit' => 200]);
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
         $users = $this->Barracks->Users->find('list', ['limit' => 200]);
         $vehicles = $this->Barracks->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('barrack', 'parentBarracks', 'cities', 'materials', 'users', 'vehicles'));
+        $this->set(compact('barrack', 'cities', 'materials', 'users', 'vehicles'));
         $this->set('_serialize', ['barrack']);
     }
 

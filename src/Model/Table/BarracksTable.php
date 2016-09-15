@@ -47,7 +47,7 @@ class BarracksTable extends Table
 
         $this->addBehavior('Tree');
 
-        $this->belongsTo('ParentBarracks', [
+        $this->belongsTo('Barracks', [
             'className' => 'Barracks',
             'foreignKey' => 'parent_id'
         ]);
@@ -55,10 +55,7 @@ class BarracksTable extends Table
             'foreignKey' => 'city_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('ChildBarracks', [
-            'className' => 'Barracks',
-            'foreignKey' => 'parent_id'
-        ]);
+
         $this->hasMany('Events', [
             'foreignKey' => 'barrack_id'
         ]);
@@ -134,15 +131,7 @@ class BarracksTable extends Table
             ->requirePresence('rib', 'create')
             ->notEmpty('rib');
 
-        $validator
-            ->integer('lft')
-            ->requirePresence('lft', 'create')
-            ->notEmpty('lft');
 
-        $validator
-            ->integer('rght')
-            ->requirePresence('rght', 'create')
-            ->notEmpty('rght');
 
         return $validator;
     }
@@ -157,7 +146,6 @@ class BarracksTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->existsIn(['parent_id'], 'ParentBarracks'));
         $rules->add($rules->existsIn(['city_id'], 'Cities'));
 
         return $rules;
