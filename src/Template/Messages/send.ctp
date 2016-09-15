@@ -1,4 +1,4 @@
-<?php $cell = $this->cell('Mp',[$user]) ?>
+<?php $cell = $this->cell('Messagerie',[$user]) ?>
 <?= $cell ?>
 
 

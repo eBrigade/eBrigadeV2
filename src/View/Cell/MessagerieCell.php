@@ -1,11 +1,10 @@
 <?php
 namespace App\View\Cell;
 use Cake\View\Cell;
-use Cake\ORM\TableRegistry;
 
 
 // controleur pour le menu de la messagerie
-class MPCell extends Cell
+class MessagerieCell extends Cell
 {
 
     public function display($user)
