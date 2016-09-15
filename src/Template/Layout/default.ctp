@@ -17,6 +17,7 @@ $cakeDescription = 'Ebrigade';
     <?= $this->Html->css('styles.css') ?>
     <?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
     <?= $this->Html->css('easy-autocomplete.css') ?>
+    <?= $this->Html->css('font-awesome.min.css') ?>
 
     <?= $this->Html->script('jquery-min.js')?>
     <?= $this->Html->script('bootstrap-min.js')?>
