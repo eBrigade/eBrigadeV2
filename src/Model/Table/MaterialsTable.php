@@ -10,9 +10,8 @@ use Cake\Validation\Validator;
  * Materials Model
  *
  * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
- * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\HasMany $UserMaterials
- * @property \Cake\ORM\Association\BelongsToMany 
+ * @property \Cake\ORM\Association\BelongsToMany $Barracks
  * @property \Cake\ORM\Association\BelongsToMany $Events
  * @property \Cake\ORM\Association\BelongsToMany $Teams
  *
@@ -43,9 +42,6 @@ class MaterialsTable extends Table
 
         $this->belongsTo('MaterialTypes', [
             'foreignKey' => 'material_type_id'
-        ]);
-        $this->belongsTo('Barracks', [
-            'foreignKey' => 'barrack_id'
         ]);
         $this->hasMany('UserMaterials', [
             'foreignKey' => 'material_id'
@@ -96,7 +92,6 @@ class MaterialsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['material_type_id'], 'MaterialTypes'));
-        $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
 
         return $rules;
     }
