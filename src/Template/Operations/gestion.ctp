@@ -2,124 +2,124 @@
 
 
     <div class="container-fluid clearfix">
-        <?= $this->Html->link("Basculer en affichage tactique", array('controller' => 'Operations','action'=> 'map', $operation->id), array( 'class' => 'btn btn-info btn-xs')) ?>
+        <?= $this->Html->link("Basculer en affichage tactique", array('controller' => 'Operations', 'action' => 'map', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
 
-            <div class="row">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                         aria-valuemin="0"
-                         aria-valuemax="100" style="width: 40%">
-                        <span class="sr-only">40% Complete (success)</span>
-                    </div>
+        <div class="row">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                     aria-valuemin="0"
+                     aria-valuemax="100" style="width: 40%">
+                    <span class="sr-only">40% Complete (success)</span>
                 </div>
             </div>
-            <button type="button" id="infobar-btn" class="btn btn-info btn-xs">afficher/masquer infos de l'opération
-            </button>
-            <div class="row">
+        </div>
+        <button type="button" id="infobar-btn" class="btn btn-info btn-xs">afficher/masquer infos de l'opération
+        </button>
+        <div class="row">
 
-                <div class="col-xs-6 col-md-4" id="infobar">
+            <div class="col-xs-6 col-md-4" id="infobar">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-danger">Détails importants de la mission</li>
+                    <li class="list-group-item">
+                        Opération n°<?= h($operation->id) ?> débutant le <?= h($operation->date) ?>
+                    </li>
+                    <li class="list-group-item">
+                        Adresse : <?= h($operation->address) ?><br>
+                        Ville
+                        : <?= $operation->city->city ?>
+                    </li>
+                    <li class="list-group-item">
+                        A ce jour il manque toujours 2 équipiers
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Informations générales sur la mission de
+                        secours
+                    </li>
+                    <li class="list-group-item">
+                        <?= $operation->title ?>
+                    <li class="list-group-item">
+                        <div class="row-fluid">
+                            <b>Localisation</b>
+                            <?php
+                            $map_options = array(
+                                'id' => 'map_canvas',
+                                'width' => '300px',
+                                'height' => '300px',
+                                'style' => '',
+                                'zoom' => 7,
+                                'type' => 'HYBRID',
+                                'custom' => null,
+                                'localize' => false,
+                                'latitude' => $operation->latitude,
+                                'longitude' => $operation->longitude,
+                                'address' => '1 Infinite Loop, Cupertino',
+                                'marker' => true,
+                                'markerTitle' => 'This is my position',
+                                'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
+                                'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
+                                'infoWindow' => true,
+                                'windowText' => 'My Position',
+                                'draggableMarker' => false
+                            );
+
+                            echo $this->GoogleMap->map($map_options);
+                            $marker_options = array(
+                                'showWindow' => true,
+                                'windowText' => $operation->title,
+                                'markerTitle' => 'Title',
+                                'draggableMarker' => false
+                            );
+
+                            ?>
+
+                            <?= $this->GoogleMap->addMarker("map_canvas", 1, array('latitude' => $operation->latitude, 'longitude' => $operation->longitude), $marker_options); ?>
+
+                        </div>
+
+                        <div class="row-fluid">
+                            <b>Organisation générale</b>
+                            <p><?= $this->Text->autoParagraph(h($operation->general_organization)); ?></p>
+                        </div>
+
+                        <div class="row-fluid">
+                            <b>Consignes pour équipes publics</b>
+                            <p><?= $this->Text->autoParagraph(h($operation->team_instructions)); ?></p>
+                        </div>
+                        <div class="row-fluid">
+                            <b>Consignes pour équipes acteurs</b>
+                            <p><?= $this->Text->autoParagraph(h($operation->actors_organization)); ?></p>
+                        </div>
+                        <div class="row-fluid">
+                            <b>Organisation du transport</b>
+                            <p><?= $this->Text->autoParagraph(h($operation->transport_organization)); ?></p>
+                        </div>
+                        <div class="row-fluid">
+                            <b>Enfin bref, toutes les infos du formulaires qui sont utiles</b>
+                        </div>
+                    </li>
+
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">
+                        <button type="submit" class="btn btn-info btn-sm">Ajouter un document</button>
+                        Documents liés à la mission
+                    </li>
+                    <li class="list-group-item">
+                        Lien vers les documents
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-8" id="event-gestion">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <button type="submit" id="bt-add-event" class="btn btn-info btn-sm">Ajouter un événement
+                        </button>
+
+                        Détails de la mission
+                    </li>
+
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-danger">Détails importants de la mission</li>
-                        <li class="list-group-item">
-                            Opération n°<?= h($operation->id) ?> débutant le <?= h($operation->date) ?>
-                        </li>
-                        <li class="list-group-item">
-                            Adresse : <?= h($operation->address) ?><br>
-                            Ville
-                            : <?= $operation->city->city ?>
-                        </li>
-                        <li class="list-group-item">
-                            A ce jour il manque toujours 2 équipiers
-                        </li>
-                    </ul>
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-info">Informations générales sur la mission de
-                            secours
-                        </li>
-                        <li class="list-group-item">
-                            <?= $operation->title ?>
-                        <li class="list-group-item">
-                            <div class="row-fluid">
-                                <b>Localisation</b>
-                                <?php
-                                $map_options = array(
-                                    'id' => 'map_canvas',
-                                    'width' => '300px',
-                                    'height' => '300px',
-                                    'style' => '',
-                                    'zoom' => 7,
-                                    'type' => 'HYBRID',
-                                    'custom' => null,
-                                    'localize' => false,
-                                    'latitude' => $operation->latitude,
-                                    'longitude' => $operation->longitude,
-                                    'address' => '1 Infinite Loop, Cupertino',
-                                    'marker' => true,
-                                    'markerTitle' => 'This is my position',
-                                    'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
-                                    'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
-                                    'infoWindow' => true,
-                                    'windowText' => 'My Position',
-                                    'draggableMarker' => false
-                                );
-
-                                echo $this->GoogleMap->map($map_options);
-                                $marker_options = array(
-                                    'showWindow' => true,
-                                    'windowText' => $operation->title,
-                                    'markerTitle' => 'Title',
-                                    'draggableMarker' => false
-                                );
-
-                                ?>
-
-                                <?= $this->GoogleMap->addMarker("map_canvas", 1, array('latitude' => $operation->latitude, 'longitude' => $operation->longitude), $marker_options); ?>
-
-                            </div>
-
-                            <div class="row-fluid">
-                                <b>Organisation générale</b>
-                                <p><?= $this->Text->autoParagraph(h($operation->general_organization)); ?></p>
-                            </div>
-
-                            <div class="row-fluid">
-                                <b>Consignes pour équipes publics</b>
-                                <p><?= $this->Text->autoParagraph(h($operation->team_instructions)); ?></p>
-                            </div>
-                            <div class="row-fluid">
-                                <b>Consignes pour équipes acteurs</b>
-                                <p><?= $this->Text->autoParagraph(h($operation->actors_organization)); ?></p>
-                            </div>
-                            <div class="row-fluid">
-                                <b>Organisation du transport</b>
-                                <p><?= $this->Text->autoParagraph(h($operation->transport_organization)); ?></p>
-                            </div>
-                            <div class="row-fluid">
-                                <b>Enfin bref, toutes les infos du formulaires qui sont utiles</b>
-                            </div>
-                        </li>
-
-                    </ul>
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-info">
-                            <button type="submit" class="btn btn-info btn-sm">Ajouter un document</button>
-                            Documents liés à la mission
-                        </li>
-                        <li class="list-group-item">
-                            Lien vers les documents
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-8" id="event-gestion">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <button type="submit" id="bt-add-event" class="btn btn-info btn-sm">Ajouter un événement
-                            </button>
-
-                            Détails de la mission
-                        </li>
-
-                        <li class="list-group-item" id="teamadd"></li>
 
                         <?php $teamNumber = 0 ?>
                         <?php if (!empty($operation->events)): ?>
@@ -220,6 +220,7 @@
                                 <?php if (!empty($event->teams)): ?>
                                     <?php foreach ($event->teams as $teams): ?>
                                         <?php $teamNumber++ ?>
+
                                         <li class="list-group-item-success">
                                             <div class="row-fluid clearfix">
                                                 <div class="col-xs-6 col-md-6">
@@ -258,18 +259,6 @@
                                             </div>
                                         </li>
                                         <li class="list-group-item">
-                                            <div class="row-fluid clearfix">
-                                                <div class="col-xs-6 col-md-6">
-                                                    <p><b>Consignes : </b><?= h($teams->description) ?>
-                                                    </p>
-                                                </div>
-
-                                            </div>
-                                            <div class="row-fluid clearfix">
-
-
-                                            </div>
-
 
                                             <div class="row-fluid clearfix">
 
@@ -293,10 +282,20 @@
                                                         </ul>
                                                         <span class="badge badge-danger">3/4</span>
                                                     </li>
-                                                    <li class="list-group-item list-group-item-info">
+
 
                                                     <li class="list-group-item team"
                                                         id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Users"></li>
+                                                    <?php
+                                                    if (!empty($teams->users)): ?>
+                                                        <?php foreach ($teams->users as $users): ?>
+                                                            <li class="list-group-item" onclick="clickAction(
+                                                            <?= $event->id ?>, <?= $teams->id?>, <?= $users->id ?>, 'remove', 'Teams', 'Users')">
+                                                                <?= $users->firstname . ' ' . $users->lastname; ?>
+                                                                 </li>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+
 
                                                 </ul>
 
@@ -324,6 +323,15 @@
                                                     </li>
                                                     <li class="list-group-item team"
                                                         id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Materials"></li>
+                                                    <?php
+                                                    if (!empty($teams->materials)): ?>
+                                                        <?php foreach ($teams->materials as $materials): ?>
+                                                            <li class="list-group-item" onclick="clickAction(
+                                                            <?= $event->id ?>, <?= $teams->id?>, <?= $materials->id ?>, 'remove', 'Teams', 'Materials')">
+                                                                <?= $materials->material_type->name ?>
+                                                            </li>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
                                                 </ul>
 
                                                 <ul class="list-group col-xs-4 col-sm-4 col-md-4">
@@ -349,25 +357,35 @@
                                                     </li>
                                                     <li class="list-group-item team"
                                                         id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Vehicles"></li>
+                                                    <?php
+                                                    if (!empty($teams->vehicles)): ?>
+                                                        <?php foreach ($teams->vehicles as $vehicles): ?>
+                                                            <li class="list-group-item" onclick="clickAction(
+                                                            <?= $event->id ?>, <?= $teams->id?>, <?= $vehicles->id ?>, 'remove', 'Teams', 'Materials')">
+                                                                <?= $vehicles->vehicle_type->name ?>
+                                                            </li>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
 
                                                 </ul>
                                             </div>
 
                                         </li>
+
                                     <?php endforeach; ?>
 
                                 <?php endif; ?>
                             <?php endforeach; ?>
 
                         <?php endif; ?>
-
                     </ul>
+
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-info">Bilan de la mission</li>
                         <li class="list-group-item">Un beau formulaire chiffres et textarea</li>
                     </ul>
-                </div>
             </div>
+        </div>
     </div>
 
     <script>
@@ -419,7 +437,7 @@
             });
 
         }
-        loadlist();
+        /*loadlist();*/
 
         //refreshes changed list
         function refreshlist(source, containerID, containerType, contentType) {
