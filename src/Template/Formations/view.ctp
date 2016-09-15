@@ -23,39 +23,24 @@
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">Informations générales sur la mission de secours</li>
                 <li class="list-group-item">
-                    ????
+                    <?= $formation->title ?>
                 </li>
                 <li class="list-group-item">
                     <div class="row-fluid">
                         <b>Localisation</b>
-                        <p>Une belle petite carte google de localisation ? <?= $cities[0]['city'] ?></p></div>
+                        <p>Une belle petite carte google de localisation ? <?= $formation->city_id ?></p></div>
 
                     <div class="row-fluid">
                         <b>Date</b>
-                        <p>???? à ????</p>
+                        <p><?= $formation->formation_start ?> à <?= $formation->formation_end ?></p>
                     </div>
-
-                    <div class="row-fluid">
-                        <b>Horraire</b>
-                        <p>????<</p>
-                    </div>
-
                     <div class="row-fluid">
                         <b>Consignes générales</b>
-                        <p>????</p>
-                    </div>
-
-                    <div class="row-fluid">
-                        <b>Consignes pour équipes public</b>
-                        <p></p>
-                    </div>
-                    <div class="row-fluid">
-                        <b>Consignes pour équipes acteurs</b>
-                        <p></p>
+                        <p><?= $formation->instruction ?></p>
                     </div>
                     <div class="row-fluid">
                         <b>Prix</b>
-                        <p>???? €</p>
+                        <p><?= $formation->price ?> €</p>
                     </div>
                 </li>
 
@@ -83,72 +68,71 @@
                 </li>
                 <?php foreach ($formation->events as $event): ?>
 
-                <li class="list-group-item">
-                    <div class="panel-body">
-                        <div class="btn-group">
-
-                            <a href="/Teams/edit/<?= $event->id ?>">
+                    <li class="list-group-item">
+                        <div class="panel-body">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-info btn-xs">Modifier cette équipe</button>
-                            </a>
-                            <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Modifier les informations de l'équipe</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Supprimer l'équipe et ses moyens</a></li>
-                                <li><a href="#">Vider la liste des équipiers</a></li>
-                                <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
-                            </ul>
+                                <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Events/edit/<?= $event->id ?>">Modifier les informations de l'équipe</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Supprimer l'équipe et ses moyens</a></li>
+                                    <li><a href="#">Vider la liste des équipiers</a></li>
+                                    <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="row-fluid">
+                                <p><b>Nom de l'équipe : </b><?= $event->title ?></p>
+                                <p><b>Horaires : </b><?= $event->horaires ?></p>
+                                <p><b>Lieu de rendez-vous : </b><?= $event->details ?></p>
+                                <p><b>Prix : </b><?= $event->price ?></p>
+                                <p><b>Mission principale : </b>Public et Acteurs</p>
+                                <p><b>Consignes : </b><?= $event->instructions ?></p>
+                            </div>
+                            <div class="row-fluid clearfix">
+                                <ul class="list-group col-xs-6 col-sm-6 col-md-3">
+                                    <?php foreach ($event->teams as $team): ?>
+                                    <li class="list-group-item list-group-item-info">
+                                        <button type="button" class="btn btn-info btn-xs">Ajout Users</button>
+                                        <span class="badge badge-danger">0/4</span>
+                                    </li>
+                                    <?php foreach ($team->users as $user): ?>
+                                        <li class="list-group-item"><?= $user->firstname ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                                    <li class="list-group-item list-group-item-info">
+                                        <button type="button" class="btn btn-info btn-xs">Affecter du matériel</button>
+                                        <span class="badge badge-danger">2</span>
+                                    </li>
+                                    <?php foreach ($team->materials as $material): ?>
+                                        <li class="list-group-item"><?= $material->id ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <ul class="list-group col-xs-3 col-sm-3 col-md-3">
+                                    <li class="list-group-item list-group-item-info">
+                                        <button type="button" class="btn btn-info btn-xs">Affecter des véhicules
+                                        </button>
+                                        <span class="badge badge-danger">3</span>
+                                    </li>
+                                    <?php foreach ($team->vehicles as $vehicles): ?>
+                                        <li class="list-group-item"><?= $vehicles->id ?></li>
+                                    <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
                         </div>
-
-                        <div class="row-fluid">
-                            <p><b>Nom de l'équipe : </b><?= $event->title ?></p>
-                            <p><b>Horaires : </b>de 8h à 12h</p>
-                            <p><b>Lieu de rendez-vous : </b>Caserne de Raon-aux-Bois</p>
-                            <p><b>Positionnement : </b>début de la course</p>
-                            <p><b>Mission principale : </b>Public et Acteurs</p>
-                            <p><b>Consignes : </b><?= $event->description ?></p>
-                        </div>
-                        <div class="row-fluid clearfix">
-
-                            <ul class="list-group col-xs-6 col-sm-6 col-md-6">
-                                <li class="list-group-item list-group-item-info">
-                                    <button type="button" class="btn btn-info btn-xs">Inscrire du personnel</button>
-                                    <span class="badge badge-danger">0/4</span>
-                                </li>
-                                <?php foreach ($event->users as $user): ?>
-                                    <li class="list-group-item"><?= $user->firstname ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-
-                            <ul class="list-group col-xs-3 col-sm-3 col-md-3">
-                                <li class="list-group-item list-group-item-info">
-                                    <button type="button" class="btn btn-info btn-xs">Affecter du matériel</button>
-                                    <span class="badge badge-danger">2</span>
-                                </li>
-                                <?php foreach ($event->materials as $material): ?>
-                                    <li class="list-group-item"><?= $material->id ?></li>
-                                <?php endforeach;?>
-                            </ul>
-
-                            <ul class="list-group col-xs-3 col-sm-3 col-md-3">
-                                <li class="list-group-item list-group-item-info">
-                                    <button type="button" class="btn btn-info btn-xs">Affecter des véhicules</button>
-                                    <span class="badge badge-danger">3</span>
-                                </li>
-                                <?php foreach ($event->vehicles as $vehicles): ?>
-                                    <li class="list-group-item"><?= $vehicles->id ?></li>
-                                <?php endforeach;?>
-                            </ul>
-                        </div></div>
-                </li>
+                    </li>
+                <?php endforeach; ?>
             </ul>
-            <?php endforeach; ?>
+
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">Bilan de la mission</li>
                 <li class="list-group-item">Un beau formulaire chiffres et textarea</li>
@@ -158,13 +142,10 @@
 </div>
 <script>
     $('#bt-aj-eq-for').click(function () {
-        var url = '<?= $this->Url->build(['controller' => 'Formations', 'action' => 'addequipeforma', $event[0]['id']]); ?>';
+        var url = '<?= $this->Url->build(['controller' => 'Formations', 'action' => 'addevent', $formation->id]); ?>';
         $('.my-modal-cont').load(url, function (result) {
             $('#myModal').modal({show: true});
         });
     });
-    $('.haha').click(function () {
-        $('.panel-body').toggle('slide')
-    })
 </script>
 </body>

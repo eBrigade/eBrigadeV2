@@ -37,7 +37,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Organizations', 'FormationTypes','Events']
+            'contain' => ['Organizations', 'FormationTypes','Events','Events.Teams','Events.Teams.Users','Events.Teams.Vehicles','Events.Teams.Materials']
         ]);
 
         $this->set('formation', $formation);
@@ -126,21 +126,58 @@ class FormationsController extends AppController
         if ($this->request->is('post')) {
             $formation_event = $this->Formations->Events->patchEntity($formation_event, $this->request->data);
             $formation_event->module_id = $id;
+            $formation_event->module = 'formations';
             if ($this->Formations->Events->save($formation_event)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view',$id]);
             } else {
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
-        $cities = $this->Formations->Events->Cities->find('list', ['limit' => 200]);
+        $cities = $this->Formations->Events->Cities->find('list', ['ValueField' => 'city']);
         $bills = $this->Formations->Events->Bills->find('list', ['limit' => 200]);
         $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
-        $materials = $this->Formations->Events->Materials->find('list', ['limit' => 200]);
-        $teams = $this->Formations->Events->Teams->find('list', ['limit' => 200]);
-        $vehicles = $this->Formations->Events->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('formation_event', 'organizations', 'events', 'formationTypes', 'cities', 'bills', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
+        $this->set(compact('formation_event', 'organizations', 'events', 'formationTypes', 'cities', 'bills', 'barracks'));
+        $this->set('_serialize', ['formation_event']);
+    }
+
+
+
+    public function adduserteam($id = NULL){
+
+        $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id'=>'1'])->matching('Users');
+ $array = [] ;
+ foreach ($barracks_users as $users):
+    foreach ($users->_matchingData as $test):
+        if (!empty($test->id)) {
+            $type_ad_id_find = "ads.type_ad_id = " . $test->id;
+            array_push($array, $type_ad_id_find);
+        }
+        debug($array) ;
+
+     endforeach;
+ endforeach;
+
+
+
+        $formation_event_user_team = $this->Formations->Events->newEntity();
+        if ($this->request->is('post')) {
+            $formation_event_user_team = $this->Formations->Events->patchEntity($formation_event_user_team, $this->request->data);
+            if ($this->Formations->Events->save($formation_event_user_team)) {
+                $this->Flash->success(__('The formation has been saved.'));
+
+                return $this->redirect(['action' => 'view',$id]);
+            } else {
+                $this->Flash->error(__('The formation could not be saved. Please, try again.'));
+            }
+        }
+
+        $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
+        $users = $this->Formations->Events->Teams->Users->find('list');
+
+
+        $this->set(compact('formation_event_user_team','barracks','users','barracks_users'));
         $this->set('_serialize', ['formation_event']);
     }
 }
