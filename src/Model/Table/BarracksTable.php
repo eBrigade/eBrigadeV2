@@ -65,6 +65,9 @@ class BarracksTable extends Table
         $this->hasMany('Operations', [
             'foreignKey' => 'barrack_id'
         ]);
+        $this->hasMany('Formations', [
+            'foreignKey' => 'barrack_is'
+        ]);
         $this->belongsToMany('Materials', [
             'foreignKey' => 'barrack_id',
             'targetForeignKey' => 'material_id',

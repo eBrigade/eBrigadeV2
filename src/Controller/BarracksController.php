@@ -38,7 +38,10 @@ class BarracksController extends AppController
     public function view($id = null)
     {
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['ParentBarracks', 'Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities','Users.UserMaterials', 'Vehicles.VehicleTypes', 'ChildBarracks', 'Events', 'Operations']
+            'contain' => ['ParentBarracks', 'Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
+                'Users.UserMaterials', 'Vehicles.VehicleTypes', 'ChildBarracks', 'Events.Operations.Cities',
+                'Formations.Cities'
+                ]
         ]);
 
         $this->loadModel('UserMaterials');
