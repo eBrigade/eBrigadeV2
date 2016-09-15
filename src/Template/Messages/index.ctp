@@ -1,6 +1,5 @@
-<?php $cell = $this->cell('Mp',[$user]) ?>
+<?php $cell = $this->cell('Messagerie',[$user]) ?>
 <?= $cell ?>
-
 <div class="col-md-10 ">
     <div class="panel panel-default">
         <div class="panel-heading">Boîte de reception
