@@ -29,10 +29,6 @@
             <td><?= $this->Number->format($material->id) ?></td>
         </tr>
         <tr>
-            <th><?= __('Barrack Id') ?></th>
-            <td><?= $this->Number->format($material->barrack_id) ?></td>
-        </tr>
-        <tr>
             <th><?= __('Stock') ?></th>
             <td><?= $this->Number->format($material->stock) ?></td>
         </tr>

@@ -13,9 +13,8 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\HasMany $ChildBarracks
  * @property \Cake\ORM\Association\HasMany $Events
- * @property \Cake\ORM\Association\HasMany $Materials
  * @property \Cake\ORM\Association\HasMany $Operations
- * @property \Cake\ORM\Association\BelongsToMany 
+ * @property \Cake\ORM\Association\BelongsToMany $Materials
  * @property \Cake\ORM\Association\BelongsToMany $Users
  * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
@@ -62,12 +61,6 @@ class BarracksTable extends Table
         ]);
         $this->hasMany('Events', [
             'foreignKey' => 'barrack_id'
-        ]);
-        $this->hasMany('Materials', [
-            'foreignKey' => 'barrack_id'
-        ]);
-        $this->hasMany('UserMaterials', [
-            'foreignKey' => 'material_id'
         ]);
         $this->hasMany('Operations', [
             'foreignKey' => 'barrack_id'
