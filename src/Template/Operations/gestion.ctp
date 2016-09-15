@@ -48,7 +48,7 @@
                                 'height' => '300px',
                                 'style' => '',
                                 'zoom' => 7,
-                                'type' => 'HYBRID',
+                                'type' => 'ROADMAP',
                                 'custom' => null,
                                 'localize' => false,
                                 'latitude' => $operation->latitude,
@@ -135,8 +135,6 @@
                                 </li>
                                 <div class="row-fluid clearfix">
                                     <div class="col-xs-6 col-md-6">
-                                        <p><b>Lieu de rendez-vous : </b>google map</p>
-                                        <p><b>Instructions : </b><?= $event->instructions ?></p>
                                         <p><b>Détails : </b><?= $event->details ?></p>
                                         <p><b>instructions : </b><?= $event->instructions ?></p>
 
@@ -179,14 +177,15 @@
 
                                     </div>
                                     <div class="col-xs-6 col-md-6">
+                                        <p><b>Lieu de rendez-vous : </p>
                                         <?php
                                         $map_options = array(
                                             'id' => 'map_canvas' . $teamNumber,
-                                            'width' => '150px',
+                                            'width' => '300px',
                                             'height' => '150px',
                                             'style' => '',
-                                            'zoom' => 7,
-                                            'type' => 'HYBRID',
+                                            'zoom' => 12,
+                                            'type' => 'ROADMAP',
                                             'custom' => null,
                                             'localize' => false,
                                             'latitude' => $event->latitude,
@@ -205,16 +204,14 @@
                                         $marker_options = array(
                                             'showWindow' => true,
                                             'windowText' => $event->title,
-                                            'markerTitle' => 'Title',
-                                            'draggableMarker' => true
+                                            'markerTitle' => $event->title,
+                                            'draggableMarker' => false
                                         );
 
                                         ?>
 
 
                                         <?= $this->GoogleMap->addMarker("map_canvas" . $teamNumber, $teamNumber, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
-                                        <input type="text" id="latitude_<?= $teamNumber ?>"/>
-                                        <input type="text" id="longitude_<?= $teamNumber ?>"/>
                                     </div>
                                 </div>
 
@@ -291,8 +288,7 @@
 
                                                     <ul class="list-group-item team"
                                                         id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Users">
-                                                        <?php
-                                                        if (!empty($teams->users)): ?>
+                                                        <?php if (!empty($teams->users)): ?>
                                                             <?php foreach ($teams->users as $users): ?>
                                                                 <li class="list-group-item action-btn"
                                                                     id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id ?>-remove-Teams-Users">
@@ -329,8 +325,7 @@
                                                     </li>
                                                     <ul class="list-group-item team"
                                                         id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Materials">
-                                                        <?php
-                                                        if (!empty($teams->materials)): ?>
+                                                        <?php if (!empty($teams->materials)): ?>
                                                             <?php foreach ($teams->materials as $materials): ?>
                                                                 <li class="list-group-item action-btn"
                                                                     id="<?= $event->id ?>-<?= $teams->id ?>-<?= $materials->id ?>-remove-Teams-Materials">
@@ -365,8 +360,7 @@
                                                     </li>
                                                     <ul class="list-group-item team"
                                                         id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Vehicles">
-                                                        <?php
-                                                        if (!empty($teams->vehicles)): ?>
+                                                        <?php if (!empty($teams->vehicles)): ?>
                                                             <?php foreach ($teams->vehicles as $vehicles): ?>
                                                                 <li class="list-group-item action-btn"
                                                                     id="<?= $event->id ?>-<?= $teams->id ?>-<?= $vehicles->id ?>-remove-Teams-Vehicles">

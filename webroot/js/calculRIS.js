@@ -41,6 +41,7 @@ function calculris() {
     i = p2 + e1 + e2;
     ris = i * (p / 1000);
     $('#public-ris').val(ris.toFixed(2));
+    $('#ris').val(ris.toFixed(2));
 
     pub = $('#operation-type-id');
     switch (true) {
