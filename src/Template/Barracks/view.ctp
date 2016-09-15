@@ -52,14 +52,6 @@
                             <td><?= h($barrack->rib) ?></td>
                         </tr>
 
-                        <!--<br/>-->
-                        <!--Ville : <?= h($barrack->city->city) ?> <br/>-->
-                        <!--Téléphone : <?= h($barrack->phone) ?> <br/>-->
-                        <!--Fax : <?= h($barrack->fax) ?> <br/>-->
-                        <!--Email : <?= h($barrack->email) ?> <br/>-->
-                        <!--Site web : <?= h($barrack->website_url) ?> <br/>-->
-                        <!--Ordre : <?= h($barrack->ordre) ?> <br/>-->
-                        <!--R.I.B. : <?= h($barrack->rib) ?>-->
                     </table>
                 </div>
                 <div class="col-md-6">
