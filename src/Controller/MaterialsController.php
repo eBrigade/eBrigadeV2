@@ -72,7 +72,10 @@ class MaterialsController extends AppController
     } */
     public function add()
     {
-
+        $this->set('categories',$this->Materials->MaterialTypes->find('list',[
+            'keyField' => 'type',
+            'valueField' => 'type'
+        ]));
     }
     public function addajax($category=null)
     {
@@ -87,7 +90,11 @@ class MaterialsController extends AppController
                 $this->Flash->error(__('The material could not be saved. Please, try again.'));
             }
         }
-        $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
+        $materialTypes = $this->Materials->MaterialTypes->find('list', [
+            'conditions' => [
+                'type' => $this->request->data['category']
+            ]
+        ]);
         $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
         $this->set(compact('material', 'materialTypes', 'barracks'));
         $this->set('_serialize', ['material']);
