@@ -30,6 +30,16 @@ class MessagesController extends AppController
         $user= $this->Auth->user('id');
         $message = $this->Messages->get($id);
         $repondre = $this->Messages->newEntity();
+        
+//historique des conversations
+        $log = TableRegistry::get('historymp');
+        $get_history = $log->find('all')
+            ->where(['to_user' =>$user])
+            ->orWhere(['to_user' => $message->from_user])
+            ->order(['created' => 'DESC'])
+            ->limit(10)
+            ->offset(1);
+
 
 // répondre au message
         if ($this->request->is('post')) {
@@ -54,6 +64,14 @@ class MessagesController extends AppController
                 $sendmessage->send =  1;
                 $sendmessage->recipients = serialize($rec);
                 $this->Messages->save($sendmessage);
+// sauvegarde dans l'historique
+                $log = TableRegistry::get('historymp');
+                $logs = $log->newEntity();
+                $logs->from_user = $clone->to_user;
+                $logs->to_user = $clone->from_user;
+                $logs->subject =  "re: $clone->subject";
+                $logs->text =  $text;
+                $log->save($logs);
 
 // notification par email
                 $recipient = $users->find()->select(['email'])->where(['id' => $clone->from_user])->first();
@@ -71,7 +89,7 @@ class MessagesController extends AppController
 
         $usert = $users->find()->where(['id' => $message->from_user])->first();
 
-        $this->set(compact('usert','user','users','message','repondre'));
+        $this->set(compact('usert','user','users','message','repondre','get_history'));
         $this->set('_serialize', ['message']);
     }
 
@@ -129,6 +147,15 @@ class MessagesController extends AppController
                 $message->recipients =  '';
                 $this->Messages->save($message);
                 $messageInsertId = $message->id;
+
+// sauvegarde dans l'historique
+                $log = TableRegistry::get('historymp');
+                $logs = $log->newEntity();
+                $logs->from_user = $user;
+                $logs->to_user = $touserid->id;
+                $logs->subject =  $this->request->data['subject'];
+                $logs->text =  $this->request->data['text'];
+                $log->save($logs);
 
 // notification par email
                 $recipient = $users->find()->select(['email'])->where(['id' => $touserid->id])->first();

@@ -10,7 +10,61 @@
 .voffset8 { margin-top: 100px; }
 .voffset9 { margin-top: 150px; }
 
-/*boite de reception messagerie privé*/
+/*messagerie privé*/
+
+blockquote{
+    display:block;
+    background: #fff;
+    padding: 15px 20px 15px 45px;
+    margin: 0 0 20px;
+    position: relative;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    line-height: 1.2;
+    color: #666;
+    text-align: justify;
+    -moz-box-shadow: 2px 2px 15px #ccc;
+    -webkit-box-shadow: 2px 2px 15px #ccc;
+    box-shadow: 2px 2px 15px #ccc;
+    border-radius: 5px;
+}
+
+blockquote::before{
+    content: "\201C";
+    font-family: Georgia, serif;
+    font-size: 60px;
+    font-weight: bold;
+    color: #999;
+    position: absolute;
+    left: 10px;
+    top:5px;
+}
+
+blockquote em{
+    font-style: italic;
+}
+
+.history {
+
+}
+#mp-right {
+    float: right;
+    width: 60vw;
+    border-left: 15px solid #479e47;
+    border-right: 2px solid #479e47;
+}
+#mp-left {
+    float: left;
+    width: 60vw;
+    border-left: 15px solid #428bca;
+    border-right: 2px solid #428bca;
+}
+
+#mess{
+    border-left: 2px solid #479e47;
+    border-right: 2px solid #479e47;
+}
+
 .jqte_tool.jqte_tool_1 .jqte_tool_label {
     position:relative;
     display:block;
