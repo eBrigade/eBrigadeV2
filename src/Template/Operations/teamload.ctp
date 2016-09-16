@@ -1,8 +1,8 @@
-<?php debug($list); ?>
+
 <?php if (!empty($list->teams)): ?>
     <?php foreach ($list->teams as $teams): ?>
 
-        <li class="list-group-item-success team-col-<?= $event->id?>-<?= $teams->id?>">
+        <li class="list-group-item-success team-col-<?= $list->id?>-<?= $teams->id?>">
             <div class="row-fluid clearfix">
                 <div class="col-xs-6 col-md-6">
                     <p><b>ID de l'équipe : <?= h($teams->id) ?></b></p>
@@ -26,7 +26,7 @@
                             <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
                             <li role="separator" class="divider"></li>
                             <li class="list-group-item action-btn"
-                                id="<?= $event->id ?>-<?= $event->id ?>-<?= $teams->id ?>-remove-Events-Teams">
+                                id="<?= $list->id ?>-<?= $list->id ?>-<?= $teams->id ?>-remove-Events-Teams">
                                 Retirer l'équipe de l'événement
                             </li>
                             <li><a href="#">Vider la liste des équipiers</a></li>
@@ -40,7 +40,7 @@
 
             </div>
         </li>
-        <li class="list-group-item team-col-<?= $event->id?>-<?= $teams->id?>">
+        <li class="list-group-item team-col-<?= $list->id?>-<?= $teams->id?>">
 
             <div class="row-fluid clearfix">
 
@@ -59,7 +59,7 @@
                         <ul class="dropdown-menu">
                             <?php foreach ($usersList as $users): ?>
                                 <li class="list-group-item action-btn"
-                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id ?>-add-Teams-Users">
+                                    id="<?= $list->id ?>-<?= $teams->id ?>-<?= $users->id ?>-add-Teams-Users">
                                     <?= $users->firstname . ' ' . $users->lastname ?>
                                 </li>
                             <?php endforeach; ?>
@@ -69,11 +69,11 @@
 
 
                     <ul class="list-group-item team"
-                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Users">
+                        id="<?= $list->id ?>-<?= $teams->id ?>-Teams-Users">
                         <?php if (!empty($teams->users)): ?>
                             <?php foreach ($teams->users as $users): ?>
                                 <li class="list-group-item action-btn"
-                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $users->id ?>-remove-Teams-Users">
+                                    id="<?= $list->id ?>-<?= $teams->id ?>-<?= $users->id ?>-remove-Teams-Users">
                                     <?= $users->firstname . ' ' . $users->lastname; ?>
                                 </li>
                             <?php endforeach; ?>
@@ -97,7 +97,7 @@
                         <ul class="dropdown-menu">
                             <?php foreach ($materialsList as $material): ?>
                                 <li class="list-group-item action-btn"
-                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $material->id ?>-add-Teams-Materials">
+                                    id="<?= $list->id ?>-<?= $teams->id ?>-<?= $material->id ?>-add-Teams-Materials">
                                     <?= $material->id ?>
                                 </li>
                             <?php endforeach; ?>
@@ -106,11 +106,11 @@
                         <span class="badge badge-danger">3</span>
                     </li>
                     <ul class="list-group-item team"
-                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Materials">
+                        id="<?= $list->id ?>-<?= $teams->id ?>-Teams-Materials">
                         <?php if (!empty($teams->materials)): ?>
                             <?php foreach ($teams->materials as $materials): ?>
                                 <li class="list-group-item action-btn"
-                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $materials->id ?>-remove-Teams-Materials">
+                                    id="<?= $list->id ?>-<?= $teams->id ?>-<?= $materials->id ?>-remove-Teams-Materials">
                                     <?= $materials->material_type->name ?>
                                 </li>
                             <?php endforeach; ?>
@@ -133,7 +133,7 @@
                         <ul class="dropdown-menu">
                             <?php foreach ($vehiclesList as $vehicle): ?>
                                 <li class="list-group-item action-btn"
-                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $vehicle->id ?>-add-Teams-Vehicles">
+                                    id="<?= $list->id ?>-<?= $teams->id ?>-<?= $vehicle->id ?>-add-Teams-Vehicles">
                                     <?= $vehicle->id ?>
                                 </li>
                             <?php endforeach; ?>
@@ -141,11 +141,11 @@
                         <span class="badge badge-danger">2</span>
                     </li>
                     <ul class="list-group-item team"
-                        id="<?= $event->id ?>-<?= $teams->id ?>-Teams-Vehicles">
+                        id="<?= $list->id ?>-<?= $teams->id ?>-Teams-Vehicles">
                         <?php if (!empty($teams->vehicles)): ?>
                             <?php foreach ($teams->vehicles as $vehicles): ?>
                                 <li class="list-group-item action-btn"
-                                    id="<?= $event->id ?>-<?= $teams->id ?>-<?= $vehicles->id ?>-remove-Teams-Vehicles">
+                                    id="<?= $list->id ?>-<?= $teams->id ?>-<?= $vehicles->id ?>-remove-Teams-Vehicles">
                                     <?= $vehicles->vehicle_type->name ?>
                                 </li>
                             <?php endforeach; ?>
