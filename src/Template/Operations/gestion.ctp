@@ -113,10 +113,17 @@
             <div class="col-xs-12 col-sm-6 col-md-8" id="event-gestion">
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <button type="submit" id="bt-add-event" class="btn btn-info btn-sm">Ajouter un événement
+                        <div class="event-modal-base">
+                            <div class="event-modal-cont"></div>
+                        </div>
+                        <div class="team-modal-base">
+                            <div class="team-modal-cont"></div>
+                        </div>
+                        <button id="btn-event-ope" class="btn btn-info btn-sm">Ajouter un événement
+                        </button>
+                        <button id="btn-team-create" class="btn btn-info btn-sm">Créer une équipe
                         </button>
 
-                        Détails de la mission
                     </li>
 
                     <ul class="list-group">
@@ -140,30 +147,31 @@
 
                                         <div class="btn-group">
 
-                                            <button type="button" class="btn btn-info btn-xs">Modifier cet événement
-                                            </button>
                                             <button type="button" class="btn btn-info dropdown-toggle btn-xs"
                                                     data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
+                                                Modifier cet événement
                                                 <span class="caret"></span>
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Modifier les informations de l'événement</a></li>
+                                                <li><?= $this->Html->link('Modifier les informations de l\'événement', ['controller' => 'Events', 'action' => 'view', $event->id]) ?> </a></li>
                                                 <li role="separator" class="divider"></li>
-                                                <li><?= $this->Html->link('Supprimer l\'événement et ses moyens', ['controller' => 'Events', 'action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?> </a></li>
-                                                <li><a href="#">Vider la liste des équipes</a></li>
-                                                <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
+                                                <li>*broken*<?= $this->Html->link('Supprimer l\'événement et ses moyens', ['controller' => 'Events', 'action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?> </a></li>
+                                                <li><a href="#">*todo*Vider la liste des équipes</a></li>
                                                 <li role="separator" class="divider"></li>
-                                                <li><a href="#">Dupliquer l'événement et ses moyens</a></li>
+                                                <li><a href="#">*todo*Dupliquer l'événement et ses moyens</a></li>
                                             </ul>
                                         </div>
-                                        <button type="submit" class="btn btn-info btn-sm">Ajouter une équipe</button>
+                                        <br>
+                                        <br>
                                         <button type="button" class="btn btn-info dropdown-toggle btn-xs"
                                                 data-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
+                                            Ajouter une équipe existante
                                             <span class="caret"></span>
                                             <span class="sr-only">Toggle Dropdown</span>
+
                                         </button>
                                         <ul class="dropdown-menu">
                                             <?php foreach ($teamsList as $teams): ?>
@@ -177,7 +185,7 @@
 
                                     </div>
                                     <div class="col-xs-6 col-md-6">
-                                        <p><b>Lieu de rendez-vous : </p>
+                                        <p><b>Lieu de rendez-vous : </b></p>
                                         <?php
                                         $map_options = array(
                                             'id' => 'map_canvas' . $teamNumber,
@@ -401,12 +409,21 @@
             });
         });
 
-        //broken add event
-        //todo: proper add menus with filters for events, teams, users, materials and vehicles
-        var eventadd = $('#bt-add-event');
-        eventadd.on('click', function () {
-            $('#teamadd').load('/Operations/addevent/' + <?= $operation->id ?>);
-        })
+        //team add modal
+        $('#btn-team-create').click(function () {
+            var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addteam']); ?>';
+            $('.event-modal-cont').load(url, function (result) {
+                $('#teamModal').modal({show: true});
+            });
+        });
+
+        //event add modal
+        $('#btn-event-ope').click(function () {
+            var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addevent', $operation->id]); ?>';
+            $('.event-modal-cont').load(url, function (result) {
+                $('#eventModal').modal({show: true});
+            });
+        });
 
 
     </script>
@@ -518,8 +535,8 @@
             $('#' + id + '').load('/Operations/loadlist/', datalist);
 
         }
-
-
     </script>
+
+
 
 <?= $this->Html->script('jquery-ui.js') ?>
