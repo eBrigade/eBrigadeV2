@@ -9,7 +9,7 @@ class MessagerieCell extends Cell
 
     public function display($user)
     {
-      $this->loadModel('Messages');
+        $this->loadModel('Messages');
 
         $users = $user;
         $sendmp = $this->Messages->find()
@@ -21,13 +21,13 @@ class MessagerieCell extends Cell
                 ->andWhere(['send' => 0]);
         $recmpcount = $messages->count();
 
-        
-        $this->loadModel('BarracksUsers');
-        $list = $this->BarracksUsers->find('all', [
-            'contain' => ['Users', 'Barracks']
-        ]);
-        
-        
+
+        $this->loadModel('Barracks');
+        $list = $this->Barracks->find()
+            ->select(['name','id']);
+
+
+
         $this->set(compact('sendmpcount','recmpcount','list'));
     }
 

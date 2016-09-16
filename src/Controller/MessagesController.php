@@ -30,9 +30,9 @@ class MessagesController extends AppController
         $user= $this->Auth->user('id');
         $message = $this->Messages->get($id);
         $repondre = $this->Messages->newEntity();
-        
+
 //historique des conversations
-        $log = TableRegistry::get('historymp');
+        $log = TableRegistry::get('HistoryMp');
         $get_history = $log->find('all')
             ->where(['to_user' =>$user])
             ->orWhere(['to_user' => $message->from_user])
@@ -65,7 +65,7 @@ class MessagesController extends AppController
                 $sendmessage->recipients = serialize($rec);
                 $this->Messages->save($sendmessage);
 // sauvegarde dans l'historique
-                $log = TableRegistry::get('historymp');
+                $log = TableRegistry::get('HistoryMp');
                 $logs = $log->newEntity();
                 $logs->from_user = $clone->to_user;
                 $logs->to_user = $clone->from_user;
@@ -149,7 +149,7 @@ class MessagesController extends AppController
                 $messageInsertId = $message->id;
 
 // sauvegarde dans l'historique
-                $log = TableRegistry::get('historymp');
+                $log = TableRegistry::get('HistoryMp');
                 $logs = $log->newEntity();
                 $logs->from_user = $user;
                 $logs->to_user = $touserid->id;
@@ -175,7 +175,7 @@ class MessagesController extends AppController
                 $notifTable->save($notifSave);
             }
 
- // copie l'entrée pour historique des messages envoyés
+            // copie l'entrée pour historique des messages envoyés
             if ($this->Messages->save($message)) {
                 $sendmessage = $this->Messages->newEntity();
                 $copy = $message->id;

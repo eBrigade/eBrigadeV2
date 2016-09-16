@@ -12,6 +12,15 @@
 
 /*messagerie privé*/
 
+.masse {
+    background-color: red!important;
+    padding: 5px 10px;
+    border-radius: 2px;
+    color: white;
+}
+.nav-pills>li>a {padding: 5px 10px;}
+hr { margin-top: 5px;margin-bottom: 10px; }
+
 blockquote{
     display:block;
     background: #fff;
@@ -44,9 +53,7 @@ blockquote em{
     font-style: italic;
 }
 
-.history {
 
-}
 #mp-right {
     float: right;
     width: 60vw;
@@ -81,8 +88,7 @@ blockquote em{
 .delete{
     margin-top: -5px;
 }
-.nav-pills>li>a {padding: 5px 10px;}
-hr { margin-top: 5px;margin-bottom: 10px; }
+
 
 .panel-right {
     border: none;

@@ -23,7 +23,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php if (empty($message)): ?>
+                <?php if (empty($messages)): ?>
                 <td colspan="4" class="text-center">Aucun message envoyé</td>
                 <?php endif; ?>
                 <?php foreach ($messages as $message): ?>
