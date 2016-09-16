@@ -144,11 +144,13 @@ class FormationsController extends AppController
     }
 
 
-    public function adduserteam($id = NULL)
+    public function adduserteam($id = NULL,$idf)
     {
 
         $test = $this->request->data('barracks._ids');
         $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
+        $names = $this->Formations->Events->Teams->findAllById($id);
+
         $array = [];
         $array2 = [];
         foreach ($barracks_users as $users):
@@ -160,20 +162,30 @@ class FormationsController extends AppController
                 }
             endforeach;
         endforeach;
-        $formation_event_user_team = $this->Formations->Events->newEntity();
-        if ($this->request->is('post')) {
-            $formation_event_user_team = $this->Formations->Events->patchEntity($formation_event_user_team, $this->request->data);
-            if ($this->Formations->Events->save($formation_event_user_team)) {
-                return $this->redirect(['action' => 'view', $id]);
+
+        $this->loadModel('Teams');
+
+        $formation_event_user_team = $this->Formations->Events->Teams->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $formation_event_user_team = $this->Formations->Events->Teams->patchEntity($formation_event_user_team, $this->request->data);
+            foreach ($names as $name) {
+
+                $formation_event_user_team->name = $name->name;
+            }
+            if ($this->Formations->Events->Teams->save($formation_event_user_team)) {
+
+                return $this->redirect(['action' => 'view', $idf]);
             } else {
+                $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
-
         $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
-        $users = $this->Formations->Events->Teams->Users->find('list',['valueField'=>'firstname']);
+        $users = $this->Formations->Events->Teams->Users->find('list', ['valueField' => 'firstname']);
+        $haha = NULL;
 
-
-        $this->set(compact('formation_event_user_team', 'barracks', 'users', 'barracks_users', 'array','array2'));
-        $this->set('_serialize', ['formation_event']);
+        $this->set(compact('formation_event_user_team', 'barracks', 'users', 'barracks_users', 'array', 'array2', 'haha', 'name'));
+        $this->set('_serialize', ['formation_event_user_team']);
     }
 }

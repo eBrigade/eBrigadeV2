@@ -100,7 +100,7 @@
                                 <ul class="list-group col-xs-6 col-sm-6 col-md-3">
                                     <?php foreach ($event->teams as $team): ?>
                                     <li class="list-group-item list-group-item-info">
-                                        <button type="button" class="btn btn-info btn-xs">Ajout Users</button>
+                                        <button type="button" class="btn btn-info btn-xs" id="bt-aj-es-for" onclick="modula(<?= $team->id ?>)">Ajout Users</button>
                                         <span class="badge badge-danger">0/4</span>
                                     </li>
                                     <?php foreach ($team->users as $user): ?>
@@ -147,5 +147,13 @@
             $('#myModal').modal({show: true});
         });
     });
+
+    function modula(id) {
+        console.log(id);
+        var url = '/Formations/adduserteam/'+id+'/4';
+        $('.my-modal-cont').load(url, function (result) {
+            $('#myModal2').modal({show: true});
+        });
+    }
 </script>
 </body>
