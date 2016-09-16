@@ -8,7 +8,7 @@ function RecursiveCategories($array) {
     if (count($array)) {
             echo "\n<ul class='tree'>\n";
 foreach ($array as $vals) {
-echo "<li id=\"".$vals['id']."\"><a href=\"".$vals['id']."\">".$vals['name']."</li></a>";
+echo "<li id=\"".$vals['id']."\">".$vals['name']."<a href=\"barracks/view/".$vals['id']."\"> <span class='glyphicon glyphicon-eye-open'></span></a>";
     if (count($vals['children'])) {
     RecursiveCategories($vals['children']);
     }
@@ -19,4 +19,3 @@ echo "</ul>\n";
 } ?>
 <?= RecursiveCategories($categories) ?>
 
-</div>
