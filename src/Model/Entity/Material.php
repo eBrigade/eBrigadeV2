@@ -7,12 +7,14 @@ use Cake\ORM\Entity;
  * Material Entity
  *
  * @property int $id
+ * @property string $name
+ * @property string $description
  * @property int $material_type_id
- * @property int $stock
+ * @property int $barrack_id
  *
  * @property \App\Model\Entity\MaterialType $material_type
  * @property \App\Model\Entity\Barrack[] $barracks
- * @property \App\Model\Entity\UserMaterial[] $user_materials
+ * @property \App\Model\Entity\MaterialStock[] $material_stocks
  * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Team[] $teams
  */

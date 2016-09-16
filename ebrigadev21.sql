@@ -425,23 +425,36 @@ INSERT INTO `grades` (`id`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `material_type_id` int(11) DEFAULT NULL,
-  `stock` int(6) DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=153 ;
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  `material_type_id` int(11) NOT NULL,
+  `barrack_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `materials`
 --
 
-INSERT INTO `materials` (`id`, `material_type_id`, `barrack_id`, `stock`) VALUES
-(6, 43, 2, 9),
-(134, 38, 1, 5),
-(135, 30, 2, 1),
-(139, 24, 1, 2),
-(140, 28, 1, 3),
-(147, 13, 2, 1),
-(152, 19, 1, 1);
+INSERT INTO `materials` (`id`, `name`, `description`, `material_type_id`, `barrack_id`) VALUES
+(153, 'Seau d''eau bleu', 'Seau d''eau bleu servant au nettoyage', 1, 1),
+(154, 'Sceau normal', 'Un sceau basique.', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `material_stocks`
+--
+
+CREATE TABLE IF NOT EXISTS `material_stocks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `material_id` int(11) NOT NULL,
+  `stock` int(6) NOT NULL,
+  `affectation` varchar(15) NOT NULL,
+  `affectation_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -481,69 +494,16 @@ CREATE TABLE IF NOT EXISTS `material_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   `description` varchar(60) DEFAULT NULL,
-  `type` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `material_types`
 --
 
-INSERT INTO `material_types` (`id`, `name`, `description`, `type`) VALUES
-(2, 'LOT A', 'Sac de secours avec équipement lot A', 'Sanitaire'),
-(3, 'LOT B', 'Sac de secours avec équipement lot B', 'Sanitaire'),
-(4, 'LOT C', 'Sac de secours avec équipement lot C (Hors VPS)', 'Sanitaire'),
-(5, 'Lits Picots', '', 'Hébergement'),
-(6, 'DAE', 'Défibrillateur automatique externe', 'Sanitaire'),
-(7, 'Oxygène', '', 'Sanitaire'),
-(8, 'Radios 450 Mhz', '', 'Transmission'),
-(10, 'Radios 150 MHz', '', 'Transmission'),
-(13, 'Valise P.C.', '150 MHz', 'Transmission'),
-(14, 'Pantalons', '', 'Habillement'),
-(15, 'Mannequins', '', 'Formation'),
-(16, 'Groupes électogènes', '', 'Eléctrique'),
-(17, 'D.A.E.', '', 'Formation'),
-(18, 'Portables', '', 'Informatique'),
-(19, 'Fixes', '', 'Informatique'),
-(20, 'Tentes', '', 'Hébergement'),
-(21, 'Immobilisateurs de tête', '', 'Sanitaire'),
-(24, 'Vestes', '', 'Habillement'),
-(25, 'Parkas', '', 'Habillement'),
-(26, 'Polos', '', 'Habillement'),
-(27, 'Polaires', '', 'Habillement'),
-(28, 'Eclairages', '', 'Eléctrique'),
-(29, 'Rallonges', '', 'Eléctrique'),
-(30, 'Classeurs', '', 'Formation'),
-(31, 'CD ROM', '', 'Formation'),
-(32, 'Couvertures', '', 'Hébergement'),
-(33, 'Sacs de Couchage', '', 'Hébergement'),
-(34, 'Vidéos Projecteurs', '', 'Informatique'),
-(35, 'Imprimantes', '', 'Informatique'),
-(36, 'tee-shirts', '', 'Habillement'),
-(37, 'Valise P.C', '450 MHz', 'Transmission'),
-(38, 'Antennes', '', 'Transmission'),
-(39, 'Tronçonneuses', '', 'Elagage'),
-(40, 'Thermos', '', 'Logistique'),
-(41, 'Jerricanes Alimentaires', '', 'Logistique'),
-(42, 'Claies de Portage', '', 'Logistique'),
-(43, 'Néons', '', 'Eclairage'),
-(44, 'Trépieds Hallogènes', '', 'Eclairage'),
-(45, 'Brancards', '', 'Hébergement'),
-(46, 'Jerricanes', '', 'Divers'),
-(47, 'Brancards Pliants', '', 'Sanitaire'),
-(48, 'Chaises Porteurs', '', 'Sanitaire'),
-(49, 'Brancards Cuillères', '', 'Sanitaire'),
-(50, 'Chauffages Electriques', '', 'Hébergement'),
-(51, 'Aspirateurs à eau', '', 'Pompage'),
-(52, 'Motos Pompes', '', 'Pompage'),
-(53, 'Seaux', '', 'Pompage'),
-(54, 'Raclettes', '', 'Pompage'),
-(55, 'Serpillières', '', 'Pompage'),
-(56, 'Vides Caves', '', 'Pompage'),
-(57, 'Téléphones Portables', '', 'Transmission'),
-(58, 'Extincteur à poudre', '', 'Incendie'),
-(59, 'Extincteur à eau', '', 'Incendie');
+INSERT INTO `material_types` (`id`, `name`, `description`) VALUES
+(1, 'Logistisque', 'Affecté à la caserne simplon');
 
 -- --------------------------------------------------------
 

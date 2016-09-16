@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <th><?= __('Material') ?></th>
-            <td><?= $barracksMaterial->has('material') ? $this->Html->link($barracksMaterial->material->id, ['controller' => 'Materials', 'action' => 'view', $barracksMaterial->material->id]) : '' ?></td>
+            <td><?= $barracksMaterial->has('material') ? $this->Html->link($barracksMaterial->material->name, ['controller' => 'Materials', 'action' => 'view', $barracksMaterial->material->id]) : '' ?></td>
         </tr>
     </table>
 </div>

@@ -18,12 +18,10 @@ class MaterialsControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.materials',
         'app.material_types',
-        'app.user_materials',
-        'app.users',
+        'app.barracks',
         'app.cities',
         'app.departments',
         'app.regions',
-        'app.barracks',
         'app.events',
         'app.operations',
         'app.operation_activities',
@@ -39,6 +37,16 @@ class MaterialsControllerTest extends IntegrationTestCase
         'app.teams',
         'app.events_teams',
         'app.materials_teams',
+        'app.users',
+        'app.availabilities',
+        'app.orders',
+        'app.providers',
+        'app.supplies',
+        'app.orders_supplies',
+        'app.providers_supplies',
+        'app.barracks_users',
+        'app.skills',
+        'app.skills_users',
         'app.teams_users',
         'app.vehicles',
         'app.vehicle_types',
@@ -48,15 +56,8 @@ class MaterialsControllerTest extends IntegrationTestCase
         'app.teams_vehicles',
         'app.users_vehicles',
         'app.barracks_materials',
-        'app.barracks_users',
-        'app.availabilities',
-        'app.orders',
-        'app.providers',
-        'app.supplies',
-        'app.orders_supplies',
-        'app.providers_supplies',
-        'app.skills',
-        'app.skills_users'
+        'app.material_stocks',
+        'app.affectations'
     ];
 
     /**

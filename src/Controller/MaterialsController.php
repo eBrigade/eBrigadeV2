@@ -19,7 +19,7 @@ class MaterialsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['MaterialTypes','Barracks']
+            'contain' => ['MaterialTypes']
         ];
         $materials = $this->paginate($this->Materials);
 
@@ -37,7 +37,7 @@ class MaterialsController extends AppController
     public function view($id = null)
     {
         $material = $this->Materials->get($id, [
-            'contain' => ['MaterialTypes', 'Barracks', 'Events', 'Teams', 'UserMaterials']
+            'contain' => ['MaterialTypes', 'Barracks', 'Events', 'Teams', 'MaterialStocks']
         ]);
 
         $this->set('material', $material);
@@ -51,36 +51,40 @@ class MaterialsController extends AppController
      */
     public function add()
     {
-        $this->set('categories',$this->Materials->MaterialTypes->find('list',[
-            'keyField' => 'type',
-            'valueField' => 'type'
-        ]));
-    }
-    public function addajax($category=null)
-    {
         $material = $this->Materials->newEntity();
         if ($this->request->is('post')) {
             $data = [
+                'name' => $this->request->data['name'],
+                'description' => $this->request->data['description'],
                 'material_type_id' => $this->request->data['material_type_id'],
-                'stock' => $this->request->data['stock'],
+                'barrack_id' => $this->request->data['barrack_id'],
                 'barracks' => [
-                    '_ids' => [$this->request->data['barrack']]
-                ]
+                    '_ids' => [$this->request->data['barrack_id']]
+                    ]
             ];
+
             $material = $this->Materials->patchEntity($material, $data);
+
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('The material has been saved.'));
-
+                // j'ajoute une entrée dans MaterialsStocks pour éviter
+                // de refaire des clics en trop
+                $LastId = $material->id;
+                $materialStocks = $this->Materials->MaterialStocks->newEntity();
+                $data = [
+                    'material_id' => $LastId,
+                    'stock' => $this->request->data['stock'],
+                    'affectation' => 'barracks',
+                    'affectation_id' => $this->request->data['barrack_id']
+                ];
+                $this->Materials->MaterialStocks->patchEntity($materialStocks,$data);
+                $this->Materials->MaterialStocks->save($materialStocks);
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The material could not be saved. Please, try again.'));
             }
         }
-        $materialTypes = $this->Materials->MaterialTypes->find('list', [
-            'conditions' => [
-                'type' => $category
-            ]
-        ]);
+        $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
         $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
         $this->set(compact('material', 'materialTypes', 'barracks'));
         $this->set('_serialize', ['material']);

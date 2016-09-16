@@ -1,14 +1,22 @@
 <?php
-namespace App\Test\TestCase\Controller;
+namespace App\Test\TestCase\Model\Table;
 
-use App\Controller\BarracksMaterialsController;
-use Cake\TestSuite\IntegrationTestCase;
+use App\Model\Table\MaterialStocksTable;
+use Cake\ORM\TableRegistry;
+use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\BarracksMaterialsController Test Case
+ * App\Model\Table\MaterialStocksTable Test Case
  */
-class BarracksMaterialsControllerTest extends IntegrationTestCase
+class MaterialStocksTableTest extends TestCase
 {
+
+    /**
+     * Test subject
+     *
+     * @var \App\Model\Table\MaterialStocksTable
+     */
+    public $MaterialStocks;
 
     /**
      * Fixtures
@@ -16,7 +24,9 @@ class BarracksMaterialsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.barracks_materials',
+        'app.material_stocks',
+        'app.materials',
+        'app.material_types',
         'app.barracks',
         'app.cities',
         'app.departments',
@@ -32,10 +42,6 @@ class BarracksMaterialsControllerTest extends IntegrationTestCase
         'app.formation_types',
         'app.operation_types',
         'app.bills',
-        'app.materials',
-        'app.material_types',
-        'app.material_stocks',
-        'app.affectations',
         'app.events_materials',
         'app.teams',
         'app.events_teams',
@@ -47,6 +53,7 @@ class BarracksMaterialsControllerTest extends IntegrationTestCase
         'app.supplies',
         'app.orders_supplies',
         'app.providers_supplies',
+        'app.user_materials',
         'app.barracks_users',
         'app.skills',
         'app.skills_users',
@@ -57,55 +64,61 @@ class BarracksMaterialsControllerTest extends IntegrationTestCase
         'app.barracks_vehicles',
         'app.events_vehicles',
         'app.teams_vehicles',
-        'app.users_vehicles'
+        'app.users_vehicles',
+        'app.barracks_materials',
+        'app.affectations'
     ];
 
     /**
-     * Test index method
+     * setUp method
      *
      * @return void
      */
-    public function testIndex()
+    public function setUp()
+    {
+        parent::setUp();
+        $config = TableRegistry::exists('MaterialStocks') ? [] : ['className' => 'App\Model\Table\MaterialStocksTable'];
+        $this->MaterialStocks = TableRegistry::get('MaterialStocks', $config);
+    }
+
+    /**
+     * tearDown method
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->MaterialStocks);
+
+        parent::tearDown();
+    }
+
+    /**
+     * Test initialize method
+     *
+     * @return void
+     */
+    public function testInitialize()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test view method
+     * Test validationDefault method
      *
      * @return void
      */
-    public function testView()
+    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test add method
+     * Test buildRules method
      *
      * @return void
      */
-    public function testAdd()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test edit method
-     *
-     * @return void
-     */
-    public function testEdit()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test delete method
-     *
-     * @return void
-     */
-    public function testDelete()
+    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

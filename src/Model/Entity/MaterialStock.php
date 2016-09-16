@@ -4,18 +4,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * UserMaterial Entity
+ * MaterialStock Entity
  *
- * @property int $user_id
+ * @property int $id
  * @property int $material_id
- * @property int $quantity
- * @property \Cake\I18n\Time $from_date
- * @property \Cake\I18n\Time $to_date
+ * @property int $stock
+ * @property int $affectation_id
  *
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Affectation $affectation
  * @property \App\Model\Entity\Material $material
  */
-class UserMaterial extends Entity
+class MaterialStock extends Entity
 {
 
     /**
@@ -29,7 +28,6 @@ class UserMaterial extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'user_id' => false,
-        'material_id' => false
+        'id' => false
     ];
 }

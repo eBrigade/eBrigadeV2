@@ -10,7 +10,8 @@ use Cake\Validation\Validator;
  * Materials Model
  *
  * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
- * @property \Cake\ORM\Association\HasMany $UserMaterials
+ * @property \Cake\ORM\Association\BelongsTo $Barracks
+ * @property \Cake\ORM\Association\HasMany $MaterialStocks
  * @property \Cake\ORM\Association\BelongsToMany $Barracks
  * @property \Cake\ORM\Association\BelongsToMany $Events
  * @property \Cake\ORM\Association\BelongsToMany $Teams
@@ -37,13 +38,18 @@ class MaterialsTable extends Table
         parent::initialize($config);
 
         $this->table('materials');
-        $this->displayField('id');
+        $this->displayField('name');
         $this->primaryKey('id');
 
         $this->belongsTo('MaterialTypes', [
-            'foreignKey' => 'material_type_id'
+            'foreignKey' => 'material_type_id',
+            'joinType' => 'INNER'
         ]);
-        $this->hasMany('UserMaterials', [
+        $this->belongsTo('Barracks', [
+            'foreignKey' => 'barrack_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->hasMany('MaterialStocks', [
             'foreignKey' => 'material_id'
         ]);
         $this->belongsToMany('Barracks', [
@@ -76,8 +82,12 @@ class MaterialsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('stock')
-            ->allowEmpty('stock');
+            ->requirePresence('name', 'create')
+            ->notEmpty('name')
+            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->allowEmpty('description');
 
         return $validator;
     }
@@ -91,7 +101,9 @@ class MaterialsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->isUnique(['name']));
         $rules->add($rules->existsIn(['material_type_id'], 'MaterialTypes'));
+        $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
 
         return $rules;
     }

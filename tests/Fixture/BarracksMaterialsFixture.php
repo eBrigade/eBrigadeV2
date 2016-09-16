@@ -24,8 +24,6 @@ class BarracksMaterialsFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['barrack_id', 'material_id'], 'length' => []],
-            'barracks_materials_ibfk_1' => ['type' => 'foreign', 'columns' => ['barrack_id'], 'references' => ['barracks', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'barracks_materials_ibfk_2' => ['type' => 'foreign', 'columns' => ['material_id'], 'references' => ['materials', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',

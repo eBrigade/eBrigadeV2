@@ -21,10 +21,6 @@
             <td><?= h($materialType->description) ?></td>
         </tr>
         <tr>
-            <th><?= __('Type') ?></th>
-            <td><?= h($materialType->type) ?></td>
-        </tr>
-        <tr>
             <th><?= __('Id') ?></th>
             <td><?= $this->Number->format($materialType->id) ?></td>
         </tr>
@@ -35,17 +31,19 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
+                <th><?= __('Name') ?></th>
+                <th><?= __('Description') ?></th>
                 <th><?= __('Material Type Id') ?></th>
                 <th><?= __('Barrack Id') ?></th>
-                <th><?= __('Stock') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($materialType->materials as $materials): ?>
             <tr>
                 <td><?= h($materials->id) ?></td>
+                <td><?= h($materials->name) ?></td>
+                <td><?= h($materials->description) ?></td>
                 <td><?= h($materials->material_type_id) ?></td>
                 <td><?= h($materials->barrack_id) ?></td>
-                <td><?= h($materials->stock) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>

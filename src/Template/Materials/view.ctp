@@ -7,8 +7,8 @@
         <li><?= $this->Html->link(__('New Material'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Material Types'), ['controller' => 'MaterialTypes', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Material Type'), ['controller' => 'MaterialTypes', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List User Materials'), ['controller' => 'UserMaterials', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Material Stocks'), ['controller' => 'MaterialStocks', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Material Stock'), ['controller' => 'MaterialStocks', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?> </li>
@@ -18,8 +18,12 @@
     </ul>
 </nav>
 <div class="materials view large-9 medium-8 columns content">
-    <h3><?= h($material->id) ?></h3>
+    <h3><?= h($material->name) ?></h3>
     <table class="vertical-table">
+        <tr>
+            <th><?= __('Name') ?></th>
+            <td><?= h($material->name) ?></td>
+        </tr>
         <tr>
             <th><?= __('Material Type') ?></th>
             <td><?= $material->has('material_type') ? $this->Html->link($material->material_type->name, ['controller' => 'MaterialTypes', 'action' => 'view', $material->material_type->id]) : '' ?></td>
@@ -29,33 +33,37 @@
             <td><?= $this->Number->format($material->id) ?></td>
         </tr>
         <tr>
-            <th><?= __('Stock') ?></th>
-            <td><?= $this->Number->format($material->stock) ?></td>
+            <th><?= __('Barrack Id') ?></th>
+            <td><?= $this->Number->format($material->barrack_id) ?></td>
         </tr>
     </table>
+    <div class="row">
+        <h4><?= __('Description') ?></h4>
+        <?= $this->Text->autoParagraph(h($material->description)); ?>
+    </div>
     <div class="related">
-        <h4><?= __('Related User Materials') ?></h4>
-        <?php if (!empty($material->user_materials)): ?>
+        <h4><?= __('Related Material Stocks') ?></h4>
+        <?php if (!empty($material->material_stocks)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th><?= __('User Id') ?></th>
+                <th><?= __('Id') ?></th>
                 <th><?= __('Material Id') ?></th>
-                <th><?= __('Quantity') ?></th>
-                <th><?= __('From Date') ?></th>
-                <th><?= __('To Date') ?></th>
+                <th><?= __('Stock') ?></th>
+                <th><?= __('Affectation') ?></th>
+                <th><?= __('Affectation Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($material->user_materials as $userMaterials): ?>
+            <?php foreach ($material->material_stocks as $materialStocks): ?>
             <tr>
-                <td><?= h($userMaterials->user_id) ?></td>
-                <td><?= h($userMaterials->material_id) ?></td>
-                <td><?= h($userMaterials->quantity) ?></td>
-                <td><?= h($userMaterials->from_date) ?></td>
-                <td><?= h($userMaterials->to_date) ?></td>
+                <td><?= h($materialStocks->id) ?></td>
+                <td><?= h($materialStocks->material_id) ?></td>
+                <td><?= h($materialStocks->stock) ?></td>
+                <td><?= h($materialStocks->affectation) ?></td>
+                <td><?= h($materialStocks->affectation_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'UserMaterials', 'action' => 'view', $userMaterials->user_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'UserMaterials', 'action' => 'edit', $userMaterials->user_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'UserMaterials', 'action' => 'delete', $userMaterials->user_id], ['confirm' => __('Are you sure you want to delete # {0}?', $userMaterials->user_id)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'MaterialStocks', 'action' => 'view', $materialStocks->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'MaterialStocks', 'action' => 'edit', $materialStocks->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'MaterialStocks', 'action' => 'delete', $materialStocks->id], ['confirm' => __('Are you sure you want to delete # {0}?', $materialStocks->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
