@@ -50,9 +50,6 @@ class FormationsTable extends Table
         $this->belongsTo('Organizations', [
             'foreignKey' => 'organization_id'
         ]);
-        $this->belongsTo('Events', [
-            'foreignKey' => 'event_id'
-        ]);
         $this->belongsTo('FormationTypes', [
             'foreignKey' => 'formation_type_id'
         ]);
