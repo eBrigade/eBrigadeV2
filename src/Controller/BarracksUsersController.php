@@ -11,11 +11,13 @@ use App\Controller\AppController;
 class BarracksUsersController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
     public function index()
     {
         $this->paginate = [
@@ -27,13 +29,19 @@ class BarracksUsersController extends AppController
         $this->set('_serialize', ['barracksUsers']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Barracks User id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+
+//envoi de masse
+    public function groupe()
+    {
+        $getuser = $this->BarracksUsers->find()->contain(['Users', 'Barracks'])
+            ->where(['Barracks.id' => $this->request->data['bid']]);
+
+        $this->set('getuser', $getuser);
+    }
+
+
+
+
     public function view($id = null)
     {
         $barracksUser = $this->BarracksUsers->get($id, [

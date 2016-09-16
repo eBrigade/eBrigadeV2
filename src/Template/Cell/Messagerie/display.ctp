@@ -16,38 +16,47 @@
             </ul>
         </div>
     </div>
+    <div id="hide" class="hidden">
     <hr/>
     <div class="sidebar-nav">
         <div class="navbar navbar-default" role="navigation">
-
             <ul class="nav nav-pills nav-stacked">
-                <li id="mp-list"><a href='<?= $this->Url->build(["controller" => "messages","action" => "index" ]); ?>'> Listes
-                </a>
-                </li>
-                <li  id="mp-choice"><a href='<?= $this->Url->build(["controller" => "messages","action" => "dispatch" ]); ?>'>Casernes </a>
-                </li>
+                <li class="active masse">Envoi en masse </li>
+                    <?php foreach ($list as $listring): ?>
+                <li id="list<?= $listring->id ?>"> <a href='#'><?= $listring->name ?></a> </li>
+                <?php endforeach ?>
             </ul>
         </div>
     </div>
+    </div>
 </div>
 
-
-
-<?php foreach ($list as $listring): ?>
-<?= $listring->user->email ?>
-
-
-
-<br>
-<?php endforeach ?>
-
-
 <script>
-// menu lateral gauche
-$( document ).ready(function() {
-if ($('#send-page').length !== 0){
-$('#mp-home').removeClass('active');
-$('#mp-send').addClass('active');
-}
-});
+    // ajax retourne la liste des emails
+    $('li').click(function () {
+        var bid = $(this).attr('id').slice(4);
+        var url = '<?= $this->Url->build("BarracksUsers/groupe"); ?>';
+        console.log(url);
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: 'bid= ' + bid,
+            success: function(data){
+                $('input[name="to"]').val(data);
+            }
+        });
+    });
+
+
+    // menu lateral gauche
+    $( document ).ready(function() {
+        if ($('#send-page').length !== 0){
+            $('#mp-home').removeClass('active');
+            $('#mp-send').addClass('active');
+        }
+        if ($('#mp-write').length !== 0){
+            $('#mp-home').removeClass('active');
+            $('#hide').removeClass('hidden');
+        }
+    });
 </script>
