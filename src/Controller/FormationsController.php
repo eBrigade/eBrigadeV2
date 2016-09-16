@@ -62,10 +62,11 @@ class FormationsController extends AppController
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
+        $cities = $this->Formations->Cities->find('list', ['ValueField' => 'city']);
         $organizations = $this->Formations->Organizations->find('list', ['limit' => 200]);
         $events = $this->Formations->Events->find('list', ['limit' => 200]);
         $formationTypes = $this->Formations->FormationTypes->find('list', ['limit' => 200]);
-        $this->set(compact('formation', 'organizations', 'events', 'formationTypes'));
+        $this->set(compact('formation', 'organizations', 'events', 'formationTypes','cities'));
         $this->set('_serialize', ['formation']);
     }
 

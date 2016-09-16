@@ -63,7 +63,7 @@
                     <div class="my-modal-base">
                         <div class="my-modal-cont"></div>
                     </div>
-                    <div class="btn btn-info btn-sm" id="bt-aj-eq-for">Ajouter une équipe</div>
+                    <div class="btn btn-info btn-sm" id="bt-aj-eq-for">Ajouter une Mission</div>
                     Détails de la mission
                 </li>
                 <?php foreach ($formation->events as $event): ?>
@@ -71,14 +71,14 @@
                     <li class="list-group-item">
                         <div class="panel-body">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info btn-xs">Modifier cette équipe</button>
+                                <button type="button" class="btn btn-info btn-xs">Modifier cette Mission</button>
                                 <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/Events/edit/<?= $event->id ?>">Modifier les informations de l'équipe</a></li>
+                                    <li><a href="/Events/edit/<?= $event->id ?>">Modifier les informations de la Mission</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">Supprimer l'équipe et ses moyens</a></li>
                                     <li><a href="#">Vider la liste des équipiers</a></li>
@@ -92,7 +92,7 @@
                                 <p><b>Nom de l'équipe : </b><?= $event->title ?></p>
                                 <p><b>Horaires : </b><?= $event->horaires ?></p>
                                 <p><b>Lieu de rendez-vous : </b><?= $event->details ?></p>
-                                <p><b>Prix : </b><?= $event->price ?></p>
+                                <p><b>Prix : </b><?= $event->price ?> €</p>
                                 <p><b>Mission principale : </b>Public et Acteurs</p>
                                 <p><b>Consignes : </b><?= $event->instructions ?></p>
                             </div>
@@ -149,7 +149,6 @@
     });
 
     function modula(id) {
-        console.log(id);
         var url = '/Formations/adduserteam/'+id+'/4';
         $('.my-modal-cont').load(url, function (result) {
             $('#myModal2').modal({show: true});
