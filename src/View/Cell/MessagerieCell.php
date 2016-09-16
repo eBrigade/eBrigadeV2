@@ -14,7 +14,6 @@ class MessagerieCell extends Cell
         $users = $user;
         $sendmp = $this->Messages->find()
             ->where(['from_user' => $users]) ;
-
         $sendmpcount = $sendmp->andWhere(['send' => 1])->count();
         $messages =
             $this->Messages->find()
@@ -22,11 +21,14 @@ class MessagerieCell extends Cell
                 ->andWhere(['send' => 0]);
         $recmpcount = $messages->count();
 
-        $this->set(compact('sendmpcount'));
-        $this->set(compact('recmpcount'));
-
-
-
+        
+        $this->loadModel('BarracksUsers');
+        $list = $this->BarracksUsers->find('all', [
+            'contain' => ['Users', 'Barracks']
+        ]);
+        
+        
+        $this->set(compact('sendmpcount','recmpcount','list'));
     }
 
 }

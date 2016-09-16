@@ -23,6 +23,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php if (empty($message)): ?>
+                <td colspan="4" class="text-center">Aucun message envoyé</td>
+                <?php endif; ?>
                 <?php foreach ($messages as $message): ?>
                 <tr>
                     <td><?= $this->Form->checkbox('erase', ['value' => $message->id]); ?></td>
