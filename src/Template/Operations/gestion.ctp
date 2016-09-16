@@ -329,7 +329,7 @@
                                                                 <?php foreach ($materialsList as $material): ?>
                                                                     <li class="list-group-item action-btn"
                                                                         id="<?= $event->id ?>-<?= $teams->id ?>-<?= $material->id ?>-add-Teams-Materials">
-                                                                        <?= $material->id ?>
+                                                                        <?= $material->name ?>
                                                                     </li>
                                                                 <?php endforeach; ?>
 
@@ -342,7 +342,7 @@
                                                                 <?php foreach ($teams->materials as $materials): ?>
                                                                     <li class="list-group-item action-btn"
                                                                         id="<?= $event->id ?>-<?= $teams->id ?>-<?= $materials->id ?>-remove-Teams-Materials">
-                                                                        <?= $materials->material_type->name ?>
+                                                                        <?= $materials->name ?>
                                                                     </li>
                                                                 <?php endforeach; ?>
                                                             <?php endif; ?>
@@ -366,7 +366,7 @@
                                                                 <?php foreach ($vehiclesList as $vehicle): ?>
                                                                     <li class="list-group-item action-btn"
                                                                         id="<?= $event->id ?>-<?= $teams->id ?>-<?= $vehicle->id ?>-add-Teams-Vehicles">
-                                                                        <?= $vehicle->id ?>
+                                                                        <?= $vehicle->vehicle_type->name ?>
                                                                     </li>
                                                                 <?php endforeach; ?>
                                                             </ul>
@@ -441,7 +441,7 @@
         function actionButton() {
 
             //event on button
-            $('.action-btn').on('click', function () {
+            $(document).on('click', '.action-btn', function () {
 
                 //item is clicked object
                 var item = $(this);
@@ -507,6 +507,7 @@
                 request.done(function () {
                     if (datajax.containerType == "Events") {
                         refreshlist(datajax.source, datajax.containerID, datajax.containerType, datajax.contentType);
+
                     } /*else {
                         refreshlist(source, containerID, containerType, contentType);
                     }*/
@@ -544,7 +545,7 @@
                 contentType: contentType
             };
             var id = source + '-' + containerID + '-' + containerType + '-' + contentType;
-            $('#' + id + '').load('/Operations/loadlist/', datalist, actionButton());
+            $('#' + id + '').load('/Operations/loadlist/', datalist);
 
         }
     </script>

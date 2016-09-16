@@ -98,7 +98,7 @@
                             <?php foreach ($materialsList as $material): ?>
                                 <li class="list-group-item action-btn"
                                     id="<?= $list->id ?>-<?= $teams->id ?>-<?= $material->id ?>-add-Teams-Materials">
-                                    <?= $material->id ?>
+                                    <?= $material->name ?>
                                 </li>
                             <?php endforeach; ?>
 
@@ -111,7 +111,7 @@
                             <?php foreach ($teams->materials as $materials): ?>
                                 <li class="list-group-item action-btn"
                                     id="<?= $list->id ?>-<?= $teams->id ?>-<?= $materials->id ?>-remove-Teams-Materials">
-                                    <?= $materials->material_type->name ?>
+                                    <?= $materials->name ?>
                                 </li>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -134,7 +134,7 @@
                             <?php foreach ($vehiclesList as $vehicle): ?>
                                 <li class="list-group-item action-btn"
                                     id="<?= $list->id ?>-<?= $teams->id ?>-<?= $vehicle->id ?>-add-Teams-Vehicles">
-                                    <?= $vehicle->id ?>
+                                    <?= $vehicle->vehicle_type->name ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

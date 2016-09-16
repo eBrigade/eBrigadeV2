@@ -89,7 +89,9 @@ class OperationsController extends AppController
         $teamsList = $this->Operations->Events->Teams->find('all');
         $usersList = $this->Operations->Events->Teams->Users->find('all');
         $materialsList = $this->Operations->Events->Teams->Materials->find('all');
-        $vehiclesList = $this->Operations->Events->Teams->Vehicles->find('all');
+        $vehiclesList = $this->Operations->Events->Teams->Vehicles->find('all', [
+            'contain' => 'VehicleTypes'
+        ]);
 
         $this->set(compact('teamsList', 'usersList', 'materialsList', 'vehiclesList' ));
         $this->set('operation', $operation);
@@ -198,7 +200,13 @@ class OperationsController extends AppController
                 $contain = [$contentType, 'Vehicles.VehicleTypes'];
                 break;
             case 'Teams':
-                $contain = $contentType;
+                $contain = [$contentType, 'Teams.Users', 'Teams.Materials', 'Teams.Vehicles.VehicleTypes'];
+                $teamsList = $this->Events->Teams->find('all');
+                $usersList = $this->Events->Teams->Users->find('all');
+                $materialsList = $this->Events->Teams->Materials->find('all');
+                $vehiclesList = $this->Events->Teams->Vehicles->find('all', [
+                    'contain' => 'VehicleTypes'
+                ]);
                 break;
         }
 
@@ -227,7 +235,8 @@ class OperationsController extends AppController
 
         //sets vars
         $this->set('list', $list);
-        $this->set(compact('containerID', 'source', 'contentType', 'containerType'));
+        $this->set(compact('containerID', 'source', 'contentType', 'containerType',
+            'teamsList', 'usersList', 'materialsList', 'vehiclesList'));
         $this->set('_serialize', $list);
         $this -> render('teamload');
 
