@@ -19,7 +19,7 @@ class FormationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Organizations', 'Events', 'FormationTypes']
+            'contain' => ['Organizations', 'FormationTypes', 'Events']
         ];
         $formations = $this->paginate($this->Formations);
 
@@ -37,7 +37,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Organizations', 'Events', 'FormationTypes']
+            'contain' => ['Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
         ]);
 
         $this->set('formation', $formation);
@@ -116,5 +116,76 @@ class FormationsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    public function addevent($id = NULL)
+    {
+
+
+        $formation_event = $this->Formations->Events->newEntity();
+        if ($this->request->is('post')) {
+            $formation_event = $this->Formations->Events->patchEntity($formation_event, $this->request->data);
+            $formation_event->module_id = $id;
+            $formation_event->module = 'formations';
+            if ($this->Formations->Events->save($formation_event)) {
+                $this->Flash->success(__('The formation has been saved.'));
+
+                return $this->redirect(['action' => 'view', $id]);
+            } else {
+                $this->Flash->error(__('The formation could not be saved. Please, try again.'));
+            }
+        }
+        $cities = $this->Formations->Events->Cities->find('list', ['ValueField' => 'city']);
+        $bills = $this->Formations->Events->Bills->find('list', ['limit' => 200]);
+        $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
+        $this->set(compact('formation_event', 'organizations', 'events', 'formationTypes', 'cities', 'bills', 'barracks'));
+        $this->set('_serialize', ['formation_event']);
+    }
+
+
+    public function adduserteam($id = NULL,$idf)
+    {
+
+        $test = $this->request->data('barracks._ids');
+        $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
+        $names = $this->Formations->Events->Teams->findAllById($id);
+
+        $array = [];
+        $array2 = [];
+        foreach ($barracks_users as $users):
+            foreach ($users->_matchingData as $user):
+                if (!empty($user->firstname)) {
+                    $array_id = $user->id;
+                    $array_users = $user->firstname;
+                    $array[$array_id] = $array_users;
+                }
+            endforeach;
+        endforeach;
+
+        $this->loadModel('Teams');
+
+        $formation_event_user_team = $this->Formations->Events->Teams->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $formation_event_user_team = $this->Formations->Events->Teams->patchEntity($formation_event_user_team, $this->request->data);
+            foreach ($names as $name) {
+
+                $formation_event_user_team->name = $name->name;
+            }
+            if ($this->Formations->Events->Teams->save($formation_event_user_team)) {
+
+                return $this->redirect(['action' => 'view', $idf]);
+            } else {
+                $this->Flash->error(__('The formation could not be saved. Please, try again.'));
+            }
+        }
+        $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
+        $users = $this->Formations->Events->Teams->Users->find('list', ['valueField' => 'firstname']);
+        $haha = NULL;
+
+        $this->set(compact('formation_event_user_team', 'barracks', 'users', 'barracks_users', 'array', 'array2', 'haha', 'name'));
+        $this->set('_serialize', ['formation_event_user_team']);
     }
 }
