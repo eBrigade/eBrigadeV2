@@ -17,20 +17,23 @@ class BarracksController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
+
     public function index()
+    {
+        $categories = $this->Barracks->find('threaded', array(
+                'order' => array('lft'))
+        );
+        $this->set('categories', $categories);
+    }
+
+    public function filter()
     {
         $this->paginate = [
             'contain' => [ 'Cities']
         ];
         $barracks = $this->paginate($this->Barracks);
-
         $parentBarracks = $this->Barracks->find('treeList');
-
-
-
-
         $this->set(compact('barracks','parentBarracks'));
-        $this->set('_serialize', ['barracks']);
     }
 
     /**
