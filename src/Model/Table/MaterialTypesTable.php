@@ -61,9 +61,6 @@ class MaterialTypesTable extends Table
         $validator
             ->allowEmpty('description');
 
-        $validator
-            ->allowEmpty('type');
-
         return $validator;
     }
 

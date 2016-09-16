@@ -22,7 +22,7 @@
             <?php foreach ($barracksMaterials as $barracksMaterial): ?>
             <tr>
                 <td><?= $barracksMaterial->has('barrack') ? $this->Html->link($barracksMaterial->barrack->name, ['controller' => 'Barracks', 'action' => 'view', $barracksMaterial->barrack->id]) : '' ?></td>
-                <td><?= $barracksMaterial->has('material') ? $this->Html->link($barracksMaterial->material->id, ['controller' => 'Materials', 'action' => 'view', $barracksMaterial->material->id]) : '' ?></td>
+                <td><?= $barracksMaterial->has('material') ? $this->Html->link($barracksMaterial->material->name, ['controller' => 'Materials', 'action' => 'view', $barracksMaterial->material->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $barracksMaterial->barrack_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $barracksMaterial->barrack_id]) ?>

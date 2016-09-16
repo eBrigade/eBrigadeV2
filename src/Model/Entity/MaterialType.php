@@ -9,7 +9,6 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $description
- * @property string $type
  *
  * @property \App\Model\Entity\Material[] $materials
  */

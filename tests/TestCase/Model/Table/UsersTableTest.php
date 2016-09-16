@@ -43,7 +43,8 @@ class UsersTableTest extends TestCase
         'app.materials',
         'app.material_types',
         'app.barracks_materials',
-        'app.user_materials',
+        'app.material_stocks',
+        'app.affectations',
         'app.events_materials',
         'app.teams',
         'app.events_teams',
@@ -62,7 +63,10 @@ class UsersTableTest extends TestCase
         'app.providers',
         'app.supplies',
         'app.orders_supplies',
-        'app.providers_supplies'
+        'app.providers_supplies',
+        'app.user_materials',
+        'app.skills',
+        'app.skills_users'
     ];
 
     /**

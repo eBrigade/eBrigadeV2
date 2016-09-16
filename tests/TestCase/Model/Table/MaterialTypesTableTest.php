@@ -54,6 +54,8 @@ class MaterialTypesTableTest extends TestCase
         'app.providers_supplies',
         'app.user_materials',
         'app.barracks_users',
+        'app.skills',
+        'app.skills_users',
         'app.teams_users',
         'app.vehicles',
         'app.vehicle_types',
@@ -62,7 +64,8 @@ class MaterialTypesTableTest extends TestCase
         'app.events_vehicles',
         'app.teams_vehicles',
         'app.users_vehicles',
-        'app.barracks_materials'
+        'app.barracks_materials',
+        'app.material_stocks'
     ];
 
     /**

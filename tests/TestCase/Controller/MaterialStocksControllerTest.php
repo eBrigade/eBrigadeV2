@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\BarracksMaterialsController;
+use App\Controller\MaterialStocksController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\BarracksMaterialsController Test Case
+ * App\Controller\MaterialStocksController Test Case
  */
-class BarracksMaterialsControllerTest extends IntegrationTestCase
+class MaterialStocksControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,7 +16,9 @@ class BarracksMaterialsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.barracks_materials',
+        'app.material_stocks',
+        'app.materials',
+        'app.material_types',
         'app.barracks',
         'app.cities',
         'app.departments',
@@ -32,10 +34,6 @@ class BarracksMaterialsControllerTest extends IntegrationTestCase
         'app.formation_types',
         'app.operation_types',
         'app.bills',
-        'app.materials',
-        'app.material_types',
-        'app.material_stocks',
-        'app.affectations',
         'app.events_materials',
         'app.teams',
         'app.events_teams',
@@ -57,7 +55,9 @@ class BarracksMaterialsControllerTest extends IntegrationTestCase
         'app.barracks_vehicles',
         'app.events_vehicles',
         'app.teams_vehicles',
-        'app.users_vehicles'
+        'app.users_vehicles',
+        'app.barracks_materials',
+        'app.affectations'
     ];
 
     /**

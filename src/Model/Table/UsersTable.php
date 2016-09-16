@@ -12,7 +12,6 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\HasMany $Availabilities
  * @property \Cake\ORM\Association\HasMany $Orders
- * @property \Cake\ORM\Association\HasMany $UserMaterials
  * @property \Cake\ORM\Association\BelongsToMany $Barracks
  * @property \Cake\ORM\Association\BelongsToMany $Skills
  * @property \Cake\ORM\Association\BelongsToMany $Teams
@@ -54,9 +53,6 @@ class UsersTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Orders', [
-            'foreignKey' => 'user_id'
-        ]);
-        $this->hasMany('UserMaterials', [
             'foreignKey' => 'user_id'
         ]);
         $this->belongsToMany('Barracks', [
@@ -160,6 +156,19 @@ class UsersTable extends Table
         $validator
             ->date('connected')
             ->allowEmpty('connected');
+
+        $validator
+            ->requirePresence('personne_referente', 'create')
+            ->notEmpty('personne_referente');
+
+        $validator
+            ->requirePresence('tuteur_legal', 'create')
+            ->notEmpty('tuteur_legal');
+
+        $validator
+            ->integer('alerte')
+            ->requirePresence('alerte', 'create')
+            ->notEmpty('alerte');
 
         return $validator;
     }
