@@ -19,7 +19,7 @@ class MaterialsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['MaterialTypes']
+            'contain' => ['MaterialTypes','Barracks']
         ];
         $materials = $this->paginate($this->Materials);
 
@@ -100,11 +100,36 @@ class MaterialsController extends AppController
     public function edit($id = null)
     {
         $material = $this->Materials->get($id, [
-            'contain' => ['Barracks', 'Events', 'Teams']
+            'contain' => ['Barracks']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $material = $this->Materials->patchEntity($material, $this->request->data);
+            $data = [
+                'name' => $this->request->data['name'],
+                'description' => $this->request->data['description'],
+                'material_type_id' => $this->request->data['material_type_id'],
+                'barrack_id' => $this->request->data['barrack_id'],
+                'barracks' => [
+                    '_ids' => [$this->request->data['barrack_id']]
+                ]
+            ];
+            $material = $this->Materials->patchEntity($material, $data);
             if ($this->Materials->save($material)) {
+
+                $materialStocks = $this->Materials->MaterialStocks->find('all',[
+                    'conditions' => [
+                        'affectation' => 'barracks',
+                        'material_id' => $id
+                    ]
+                ])->first();
+                $data = [
+                    'material_id' => $id,
+                    'stock' => $this->request->data['stock'],
+                    'affectation' => 'barracks',
+                    'affectation_id' => $this->request->data['barrack_id']
+                ];
+
+                $material = $this->Materials->patchEntity($material, $data);
+
                 $this->Flash->success(__('The material has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -114,9 +139,7 @@ class MaterialsController extends AppController
         }
         $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
         $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
-        $events = $this->Materials->Events->find('list', ['limit' => 200]);
-        $teams = $this->Materials->Teams->find('list', ['limit' => 200]);
-        $this->set(compact('material', 'materialTypes', 'barracks', 'events', 'teams'));
+        $this->set(compact('material', 'materialTypes', 'barracks'));
         $this->set('_serialize', ['material']);
     }
 

@@ -438,8 +438,8 @@ CREATE TABLE IF NOT EXISTS `materials` (
 --
 
 INSERT INTO `materials` (`id`, `name`, `description`, `material_type_id`, `barrack_id`) VALUES
-(153, 'Seau d''eau bleu', 'Seau d''eau bleu servant au nettoyage', 1, 1),
-(154, 'Sceau normal', 'Un sceau basique.', 1, 1);
+(1, 'Seau d''eau bleu', 'Seau d''eau bleu servant au nettoyage', 1, 1),
+(2, 'Sceau normal', 'Un sceau basique.', 1, 1);
 
 -- --------------------------------------------------------
 
