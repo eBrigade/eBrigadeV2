@@ -222,7 +222,8 @@
                 <table cellpadding="0" cellspacing="0" class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Matériel</th>
+                        <th>Type</th>
+                        <th>Intitulé</th>
                         <th>Emprunté par</th>
                         <th>Quantité</th>
                         <th class="hidden-xs hidden-sm">Depuis le</th>
@@ -233,13 +234,12 @@
                     <?php foreach ($user_mat as $material): ?>
                     <tr>
                         <td><?=$material->material->material_type->name?></td>
-                        <td><?=$material->user->firstname.' '.$material->user->lastname?></td>
-                        <td><?= ($material->quantity != null) ? $material->quantity : '-/-' ?>
-                        <td class="hidden-xs hidden-sm"><?= ($material->from_date != null) ? $material->from_date :
-                            'Inconnu' ?>
+                        <td><?=$material->material->name?></td>
+                        <td>*</td>
+                        <td>*
+                        <td class="hidden-xs hidden-sm">*
                         </td>
-                        <td class="hidden-xs hidden-sm"><?= ($material->from_to != null) ? $material->from_to :
-                            'Inconnu' ?>
+                        <td class="hidden-xs hidden-sm">*
                         </td>
                     </tr>
                     <?php endforeach; ?>

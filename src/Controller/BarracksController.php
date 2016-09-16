@@ -24,7 +24,12 @@ class BarracksController extends AppController
         ];
         $barracks = $this->paginate($this->Barracks);
 
-        $this->set(compact('barracks'));
+        $parentBarracks = $this->Barracks->find('treeList');
+
+
+
+
+        $this->set(compact('barracks','parentBarracks'));
         $this->set('_serialize', ['barracks']);
     }
 
@@ -39,16 +44,16 @@ class BarracksController extends AppController
     {
         $barrack = $this->Barracks->get($id, [
             'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users.UserMaterials', 'Vehicles.VehicleTypes', 'Events.Operations.Cities',
+                'Users', 'Vehicles.VehicleTypes', 'Events.Operations.Cities',
                 'Formations.Cities'
                 ]
         ]);
 
-        $this->loadModel('UserMaterials');
-        $user_mat = $this->UserMaterials->find('all',[
-        'contain' => ['Users','Materials.MaterialTypes']]);
+        $this->loadModel('MaterialStocks');
+        $user_mat = $this->MaterialStocks->find('all',[
+       'contain' => ['Materials.MaterialTypes']]);
 
-        $c_user_mat = $user_mat->count();
+     $c_user_mat = $user_mat->count();
         $this->set(compact('barrack', 'user_mat','c_user_mat'));
         $this->set('_serialize', ['barrack']);
     }

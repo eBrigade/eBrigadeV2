@@ -1,9 +1,13 @@
 <h3><?= __('Toutes les Casernes') ?></h3>
 
+<?=  $this->Form->input('nhnju', [
+'options' => $parentBarracks]);  ?>
+
+<?= debug($parentBarracks)  ?>
+
 
 <?php foreach ($barracks as $barrack): ?>
 <div class="col-md-6" >
-
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title"><?= h($barrack->name) ?></h3>
