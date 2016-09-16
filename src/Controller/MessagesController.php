@@ -17,7 +17,8 @@ class MessagesController extends AppController
         $messages = $this->paginate(
             $this->Messages->find()
                 ->where(['to_user' => $user])
-                ->andWhere(['send' => 0]));
+                ->andWhere(['send' => 0])
+                ->order(['created' => 'DESC']));
 
         $this->set(compact('table','user','messages'));
         $this->set('_serialize', ['messages']);
@@ -115,7 +116,8 @@ class MessagesController extends AppController
             $this->Messages->find()
                 ->where(['from_user' => $user])
                 ->andWhere(['send' => 1])
-        );
+                ->order(['created' => 'DESC']));
+
 
         $this->set(compact('users','user','messages'));
         $this->set('_serialize', ['messages']);
