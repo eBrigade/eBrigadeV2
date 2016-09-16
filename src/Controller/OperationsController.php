@@ -163,6 +163,8 @@ class OperationsController extends AppController
         }
     }
 
+
+
     //dynamic loading of lists (probably obsolete)
     public function loadlist() {
 
@@ -221,10 +223,12 @@ class OperationsController extends AppController
                 break;
         }
 
+        $this -> render('teamload');
         //sets vars
         $this->set('list', $list);
         $this->set(compact('containerID', 'source', 'contentType', 'containerType'));
         $this->set('_serialize', [$list]);
+
     }
 
 

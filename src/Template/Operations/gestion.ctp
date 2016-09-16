@@ -467,22 +467,28 @@
                 //generates the id of where to add elements in case of add
                 var listpos = datajax.source + "-" + datajax.containerID + "-" + datajax.containerType + "-" + datajax.contentType;
 
+
                 //makes a clone of the clicked item, changes 'add' to 'remove' and appends it to the item list
                 if (datajax.action == 'add') {
 
-                    var cloneID = datajax.source + '-' + datajax.containerID + '-' + datajax.contentID + '-remove-'
-                        + datajax.containerType + '-' + datajax.contentType;
-
-                    if ($('#' + cloneID).length) {
-                        //empty case to avoid useless remove and clone
+                    if (datajax.containerType == 'Events') {
+                        refreshlist(datajax.source, datajax.containerID, datajax.containerType, datajax.contentType)
                     } else {
-                        var clone = item.clone();
-                        clone.attr('id', cloneID);
-                        $('#' + listpos).append(clone);
+                        var cloneID = datajax.source + '-' + datajax.containerID + '-' + datajax.contentID + '-remove-'
+                            + datajax.containerType + '-' + datajax.contentType;
 
-                        //refreshes event listener so that newly cloned items are clickable (removable)
-                        actionButton();
+                        if ($('#' + cloneID).length) {
+                            //empty case to avoid useless remove and clone
+                        } else {
+                            var clone = item.clone();
+                            clone.attr('id', cloneID);
+                            $('#' + listpos).append(clone);
+
+                            //refreshes event listener so that newly cloned items are clickable (removable)
+                            actionButton();
+                        }
                     }
+
                 }
 
                 //ajax
@@ -523,7 +529,7 @@
 
         }
 
-        //refreshes changed list  (obsolete but may be used for db check after item add/remove)
+        //refreshes changed list
         function refreshlist(source, containerID, containerType, contentType) {
             var datalist = {
                 source: source,
