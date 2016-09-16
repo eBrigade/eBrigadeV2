@@ -10,7 +10,7 @@
 </nav>
 <div class="teamsVehicles index large-9 medium-8 columns content">
     <h3><?= __('Teams Vehicles') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table cellpadding="0" cellspacing="0" class="table table-striped">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('team_id') ?></th>

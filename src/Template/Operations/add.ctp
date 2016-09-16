@@ -5,7 +5,7 @@
     </ul>
 </nav>
 <div class="operations form large-9 medium-8 columns content">
-    <?= $this->Form->create($operation) ?>
+    <?= $this->Form->create($operation, ['horizontal' => true]) ?>
     <fieldset>
         <legend><?= __('Add Operation') ?></legend>
         <?php
@@ -19,11 +19,9 @@
         echo $this->Form->input('operation_activity_id', ['options' => $operationActivities]);
         echo $this->Form->input('operation_environment_id', ['options' => $operationEnvironments]);
         echo $this->Form->input('operation_delay_id', ['options' => $operationDelays]);
-        echo 'Résultat du calcul de RIS';
-        echo $this->Form->input('RIS', ['disabled' => 'disabled', 'label' => false]);
+        echo $this->Form->input('RIS', ['disabled' => 'disabled', 'label' => 'Résultat du calcul de RIS']);
         echo $this->Form->input('public_ris', array('type'=>'hidden', 'disabled' => 'disabled'));
-        echo 'Type d\'intervention';
-        echo $this->Form->input('operation_type_id', ['options' => $operationTypes, 'empty' => true, 'disabled' => 'disabled',  'label' => false]);
+        echo $this->Form->input('operation_type_id', ['options' => $operationTypes, 'empty' => true, 'disabled' => 'disabled',  'label' => 'Type d\'intervention']);
         echo $this->Form->input('operation_recommendation_id', ['options' => $operationRecommendations]);
         echo $this->Form->input('public_reinforcement');
         echo $this->Form->input('public_total');
