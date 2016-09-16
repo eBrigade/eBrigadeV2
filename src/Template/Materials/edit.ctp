@@ -1,39 +1,26 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $material->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $material->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Materials'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Material Types'), ['controller' => 'MaterialTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Material Type'), ['controller' => 'MaterialTypes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Material Stocks'), ['controller' => 'MaterialStocks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Material Stock'), ['controller' => 'MaterialStocks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Events'), ['controller' => 'Events', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Event'), ['controller' => 'Events', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="materials form large-9 medium-8 columns content">
-    <?= $this->Form->create($material) ?>
-    <fieldset>
-        <legend><?= __('Edit Material') ?></legend>
-        <?php
-            echo $this->Form->input('name');
-            echo $this->Form->input('description');
-            echo $this->Form->input('material_type_id', ['options' => $materialTypes]);
-            echo $this->Form->input('barrack_id');
-            echo $this->Form->input('barracks._ids', ['options' => $barracks]);
-            echo $this->Form->input('events._ids', ['options' => $events]);
-            echo $this->Form->input('teams._ids', ['options' => $teams]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading text-center">
+                <?= $this->Form->create($material) ?>
+                <fieldset>
+                    <?= __('Edit Material') ?>
+            </div>
+            <div class="panel-body">
+                <?php
+                echo $this->Form->input('name');
+                echo $this->Form->input('description');
+                echo $this->Form->input('material_type_id', ['options' => $materialTypes]);
+                echo $this->Form->input('barrack_id');
+                ?>
+            </div>
+            </fieldset>
+            <div class="panel-footer text-center">
+                <?= $this->Form->button(__('Submit'),[
+                    'class' => 'btn btn-primary'
+                ]) ?>
+            </div>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
 </div>
