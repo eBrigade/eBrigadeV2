@@ -28,24 +28,41 @@ class OperationsController extends AppController
         $this->set('_serialize', ['operations']);
     }
 
+    public function addteam() {
+
+        $this->loadModel('Teams');
+
+        $team = $this->Teams->newEntity();
+        if ($this->request->is('post')) {
+            $team = $this->Teams->patchEntity($team, $this->request->data);
+            if ($this->Teams->save($team)) {
+                $this->Flash->success(__('The team has been saved.'));
+
+                return $this->redirect($this->referer());
+            } else {
+                $this->Flash->error(__('The team could not be saved. Please, try again.'));
+            }
+        }
+
+        $this->set(compact('team'));
+        $this->set('_serialize', ['team']);
+    }
+
 
     public function addevent($id = null) {
 
         $this->loadModel('Events');
         $event = $this->Events->newEntity();
-        $operation = $this->Operations->get($id);
 
 
         if ($this->request->is('post')) {
             $event = $this->Events->patchEntity($event, $this->request->data);
             $event->module_id = $id;
             $event->module = 'operations';
-            $event->latitude = $operation->latitude - 0.01;
-            $event->longitude = $operation->longitude +0.01;
             if ($this->Events->save($event)) {
 
                 $this->Flash->success(__('The event has been saved.'));
-
+                return $this->redirect(['action' => 'gestion', $id]);
             } else {
                 $this->Flash->error(__('The event could not be saved. Please, try again.'));
             }
@@ -146,7 +163,7 @@ class OperationsController extends AppController
         }
     }
 
-    //dynamic loading of lists
+    //dynamic loading of lists (probably obsolete)
     public function loadlist() {
 
         //gets context
