@@ -117,6 +117,7 @@ class EventsController extends AppController
         $event = $this->Events->get($id);
         if ($this->Events->delete($event)) {
             $this->Flash->success(__('The event has been deleted.'));
+            return $this->redirect($this->referer());
         } else {
             $this->Flash->error(__('The event could not be deleted. Please, try again.'));
         }
