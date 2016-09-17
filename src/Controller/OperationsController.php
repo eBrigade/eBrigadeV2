@@ -28,6 +28,32 @@ class OperationsController extends AppController
         $this->set('_serialize', ['operations']);
     }
 
+    public function filter() {
+
+        $this->loadModel('Barracks');
+
+        $barracklist = $this->Barracks->find('all', [
+            'contain' => 'Users'
+        ]);
+
+
+        $this->set(compact('barracklist'));
+    }
+
+    public function userlist() {
+
+        $barrackID = $this->request->data('barrackID');
+        $this->loadModel('Users');
+
+        $userlist = $this->Users->find();
+        $userlist->matching('Barracks', function ($q) use ($barrackID){
+            return $q->where(['Barracks.id' => $barrackID]);
+        });
+
+        $this->set(compact('userlist'));
+
+    }
+
     public function addteam() {
 
         $this->loadModel('Teams');

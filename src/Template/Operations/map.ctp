@@ -22,8 +22,6 @@
             </ul>
             <div class="row-fluid clearfix">
                 <div class="col-xs-12 col-sm-6 col-md-8">
-                    <p><b>Lieu de rendez-vous : </b>google map</p>
-                    <p><b>Instructions : </b><?= $event->instructions ?></p>
                     <p><b>Détails : </b><?= $event->details ?></p>
                     <p><b>instructions : </b><?= $event->instructions ?></p>
                 </div>

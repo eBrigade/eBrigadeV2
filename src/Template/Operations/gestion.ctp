@@ -121,7 +121,7 @@
                         </div>
                         <button id="btn-event-ope" class="btn btn-info btn-sm">Ajouter un événement
                         </button>
-                        <button id="btn-team-create" class="btn btn-info btn-sm">Créer une équipe
+                        <button id="btn-team-create" class="btn btn-success btn-sm">Créer une équipe
                         </button>
 
                     </li>
@@ -166,7 +166,7 @@
                                         </div>
                                         <br>
                                         <br>
-                                        <button type="button" class="btn btn-info dropdown-toggle btn-xs"
+                                        <button type="button" class="btn btn-success dropdown-toggle btn-xs"
                                                 data-toggle="dropdown"
                                                 aria-haspopup="true" aria-expanded="false">
                                             Ajouter une équipe existante
@@ -229,7 +229,7 @@
                                     <?php if (!empty($event->teams)): ?>
                                         <?php foreach ($event->teams as $teams): ?>
 
-                                            <li class="list-group-item-success team-col-<?= $event->id ?>-<?= $teams->id ?>">
+                                            <li class="list-group-item list-group-item-success team-col-<?= $event->id ?>-<?= $teams->id ?>">
                                                 <div class="row-fluid clearfix">
                                                     <div class="col-xs-6 col-md-6">
                                                         <p><b>ID de l'équipe : <?= h($teams->id) ?></b></p>
@@ -239,14 +239,12 @@
                                                     </div>
                                                     <div class="col-xs-6 col-md-6">
                                                         <div class="btn-group">
-                                                            <button type="button" class="btn btn-info btn-xs">Modifier
-                                                                cette
-                                                                équipe
-                                                            </button>
+
                                                             <button type="button"
-                                                                    class="btn btn-info dropdown-toggle btn-xs"
+                                                                    class="btn btn-success dropdown-toggle btn-xs"
                                                                     data-toggle="dropdown"
                                                                     aria-haspopup="true" aria-expanded="false">
+                                                                Modifier cette équipe
                                                                 <span class="caret"></span>
                                                                 <span class="sr-only">Toggle Dropdown</span>
                                                             </button>
@@ -278,7 +276,7 @@
 
                                                     <ul class="list-group col-xs-4 col-sm-4 col-md-4">
                                                         <li class="list-group-item list-group-item-info">
-                                                            <button type="button" class="btn btn-info btn-xs">Inscrire
+                                                            <button type="button" class="btn btn-info btn-xs">Affecter
                                                                 du
                                                                 personnel
                                                             </button>
