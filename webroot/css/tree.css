@@ -10,6 +10,7 @@
 
 .easy-tree > ul {
     padding-left: 15px;
+    background-color: #f9f9f9;
 }
 
 .easy-tree li {
@@ -46,6 +47,7 @@
     border-radius: 3px;
     display: inline-block;
     padding: 5px;
+    font-weight: bold;
     text-decoration: none
 }
 
@@ -80,6 +82,7 @@
     color: #d9534f;
     padding: 3px;
     border-radius: 2px;
+    border: 1px solid black;
 }
 
 .easy-tree li > span > span.glyphicon-plus-sign {
@@ -87,6 +90,13 @@
     color: green;
     padding: 3px;
     border-radius: 2px;
+    border: 1px solid black;
+}
+
+.url {
+    padding: 3px;
+    border-radius: 2px;
+    border: 1px solid black;
 }
 
 .easy-tree li.li_selected > span, .easy-tree li.li_selected > span > a {
