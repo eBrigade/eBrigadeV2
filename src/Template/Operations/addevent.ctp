@@ -8,10 +8,18 @@
                     <?= $this->Form->create($event) ?>
                     <fieldset>
                         <?php
-
                         echo $this->Form->input('title');
+                         ?>
+
+                        <div id="show-address" class="btn">Entrer une autre adresse que celle de l'opération<br>
+                        <b>temporairement désactivé, conflit avec geocode bevaviour, <br>lat et long seront celles de l'opération</b></div>
+                        <div id="address" style="display: none">
+                        <?php
                         echo $this->Form->input('address');
                         echo $this->Form->input('ville');
+                        ?>
+                        </div>
+                            <?php
                         echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
                         echo $this->Form->input('instructions');
                         echo $this->Form->input('details');
@@ -39,7 +47,11 @@
 
     <script>
 
-        //todo: fix dat shit
+        $('#show-address').on('click', function () {
+            $('#address').toggle(300);
+        });
+
+        //datetimepicker on date fields
         $('#start').datetimepicker({
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"

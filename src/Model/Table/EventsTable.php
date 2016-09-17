@@ -47,12 +47,12 @@ class EventsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->addBehavior('Geocodable', [
+        /*$this->addBehavior('Geocodable', [
             'addressColumn' => [
                 'address',
                 'ville'
             ]
-        ]);
+        ]);*/
 
 
         $this->belongsTo('Operations', [
@@ -112,6 +112,15 @@ class EventsTable extends Table
 
         $validator
             ->allowEmpty('address');
+
+        $validator
+            ->allowEmpty('city_id');
+
+        $validator
+            ->allowEmpty('ville');
+
+        $validator
+            ->allowEmpty('barrack_id');
 
         $validator
             ->numeric('latitude')
