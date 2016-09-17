@@ -1,6 +1,7 @@
 <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
 
 <div class="container-fluid clearfix">
+    <?= $this->Html->link("Basculer en affichage opérationnel", array('controller' => 'Operations','action'=> 'operationnel', $operation->id), array( 'class' => 'btn btn-info btn-xs')) ?>
     <?= $this->Html->link("Basculer en affichage de gestion", array('controller' => 'Operations','action'=> 'gestion', $operation->id), array( 'class' => 'btn btn-info btn-xs')) ?>
 
     <div class="row">
@@ -22,8 +23,6 @@
             </ul>
             <div class="row-fluid clearfix">
                 <div class="col-xs-12 col-sm-6 col-md-8">
-                    <p><b>Lieu de rendez-vous : </b>google map</p>
-                    <p><b>Instructions : </b><?= $event->instructions ?></p>
                     <p><b>Détails : </b><?= $event->details ?></p>
                     <p><b>instructions : </b><?= $event->instructions ?></p>
                 </div>
