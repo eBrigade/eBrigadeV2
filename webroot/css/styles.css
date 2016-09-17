@@ -11,7 +11,12 @@
 .voffset9 { margin-top: 150px; }
 
 /*messagerie privé*/
-
+.linkout .active a {
+    cursor: default;
+    background-color: #428bca;
+    color: #fff;
+    text-shadow: 1px 1px 1px #666;
+}
 .masse {
     background-color: red!important;
     padding: 5px 10px;
@@ -19,6 +24,7 @@
     color: white;
 }
 .nav-pills>li>a {padding: 5px 10px;}
+
 hr { margin-top: 5px;margin-bottom: 10px; }
 
 blockquote{
@@ -299,6 +305,11 @@ ul.form {
 }
 
 /*modif pour la vue caserne*/
+
+.panel-color{
+    background-color: #f9f9f9;
+}
+
 .btn-add {
     margin-top: -7px;
     background-color: green;
@@ -374,6 +385,4 @@ html {
 .marge {
     margin-left: 5px;
 }
-
-/*arbre caserne*/
 

@@ -7,7 +7,7 @@
 (function ($) {
     $.fn.EasyTree = function (options) {
         var defaults = {
-            selectable: true,
+            selectable: false,
             deletable: false,
             editable: false,
             addable: false,
@@ -44,16 +44,16 @@
                     var children = $(this).find(' > ul');
                     $(children).remove();
                     text = $(this).text();
+                // <i class="fa fa-external-link  url" aria-hidden="true"></i>');
                     $(this).html('<span><span class="glyphicon"></span><a href="javascript: void(0);"></a> </span>');
                     $(this).find(' > span > span').addClass('glyphicon-minus-sign');
-                    $(this).find(' > span > a').text(text);
+                    $(this).find(' > span > a').text(text.toUpperCase()).prepend('<span class="glyphicon glyphicon-eye-open url" aria-hidden="true"></span>');
                     $(this).append(children);
                 }
                 else {
                     text = $(this).text();
                     $(this).html('<span><span class="glyphicon"></span><a href="javascript: void(0);"></a> </span>');
-                    $(this).find(' > span > span').addClass('glyphicon-link');
-                    $(this).find(' > span > a').text(text);
+                    $(this).find(' > span > a').text(text.toUpperCase()).prepend('<span class="glyphicon glyphicon-eye-open url" aria-hidden="true"></span>');
                 }
             });
 
