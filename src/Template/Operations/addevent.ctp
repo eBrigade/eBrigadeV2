@@ -10,9 +10,7 @@
                         <?php
                         echo $this->Form->input('title');
                          ?>
-
                         <div id="show-address" class="btn">Entrer une autre adresse que celle de l'opération<br>
-                        <b>temporairement désactivé, conflit avec geocode bevaviour, <br>lat et long seront celles de l'opération</b></div>
                         <div id="address" style="display: none">
                         <?php
                         echo $this->Form->input('address');
@@ -61,7 +59,6 @@
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
         });
-
 
     </script>
     <script>
