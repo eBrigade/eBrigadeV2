@@ -47,12 +47,12 @@ class EventsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        /*$this->addBehavior('Geocodable', [
+        $this->addBehavior('Geocodable', [
             'addressColumn' => [
                 'address',
                 'ville'
             ]
-        ]);*/
+        ]);
 
 
         $this->belongsTo('Operations', [

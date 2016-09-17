@@ -10,9 +10,16 @@
                         <?php
                         echo $this->Form->input('title');
                          ?>
-
-                        <div id="show-address" class="btn">Entrer une autre adresse que celle de l'opération<br>
-                        <b>temporairement désactivé, conflit avec geocode bevaviour, <br>lat et long seront celles de l'opération</b></div>
+                        <div id="show-address">
+                            <ul class="list-group">
+                                <li  class="list-group-item list-group-item-success">
+                                    <p><b>Cliquer pour renseigner une adresse.</b></p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p>Par défaut les latitudes et longitudes seront celles de l'opération associée et pourront être modifiées sur la carte.</p>
+                                </li>
+                            </ul>
+                        </div>
                         <div id="address" style="display: none">
                         <?php
                         echo $this->Form->input('address');
@@ -61,7 +68,6 @@
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
         });
-
 
     </script>
     <script>

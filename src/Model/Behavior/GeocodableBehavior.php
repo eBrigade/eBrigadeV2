@@ -13,7 +13,7 @@ class GeocodableBehavior extends Behavior
         'addressColumn' => 'address',
         'latitudeColumn' => 'latitude',
         'longitudeColumn' => 'longitude',
-        'requireSuccess' => true,
+        'requireSuccess' => false,
         'parameters' => []
     ];
     /**
