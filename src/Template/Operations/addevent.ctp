@@ -8,22 +8,27 @@
                     <?= $this->Form->create($event) ?>
                     <fieldset>
                         <?php
-
                         echo $this->Form->input('title');
+                         ?>
+
+                        <div id="show-address" class="btn">Entrer une autre adresse que celle de l'opération<br>
+                        <b>temporairement désactivé, conflit avec geocode bevaviour, <br>lat et long seront celles de l'opération</b></div>
+                        <div id="address" style="display: none">
+                        <?php
                         echo $this->Form->input('address');
                         echo $this->Form->input('ville');
+                        ?>
+                        </div>
+                            <?php
                         echo $this->Form->input('city_id', ['type' => 'text' , 'type' => 'hidden']);
                         echo $this->Form->input('instructions');
                         echo $this->Form->input('details');
                         echo $this->Form->input('barrack_id', ['options' => $barracks, 'empty' => true]);
-                        echo $this->Form->input('event_start_date', ['empty' => true,'id'=>'start','types'=>'text']);
-                        echo $this->Form->input('event_end_date', ['empty' => true],['id'=>'end']);
+
+                        echo $this->Form->input('event_start_date', ['type' => 'text', 'id' => 'start']);
+                        echo $this->Form->input('event_end_date', ['type' => 'text', 'id' => 'end']);
                         echo $this->Form->input('horaires');
                         ?>
-                        <label for="from">From</label>
-                        <input type="text" id="from" name="from">
-                        <label for="to">to</label>
-                        <input type="text" id="to" name="to">
                     </fieldset>
                     <?= $this->Form->button(__('Submit')) ?>
                     <?= $this->Form->end() ?>
@@ -36,17 +41,22 @@
     </div>
     <?= $this->Html->script('jquery-ui.js') ?>
     <?= $this->Html->script('jquery.easy-autocomplete.js') ?>
-    <?= $this->Html->css('jquery.easy-autocomplete.css') ?>
+    <?= $this->Html->css('easy-autocomplete.css') ?>
     <?= $this->Html->script('jquery.datetimepicker.full.min.js') ?>
     <?= $this->Html->css('jquery.datetimepicker.css') ?>
 
     <script>
 
-        //todo: fix dat shit
+        $('#show-address').on('click', function () {
+            $('#address').toggle(300);
+        });
+
+        //datetimepicker on date fields
         $('#start').datetimepicker({
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
         });
+
         $('#end').datetimepicker({
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
