@@ -26,7 +26,7 @@
                 <td><?= h($operation->date) ?></td>
                 <td><?= h($operation->title) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Vue opérationelle'), ['action' => 'gestion', $operation->id]) ?>
+                    <?= $this->Html->link(__('Vue opérationelle'), ['action' => 'operationnel', $operation->id]) ?>
                     <?= $this->Html->link(__('View'), ['action' => 'view', $operation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $operation->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $operation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?>

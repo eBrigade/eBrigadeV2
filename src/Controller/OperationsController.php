@@ -28,24 +28,46 @@ class OperationsController extends AppController
         $this->set('_serialize', ['operations']);
     }
 
-    public function filter() {
+    public function gestion($id = null) {
 
-        $this->loadModel('Barracks');
-
-        $barracklist = $this->Barracks->find('all', [
-            'contain' => 'Users'
+        $operation = $this->Operations->get($id, [
+            'contain' => ['Events', 'Cities',
+                'Events.Teams.Users',
+                'Events.Teams.Materials.MaterialTypes',
+                'Events.Teams.Vehicles.VehicleTypes'
+            ]
         ]);
+
+        $barracklist = $this->Operations->Events->Barracks->find('all');
 
 
         $this->set(compact('barracklist'));
+        $this->set('operation', $operation);
+        $this->set('_serialize', ['operation']);
+
+    }
+
+    public function teamselect() {
+        $eventID = $this->request->data('eventID');
+
+
+        $event = $this->Operations->Events->get($eventID, [
+            'contain' => 'Teams'
+        ]);
+
+
+       /* $this->set(compact('event'));*/
+        $this->set('event', $event);
+        $this->set('_serialize', ['event']);
     }
 
     public function userlist() {
 
         $barrackID = $this->request->data('barrackID');
-        $this->loadModel('Users');
 
-        $userlist = $this->Users->find();
+
+        $userlist = $this->Operations->Events->Teams->Users->find();
+
         $userlist->matching('Barracks', function ($q) use ($barrackID){
             return $q->where(['Barracks.id' => $barrackID]);
         });
@@ -105,7 +127,7 @@ class OperationsController extends AppController
         $this->set('_serialize', ['event']);
     }
 
-    public function gestion($id = null)
+    public function operationnel($id = null)
     {
         $operation = $this->Operations->get($id, [
             'contain' => ['Events', 'Cities',
@@ -267,7 +289,10 @@ class OperationsController extends AppController
         $this->set(compact('containerID', 'source', 'contentType', 'containerType',
             'teamsList', 'usersList', 'materialsList', 'vehiclesList'));
         $this->set('_serialize', $list);
-        $this -> render('teamload');
+        if ($contentType == 'Teams') {
+            $this -> render('teamload');
+        }
+
 
     }
 
