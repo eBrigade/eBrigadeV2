@@ -110,6 +110,7 @@ class TeamsController extends AppController
         $team = $this->Teams->get($id);
         if ($this->Teams->delete($team)) {
             $this->Flash->success(__('The team has been deleted.'));
+            return $this->redirect($this->referer());
         } else {
             $this->Flash->error(__('The team could not be deleted. Please, try again.'));
         }

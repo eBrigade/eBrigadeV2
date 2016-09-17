@@ -158,7 +158,7 @@
                                                 <li><?= $this->Html->link('Modifier les informations de l\'événement', ['controller' => 'Events', 'action' => 'view', $event->id]) ?> </a></li>
                                                 <li role="separator" class="divider"></li>
                                                 <li>
-                                                    *broken*<?= $this->Html->link('Supprimer l\'événement et ses moyens', ['controller' => 'Events', 'action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?> </a></li>
+                                                    <?= $this->Form->postlink('Supprimer l\'événement et ses moyens', ['controller' => 'Events', 'action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $event->id)]) ?> </a></li>
                                                 <li><a href="#">*todo*Vider la liste des équipes</a></li>
                                                 <li role="separator" class="divider"></li>
                                                 <li><a href="#">*todo*Dupliquer l'événement et ses moyens</a></li>
@@ -253,15 +253,18 @@
                                                             <ul class="dropdown-menu">
                                                                 <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
                                                                 <li role="separator" class="divider"></li>
-                                                                <li class="list-group-item action-btn"
+                                                                <li class="action-btn"
                                                                     id="<?= $event->id ?>-<?= $event->id ?>-<?= $teams->id ?>-remove-Events-Teams">
-                                                                    Retirer l'équipe de l'événement
+                                                                    <a href="#">Retirer l'équipe de l'événement</a>
                                                                 </li>
-                                                                <li><a href="#">Vider la liste des équipiers</a></li>
-                                                                <li><a href="#">Vider la liste des véhicules et du
+                                                                <li><?= $this->Form->postlink('Supprimer l\'équipe et ses moyens', ['controller' => 'Teams', 'action' => 'delete', $teams->id], ['confirm' => __('Are you sure you want to delete # {0}?', $teams->id)]) ?> </a></li>
+
+
+                                                                <li><a href="#">*todo*Vider la liste des équipiers</a></li>
+                                                                <li><a href="#">*todo*Vider la liste des véhicules et du
                                                                         matériel</a></li>
                                                                 <li role="separator" class="divider"></li>
-                                                                <li><a href="#">Dupliquer l'équipe et ses moyens</a>
+                                                                <li><a href="#">*todo*Dupliquer l'équipe et ses moyens</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -491,7 +494,6 @@
                             $('#' + listpos).append(clone);
 
                             //refreshes event listener so that newly cloned items are clickable (removable)
-                            actionButton();
                         }
                     }
 
