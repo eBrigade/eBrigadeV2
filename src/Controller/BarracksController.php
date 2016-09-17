@@ -21,7 +21,7 @@ class BarracksController extends AppController
     public function index()
     {
         $categories = $this->Barracks->find('threaded', array(
-                'order' => array('lft'))
+                'order' => array('parent_id'))
         );
         $this->set('categories', $categories);
     }
