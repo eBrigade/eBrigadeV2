@@ -37,16 +37,17 @@
     <?= $this->Html->script('jquery-ui.js') ?>
     <?= $this->Html->script('jquery.easy-autocomplete.js') ?>
     <?= $this->Html->css('jquery.easy-autocomplete.css') ?>
-
+    <?= $this->Html->script('jquery.datetimepicker.full.min.js') ?>
+    <?= $this->Html->css('jquery.datetimepicker.css') ?>
 
     <script>
 
         //todo: fix dat shit
-        $('#from').datetimepicker({
+        $('#start').datetimepicker({
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
         });
-        $('#to').datetimepicker({
+        $('#end').datetimepicker({
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
         });

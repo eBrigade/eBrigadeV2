@@ -253,9 +253,9 @@
                                                             <ul class="dropdown-menu">
                                                                 <li><?= $this->Html->link(__("Modifier les informations de l'équipe"), ['controller' => 'Teams', 'action' => 'edit', $teams->id]) ?></li>
                                                                 <li role="separator" class="divider"></li>
-                                                                <li class="list-group-item action-btn"
+                                                                <li class="action-btn"
                                                                     id="<?= $event->id ?>-<?= $event->id ?>-<?= $teams->id ?>-remove-Events-Teams">
-                                                                    Retirer l'équipe de l'événement
+                                                                    <a href="#">Retirer l'équipe de l'événement</a>
                                                                 </li>
                                                                 <li><?= $this->Form->postlink('Supprimer l\'équipe et ses moyens', ['controller' => 'Teams', 'action' => 'delete', $teams->id], ['confirm' => __('Are you sure you want to delete # {0}?', $teams->id)]) ?> </a></li>
 
