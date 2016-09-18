@@ -11,7 +11,8 @@
                 </li>
 
                 <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>">Arborescence</a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'filter']); ?>">Liste & filtres</a></li>
+                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'filter']); ?>">Liste </a></li>
+                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'map']); ?>">Carte</a></li>
             </ul>
         </div>
     </div>
@@ -120,6 +121,6 @@ echo "</ul>\n";
     });
 
 
-
+    closeEasyTree();
 
 </script>

@@ -172,4 +172,16 @@ class MaterialStocksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function ajaxedit()
+    {
+        $this->autoRender = false;
+
+        if ($this->request->is('post')) {
+            $this->MaterialStocks->updateAll(
+                ['stock' => $this->request->data['stock']],
+                ['id' => $this->request->data['id']]);
+        }
+    }
+
 }

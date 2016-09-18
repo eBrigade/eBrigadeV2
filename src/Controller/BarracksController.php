@@ -26,6 +26,14 @@ class BarracksController extends AppController
         $this->set('categories', $categories);
     }
 
+    public function map()
+    {
+        $barracks = $this->Barracks->find('all',[
+        'contain' => ['Cities']]);
+        
+        $this->set('barracks', $barracks);
+    }
+    
     public function filter()
     {
         $this->paginate = [
@@ -45,6 +53,7 @@ class BarracksController extends AppController
      */
     public function view($id = null)
     {
+        $this->loadModel('MaterialStocks');
         $barrack = $this->Barracks->get($id, [
             'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
                 'Users', 'Vehicles.VehicleTypes', 'Events.Operations.Cities',
@@ -52,12 +61,18 @@ class BarracksController extends AppController
                 ]
         ]);
 
-        $this->loadModel('MaterialStocks');
-        $user_mat = $this->MaterialStocks->find('all',[
-       'contain' => ['Materials.MaterialTypes']]);
+        $barrack_mat = $this->MaterialStocks->find('all',[
+       'contain' => ['Materials.MaterialTypes']])
+            ->where(['affectation' => 'barracks']) ;
 
-     $c_user_mat = $user_mat->count();
-        $this->set(compact('barrack', 'user_mat','c_user_mat'));
+        $user_mat = $this->MaterialStocks->find('all',[
+            'contain' => ['Materials.MaterialTypes','Users']])
+            ->where(['affectation' => 'users']) ;
+
+
+        $c_barrack_mat = $barrack_mat->count();
+       $c_user_mat = $user_mat->count();
+        $this->set(compact('barrack', 'barrack_mat','c_barrack_mat','c_user_mat','user_mat'));
         $this->set('_serialize', ['barrack']);
     }
 

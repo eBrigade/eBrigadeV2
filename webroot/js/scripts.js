@@ -24,7 +24,7 @@ function date(selector, range, def) {
 function modal(selector, controller) {
     $(selector).click(function () {
         $('.my-modal-cont').load(controller, function () {
-            $('#myModal').modal({show: true});
+            $('#myModal').modal({show: false});
         });
     });
 }
@@ -48,3 +48,16 @@ var options_ac = {
     },
     theme: "square"
 };
+
+// collapse
+function expand(div, footer, classe) {
+    $(div).click(function () {
+        $(footer).toggleClass(classe);
+        if ($(footer).hasClass(classe)) {
+            $(div).html('<i class="glyphicon glyphicon-chevron-down"></i> TOUT VOIR  <i class="glyphicon glyphicon-chevron-down"></i>');
+        }
+        else {
+            $(div).html('<i class="glyphicon glyphicon-chevron-up"></i> REDUIRE  <i class="glyphicon glyphicon-chevron-up"></i>');
+        }
+    });
+}

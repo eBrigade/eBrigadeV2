@@ -341,6 +341,30 @@ tr:hover .hideedit{
     visibility:visible;
 }
 
+.hidecrossm{
+    visibility:hidden;
+    margin-left: 10px;
+}
+
+tr:hover .hidecrossm{
+    visibility:visible;
+    margin-left: 10px;
+}
+
+.hideeditm{
+    visibility:hidden
+}
+
+tr:hover .hideeditm{
+    visibility:visible;
+}
+
+.vehimarge{
+    margin-left: 10px;
+}
+
+
+
 #nbr {
     width : 50px;
 }
@@ -354,7 +378,7 @@ tr:hover .hideedit{
 }
 
 .edit-mod{
-     width: 90px;
+     width: 75px;
  }
 
 .tbl-user{
@@ -386,3 +410,11 @@ html {
     margin-left: 5px;
 }
 
+#barrack-map {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.tablebarrack{
+    margin-top: 30px;
+}
