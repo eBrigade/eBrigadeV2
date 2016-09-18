@@ -45,7 +45,12 @@ class BarracksTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
-        $this->addBehavior('Tree');
+        $this->addBehavior('Tree',[
+			'parent'=>'parent_id',
+			'left'=>'lft',
+			'right'=>'rght',
+			'level'=>'level'	   
+	]);
 
         $this->belongsTo('Barracks', [
             'className' => 'Barracks',
@@ -130,7 +135,14 @@ class BarracksTable extends Table
         $validator
             ->requirePresence('rib', 'create')
             ->notEmpty('rib');
-
+			
+		$validator
+			->add('lft', 'valid', ['rule' => 'numeric'])
+			->notEmpty('lft');
+	
+		$validator
+			->add('rght', 'valid', ['rule' => 'numeric'])
+			->notEmpty('rght');
 
 
         return $validator;

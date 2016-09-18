@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
 
 /**
  * Barracks Controller
@@ -18,14 +19,34 @@ class BarracksController extends AppController
      * @return \Cake\Network\Response|null
      */
 
-    public function index()
+    public function tree()
     {
         $categories = $this->Barracks->find('threaded', array(
                 'order' => array('parent_id'))
         );
         $this->set('categories', $categories);
     }
+    /**
+     * Index method
+     *
+     * @return \Cake\Network\Response|null
+     */
 
+    public function index()
+    {
+
+        $barracks = $this->Barracks->find('all', array(
+                'order' => array('lft'),
+				'contain' => ['Users','Vehicles']
+				));
+
+		$barracks_tree = $this->Barracks->find('treelist', array(
+                'order' => array('parent_id','lft'))
+        )->toArray();
+
+        $this->set(compact('barracks','barracks_tree'));
+    }
+	
     public function carte()
     {
         $barracks = $this->Barracks->find('all',[
@@ -71,7 +92,8 @@ class BarracksController extends AppController
 
 
         $c_barrack_mat = $barrack_mat->count();
-       $c_user_mat = $user_mat->count();
+       	$c_user_mat = $user_mat->count();
+		
         $this->set(compact('barrack', 'barrack_mat','c_barrack_mat','c_user_mat','user_mat'));
         $this->set('_serialize', ['barrack']);
     }
@@ -171,5 +193,30 @@ class BarracksController extends AppController
         $this->set('barrack',$barrack);
         $this->set('date',$date);
 
+    }
+
+
+    public function moveUp($id = null)
+    {
+        $this->request->allowMethod(['post', 'put','get']);
+        $barrack = $this->Barracks->get($id);
+        if ($this->Barracks->moveUp($barrack)) {
+            $this->Flash->success('The barrack has been moved Up.');
+        } else {
+            $this->Flash->error('The barrack could not be moved up. Please, try again.');
+        }
+        return $this->redirect($this->referer(['action' => 'index']));
+    }
+
+    public function moveDown($id = null)
+    {
+        $this->request->allowMethod(['post', 'put','get']);
+        $barrack = $this->Barracks->get($id);
+        if ($this->Barracks->moveDown($barrack)) {
+            $this->Flash->success('The barrack has been moved down.');
+        } else {
+            $this->Flash->error('The barrack could not be moved down. Please, try again.');
+        }
+        return $this->redirect($this->referer(['action' => 'index']));
     }
 }
