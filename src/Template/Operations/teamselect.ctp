@@ -9,12 +9,6 @@
             <option value="<?= $team->id ?>">id :<?= $team->id ?> - nom : <?= $team->name ?></option>
         <?php endforeach; ?>
     </select>
-    <label for="event">Type d'éléments à gérer</label>
-    <select class="form-control" name="content" id="content">
-        <option value="" disabled selected>Type d'éléments à gérer</option>
-        <option value="Users">Equipiers</option>
-        <option value="Materials">Materials</option>
-        <option value="Vehicles">Véhicules</option>
-    </select>
+
 
 <?php endif; ?>
