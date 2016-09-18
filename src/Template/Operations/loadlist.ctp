@@ -40,8 +40,8 @@ if (!empty($list)): ?>
                     <td><?= h($item->name) ?></td>
                 <?php endif; ?>
                 <?php if ($contentType == 'Vehicles'): ?>
-                    <td><?= h($item->vehicle_types->name) ?></td>
-                    <th><?= $this->Paginator->sort('vehicle_types.name') ?></th>
+                    <td><?= h($item->vehicle_type->name) ?></td>
+
                 <?php endif; ?>
 
                 <td><?php if (!empty($item->barracks[0]->name)): echo h($item->barracks[0]->name); endif;?></td>

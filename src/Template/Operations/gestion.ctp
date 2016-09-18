@@ -62,6 +62,15 @@
         filter.empty();
         $('#filter-list').empty();
         filter.load('/Operations/filtertype/', datafilter)
+        var datacont = {
+            source: $('select[name=event]').val(),
+            containerType: 'Teams',
+            contentType: $('select[name=content-type]').val(),
+            containerID: $('select[name=team]').val()
+        };
+        $('#content-list').load('/Operations/loadlist', datacont);
+
+
     });
 
 
@@ -76,7 +85,6 @@
 
     //select teams and element type action
     $("#elements").submit(function (event) {
-        console.log($('select[name=content-type]').val());
         event.preventDefault();
         if ($('select[name=content-type]').val() == null) {
             alert('veuillez sélectionner un type d\'élément à gérer');
@@ -130,7 +138,7 @@
         var datajax = {
             source: $('select[name=event]').val(),
             containerType: 'Teams',
-            contentType: $('select[name=content-name]').val(),
+            contentType: $('select[name=content-type]').val(),
             containerID: $('select[name=team]').val(),
             contentID: data[1],
             action: data[0]

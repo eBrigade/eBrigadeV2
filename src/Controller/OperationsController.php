@@ -72,14 +72,33 @@ class OperationsController extends AppController
         $barrackID = $this->request->data('barrackID');
         $contentType = $this->request->data('contentType');
 
-        $this->paginate = [
-            'contain' => ['Barracks']
-        ];
 
 
-        if ($barrackID == 'all') {
-            $userlist = $this->Operations->Events->Teams->Users->find();
-        } else {
+        switch ($contentType) {
+            case 'Users':
+                $this->paginate = [
+                    'contain' => ['Barracks']
+                ];
+                $userlist = $this->Operations->Events->Teams->Users->find();
+                break;
+            case 'Materials':
+                $this->paginate = [
+                    'contain' => ['Barracks']
+                ];
+                $userlist = $this->Operations->Events->Teams->Materials->find();
+                break;
+            case 'Vehicles':
+                $this->paginate = [
+                    'contain' => ['Barracks', 'VehicleTypes']
+                ];
+                $userlist = $this->Operations->Events->Teams->Vehicles->find();
+                break;
+        }
+
+
+        if ($barrackID !== 'all') {
+
+
             $userlist = $this->Operations->Events->Teams->Users->find();
             $userlist->matching('Barracks', function ($q) use ($barrackID){
                 return $q->where(['Barracks.id' => $barrackID]);
@@ -276,13 +295,14 @@ class OperationsController extends AppController
                 $vehiclesList = $this->Events->Teams->Vehicles->find('all', [
                     'contain' => 'VehicleTypes'
                 ]);
+                //get container object with container id
+                $content = $containerTable->get($containerID, [
+                    'contain' => $contain
+                ]);
                 break;
         }
 
-        //get container object with container id
-        $content = $containerTable->get($containerID, [
-            'contain' => $contain
-        ]);
+
 
         //cases to load content tables
         switch ($contentType) {
@@ -312,7 +332,7 @@ class OperationsController extends AppController
                     return $q->where(['Teams.id' => $containerID]);
                 });
                 $this->paginate = [
-                    'contain' => ['Barracks']
+                    'contain' => ['Barracks', 'VehicleTypes']
                 ];
                 $list = $this->paginate($vehicles);
 
@@ -321,8 +341,6 @@ class OperationsController extends AppController
                 $list = $content;
                 break;
         }
-
-
 
         //sets vars
         $this->set('list', $list);
