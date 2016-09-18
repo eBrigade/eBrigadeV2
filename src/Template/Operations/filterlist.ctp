@@ -25,6 +25,7 @@
             <?php foreach ($list as $item): ?>
                 <tr>
 
+
                     <td><?= $this->Number->format($item->id) ?></td>
                     <?php if ($contentType == 'Users'): ?>
                         <td><?= h($item->firstname) ?></td>

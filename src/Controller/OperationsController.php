@@ -71,25 +71,26 @@ class OperationsController extends AppController
 
         $barrackID = $this->request->data('barrackID');
         $contentType = $this->request->data('contentType');
+        $containerID = $this->request->data('containerID');
 
 
 
         switch ($contentType) {
             case 'Users':
                 $this->paginate = [
-                    'contain' => ['Barracks']
+                    'contain' => ['Barracks', 'Teams']
                 ];
                 $userlist = $this->Operations->Events->Teams->Users->find();
                 break;
             case 'Materials':
                 $this->paginate = [
-                    'contain' => ['Barracks']
+                    'contain' => ['Barracks', 'Teams']
                 ];
                 $userlist = $this->Operations->Events->Teams->Materials->find();
                 break;
             case 'Vehicles':
                 $this->paginate = [
-                    'contain' => ['Barracks', 'VehicleTypes']
+                    'contain' => ['Barracks', 'VehicleTypes', 'Teams']
                 ];
                 $userlist = $this->Operations->Events->Teams->Vehicles->find();
                 break;
@@ -103,7 +104,12 @@ class OperationsController extends AppController
             $userlist->matching('Barracks', function ($q) use ($barrackID){
                 return $q->where(['Barracks.id' => $barrackID]);
             });
+
         }
+
+        $userlist->notMatching('Teams', function ($q) use ($containerID) {
+            return $q->where(['Teams.id' => $containerID]);
+        });
 
         $list = $this->paginate($userlist);
 
