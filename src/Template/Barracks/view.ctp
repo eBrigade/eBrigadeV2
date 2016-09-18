@@ -3,6 +3,9 @@
 <?php $c_veh = count($barrack->vehicles) ?>
 <?php $c_eve = count($barrack->events) ?>
 
+
+
+
 <div class="my-modal-base">
     <div class="my-modal-cont"></div>
 </div>
@@ -16,46 +19,96 @@
             <div class="panel-body">
                 <div class="col-md-6">
                     <div class="panel-heading">
-                        <div class="col-md-3 col-lg-3 " align="center"> <img src="<?= $this->Url->image('pro-civ.png') ?>" class="img-circle img-responsive"> </div>
 
-                        <h3>Caserne <?= h($barrack->name) ?> </h3></div>
-                    <table class="table">
-                        <tr>
-                            <td><strong> Ville : </strong></td>
-                            <td><?= h($barrack->city->city) ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong> Adresse : </strong></td>
-                            <td><?= h($barrack->address) ?><br/>
-                                <?= h($barrack->address_complement) ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong> Télephone : </strong></td>
-                            <td><?= h($barrack->phone) ?><br>
-                            <?= h($barrack->fax) ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong> Email : </strong></td>
-                            <td><?= h($barrack->email) ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong> Site web : </strong></td>
-                            <td><?= h($barrack->website_url) ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong> Ordre : </strong></td>
-                            <td><?= h($barrack->ordre) ?></td>
-                        </tr>
-                        <tr>
-                            <td><strong> R.I.B. : </strong></td>
-                            <td><?= h($barrack->rib) ?></td>
-                        </tr>
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <img src="<?= $this->Url->image('pro-civ.png') ?>" class="img-circle img-responsive"> </div>
+                        <h3>Caserne <?= h($barrack->name) ?> </h3>
+                    </div>
 
-                    </table>
+
+
+<div id="barrack-map">
+                    <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
+
+                    <?php
+                            $map_options = array(
+                                'id' => 'gmap',
+                    'width' => '400px',
+                    'height' => '200px',
+                    'style' => '',
+                    'zoom' => 10,
+                    'type' => 'ROADMAP',
+                    'custom' => null,
+                    'localize' => false,
+                    'address' => $barrack->city->city ,
+                    'marker' => true,
+                    'markerTitle' => $barrack->city->city,
+                    'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
+                    'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
+                    'infoWindow' => false,
+                    'windowText' => 'My Position',
+                    'draggableMarker' => false
+                    );
+
+                    echo $this->GoogleMap->map($map_options);
+                    $marker_options = array(
+                    'showWindow' => true,
+                    'windowText' => $barrack->name,
+                    'markerTitle' => $barrack->city->city,
+                    'draggableMarker' => false
+                    );
+
+                    ?>
+
+    <?= $this->GoogleMap->addMarker("gmap", 1, $barrack->city->city.", France", $marker_options); ?>
+</div>
+
+
+
+
+
+
+
+
                 </div>
                 <div class="col-md-6">
-                    <div class="panel-heading">Statistiques, images ou autres ...a voir!</div>
+                    <div class="panel-heading">
+
+                        <table class="table tablebarrack">
+                            <tr>
+                                <td><strong> Ville : </strong></td>
+                                <td><?= h($barrack->city->city) ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong> Adresse : </strong></td>
+                                <td><?= h($barrack->address) ?><br/>
+                                    <?= h($barrack->address_complement) ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong> Télephone : </strong></td>
+                                <td><?= h($barrack->phone) ?><br>
+                                    <?= h($barrack->fax) ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong> Email : </strong></td>
+                                <td><?= h($barrack->email) ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong> Site web : </strong></td>
+                                <td><?= h($barrack->website_url) ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong> Ordre : </strong></td>
+                                <td><?= h($barrack->ordre) ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong> R.I.B. : </strong></td>
+                                <td><?= h($barrack->rib) ?></td>
+                            </tr>
+
+                        </table>
+                    </div>
 
                 </div>
             </div>
@@ -66,8 +119,10 @@
 <div class="row">
     <div class="col-md-12">
         <!--_______________________________________________________________________________DETAIL EVENEMENTS-->
-        <div class="panel panel-default">
-            <div class="panel-heading">Les 10 derniers événements
+        <div class="panel panel-warning">
+            <div class="panel-heading">Derniers événements
+                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-ev', 'class' =>
+                'btn btn-warning pull-right btn-add',]) ?>
     </div>
             <div class="panel-body" id="tbl-event">
                 <table class="table table-hover tbl-vehicule" width="100%" id="tbl-ev">
@@ -77,7 +132,7 @@
                         <th>Intitulé</th>
                         <th>Lieu</th>
                         <th>Date</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -107,7 +162,7 @@
                         <td>du <?= $formation->formation_start->i18nFormat('dd/MM/yyyy') ?> au <?= $formation->formation_end->i18nFormat('dd/MM/yyyy') ?></td>
                         <td>
                             <a href='<?= $this->Url->build(["controller" => "formations","action" => "view", $formation->id ]); ?>'
-                               class="btn btn-default   "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                               class="btn btn-success btn-sm "><i class="fa fa-external-link" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     <?php endif; ?>
@@ -140,7 +195,7 @@
                         <th>Nom</th>
                         <th>Adresse</th>
                         <th>Téléphone</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -152,9 +207,9 @@
                         </td>
                         <td>
                             <a href='<?= $this->Url->build(["controller" => "messages","action" => "send" ]); ?>'
-                               class="btn btn-default   "><i class="fa fa-envelope" aria-hidden="true"></i> </a>
+                               class="btn btn-primary btn-sm   "><i class="fa fa-envelope" aria-hidden="true"></i> </a>
                             <a href='<?= $this->Url->build(["controller" => "users","action" => "view", $user->id ]); ?>'
-                               class="btn btn-default   "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                               class="btn btn-success btn-sm   "><i class="fa fa-external-link" aria-hidden="true"></i></a>
                         </td>
                     </tr>
 
@@ -172,7 +227,7 @@
 
 
         <div class="panel panel-success">
-            <div class="panel-heading">Matériel <?= $this->Html->badge($c_mat, ['id' => 'bdg-mat']) ?>
+            <div class="panel-heading">Matériel <?= $this->Html->badge($c_barrack_mat, ['id' => 'bdg-mat']) ?>
 
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-del', 'class' =>
                 'btn btn-success pull-right btn-add',]) ?>
@@ -189,15 +244,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($barrack->materials as $matos)
+                    <?php foreach ($barrack_mat as $matos)
                     echo "
-                    <tr id=".$matos->id.">
-                        <td class='stock'>".$matos->stock."</td>
-                        <td>".$matos->material_type->type."</td>
-                        <td>".$matos->material_type->name."</td>
-                        <td>
-                            <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
-                            <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
+                    <tr id=".$matos->material->id.">
+                        <td id='stock'>".$matos->stock."</td>
+                        <td>".$matos->material->material_type->name."</td>
+                        <td>".$matos->material->name."</td>
+                        <td id='actionm'>
+                            <button id='btdelm' class='glyphicon glyphicon-remove pull-right hidecrossm btn btn-danger btn-sm' aria-hidden='true'></button>
+                            <button  id='bteditm' class='glyphicon glyphicon-edit pull-right hideeditm btn btn-warning btn-sm' aria-hidden='true'></button>
+
                         </td>
                     </tr>
                     ";
@@ -215,19 +271,19 @@
             <div class="panel-heading">Matériel emprunté <?= $this->Html->badge($c_user_mat, ['id' => 'bdg-rent']) ?>
                 <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i>'),['id' => 'bt-del', 'class' =>
                 'btn btn-danger pull-right btn-add marge',]) ?>
-                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-mat',
-                'class' => 'btn btn-danger pull-right btn-add',]) ?>
+<!--                <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i>'),['id' => 'bt-join-mat',
+                'class' => 'btn btn-danger pull-right btn-add',]) ?>-->
             </div>
             <div class="panel-body tbl-usermaterial" id="tbl-usermaterial">
-                <table cellpadding="0" cellspacing="0" class="table table-striped">
+                <table cellpadding="0" cellspacing="0" class="table table-hover">
                     <thead>
                     <tr>
                         <th>Type</th>
                         <th>Intitulé</th>
                         <th>Emprunté par</th>
                         <th>Quantité</th>
-                        <th class="hidden-xs hidden-sm">Depuis le</th>
-                        <th class="hidden-xs hidden-sm">Jusqu'au</th>
+         <!--               <th class="hidden-xs hidden-sm">Depuis le</th>
+                        <th class="hidden-xs hidden-sm">Jusqu'au</th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -235,12 +291,12 @@
                     <tr>
                         <td><?=$material->material->material_type->name?></td>
                         <td><?=$material->material->name?></td>
-                        <td>*</td>
-                        <td>*
-                        <td class="hidden-xs hidden-sm">*
+                        <td><?=$material->user->firstname.' '.$material->user->lastname ?></td>
+                        <td><?=$material->stock ?></td>
+                      <!--  <td class="hidden-xs hidden-sm">*
                         </td>
                         <td class="hidden-xs hidden-sm">*
-                        </td>
+                        </td>-->
                     </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -271,12 +327,12 @@
                         <th></th>
                         <th>Type</th>
                         <th>Désignation</th>
+                        <th class="hidden-sm hidden-xs">Eqp</th>
                         <th class="hidden-sm hidden-xs">Matricule</th>
                         <th class="hidden-sm hidden-xs">Km</th>
                         <th class="hidden-sm hidden-xs">Acquis le</th>
                         <th class="hidden-sm hidden-xs">Garantie</th>
                         <th class="hidden-sm hidden-xs">Revision</th>
-                        <th class="hidden-sm hidden-xs">Eqp</th>
                         <th class="hidden-sm hidden-xs"></th>
                     </tr>
                     </thead>
@@ -287,11 +343,6 @@
                         <td><img id='img-veh' src='<?= $this->Url->image($vehi->vehicle_type->picture) ?>'></td>
                         <td><?= $vehi->vehicle_type->type ?></td>
                         <td><?= $vehi->vehicle_type->name ?></td>
-                        <td class='hidden-sm hidden-xs' id='mat'><?= $vehi->matriculation ?></td>
-                        <td class='hidden-sm hidden-xs' id='klm'><?= $vehi->number_kilometer ?></td>
-                        <td class='hidden-sm hidden-xs' id='buy'><?= $vehi->bought ?></td>
-                        <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
-                        <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
                         <td class='hidden-sm hidden-xs id=' opt
                         '>
                         <?= ($vehi->snow) ? "<span class='glyphicon glyphicon-asterisk' aria-hidden='true'
@@ -301,9 +352,15 @@
                                                                data-toggle='tooltip'
                                                                title='Véhicule avec climatisation'></span>" : "" ?>
                         </td>
+                        <td class='hidden-sm hidden-xs' id='mat'><?= $vehi->matriculation ?></td>
+                        <td class='hidden-sm hidden-xs' id='klm'><?= $vehi->number_kilometer ?></td>
+                        <td class='hidden-sm hidden-xs' id='buy'><?= $vehi->bought ?></td>
+                        <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
+                        <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
+
                         <td class='hidden-sm hidden-xs' id='icon'>
-                            <span class='glyphicon glyphicon-remove red pull-right hidecross' aria-hidden='true'></span>
-                            <span class='glyphicon glyphicon-edit  pull-right hideedit' aria-hidden='true'></span>
+                            <button id="btdel" class='glyphicon glyphicon-remove pull-right hidecross btn btn-danger btn-sm' aria-hidden='true'></button>
+                            <button  id="btedit" class='glyphicon glyphicon-edit pull-right hideedit btn btn-warning btn-sm' aria-hidden='true'></button>
                         </td>
                     </tr>
                     <?php endforeach;  ?>
@@ -319,38 +376,186 @@
     </div>
 </div>
 
+
+
+
     <script>
+        // compte le nbr de vehicule
+        var c_veh = '<?= $c_veh ?>';
+        $("#bdg-veh").text(c_veh);
+
+        // compte le nbr de materiel
+        var c_b_mat = '<?= $c_barrack_mat ?>';
+        $("#bdg-mat").text(c_b_mat);
 
         // boutons ouvre les formulaires en modal
         var vehicles = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
         modal('#bt-vehi', vehicles);
 
         // collapse sur les tables
+        expand('#footer-event', '#tbl-event', 'tbl-event');
         expand('#footer-user', '#tbl-user', 'tbl-user');
         expand('#footer-mat', '#tbl-material', 'tbl-material');
         expand('#footer-usmat', '#tbl-usermaterial', 'tbl-usermaterial');
         expand('#footer-vehi', '#tbl-vehicule', 'tbl-vehicule');
 
-        function expand(div, footer, classe) {
-            $(div).click(function () {
-                $(footer).toggleClass(classe);
-                if ($(footer).hasClass(classe)) {
-                    $(div).html('<i class="glyphicon glyphicon-chevron-down"></i> TOUT VOIR  <i class="glyphicon glyphicon-chevron-down"></i>');
-                }
-                else {
-                    $(div).html('<i class="glyphicon glyphicon-chevron-up"></i> REDUIRE  <i class="glyphicon glyphicon-chevron-up"></i>');
+        // id de la caserne actuel
+        var cid = '<?= $barrack->id ?>';
+
+
+        // boutons pour supprimer du materiel
+        $('.hidecrossm').click(function () {
+        c_b_mat--;
+            $("#bdg-mat").text(c_b_mat);
+            var array = [];
+            array.push($(this).closest('tr').attr('id'));
+            $(this).parents('tr').first().remove();
+            $.ajax({
+                type: 'POST',
+                url: '<?= $this->Url->build(["controller" => "Materials","action" => "ajaxdelete"]); ?>',
+                data: 'id=' + array,
+                success: function (data) {
+                    return data;
                 }
             });
+        });
+
+
+        // boutons pour supprimer un véhicule
+        $('.hidecross').click(function () {
+            c_veh--;
+            $("#bdg-veh").text(c_veh);
+            var array = [];
+            array.push($(this).closest('tr').attr('id'));
+            $(this).parents('tr').first().remove();
+            $.ajax({
+                type: 'POST',
+                url: '<?= $this->Url->build(["controller" => "Vehicles","action" => "ajaxdelete"]); ?>',
+                data: {id: array}
+            });
+        });
+
+
+
+        // boutons pour editer du materiel
+        $('.hideeditm').click(function () {
+            var stock_val_origin = $(this).closest('tr').find('#stock').text();
+            $(this).closest('tr').find('#stock').html('<input type="number" value=' + stock_val_origin + ' id="e-stock" class="edit-mod">');
+            $(this).closest('tr').find('#actionm').html('<button  id="cancelm" class="glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm vehimarge" aria-hidden="true"></button><button  id="okm" class="glyphicon glyphicon-ok pull-right  btn btn-success btn-sm " aria-hidden="true"></button>');
+            $('#tbl-mat').removeClass( "table-hover" );
+            $("#btdelm").hide();
+            $("#bteditm").hide();
+
+            $('#cancelm').click(function () {
+                $(this).closest('tr').find('#stock').html('' + stock_val_origin + '');
+                $("#cancelm").hide();
+                $("#okm").hide();
+                $('#tbl-mat').addClass( "table-hover" );
+                $("#btdelm").show();
+                $("#bteditm").show();
+            });
+
+            $('#okm').click(function () {
+                var id = $(this).closest('tr').attr('id');
+                var stock_new = $('#e-stock').val();
+                $("#cancelm").hide();
+                $("#okm").hide();
+                $('#tbl-mat').addClass( "table-hover" );
+                $("#btdelm").show();
+                $("#bteditm").show();
+                $(this).closest('tr').find('#stock').html('' + stock_new + '');
+                var send = 'id=' + id + '&stock=' + stock_new ;
+                $.ajax({
+                    type: 'post',
+                    url: '<?= $this->Url->build(["controller" => "Materialstocks","action" => "ajaxedit"]); ?>',
+                    data: send
+                });
+            });
+        });
+
+
+
+        // boutons pour editer des vehicules
+        $('.hideedit').click(function () {
+            var mat_val_origin = $(this).closest('tr').find('#mat').text();
+            var klm_val_origin = $(this).closest('tr').find('#klm').text();
+            var buy_val_origin = $(this).closest('tr').find('#buy').text().split("/").reverse().join("-");
+            var end_val_origin = $(this).closest('tr').find('#end').text().split("/").reverse().join("-");
+            var rev_val_origin = $(this).closest('tr').find('#rev').text().split("/").reverse().join("-");
+            $(this).closest('tr').find('#mat').html('<input type="text" value=' + mat_val_origin + ' id="e-mat" class="edit-mod">');
+            $(this).closest('tr').find('#klm').html('<input type="text" value=' + klm_val_origin + ' id="e-klm" class="edit-mod">');
+            $(this).closest('tr').find('#buy').html('<input type="text" value=' + buy_val_origin + ' id="e-buy" class="edit-mod">');
+            $(this).closest('tr').find('#end').html('<input type="text" value=' + end_val_origin + ' id="e-end" class="edit-mod">');
+            $(this).closest('tr').find('#rev').html('<input type="text" value=' + rev_val_origin + ' id="e-rev" class="edit-mod">');
+            $(this).closest('tr').find('#icon').html('<button  id="cancel" class="glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm vehimarge" aria-hidden="true"></button><button  id="ok" class="glyphicon glyphicon-ok pull-right  btn btn-success btn-sm " aria-hidden="true"></button>');
+            date('#e-buy', '-30:-0', '-5y');
+            date('#e-end', '-30:+20', '+2y');
+            date('#e-rev', '-0:+5', '+6m');
+            $('#tbl-vehicule').removeClass( "table-hover" );
+           $("#btdel").hide();
+            $("#btedit").hide();
+
+            $('#cancel').click(function () {
+                $(this).closest('tr').find('#mat').html('' + mat_val_origin + '');
+                $(this).closest('tr').find('#klm').html('' + klm_val_origin + '');
+                $(this).closest('tr').find('#buy').html('' + buy_val_origin + '');
+                $(this).closest('tr').find('#end').html('' + end_val_origin + '');
+                $(this).closest('tr').find('#rev').html('' + rev_val_origin + '');
+                $("#cancel").hide();
+                $("#ok").hide();
+                $('#tbl-vehicule').addClass( "table-hover" );
+                $("#btdel").show();
+                $("#btedit").show();
+            });
+
+
+            $('#ok').click(function () {
+                var id = $(this).closest('tr').attr('id');
+                var mat_new = $('#e-mat').val();
+                var klm_new = $('#e-klm').val();
+                var buy_new = $('#e-buy').val();
+                var end_new = $('#e-end').val();
+                var rev_new = $('#e-rev').val();
+                $("#cancel").hide();
+                $("#ok").hide();
+                $('#tbl-vehicule').addClass( "table-hover" );
+                $("#btdel").show();
+                $("#btedit").show();
+                $(this).closest('tr').find('#mat').html('' + mat_new + '');
+                $(this).closest('tr').find('#klm').html('' + klm_new + '');
+                $(this).closest('tr').find('#buy').html('' + buy_new + '');
+                $(this).closest('tr').find('#end').html('' + end_new + '');
+                $(this).closest('tr').find('#rev').html('' + rev_new + '');
+                var send = 'id=' + id + '&matriculation=' + mat_new + '&number_kilometer=' + klm_new +
+                        '&bought=' + buy_new + '&end_warranty=' + end_new + '&next_revision=' + rev_new  ;
+                $.ajax({
+                    type: 'post',
+                    url: '<?= $this->Url->build(["controller" => "Vehicles","action" => "ajaxedit"]); ?>',
+                    data: send
+                });
+            });
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        function initMap() {
+            var myLatLng = {lat: -25.363, lng: 131.044};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
         }
+
     </script>
 
+
+
+
     <?= $this->Html->script('jquery-ui.js')?>
-    <!--// charge les différentes compteurs-->
-    <!--//    var c_rent = '<?= $c_rent ?>';-->
-    <!--//    $("#bdg-rent").text(c_rent);-->
-    <!--//    var c_mat = '<?= $c_mat ?>';-->
-    <!--//    $("#bdg-mat").text(c_mat);-->
-    <!--//    var c_user = '<?= $c_user ?>';-->
-    <!--//    $("#bdg-user").text(c_user);-->
-    <!--//    var c_veh = '<?= $c_veh ?>';-->
-    <!--//    $("#bdg-veh").text(c_veh);-->

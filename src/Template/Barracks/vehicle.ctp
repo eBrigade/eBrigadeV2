@@ -1,6 +1,4 @@
 
-<?php $c_veh = count($barrack->vehicles) ?>
-
 <table class="table table-hover" width="100%" id="tbl-vehicule">
     <thead>
     <tr>

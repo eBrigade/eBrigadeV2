@@ -41,6 +41,11 @@ class MaterialStocksTable extends Table
             'foreignKey' => 'material_id',
             'joinType' => 'INNER'
         ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'affectation_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
