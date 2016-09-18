@@ -118,7 +118,8 @@
         event.preventDefault();
         var datafilter = {
             barrackID: $('select[name=barrack]').val(),
-            contentType: $('select[name=content-type').val()
+            contentType: $('select[name=content-type').val(),
+            containerID: $('select[name=team]').val()
         };
 
         $('#filter-list').load('/Operations/filterlist/', datafilter);
@@ -206,6 +207,13 @@
         };
         var id = source + '-' + containerID + '-' + containerType + '-' + contentType;
         $('#content-list').load('/Operations/loadlist/', datalist);
+        var datafilter = {
+            barrackID: $('select[name=barrack]').val(),
+            contentType: $('select[name=content-type').val(),
+            containerID: $('select[name=team]').val()
+        };
+
+        $('#filter-list').load('/Operations/filterlist/', datafilter);
 
     }
 
