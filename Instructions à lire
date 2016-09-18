@@ -27,3 +27,22 @@ Relation de barraks avec matériels : barracks as many matériels
 - opérationnel et formation fonctionnels
 
 Normalement tout cela est largement faisable pour ce vendredi soir, tout devra être commit sur le master afin que je fasse la synthèse de test samedi et dimanche pour test lundi et affinage dans le début de semaine
+
+------------------------------------------------------
+
+A corriger : dans calendar availabalities : 
+Notice (8): Trying to get property of non-object [APP/Template\Calendar\save.ctp, line 1]
+
+Opérationnel (idem pour formation avec des terminologie différentes) :
+Attention, processus erroné en cours de développement :
+
+Processus actuel :
+Création d'event + Création d'équipe
+Affectation d'une équipe à un event
+
+Processus définis ensemble et à mettre en oeuvre :
+Le positionnement géographique se fait dans opération uniquement, pas dans l'event
+Création d'event
+Dans l'event créé, création d'équipes avec les infos suivantes (intitulé, indicatif radio, positionnement sommaire, horaires, consignes - textarea obligatoire ou wysiwyg)
+Dans l'équipe, affectation de personnel, de véhicules, et de moyens matériels
+
