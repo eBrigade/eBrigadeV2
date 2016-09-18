@@ -306,6 +306,8 @@ ul.form {
 
 /*modif pour la vue caserne*/
 
+
+
 .panel-color{
     background-color: #f9f9f9;
 }
@@ -417,4 +419,24 @@ html {
 
 .tablebarrack{
     margin-top: 30px;
+}
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+ .mgblist{
+     margin-left: 5px;
+ }
+
+.upmarge{
+margin-top: -22px;
 }
