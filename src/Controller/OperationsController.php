@@ -161,7 +161,7 @@ class OperationsController extends AppController
             }
         }
 
-        $barracks = $this->Events->Barracks->find('list', ['limit' => 200]);
+        $barracks = $this->Events->Barracks->find('treeList');
         $materials = $this->Events->Materials->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
