@@ -26,7 +26,7 @@ class BarracksController extends AppController
         $this->set('categories', $categories);
     }
 
-    public function indexMap()
+    public function carte()
     {
         $barracks = $this->Barracks->find('all',[
         'contain' => ['Cities']]);
@@ -34,7 +34,7 @@ class BarracksController extends AppController
         $this->set('barracks', $barracks);
     }
     
-    public function indexAnnuaire()
+    public function annuaire()
     {
         $this->paginate = [
             'contain' => [ 'Cities']
