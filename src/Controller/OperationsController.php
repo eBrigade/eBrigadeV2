@@ -65,14 +65,24 @@ class OperationsController extends AppController
 
         $barrackID = $this->request->data('barrackID');
 
+        $this->paginate = [
+            'contain' => ['Barracks']
+        ];
 
-        $userlist = $this->Operations->Events->Teams->Users->find();
 
-        $userlist->matching('Barracks', function ($q) use ($barrackID){
-            return $q->where(['Barracks.id' => $barrackID]);
-        });
+        if ($barrackID == 'all') {
+            $userlist = $this->Operations->Events->Teams->Users->find();
+        } else {
+            $userlist = $this->Operations->Events->Teams->Users->find();
+            $userlist->matching('Barracks', function ($q) use ($barrackID){
+                return $q->where(['Barracks.id' => $barrackID]);
+            });
+        }
+
+        $userlist = $this->paginate($userlist);
 
         $this->set(compact('userlist'));
+        $this->set('_serialize', ['userlist']);
 
     }
 
