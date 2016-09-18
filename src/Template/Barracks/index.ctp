@@ -11,8 +11,8 @@
                 </li>
 
                 <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>">Arborescence</a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'filter']); ?>">Liste </a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'map']); ?>">Carte</a></li>
+                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'annuaire']); ?>">Liste </a></li>
+                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'carte']); ?>">Carte</a></li>
             </ul>
         </div>
     </div>

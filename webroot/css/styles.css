@@ -108,75 +108,75 @@ blockquote em{
     text-decoration: none;
 }
 
- /* notifications */
- .badge-notify{
-     background:red;
-     position:relative;
-     top: -20px;
-     left: -35px;
- }
+/* notifications */
+.badge-notify{
+    background:red;
+    position:relative;
+    top: -20px;
+    left: -35px;
+}
 
- .dropdown {
-     display:inline-block;
-     margin-left:20px;
-     padding:10px;
- }
-
-
- .glyphicon-bell {
-
-     font-size:1.5rem;
- }
-
- .notifications {
-     min-width:420px;
-     margin-left: -400px;
- }
-
- .notifications-wrapper {
-     overflow:auto;
-     max-height:250px;
- }
-
- .menu-title {
-     color:#ff7788;
-     font-size:1.5rem;
-     display:inline-block;
- }
-
- .glyphicon-circle-arrow-right {
-     margin-left:10px;
- }
+.dropdown {
+    display:inline-block;
+    margin-left:20px;
+    padding:10px;
+}
 
 
- .notification-heading, .notification-footer  {
-     padding:2px 10px;
- }
+.glyphicon-bell {
+
+    font-size:1.5rem;
+}
+
+.notifications {
+    min-width:420px;
+    margin-left: -400px;
+}
+
+.notifications-wrapper {
+    overflow:auto;
+    max-height:250px;
+}
+
+.menu-title {
+    color:#ff7788;
+    font-size:1.5rem;
+    display:inline-block;
+}
+
+.glyphicon-circle-arrow-right {
+    margin-left:10px;
+}
 
 
- .dropdown-menu.divider {
-     margin:5px 0;
- }
+.notification-heading, .notification-footer  {
+    padding:2px 10px;
+}
 
- .item-title {
 
-     font-size:1.3rem;
-     color:#000;
+.dropdown-menu.divider {
+    margin:5px 0;
+}
 
- }
+.item-title {
 
- .notifications a.content {
-     text-decoration:none;
-     background:#ccc;
+    font-size:1.3rem;
+    color:#000;
 
- }
+}
 
- .notification-item {
-     padding:10px;
-     margin:5px;
-     background:#ccc;
-     border-radius:4px;
- }
+.notifications a.content {
+    text-decoration:none;
+    background:#ccc;
+
+}
+
+.notification-item {
+    padding:10px;
+    margin:5px;
+    background:#ccc;
+    border-radius:4px;
+}
 .bdg-not{
     margin-top: 20px;
 }
@@ -306,6 +306,8 @@ ul.form {
 
 /*modif pour la vue caserne*/
 
+
+
 .panel-color{
     background-color: #f9f9f9;
 }
@@ -378,8 +380,8 @@ tr:hover .hideeditm{
 }
 
 .edit-mod{
-     width: 75px;
- }
+    width: 75px;
+}
 
 .tbl-user{
     max-height: 700px !important;
@@ -417,4 +419,24 @@ html {
 
 .tablebarrack{
     margin-top: 30px;
+}
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+}
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+.mgblist{
+    margin-left: 5px;
+}
+
+.upmarge{
+    margin-top: -22px;
 }
