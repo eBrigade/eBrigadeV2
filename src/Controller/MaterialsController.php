@@ -26,7 +26,7 @@ class MaterialsController extends AppController
         ($id != null) ? $materials->where(['barrack_id' => $id]) : '';
         $materials = $this->paginate($materials);
         $this->set('id',$id);
-        $barracks = $this->Materials->Barracks->find('list');
+        $barracks = $this->Materials->Barracks->find('treeList');
         $this->set('barracks',$barracks);
         $this->set(compact('materials'));
         $this->set('_serialize', ['materials']);
