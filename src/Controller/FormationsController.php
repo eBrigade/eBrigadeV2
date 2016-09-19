@@ -132,11 +132,12 @@ class FormationsController extends AppController
             if ($this->Formations->Events->save($formation_event)) {
                 $this->Flash->success(__('The formation has been saved.'));
 
-                return $this->redirect(['action' => 'view', $id]);
+                return $this->redirect($this->referer());
             } else {
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
+        
         $cities = $this->Formations->Events->Cities->find('list', ['ValueField' => 'city']);
         $bills = $this->Formations->Events->Bills->find('list', ['limit' => 200]);
         $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);

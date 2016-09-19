@@ -16,8 +16,8 @@
                         echo $this->Form->input('instructions',['label'=>'Consigne']);
                         echo $this->Form->input('details',['label'=>'Lieu Rendez Vous']);
                         echo $this->Form->input('barrack_id', ['options' => $barracks, 'empty' => true,'label'=>'Casern']);
-                        echo $this->Form->input('event_start_date', ['empty' => true,'id'=>'start','types'=>'text','label'=>'Debut']);
-                        echo $this->Form->input('event_end_date', ['empty' => true],['id'=>'end','label'=>'Fin']);
+                        echo $this->Form->input('event_start_date', ['empty' => true,'label'=>'Debut Event']);
+                        echo $this->Form->input('event_end_date', ['empty' => true,'label'=>'Fin Event']);
                         echo $this->Form->input('horaires',['label'=>'Horraire']);
                         echo $this->Form->input('public',['label'=>'Ouvert au Public']);
                         ?>
@@ -30,6 +30,10 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker12').datepicker({
+                }
+            });
+        </script>
     </div>
-    <?= $this->Html->script('jquery-ui.js') ?>
-    <script> date('#start','-0:+2','+2') </script>
