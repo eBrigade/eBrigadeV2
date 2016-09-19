@@ -16,7 +16,7 @@
             </ul>
         </div>
     </div>
-    <div id="hide" class="">
+    <div id="hide" class="hide">
     <hr/>
     <div class="sidebar-nav">
         <div class="navbar navbar-default" role="navigation">
@@ -32,32 +32,14 @@
 </div>
 
 
-<div id="test">
-    Trigger the handler
-</div>
-
-
-<script>
+<script type="text/javascript">
     <?php foreach ($list as $listring): ?>
+
     $( "#list<?= $listring->id ?>" ).click(function() {
-        $('#to').tokenfield('setTokens', [{ value: "k<?= $listring->id ?>", label: "<?= $listring->name ?>" }]);
+        $('#to').tokenfield('createToken', { value: "k<?= $listring->id ?>", label: "<?= $listring->name ?>" });
     });
     <?php endforeach ?>
 
-///*    // ajax retourne la liste des emails
-//    $('li').click(function () {
-//        var bid = $(this).attr('id').slice(4);
-//        var url = '<?= $this->Url->build("BarracksUsers/groupe"); ?>';
-//        console.log(url);
-//        $.ajax({
-//            type: 'post',
-//            url: url,
-//            data: 'bid= ' + bid,
-//            success: function(data){
-//                $('input[name="to"]').val(data);
-//            }
-//        });
-//    });*/
 
 
     // menu lateral gauche
@@ -68,7 +50,7 @@
         }
         if ($('#mp-write').length !== 0){
             $('#mp-home').removeClass('active');
-            $('#hide').removeClass('hidden');
+            $('#hide').removeClass('hide');
         }
     });
 </script>

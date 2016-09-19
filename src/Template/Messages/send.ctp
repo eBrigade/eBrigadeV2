@@ -43,7 +43,8 @@
     ?>],
             delay: 100
         },
-        showAutocompleteOnFocus: true
+    allowEditing: false,
+            showAutocompleteOnFocus: false
     })
 
     $('.too').on('tokenfield:createtoken', function (event) {
