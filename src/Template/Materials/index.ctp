@@ -3,6 +3,7 @@
         <?= $this->Html->link('Editer le stock',['controller' => 'MaterialStocks','action' => 'index']) ?>
         <div class="table-responsive">
             <h3><?= __('Materials') ?></h3>
+            <?= $this->Form->input('barracks',['options' => $barracks,'id' => 'barracks','empty'=>true,'class' => 'form-control']) ?>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -19,11 +20,11 @@
                         <td><?= $this->Number->format($material->id) ?></td>
                         <td><?= h($material->name) ?></td>
                         <td><?= $material->has('material_type') ? $this->Html->link($material->material_type->name, ['controller' => 'MaterialTypes', 'action' => 'view', $material->material_type->id]) : '' ?></td>
-                        <td><?= $this->Number->format($material->barrack_id) ?></td>
+                        <td><?= $material->has('barrack') ? $this->Html->link($material->barrack->name,['controller' => 'Barracks','action' => 'view',$material->barrack->id]) : '' ?></td>
                         <td class="actions">
-                            <?= $this->Html->link($this->Html->icon('eye-open'), ['action' => 'view', $material->id],['escape' => false,'class' => 'btn btn-info']) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $material->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $material->id], ['confirm' => __('Are you sure you want to delete # {0}?', $material->id)]) ?>
+                            <?= $this->Html->link($this->Html->icon('eye-open'), ['action' => 'view', $material->id],['escape' => false,'class' => 'btn btn-primary']) ?>
+                            <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $material->id],['class'=>'btn btn-info','escape' => false]) ?>
+                            <?= $this->Form->postLink($this->Html->icon('trash'), ['action' => 'delete', $material->id],['class'=>'btn btn-danger','escape' => false],['confirm' => __('Are you sure you want to delete # {0}?', $material->id)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -40,4 +41,14 @@
         </div>
     </div>
 </div>
-
+<?= $this->Html->script('jquery.js') ?>
+<script>
+    $(document).ready(function(){
+        $('#barracks option[value=<?= $id ?>]').attr("selected","selected");
+    });
+    $('#barracks').on('change',function(){
+        var id = $('#barracks option:selected').val();
+        var url = '<?= $this->Url->build(['controller'=>'Materials','action'=>'index']) ?>/index/'+id;
+        window.location = url;
+    });
+</script>

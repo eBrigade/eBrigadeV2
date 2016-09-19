@@ -49,10 +49,10 @@ class MaterialStocksController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add($barrack_id = null, $affectation = 'barracks')
+    public function add($barrack_id = null, $affectation = 'barracks', $stock= 1)
     {
         $materialStock = $this->MaterialStocks->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')){
             $this->request->data['stock'] = -$this->request->data['stock'];
             $materialStock = $this->MaterialStocks->patchEntity($materialStock, $this->request->data);
             if ($this->MaterialStocks->save($materialStock)) {
@@ -118,6 +118,7 @@ class MaterialStocksController extends AppController
                 break;
         }
         $this->set(compact('materialStock', 'materials'));
+        $this->set('stock',$stock);
         $this->set('material_list',$material_list);
         $this->set('affectation_list',$affectations);
         $this->set('list',$list);
