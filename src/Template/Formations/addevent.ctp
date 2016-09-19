@@ -8,18 +8,12 @@
                     <?= $this->Form->create($formation_event,['horizontal'=>true]) ?>
                     <fieldset>
                         <?php
-                        echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
                         echo $this->Form->input('title',['label'=>'Titre']);
                         echo $this->Form->hidden('id');
-                        echo $this->Form->input('address',['label'=>'Adresse']);
-                        echo $this->Form->input('price',['label'=>'Prix']);
                         echo $this->Form->input('instructions',['label'=>'Consigne']);
-                        echo $this->Form->input('details',['label'=>'Lieu Rendez Vous']);
-                        echo $this->Form->input('barrack_id', ['options' => $barracks, 'empty' => true,'label'=>'Casern']);
                         echo $this->Form->input('event_start_date', ['empty' => true,'label'=>'Debut Event']);
                         echo $this->Form->input('event_end_date', ['empty' => true,'label'=>'Fin Event']);
                         echo $this->Form->input('horaires',['label'=>'Horraire']);
-                        echo $this->Form->input('public',['label'=>'Ouvert au Public']);
                         ?>
                     </fieldset>
                     <?= $this->Form->button(__('Submit')) ?>

@@ -3,9 +3,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3 id="myModalLabel2">Ajouter une event à cette Formation</h3>
+                <h3 id="myModalLabel2">Ajouter une Equipe à cette Formation</h3>
 <div class="events form large-9 medium-8 columns content">
-    <?= $this->Form->create($haha) ?>
+    <?= $this->Form->create($haha,['id'=>'myForm']) ?>
     <fieldset>
         <?php
         echo $this->Form->input('barracks._ids', ['options' => $barracks]);
@@ -34,3 +34,17 @@
             </div>
         </div>
     </div>
+    <script>
+        $("#myForm").submit(function(event) {
+
+            event.preventDefault();  // Empêcher le rechargement de la page.
+
+            var formData = new FormData($("#myForm"));
+
+            $.ajax({
+                type: "POST",
+                url: "/Formations/adduserteam/12/4",
+                data: formData
+            });
+        });
+    </script>
