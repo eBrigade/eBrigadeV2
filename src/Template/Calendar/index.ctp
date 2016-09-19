@@ -62,21 +62,29 @@
         viewDisplay: function () {
             tooltip.hide()
         },
-
             events: [
-
             <?php foreach ($event as $ev): ?>
+
         <?php
-            $inverse = explode("/", $ev->event_start_date);
-            $inverse_end = explode("/", $ev->event_end_date);
-            $date_start = "$inverse[2]-$inverse[1]-$inverse[0]";
-            $date_end = "$inverse_end[2]-$inverse_end[1]-$inverse_end[0]";
+                $eve = explode(" ", $ev->event_start_date);
+        $date = $eve[0];
+        $inv_date = explode("/", $date);
+        $ev_start = "$inv_date[2]-$inv_date[1]-$inv_date[0]";
+
+        $evef = explode(" ", $ev->event_end_date);
+        $datef = $evef[0];
+        $inv_datef = explode("/", $datef);
+        $ev_startf = "$inv_datef[2]-$inv_datef[1]-$inv_datef[0]";
+        $t = "T";
+        $z = "Z";
+        $date_start = "$ev_start$t$eve[1]$z";
+        $date_end = "$ev_startf$t$evef[1]$z";
         ?>
             {
                 title: "<?= $ev->title ?>",
                         url: "/events/view/<?= $ev->id  ?>",
                     start: "<?= $date_start  ?>",
-                    end: "<?= $date_end  ?>",
+                    end: "2016-10-10",
                     color: "#257e4a",
                 address : "<?= $ev->address  ?>",
                     instructions : "<?= $ev->instructions  ?>",
