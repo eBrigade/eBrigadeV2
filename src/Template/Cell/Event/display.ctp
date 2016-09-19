@@ -1,6 +1,6 @@
 <?php foreach ($formation->events as $event): ?>
-    <div class="panel" style="border: solid #83580b 1px">
-        <div class="panel-heading" style="background-color: #83580b"><p style="color=white"><b>Nom de la Mission : </b><?= $event->title ?></p>
+    <div class="panel panel-info">
+        <div class="panel-heading"><p><b>Nom de la Mission : </b><?= $event->title ?></p>
             <div class="btn-group ">
                 <button type="button" class="btn btn-info btn-xs">Modifier cette Mission</button>
                 <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown"
