@@ -121,6 +121,6 @@ class EventsController extends AppController
             $this->Flash->error(__('The event could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }
