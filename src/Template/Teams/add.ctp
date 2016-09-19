@@ -19,6 +19,14 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('description');
+            echo $this->Form->input('position_adresse');
+            echo $this->Form->input('radio_indicatif');
+            echo $this->Form->input('radio_frequence');
+            echo $this->Form->input('latitude');
+            echo $this->Form->input('longitude');
+            echo $this->Form->input('horaires');
+            echo $this->Form->input('consignes');
+            echo $this->Form->input('prix');
             echo $this->Form->input('events._ids', ['options' => $events]);
             echo $this->Form->input('materials._ids', ['options' => $materials]);
             echo $this->Form->input('users._ids', ['options' => $users]);

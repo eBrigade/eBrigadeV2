@@ -49,8 +49,8 @@ class EventsFixture extends TestFixture
             'created' => '2016-09-19',
             'modified' => '2016-09-19',
             'instructions' => 'Lorem ipsum dolor sit amet',
-            'event_start_date' => '2016-09-19 11:15:34',
-            'event_end_date' => '2016-09-19 11:15:34',
+            'event_start_date' => '2016-09-19 11:59:51',
+            'event_end_date' => '2016-09-19 11:59:51',
             'public' => 1,
             'module' => 'Lorem ipsum dolor sit amet',
             'module_id' => 1

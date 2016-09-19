@@ -17,6 +17,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $OperationRecommendations
  * @property \Cake\ORM\Association\BelongsTo $Organizations
  * @property \Cake\ORM\Association\BelongsTo $OperationTypes
+ * @property \Cake\ORM\Association\BelongsTo $Bills
  *
  * @method \App\Model\Entity\Operation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Operation newEntity($data = null, array $options = [])
@@ -79,12 +80,15 @@ class OperationsTable extends Table
             'foreignKey' => 'operation_recommendation_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasOne('Organizations', [
-            'foreignKey' => 'id',
+        $this->belongsTo('Organizations', [
+            'foreignKey' => 'organization_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('OperationTypes', [
             'foreignKey' => 'operation_type_id'
+        ]);
+        $this->belongsTo('Bills', [
+            'foreignKey' => 'bill_id'
         ]);
     }
 
@@ -246,6 +250,17 @@ class OperationsTable extends Table
         $validator
             ->allowEmpty('title');
 
+        $validator
+            ->integer('is_closed')
+            ->allowEmpty('is_closed');
+
+        $validator
+            ->integer('canceled')
+            ->allowEmpty('canceled');
+
+        $validator
+            ->allowEmpty('canceled_detail');
+
         return $validator;
     }
 
@@ -264,8 +279,9 @@ class OperationsTable extends Table
         $rules->add($rules->existsIn(['operation_environment_id'], 'OperationEnvironments'));
         $rules->add($rules->existsIn(['operation_delay_id'], 'OperationDelays'));
         $rules->add($rules->existsIn(['operation_recommendation_id'], 'OperationRecommendations'));
-       /* $rules->add($rules->existsIn(['organization_id'], 'Organizations'));*/
+        $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
         $rules->add($rules->existsIn(['operation_type_id'], 'OperationTypes'));
+        $rules->add($rules->existsIn(['bill_id'], 'Bills'));
 
         return $rules;
     }

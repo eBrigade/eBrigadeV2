@@ -49,6 +49,10 @@ use Cake\ORM\Entity;
  * @property float $latitude
  * @property float $longitude
  * @property string $title
+ * @property int $bill_id
+ * @property int $is_closed
+ * @property int $canceled
+ * @property string $canceled_detail
  *
  * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Barrack $barrack

@@ -19,9 +19,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Operation $operation
  * @property \App\Model\Entity\Formation $formation
- * @property \App\Model\Entity\Material[] $materials
  * @property \App\Model\Entity\Team[] $teams
- * @property \App\Model\Entity\Vehicle[] $vehicles
  */
 class Event extends Entity
 {

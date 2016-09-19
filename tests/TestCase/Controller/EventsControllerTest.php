@@ -17,13 +17,14 @@ class EventsControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.events',
-        'app.cities',
-        'app.dpts',
+        'app.operations',
         'app.barracks',
-        'app.materials',
-        'app.material_types',
-        'app.barracks_materials',
-        'app.user_materials',
+        'app.cities',
+        'app.departments',
+        'app.regions',
+        'app.organizations',
+        'app.formations',
+        'app.formation_types',
         'app.users',
         'app.availabilities',
         'app.orders',
@@ -36,6 +37,11 @@ class EventsControllerTest extends IntegrationTestCase
         'app.skills_users',
         'app.teams',
         'app.events_teams',
+        'app.materials',
+        'app.material_types',
+        'app.barracks_materials',
+        'app.material_stocks',
+        'app.events_materials',
         'app.materials_teams',
         'app.teams_users',
         'app.vehicles',
@@ -45,18 +51,11 @@ class EventsControllerTest extends IntegrationTestCase
         'app.events_vehicles',
         'app.teams_vehicles',
         'app.users_vehicles',
-        'app.events_materials',
-        'app.operations',
         'app.operation_activities',
         'app.operation_environments',
         'app.operation_delays',
         'app.operation_recommendations',
-        'app.organizations',
-        'app.formations',
-        'app.formation_types',
-        'app.operation_types',
-        'app.bills',
-        'app.modules'
+        'app.operation_types'
     ];
 
     /**

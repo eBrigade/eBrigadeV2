@@ -39,6 +39,12 @@ class TeamsTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
+        $this->addBehavior('Geocodable', [
+            'addressColumn' => [
+                'position_adresse'
+            ]
+        ]);
+
         $this->belongsToMany('Events', [
             'foreignKey' => 'team_id',
             'targetForeignKey' => 'event_id',
@@ -80,6 +86,36 @@ class TeamsTable extends Table
 
         $validator
             ->allowEmpty('description');
+
+        $validator
+            ->requirePresence('position_adresse', 'create')
+            ->notEmpty('position_adresse');
+
+        $validator
+            ->requirePresence('radio_indicatif', 'create')
+            ->notEmpty('radio_indicatif');
+
+        $validator
+            ->requirePresence('radio_frequence', 'create')
+            ->notEmpty('radio_frequence');
+
+        $validator
+            ->numeric('latitude')
+            ->allowEmpty('latitude');
+
+        $validator
+            ->numeric('longitude')
+            ->allowEmpty('longitude');
+
+        $validator
+            ->allowEmpty('horaires');
+
+        $validator
+            ->allowEmpty('consignes');
+
+        $validator
+            ->numeric('prix')
+            ->allowEmpty('prix');
 
         return $validator;
     }

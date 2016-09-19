@@ -9,6 +9,14 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $description
+ * @property string $position_adresse
+ * @property string $radio_indicatif
+ * @property string $radio_frequence
+ * @property float $latitude
+ * @property float $longitude
+ * @property string $horaires
+ * @property string $consignes
+ * @property float $prix
  *
  * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Material[] $materials

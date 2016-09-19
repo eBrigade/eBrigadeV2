@@ -23,13 +23,45 @@
             <td><?= h($team->name) ?></td>
         </tr>
         <tr>
+            <th><?= __('Position Adresse') ?></th>
+            <td><?= h($team->position_adresse) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Radio Indicatif') ?></th>
+            <td><?= h($team->radio_indicatif) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Radio Frequence') ?></th>
+            <td><?= h($team->radio_frequence) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Horaires') ?></th>
+            <td><?= h($team->horaires) ?></td>
+        </tr>
+        <tr>
             <th><?= __('Id') ?></th>
             <td><?= $this->Number->format($team->id) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Latitude') ?></th>
+            <td><?= $this->Number->format($team->latitude) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Longitude') ?></th>
+            <td><?= $this->Number->format($team->longitude) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Prix') ?></th>
+            <td><?= $this->Number->format($team->prix) ?></td>
         </tr>
     </table>
     <div class="row">
         <h4><?= __('Description') ?></h4>
         <?= $this->Text->autoParagraph(h($team->description)); ?>
+    </div>
+    <div class="row">
+        <h4><?= __('Consignes') ?></h4>
+        <?= $this->Text->autoParagraph(h($team->consignes)); ?>
     </div>
     <div class="related">
         <h4><?= __('Related Events') ?></h4>
@@ -37,26 +69,12 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
-                <th><?= __('City Id') ?></th>
-                <th><?= __('Bill Id') ?></th>
                 <th><?= __('Title') ?></th>
-                <th><?= __('Address') ?></th>
-                <th><?= __('Latitude') ?></th>
-                <th><?= __('Longitude') ?></th>
                 <th><?= __('Created') ?></th>
                 <th><?= __('Modified') ?></th>
-                <th><?= __('Is Closed') ?></th>
-                <th><?= __('Closed') ?></th>
-                <th><?= __('Price') ?></th>
-                <th><?= __('Canceled') ?></th>
-                <th><?= __('Canceled Detail') ?></th>
-                <th><?= __('Is Active') ?></th>
                 <th><?= __('Instructions') ?></th>
-                <th><?= __('Details') ?></th>
-                <th><?= __('Barrack Id') ?></th>
                 <th><?= __('Event Start Date') ?></th>
                 <th><?= __('Event End Date') ?></th>
-                <th><?= __('Horaires') ?></th>
                 <th><?= __('Public') ?></th>
                 <th><?= __('Module') ?></th>
                 <th><?= __('Module Id') ?></th>
@@ -65,26 +83,12 @@
             <?php foreach ($team->events as $events): ?>
             <tr>
                 <td><?= h($events->id) ?></td>
-                <td><?= h($events->city_id) ?></td>
-                <td><?= h($events->bill_id) ?></td>
                 <td><?= h($events->title) ?></td>
-                <td><?= h($events->address) ?></td>
-                <td><?= h($events->latitude) ?></td>
-                <td><?= h($events->longitude) ?></td>
                 <td><?= h($events->created) ?></td>
                 <td><?= h($events->modified) ?></td>
-                <td><?= h($events->is_closed) ?></td>
-                <td><?= h($events->closed) ?></td>
-                <td><?= h($events->price) ?></td>
-                <td><?= h($events->canceled) ?></td>
-                <td><?= h($events->canceled_detail) ?></td>
-                <td><?= h($events->is_active) ?></td>
                 <td><?= h($events->instructions) ?></td>
-                <td><?= h($events->details) ?></td>
-                <td><?= h($events->barrack_id) ?></td>
                 <td><?= h($events->event_start_date) ?></td>
                 <td><?= h($events->event_end_date) ?></td>
-                <td><?= h($events->horaires) ?></td>
                 <td><?= h($events->public) ?></td>
                 <td><?= h($events->module) ?></td>
                 <td><?= h($events->module_id) ?></td>
@@ -104,17 +108,19 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
+                <th><?= __('Name') ?></th>
+                <th><?= __('Description') ?></th>
                 <th><?= __('Material Type Id') ?></th>
                 <th><?= __('Barrack Id') ?></th>
-                <th><?= __('Stock') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($team->materials as $materials): ?>
             <tr>
                 <td><?= h($materials->id) ?></td>
+                <td><?= h($materials->name) ?></td>
+                <td><?= h($materials->description) ?></td>
                 <td><?= h($materials->material_type_id) ?></td>
                 <td><?= h($materials->barrack_id) ?></td>
-                <td><?= h($materials->stock) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Materials', 'action' => 'view', $materials->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Materials', 'action' => 'edit', $materials->id]) ?>
@@ -152,6 +158,9 @@
                 <th><?= __('Created') ?></th>
                 <th><?= __('Modified') ?></th>
                 <th><?= __('Connected') ?></th>
+                <th><?= __('Personne Referente') ?></th>
+                <th><?= __('Tuteur Legal') ?></th>
+                <th><?= __('Alerte') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($team->users as $users): ?>
@@ -178,6 +187,9 @@
                 <td><?= h($users->created) ?></td>
                 <td><?= h($users->modified) ?></td>
                 <td><?= h($users->connected) ?></td>
+                <td><?= h($users->personne_referente) ?></td>
+                <td><?= h($users->tuteur_legal) ?></td>
+                <td><?= h($users->alerte) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>

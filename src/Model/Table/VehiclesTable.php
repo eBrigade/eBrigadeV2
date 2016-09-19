@@ -12,7 +12,6 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $VehicleTypes
  * @property \Cake\ORM\Association\BelongsTo $VehicleModels
  * @property \Cake\ORM\Association\BelongsToMany $Barracks
- * @property \Cake\ORM\Association\BelongsToMany $Events
  * @property \Cake\ORM\Association\BelongsToMany $Teams
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *
@@ -51,11 +50,6 @@ class VehiclesTable extends Table
             'foreignKey' => 'vehicle_id',
             'targetForeignKey' => 'barrack_id',
             'joinTable' => 'barracks_vehicles'
-        ]);
-        $this->belongsToMany('Events', [
-            'foreignKey' => 'vehicle_id',
-            'targetForeignKey' => 'event_id',
-            'joinTable' => 'events_vehicles'
         ]);
         $this->belongsToMany('Teams', [
             'foreignKey' => 'vehicle_id',
