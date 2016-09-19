@@ -29,7 +29,8 @@ class OperationsController extends AppController
         $this->set('_serialize', ['operations']);
     }
 
-    public function gestion($id = null) {
+    public function gestion($id = null)
+    {
 
         $operation = $this->Operations->get($id, [
             'contain' => ['Events', 'Cities',
@@ -45,7 +46,8 @@ class OperationsController extends AppController
 
     }
 
-    public function filtertype() {
+    public function filtertype()
+    {
         $contentType = $this->request->data('contentType');
 
         $barracklist = $this->Operations->Barracks->find('all');
@@ -54,7 +56,8 @@ class OperationsController extends AppController
 
     }
 
-    public function teamselect() {
+    public function teamselect()
+    {
         $eventID = $this->request->data('eventID');
 
 
@@ -63,12 +66,13 @@ class OperationsController extends AppController
         ]);
 
 
-       /* $this->set(compact('event'));*/
+        /* $this->set(compact('event'));*/
         $this->set('event', $event);
         $this->set('_serialize', ['event']);
     }
 
-    public function filterlist() {
+    public function filterlist()
+    {
 
         $barrackID = $this->request->data('barrackID');
         $contentType = $this->request->data('contentType');
@@ -76,11 +80,10 @@ class OperationsController extends AppController
         $source = $this->request->data('source');
 
 
-
         switch ($contentType) {
             case 'Users':
                 $this->paginate = [
-                    'contain' => ['Barracks', 'Teams']
+                    'contain' => ['Barracks', 'Teams.Events']
                 ];
                 $userlist = $this->Operations->Events->Teams->Users->find();
                 break;
@@ -103,32 +106,30 @@ class OperationsController extends AppController
 
 
             $userlist = $this->Operations->Events->Teams->Users->find();
-            $userlist->matching('Barracks', function ($q) use ($barrackID){
+            $userlist->matching('Barracks', function ($q) use ($barrackID) {
                 return $q->where(['Barracks.id' => $barrackID]);
             });
 
         }
 
-        $userlist->notMatching('Teams', function ($q) use ($containerID) {
-            return $q->where(['Teams.id' => $containerID]);
+
+        //WTF notMatching = find('all') ?!!
+        $userlist->notMatching('Teams.Events', function ($q) use ($source) {
+            return $q->where(['Events.id' => $source]);
         });
 
-
-          /*  $event = $this->Operations->Events->get($source);
-            $timestart = $event->event_start_date;
+        $event = $this->Operations->Events->get($source);
+        $timestart = $event->event_start_date;
         $timeend = $event->event_end_date;
 
-
-
-
-
         //time tests
-        $userlist->matching('Teams.Events', function ($q) use ($timestart, $timeend) {
+       /* $userlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
             return $q->where([
-                'Teams.Events.event_start_date <= ' => $timestart,
-                'Teams.Events.event_end_date >= ' => $timeend
+                'Events.event_start_date <= ' => $timestart,
+                'Events.event_end_date >= ' => $timeend
             ]);
         });*/
+
 
 
         $list = $this->paginate($userlist);
@@ -138,7 +139,8 @@ class OperationsController extends AppController
 
     }
 
-    public function addteam() {
+    public function addteam()
+    {
 
         $this->loadModel('Teams');
 
@@ -159,7 +161,8 @@ class OperationsController extends AppController
     }
 
 
-    public function addevent($id = null) {
+    public function addevent($id = null)
+    {
 
         $this->loadModel('Events');
         $event = $this->Events->newEntity();
@@ -185,7 +188,7 @@ class OperationsController extends AppController
         $materials = $this->Events->Materials->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact( 'event', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
+        $this->set(compact('event', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
         $this->set('_serialize', ['event']);
     }
 
@@ -206,12 +209,13 @@ class OperationsController extends AppController
             'contain' => 'VehicleTypes'
         ]);
 
-        $this->set(compact('teamsList', 'usersList', 'materialsList', 'vehiclesList' ));
+        $this->set(compact('teamsList', 'usersList', 'materialsList', 'vehiclesList'));
         $this->set('operation', $operation);
         $this->set('_serialize', ['operation']);
     }
 
-    public function map($id = null) {
+    public function map($id = null)
+    {
         $operation = $this->Operations->get($id, [
             'contain' => ['Events', 'Events.Teams', 'Barracks', 'Cities']
         ]);
@@ -282,7 +286,8 @@ class OperationsController extends AppController
 
     //dynamic loading of lists
     //todo: part of incoming huge refactoring
-    public function loadlist() {
+    public function loadlist()
+    {
 
         //gets context
         $source = $this->request->data('source');
@@ -329,12 +334,11 @@ class OperationsController extends AppController
         }
 
 
-
         //cases to load content tables
         switch ($contentType) {
             case 'Users':
                 $users = $this->Operations->Events->Teams->Users->find();
-                $users->matching('Teams', function ($q) use ($containerID){
+                $users->matching('Teams', function ($q) use ($containerID) {
                     return $q->where(['Teams.id' => $containerID]);
                 });
                 $this->paginate = [
@@ -344,7 +348,7 @@ class OperationsController extends AppController
                 break;
             case 'Materials':
                 $materials = $this->Operations->Events->Teams->Materials->find();
-                $materials->matching('Teams', function ($q) use ($containerID){
+                $materials->matching('Teams', function ($q) use ($containerID) {
                     return $q->where(['Teams.id' => $containerID]);
                 });
                 $this->paginate = [
@@ -354,7 +358,7 @@ class OperationsController extends AppController
                 break;
             case 'Vehicles':
                 $vehicles = $this->Operations->Events->Teams->Vehicles->find();
-                $vehicles->matching('Teams', function ($q) use ($containerID){
+                $vehicles->matching('Teams', function ($q) use ($containerID) {
                     return $q->where(['Teams.id' => $containerID]);
                 });
                 $this->paginate = [
@@ -374,12 +378,11 @@ class OperationsController extends AppController
             'teamsList', 'usersList', 'materialsList', 'vehiclesList'));
         $this->set('_serialize', $list);
         if ($contentType == 'Teams') {
-            $this -> render('teamload');
+            $this->render('teamload');
         }
 
 
     }
-
 
 
     /**
