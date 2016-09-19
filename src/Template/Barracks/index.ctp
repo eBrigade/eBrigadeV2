@@ -18,6 +18,7 @@
 				<td>
                 	<?php 
 						echo $this->Html->badge( $this->Html->icon('user') . ' ' . count( $barrack->users ) , ['escape' => false] ) ;
+						echo $this->Html->badge( $this->Html->icon('user') . ' ' . count( $barrack->users ) , ['escape' => false] ) ;
 					 ?>
                 </td>
                 <td><?= h('Actions') ?></td>
