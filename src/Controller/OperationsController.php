@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\I18n\Time;
 
 /**
  * Operations Controller
@@ -72,6 +73,7 @@ class OperationsController extends AppController
         $barrackID = $this->request->data('barrackID');
         $contentType = $this->request->data('contentType');
         $containerID = $this->request->data('containerID');
+        $source = $this->request->data('source');
 
 
 
@@ -110,6 +112,24 @@ class OperationsController extends AppController
         $userlist->notMatching('Teams', function ($q) use ($containerID) {
             return $q->where(['Teams.id' => $containerID]);
         });
+
+
+          /*  $event = $this->Operations->Events->get($source);
+            $timestart = $event->event_start_date;
+        $timeend = $event->event_end_date;
+
+
+
+
+
+        //time tests
+        $userlist->matching('Teams.Events', function ($q) use ($timestart, $timeend) {
+            return $q->where([
+                'Teams.Events.event_start_date <= ' => $timestart,
+                'Teams.Events.event_end_date >= ' => $timeend
+            ]);
+        });*/
+
 
         $list = $this->paginate($userlist);
 

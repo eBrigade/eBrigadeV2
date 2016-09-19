@@ -66,6 +66,7 @@
             return contentType;
         }
 
+
         //sets filter on contentType choice
         $('.content-type').on('click', function (e) {
             e.preventDefault();
@@ -92,7 +93,8 @@
             var datafilterlist = {
                 barrackID: $('select[name=barrack]').val(),
                 contentType: contentType(),
-                containerID: $('select[name=team]').val()
+                containerID: $('select[name=team]').val(),
+                source: $('select[name=event]').val()
             };
 
             $('#filter-list').load('/Operations/filterlist/', datafilterlist);
@@ -128,7 +130,8 @@
                 var datafilterlist = {
                     barrackID: $('select[name=barrack]').val(),
                     contentType: contentType(),
-                    containerID: $('select[name=team]').val()
+                    containerID: $('select[name=team]').val(),
+                    source: $('select[name=event]').val()
                 };
 
                 $('#filter-list').load('/Operations/filterlist/', datafilterlist);
@@ -146,7 +149,8 @@
             var datafilter = {
                 barrackID: $('select[name=barrack]').val(),
                 contentType: contentType(),
-                containerID: $('select[name=team]').val()
+                containerID: $('select[name=team]').val(),
+                source: $('select[name=event]').val()
             };
 
             console.log(datax[1]);
@@ -162,7 +166,8 @@
             var datafilter = {
                 barrackID: $('select[name=barrack]').val(),
                 contentType: contentType(),
-                containerID: $('select[name=team]').val()
+                containerID: $('select[name=team]').val(),
+                source: $('select[name=event]').val()
             };
 
             $('#filter-list').load('/Operations/filterlist/', datafilter);
@@ -255,7 +260,8 @@
             var datafilter = {
                 barrackID: $('select[name=barrack]').val(),
                 contentType: contentType,
-                containerID: $('select[name=team]').val()
+                containerID: $('select[name=team]').val(),
+                source: $('select[name=event]').val()
             };
 
             $('#filter-list').load('/Operations/filterlist/', datafilter);
