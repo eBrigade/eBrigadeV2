@@ -18,6 +18,8 @@ class MaterialsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
+     // Penser à ajouter le filtrage par matéreil type également ;)
+     // Filtrage par défaut sur les barracks id d'appartenance de l'utilisateur
     public function index($id=null)
     {
         $materials = $this->Materials->find('all',[
