@@ -47,7 +47,7 @@ class OperationsController extends AppController
     public function filtertype() {
         $contentType = $this->request->data('contentType');
 
-        $barracklist = $this->Operations->Events->Barracks->find('all');
+        $barracklist = $this->Operations->Barracks->find('all');
 
         $this->set(compact('barracklist', 'contentType'));
 
@@ -114,7 +114,7 @@ class OperationsController extends AppController
         $list = $this->paginate($userlist);
 
         $this->set(compact('list', 'contentType'));
-        $this->set('_serialize', ['userlist']);
+        $this->set('_serialize', ['list']);
 
     }
 
