@@ -122,8 +122,6 @@ class FormationsController extends AppController
 
     public function addevent($id = NULL)
     {
-
-
         $formation_event = $this->Formations->Events->newEntity();
         if ($this->request->is('post')) {
             $formation_event = $this->Formations->Events->patchEntity($formation_event, $this->request->data);
@@ -137,11 +135,7 @@ class FormationsController extends AppController
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
-        
-        $cities = $this->Formations->Events->Cities->find('list', ['ValueField' => 'city']);
-        $bills = $this->Formations->Events->Bills->find('list', ['limit' => 200]);
-        $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
-        $this->set(compact('formation_event', 'organizations', 'events', 'formationTypes', 'cities', 'bills', 'barracks'));
+        $this->set(compact('formation_event'));
         $this->set('_serialize', ['formation_event']);
     }
 
