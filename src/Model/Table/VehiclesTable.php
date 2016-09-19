@@ -51,11 +51,12 @@ class VehiclesTable extends Table
             'targetForeignKey' => 'barrack_id',
             'joinTable' => 'barracks_vehicles'
         ]);
-        $this->belongsToMany('Teams', [
+        $this->belongsToMany('Events', [
             'foreignKey' => 'vehicle_id',
-            'targetForeignKey' => 'team_id',
-            'joinTable' => 'teams_vehicles'
+            'targetForeignKey' => 'event_id',
+            'joinTable' => 'events_vehicles'
         ]);
+
         $this->belongsToMany('Users', [
             'foreignKey' => 'vehicle_id',
             'targetForeignKey' => 'user_id',
