@@ -34,15 +34,16 @@ class BarracksController extends AppController
 
     public function index()
     {
-
+        $this->loadModel('MaterialStocks');
         $barracks = $this->Barracks->find('all', array(
                 'order' => array('lft'),
-				'contain' => ['Users','Vehicles']
+				'contain' => ['Users','Vehicles','MaterialStocks']
 				));
 
 		$barracks_tree = $this->Barracks->find('treelist', array(
                 'order' => array('parent_id','lft'))
         )->toArray();
+
 
         $this->set(compact('barracks','barracks_tree'));
     }
@@ -84,11 +85,13 @@ class BarracksController extends AppController
 
         $barrack_mat = $this->MaterialStocks->find('all',[
        'contain' => ['Materials.MaterialTypes']])
-            ->where(['affectation' => 'barracks']) ;
+            ->where(['affectation' => 'barracks'])
+        ->andwhere(['affectation_id' => $id]);
 
         $user_mat = $this->MaterialStocks->find('all',[
             'contain' => ['Materials.MaterialTypes','Users']])
-            ->where(['affectation' => 'users']) ;
+            ->where(['affectation' => 'users'])
+            ->andwhere(['affectation_id' => $id]);
 
 
         $c_barrack_mat = $barrack_mat->count();

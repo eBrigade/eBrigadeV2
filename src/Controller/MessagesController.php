@@ -36,7 +36,7 @@ class MessagesController extends AppController
         $log = TableRegistry::get('HistoryMp');
         $get_history = $log->find('all')
             ->where(['to_user' =>$user])
-            ->orWhere(['to_user' => $message->from_user])
+            ->orWhere(['from_user' => $user])
             ->order(['created' => 'DESC'])
             ->limit(10)
             ->offset(1);
@@ -133,16 +133,13 @@ class MessagesController extends AppController
         if ($this->request->is('post')) {
             $this->request->data['from_user']= $user;
             $too =  $this->request->data['to'];
-            $to =  substr($too, 0 , -2);
-            $extract = explode(",", $to);
+            $extract = explode(",", $too);
             $rec = [];
             foreach ($extract as $exxx){
                 $message = $this->Messages->newEntity();
-                $extractf = explode(" ", $exxx);
-                $touserid = $users->find()->select(['id'])->where(['firstname' => $extractf[0]])->andWhere(['lastname' => $extractf[1]])->first();
-                array_push($rec, $touserid->id);
+                array_push($rec, $exxx);
                 $message->from_user = $user;
-                $message->to_user = $touserid->id;
+                $message->to_user = $exxx;
                 $message->subject =  $this->request->data['subject'];
                 $message->text =  $this->request->data['text'];
                 $message->send =  0;
@@ -154,13 +151,13 @@ class MessagesController extends AppController
                 $log = TableRegistry::get('HistoryMp');
                 $logs = $log->newEntity();
                 $logs->from_user = $user;
-                $logs->to_user = $touserid->id;
+                $logs->to_user = $exxx;
                 $logs->subject =  $this->request->data['subject'];
                 $logs->text =  $this->request->data['text'];
                 $log->save($logs);
 
 // notification par email
-                $recipient = $users->find()->select(['email'])->where(['id' => $touserid->id])->first();
+                $recipient = $users->find()->select(['email'])->where(['id' => $exxx])->first();
                 $email = new Email('default');
                 $email->template('default', 'default')
                     ->emailFormat('html');
@@ -172,7 +169,7 @@ class MessagesController extends AppController
                 $notifTable = TableRegistry::get('notifications');
                 $notifSave = $notifTable->newEntity();
                 $notifSave->source_id =  $messageInsertId;
-                $notifSave->receiver = $touserid->id;
+                $notifSave->receiver = $exxx;
                 $notifSave->type = 0;
                 $notifTable->save($notifSave);
             }
@@ -199,7 +196,7 @@ class MessagesController extends AppController
         $listusers = $users->find();
         $lists = [];
         foreach ($listusers as $listuser) {
-            array_push($lists, $listuser->firstname.' '.$listuser->lastname);
+            array_push($lists,'{value:"'.$listuser->id.'",label:"'.$listuser->firstname.' '.$listuser->lastname.'"},');
         }
         $this->set(compact('lists','user','message'));
         $this->set('_serialize', ['message']);
