@@ -186,25 +186,24 @@ blockquote em{
 ul.form {
     position:relative;
     background:#fff;
-    width:250px;
+    width: 100%;
+    min-width: 150px;
     margin:auto;
     padding:0;
     list-style: none;
     overflow:hidden;
-
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-
     -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
     box-shadow:  1px 1px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form li a {
-
     border: 1px solid grey;
-    width:185px;
+    width: 100%;
+    min-width: 150px;
     padding-left:20px;
     height:50px;
     line-height:50px;
@@ -215,12 +214,9 @@ ul.form {
     text-transform:uppercase;
     font-size:14px;
     color:#686868;
-
-    -webkit-transition:all 0.2s linear;
-    -moz-transition:all 0.2s linear;
-    -o-transition:all 0.2s linear;
-    transition:all 0.2s linear;
+    font-weight: bold;
 }
+
 
 .form li a:hover {
     background: b;
