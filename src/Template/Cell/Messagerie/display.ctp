@@ -16,7 +16,7 @@
             </ul>
         </div>
     </div>
-    <div id="hide" class="hidden">
+    <div id="hide" class="">
     <hr/>
     <div class="sidebar-nav">
         <div class="navbar navbar-default" role="navigation">
@@ -31,21 +31,33 @@
     </div>
 </div>
 
+
+<div id="test">
+    Trigger the handler
+</div>
+
+
 <script>
-    // ajax retourne la liste des emails
-    $('li').click(function () {
-        var bid = $(this).attr('id').slice(4);
-        var url = '<?= $this->Url->build("BarracksUsers/groupe"); ?>';
-        console.log(url);
-        $.ajax({
-            type: 'post',
-            url: url,
-            data: 'bid= ' + bid,
-            success: function(data){
-                $('input[name="to"]').val(data);
-            }
-        });
+    <?php foreach ($list as $listring): ?>
+    $( "#list<?= $listring->id ?>" ).click(function() {
+        $('#to').tokenfield('setTokens', [{ value: "k<?= $listring->id ?>", label: "<?= $listring->name ?>" }]);
     });
+    <?php endforeach ?>
+
+///*    // ajax retourne la liste des emails
+//    $('li').click(function () {
+//        var bid = $(this).attr('id').slice(4);
+//        var url = '<?= $this->Url->build("BarracksUsers/groupe"); ?>';
+//        console.log(url);
+//        $.ajax({
+//            type: 'post',
+//            url: url,
+//            data: 'bid= ' + bid,
+//            success: function(data){
+//                $('input[name="to"]').val(data);
+//            }
+//        });
+//    });*/
 
 
     // menu lateral gauche

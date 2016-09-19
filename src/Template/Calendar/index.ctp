@@ -84,7 +84,7 @@
                 title: "<?= $ev->title ?>",
                         url: "/events/view/<?= $ev->id  ?>",
                     start: "<?= $date_start  ?>",
-                    end: "2016-10-10",
+                    end: "<?= $date_end  ?>",
                     color: "#257e4a",
                 address : "<?= $ev->address  ?>",
                     instructions : "<?= $ev->instructions  ?>",

@@ -42,7 +42,7 @@
         </div>
         <div class="panel-body history">
     <?php foreach ($get_history as $history): ?>
-    <?php if ($history->to_user == $user )
+    <?php if ($history->to_user == $user)
     {echo '<blockquote id="mp-left" class="blockquote">
     <div>
         <strong>'.$usert->lastname.'</strong> :  le '.$history->created.'
