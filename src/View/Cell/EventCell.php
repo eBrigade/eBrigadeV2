@@ -24,12 +24,20 @@ class EventCell extends Cell
      */
     public function display($id = NULL)
     {
-        $this->loadModel('Formations');
+        // Charger le model event
+		// Charger l'id correspondant
+		// Récupérer le moddule
+		// Si module formation :
+		$this->loadModel('Formations');
         $formation = $this->Formations->get($id, [
             'contain' => ['Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
         ]);
-
-        $this->set('formation', $formation);
+		// Si module operations
+		// Si module genreique
+		
+        $this->set('formation', $formation); // Utiliser une variable generique ? Ou personnaliser la variable en fonction.
         $this->set('_serialize', ['formation']);
+		
+		
     }
 }
