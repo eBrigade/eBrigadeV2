@@ -78,8 +78,7 @@ class BarracksController extends AppController
         $this->loadModel('MaterialStocks');
         $barrack = $this->Barracks->get($id, [
             'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users', 'Vehicles.VehicleTypes', 'Events.Operations.Cities',
-                'Formations.Cities'
+                'Users', 'Vehicles.VehicleTypes'
                 ]
         ]);
 

@@ -127,17 +127,30 @@ class MessagesController extends AppController
     public function send()
     {
         $users = TableRegistry::get('users');
+        $this->loadModel('Barracks');
         $message = $this->Messages->newEntity();
         $user= $this->Auth->user('id');
         $frommp = $users->find()->where(['id' => $user])->first();
         if ($this->request->is('post')) {
             $this->request->data['from_user']= $user;
             $too =  $this->request->data['to'];
-            $extract = explode(",", $too);
-            $rec = [];
-            foreach ($extract as $exxx){
+            $extract = explode(",",$too);
+                $rec = [];
+            foreach ($extract as $extxx) {
+                if (preg_match('#^k#', $extxx) === 1) {
+                    $str = substr($extxx, 1);
+                    $barrackid = $this->Barracks->find('all', ['contain' => ['Users']])
+                        ->where(['Barracks.id' => $str])->first();
+                    foreach ($barrackid->users as $mailuser) {
+                        array_push($rec, $mailuser->id);
+                    }
+                } else {
+                    array_push($rec, $extxx);
+                }
+            }
+            foreach ($rec as $exxx) {
                 $message = $this->Messages->newEntity();
-                array_push($rec, $exxx);
+
                 $message->from_user = $user;
                 $message->to_user = $exxx;
                 $message->subject =  $this->request->data['subject'];

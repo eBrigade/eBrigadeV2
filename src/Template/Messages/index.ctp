@@ -2,7 +2,7 @@
 <?= $cell ?>
 <div class="col-md-10 ">
     <div class="panel panel-primary">
-        <div class="panel-heading">Boîte de reception
+        <div class="panel-heading ">Boîte de reception
             <?= $this->Form->button(__('<i class="glyphicon glyphicon-trash"></i> '),['id' => 'bt-del', 'class' => 'btn
             btn-large btn-danger delete pull-right',]) ?>
         </div>
