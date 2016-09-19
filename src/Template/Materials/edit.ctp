@@ -10,6 +10,7 @@
                 <?php
                 echo $this->Form->input('name');
                 echo $this->Form->input('description');
+                echo $this->Form->input('stock',['type' => 'number','min' => '1','default' => $stocks->stock]);
                 echo $this->Form->input('material_type_id', ['options' => $materialTypes]);
                 echo $this->Form->input('barrack_id');
                 ?>
