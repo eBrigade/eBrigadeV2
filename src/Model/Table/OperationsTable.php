@@ -79,8 +79,8 @@ class OperationsTable extends Table
             'foreignKey' => 'operation_recommendation_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Organizations', [
-            'foreignKey' => 'organization_id',
+        $this->hasOne('Organizations', [
+            'foreignKey' => 'id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('OperationTypes', [

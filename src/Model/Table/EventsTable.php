@@ -9,14 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Events Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Cities
- * @property \Cake\ORM\Association\BelongsTo $Bills
- * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\BelongsTo $Modules
- * @property \Cake\ORM\Association\HasMany $Formations
- * @property \Cake\ORM\Association\BelongsToMany $Materials
  * @property \Cake\ORM\Association\BelongsToMany $Teams
- * @property \Cake\ORM\Association\BelongsToMany $Vehicles
  *
  * @method \App\Model\Entity\Event get($primaryKey, $options = [])
  * @method \App\Model\Entity\Event newEntity($data = null, array $options = [])
@@ -47,14 +41,6 @@ class EventsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->addBehavior('Geocodable', [
-            'addressColumn' => [
-                'address',
-                'ville'
-            ]
-        ]);
-
-
         $this->belongsTo('Operations', [
             'className' => 'Operations',
             'condition' => ['module' => 'operations'],
@@ -67,31 +53,10 @@ class EventsTable extends Table
             'foreignKey' => 'module_id'
         ]);
 
-        $this->belongsTo('Cities', [
-            'foreignKey' => 'city_id'
-        ]);
-        $this->belongsTo('Bills', [
-            'foreignKey' => 'bill_id'
-        ]);
-        $this->belongsTo('Barracks', [
-            'foreignKey' => 'barrack_id'
-        ]);
-
-
-        $this->belongsToMany('Materials', [
-            'foreignKey' => 'event_id',
-            'targetForeignKey' => 'material_id',
-            'joinTable' => 'events_materials'
-        ]);
         $this->belongsToMany('Teams', [
             'foreignKey' => 'event_id',
             'targetForeignKey' => 'team_id',
             'joinTable' => 'events_teams'
-        ]);
-        $this->belongsToMany('Vehicles', [
-            'foreignKey' => 'event_id',
-            'targetForeignKey' => 'vehicle_id',
-            'joinTable' => 'events_vehicles'
         ]);
     }
 
@@ -111,53 +76,7 @@ class EventsTable extends Table
             ->allowEmpty('title');
 
         $validator
-            ->allowEmpty('address');
-
-        $validator
-            ->allowEmpty('city_id');
-
-        $validator
-            ->allowEmpty('ville');
-
-        $validator
-            ->allowEmpty('barrack_id');
-
-        $validator
-            ->numeric('latitude')
-            ->allowEmpty('latitude');
-
-        $validator
-            ->numeric('longitude')
-            ->allowEmpty('longitude');
-
-        $validator
-            ->boolean('is_closed')
-            ->allowEmpty('is_closed');
-
-        $validator
-            ->date('closed')
-            ->allowEmpty('closed');
-
-        $validator
-            ->integer('price')
-            ->allowEmpty('price');
-
-        $validator
-            ->boolean('canceled')
-            ->allowEmpty('canceled');
-
-        $validator
-            ->allowEmpty('canceled_detail');
-
-        $validator
-            ->boolean('is_active')
-            ->allowEmpty('is_active');
-
-        $validator
             ->allowEmpty('instructions');
-
-        $validator
-            ->allowEmpty('details');
 
         $validator
             ->dateTime('event_start_date')
@@ -166,9 +85,6 @@ class EventsTable extends Table
         $validator
             ->dateTime('event_end_date')
             ->allowEmpty('event_end_date');
-
-        $validator
-            ->allowEmpty('horaires');
 
         $validator
             ->boolean('public')
@@ -189,10 +105,7 @@ class EventsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['city_id'], 'Cities'));
-        $rules->add($rules->existsIn(['bill_id'], 'Bills'));
-        $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
-        /*$rules->add($rules->existsIn(['module_id'], 'Operations'));*/
+        $rules->add($rules->existsIn(['module_id'], 'Modules'));
 
         return $rules;
     }

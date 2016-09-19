@@ -61,9 +61,7 @@ class BarracksTable extends Table
             'joinType' => 'INNER'
         ]);
 
-        $this->hasMany('Events', [
-            'foreignKey' => 'barrack_id'
-        ]);
+
         $this->hasMany('Operations', [
             'foreignKey' => 'barrack_id'
         ]);

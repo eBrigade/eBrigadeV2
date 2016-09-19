@@ -19,7 +19,7 @@ class OperationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Events', 'Barracks', 'Cities', 'OperationActivities', 'OperationEnvironments', 'OperationDelays', 'OperationRecommendations', 'OperationTypes']
+            'contain' => ['Barracks', 'Cities']
         ];
 
         $operations = $this->paginate($this->Operations);
