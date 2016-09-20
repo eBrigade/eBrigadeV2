@@ -36,23 +36,45 @@ class BarracksController extends AppController
     public function index()
     {
         if ($this ->request ->is('post')) {
+// recherche multi-critere
+                $array = [];
+        if (!empty($this->request->data['departement'])) {
+            $push = $this->request->data['departement'];
+            $pushall =  "dpt_id = '$push'";
+            array_push($array, $pushall);
+        }
+            if (!empty($this->request->data['nom'])) {
+                $push = $this->request->data['nom'];
+                $pushall = "name LIKE '%$push%'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['parent'])) {
+                $push = $this->request->data['parent'];
+                $pushall = "parent_id IS NULL";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['enfant'])) {
+                $push = $this->request->data['enfant'];
+                $pushall = "parent_id IS NOT NULL";
+                array_push($array, $pushall);
+            }
+
             $barracks = $this->Barracks->find('all', array(
                 'order' => array('lft'),
                 'contain' => ['Cities.Departments.Regions']
-            ))->where(['dpt_id' => $this->request->data('departement') ]);
+            ))->where(['lft >' => 0, $array]);
         }
+
         else {
             $barracks = $this->Barracks->find('all', array(
                 'order' => array('lft'),
                 'contain' => ['Users','Vehicles','MaterialStocks']
             ));
         }
-//        $afficherqueparents = $this->Barracks->find('all', array(
-//            'order' => array('lft'),
-//            'contain' => ['Users','Vehicles','MaterialStocks']
-//        ))->where(['parent_id IS NULL']);
-//        $this->loadModel('MaterialStocks');
 
+
+
+        $this->loadModel('MaterialStocks');
 
         $barracks_tree = $this->Barracks->find('treelist', array(
                 'order' => array('parent_id','lft'))
