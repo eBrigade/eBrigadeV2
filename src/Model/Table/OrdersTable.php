@@ -9,8 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Orders Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Providers
- * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\BelongsTo $Materials
  * @property \Cake\ORM\Association\BelongsToMany $Supplies
  *
  * @method \App\Model\Entity\Order get($primaryKey, $options = [])
@@ -38,11 +37,9 @@ class OrdersTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Providers', [
-            'foreignKey' => 'provider_id'
-        ]);
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
+        $this->belongsTo('Materials', [
+            'foreignKey' => 'material_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsToMany('Supplies', [
             'foreignKey' => 'order_id',
@@ -63,6 +60,11 @@ class OrdersTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
+        $validator
+            ->integer('quantity')
+            ->requirePresence('quantity', 'create')
+            ->notEmpty('quantity');
+
         return $validator;
     }
 
@@ -75,8 +77,7 @@ class OrdersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['provider_id'], 'Providers'));
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['material_id'], 'Materials'));
 
         return $rules;
     }

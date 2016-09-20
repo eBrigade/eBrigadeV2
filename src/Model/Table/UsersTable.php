@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Cities
  * @property \Cake\ORM\Association\HasMany $Availabilities
- * @property \Cake\ORM\Association\HasMany $Orders
+ * @property \Cake\ORM\Association\HasMany $Materials
  * @property \Cake\ORM\Association\BelongsToMany $Barracks
  * @property \Cake\ORM\Association\BelongsToMany $Skills
  * @property \Cake\ORM\Association\BelongsToMany $Teams
@@ -52,7 +52,7 @@ class UsersTable extends Table
         $this->hasMany('Availabilities', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('Orders', [
+        $this->hasMany('Materials', [
             'foreignKey' => 'user_id'
         ]);
         $this->belongsToMany('Barracks', [
@@ -169,6 +169,11 @@ class UsersTable extends Table
             ->integer('alerte')
             ->requirePresence('alerte', 'create')
             ->notEmpty('alerte');
+
+        $validator
+            ->boolean('is_provider')
+            ->requirePresence('is_provider', 'create')
+            ->notEmpty('is_provider');
 
         return $validator;
     }
