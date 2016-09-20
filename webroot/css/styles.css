@@ -436,3 +436,7 @@ html {
 .upmarge{
     margin-top: -22px;
 }
+
+.input-group-addon { width: 42px!important; }
+
+.input-group { width: 100%!important; }

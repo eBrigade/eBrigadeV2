@@ -1,4 +1,4 @@
-<div class='col-md-2'>
+<div class='col-md-3'>
     <div class="sidebar-nav linkout">
         <div class="navbar navbar-default" role="navigation">
 
@@ -13,20 +13,30 @@
         </div>
     </div>
 
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"  ><a href="javascript:;"> Trier par
-                </a>
-                </li>
-                <li id="bttoopen"><a href="javascript:;">*****</a></li>
-                <li id="bttoclose"><a href="javascript:;">*******</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
 
-<div class='col-md-10'>
+
+
+        <h4>Recherche</h4>
+                            <?php echo $this->Form->create('Post',array('id' => 'form-map' , 'class' => 'form-horizontal' , 'type' => 'get','url' => array('controller' => 'barracks', 'action' => 'index'))); ?>
+        <div class="col-md-12">
+        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-map-signs" aria-hidden="true"></i></span>
+            <?= $this->Form->input('departement', ['options' => $dpt , 'label' => false , 'templates' => [
+            'inputContainer' => '{{content}}'
+            ]]);  ?>
+        </div>
+        </div>
+    <br> <br>
+        <?=   $this->Form->submit('Rechercher', ['class' => 'btn btn-success center-block']) ;
+                 $this->Form->end() ;
+                ?>
+    </div>
+
+
+
+
+
+<div class='col-md-9'>
 
     <div class="panel panel-primary">
         <div class="panel-heading"><?= __('Vue arborescente des Casernes') ?>

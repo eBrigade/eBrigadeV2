@@ -26,9 +26,12 @@ class MessagerieCell extends Cell
         $list = $this->Barracks->find()
             ->select(['name','id']);
 
+        $barracks_tree  = $this->Barracks->find('threaded', array(
+                'order' => array('parent_id'))
+        );
 
 
-        $this->set(compact('sendmpcount','recmpcount','list'));
+        $this->set(compact('sendmpcount','recmpcount','list','barracks_tree'));
     }
 
 }

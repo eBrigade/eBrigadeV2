@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Entity\Department;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
@@ -34,6 +35,23 @@ class BarracksController extends AppController
 
     public function index()
     {
+        $dpt =$this->request->query['departement'];
+
+        $finds = $this->Barracks->find('all', array(
+            'conditions' => array(
+                'is_active'=>'1',
+                "AND"=>array('town_name LIKE'=>'%'.$custom.'%'),
+//                "AND"=>array('type_ad_id' => $dpt),
+//                "AND"=>array('for_sale' => $sale),
+//                "AND"=>array('for_rent' => $rent),
+//                "AND"=>array('surface between '.$min[0].' and '.$min[1].'')
+            )))
+            ->contain(['Cities.Departments']);
+
+
+
+
+
         $this->loadModel('MaterialStocks');
         $barracks = $this->Barracks->find('all', array(
                 'order' => array('lft'),
@@ -45,7 +63,18 @@ class BarracksController extends AppController
         )->toArray();
 
 
-        $this->set(compact('barracks','barracks_tree'));
+        $tableregion = TableRegistry::get('Regions');
+        $tabledpt = TableRegistry::get('Departments');
+        $region = $tableregion->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'region'
+        ]);
+        $dpt = $tabledpt->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'dpt'
+        ]);
+
+        $this->set(compact('barracks','barracks_tree','region','dpt'));
     }
 	
     public function carte()
