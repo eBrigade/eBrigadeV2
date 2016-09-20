@@ -13,7 +13,7 @@
 /*messagerie privé*/
 .linkout .active a {
     cursor: default;
-    background-color: #428bca;
+    background-color: #2f6fa7;
     color: #fff;
     text-shadow: 1px 1px 1px #666;
 }
@@ -23,7 +23,14 @@
     border-radius: 2px;
     color: white;
 }
-.nav-pills>li>a {padding: 5px 10px;}
+.nav-pills>li>a {
+    padding: 5px 10px;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #2f70a9;
+}
 
 hr { margin-top: 5px;margin-bottom: 10px; }
 
