@@ -1,26 +1,35 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $materialType->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $materialType->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Material Types'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="materialTypes form large-9 medium-8 columns content">
-    <?= $this->Form->create($materialType) ?>
-    <fieldset>
-        <legend><?= __('Edit Material Type') ?></legend>
-        <?php
-            echo $this->Form->input('name');
-            echo $this->Form->input('description');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <?= $this->Form->create($materialType) ?>
+                <fieldset>
+                    <?= __('Edit Material Type') ?>
+                    <span class="pull-right">
+                    <?= $this->Form->postLink(
+                        __('Delete'),
+                        ['action' => 'delete', $materialType->id],
+                        ['class' => 'btn btn-danger','escape'=>false],
+                        ['confirm' => __('Are you sure you want to delete # {0}?', $materialType->id)]
+                    )
+                    ?>
+                    </span>
+            </div>
+            <div class="panel-body">
+                <?php
+                echo $this->Form->input('name');
+                echo $this->Form->input('description');
+                ?>
+                </fieldset>
+            </div>
+            <div class="panel-footer text-center">
+                <?= $this->Form->button(__('Submit'),[
+                    'class' => 'btn btn-success',
+                ]) ?>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
+    </div>
 </div>
+
+
