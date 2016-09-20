@@ -24,7 +24,7 @@
         </div>
         <div class="col-xs-6 col-md-6">
             <h4>Eléments déployés</h4>
-            <form id="elements">
+            <form>
                 <div class="form-group">
                     <label for="event">Evénement</label>
                     <select class="form-control" name="event" id="event">
@@ -38,23 +38,27 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
-                </div>
-                <div class="form-group" id="team">
-                </div>
+                    <button href="#" id="add-event" class="btn btn-info">Nouvel Evénement</button>
             </form>
+        </div>
+        <form>
+            <div class="form-group" id="team">
+            </div>
+        </form>
 
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6 col-md-6">
+        <div id="filter-list">
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-6 col-md-6">
-            <div id="filter-list">
-            </div>
-        </div>
-        <div class="col-xs-6 col-md-6">
-            <div id="content-list">
-            </div>
+    <div class="col-xs-6 col-md-6">
+        <div id="content-list">
         </div>
     </div>
+</div>
 </div>
 
 

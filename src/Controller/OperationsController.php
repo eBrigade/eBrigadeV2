@@ -112,24 +112,23 @@ class OperationsController extends AppController
 
         }
 
-
-        //WTF notMatching = find('all') ?!!
-        $userlist->notMatching('Teams.Events', function ($q) use ($source) {
-            return $q->where(['Events.id' => $source]);
-        });
-
         $event = $this->Operations->Events->get($source);
         $timestart = $event->event_start_date;
         $timeend = $event->event_end_date;
 
-        //time tests
-       /* $userlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
-            return $q->where([
-                'Events.event_start_date <= ' => $timestart,
-                'Events.event_end_date >= ' => $timeend
-            ]);
-        });*/
 
+        // gets users that are not assigned in the same lapse of time
+        $userlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
+            return $q->where( [ 'OR' => [
+                [function ($time) use ($timestart, $timeend) {
+                    return $time->between('Events.event_end_date', $timestart, $timeend, 'datetime');
+                }],
+                    [function ($time) use ($timestart, $timeend) {
+                        return $time->between('Events.event_start_date', $timestart, $timeend, 'datetime');
+                    }]
+                ]]
+            );
+        });
 
 
         $list = $this->paginate($userlist);
