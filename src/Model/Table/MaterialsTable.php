@@ -11,7 +11,9 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $MaterialTypes
  * @property \Cake\ORM\Association\BelongsTo $Barracks
+ * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $MaterialStocks
+ * @property \Cake\ORM\Association\BelongsToMany $Barracks
  * @property \Cake\ORM\Association\BelongsToMany $Teams
  *
  * @method \App\Model\Entity\Material get($primaryKey, $options = [])
@@ -21,8 +23,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Material patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Material[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Material findOrCreate($search, callable $callback = null)
- */
-class MaterialsTable extends Table
+ */class MaterialsTable extends Table
 {
 
     /**
@@ -47,8 +48,17 @@ class MaterialsTable extends Table
             'foreignKey' => 'barrack_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
         $this->hasMany('MaterialStocks', [
             'foreignKey' => 'material_id'
+        ]);
+        $this->belongsToMany('Barracks', [
+            'foreignKey' => 'material_id',
+            'targetForeignKey' => 'barrack_id',
+            'joinTable' => 'barracks_materials'
         ]);
         $this->belongsToMany('Teams', [
             'foreignKey' => 'material_id',
@@ -66,17 +76,15 @@ class MaterialsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
-
+            ->integer('id')            ->allowEmpty('id', 'create');
         $validator
-            ->requirePresence('name', 'create')
-            ->notEmpty('name')
-            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
+            ->requirePresence('name', 'create')            ->notEmpty('name')            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
         $validator
             ->allowEmpty('description');
-
+        $validator
+            ->requirePresence(' reference', 'create')            ->notEmpty(' reference');
+        $validator
+            ->boolean('order_made')            ->requirePresence('order_made', 'create')            ->notEmpty('order_made');
         return $validator;
     }
 
@@ -92,6 +100,7 @@ class MaterialsTable extends Table
         $rules->add($rules->isUnique(['name']));
         $rules->add($rules->existsIn(['material_type_id'], 'MaterialTypes'));
         $rules->add($rules->existsIn(['barrack_id'], 'Barracks'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
     }

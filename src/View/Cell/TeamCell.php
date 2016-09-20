@@ -22,13 +22,13 @@ class TeamCell extends Cell
      *
      * @return void
      */
-    public function display($id = NULL,$eve)
+    public function display($id = NULL,$event)
     {
         $this->loadModel('Formations');
         $formation = $this->Formations->get($id, [
             'contain' => ['Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
         ]);
-        $this->set(compact('eve'));
+        $this->set(compact('event'));
         $this->set('formation', $formation);
         $this->set('_serialize', ['formation']);
     }
