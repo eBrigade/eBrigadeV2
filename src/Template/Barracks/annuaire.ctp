@@ -5,9 +5,9 @@
 <div class='col-md-9'>
     <?php foreach ($barracks as $barrack): ?>
     <div class="col-md-6" >
-        <div class="panel panel-success">
+        <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><strong><?= h($barrack->name) ?></strong></h3>
+                <h3 class="panel-title"><?= h($barrack->name) ?></h3>
                 <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'delete', $barrack->id]); ?>" data-original-title="Supprimer cette caserne" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger pull-right mgblist upmarge"><i class="glyphicon glyphicon-remove"></i></a>
                 <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'edit', $barrack->id]); ?>" data-original-title="Editer cette caserne" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning pull-right upmarge"><i class="glyphicon glyphicon-edit"></i></a>
 
@@ -47,11 +47,11 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'view', $barrack->id]); ?>" class="btn btn-success btn-sm " data-original-title="Voir la fiche détaillée" data-toggle="tooltip"><i class="glyphicon glyphicon-eye-open"></i> DETAILS</a>
-                <a href="<?= $this->Url->build(['controller' => 'messages','action' => 'send']); ?>" class="btn btn-success  btn-sm" data-original-title="Envoyer un message privé" data-toggle="tooltip"><i class="glyphicon glyphicon-envelope"></i> MP</a>
+                <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'view', $barrack->id]); ?>" class="btn btn-primary btn-sm " data-original-title="Voir la fiche détaillée" data-toggle="tooltip"><i class="glyphicon glyphicon-eye-open"></i> DETAILS</a>
+                <a href="<?= $this->Url->build(['controller' => 'messages','action' => 'send']); ?>" class="btn btn-primary  btn-sm" data-original-title="Envoyer un message privé" data-toggle="tooltip"><i class="glyphicon glyphicon-envelope"></i> MP</a>
                 <?php
             if (!empty($barrack->website_url)){
-                echo '<a href="http://'.$barrack->website_url .'" target="_blank" class="btn btn-success  btn-sm pull-right" data-original-title="Visitez le site" data-toggle="tooltip"><i class="glyphicon glyphicon-link"></i> SITE WEB</a>' ;
+                echo '<a href="http://'.$barrack->website_url .'" target="_blank" class="btn btn-primary  btn-sm pull-right" data-original-title="Visitez le site" data-toggle="tooltip"><i class="glyphicon glyphicon-link"></i> SITE WEB</a>' ;
                 } ?>
             </div>
 

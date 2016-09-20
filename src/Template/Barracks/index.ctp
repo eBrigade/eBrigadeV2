@@ -16,7 +16,7 @@
         </thead>
         <tbody>
     <?php foreach( $barracks as $id => $barrack ) { ?>
-    <?php $name = str_replace( '_' , '---' , $barracks_tree[ $barrack->id ] ); ?>
+    <?php $name = str_replace( '_' , '<i class="fa fa-long-arrow-right" aria-hidden="true"></i>' , $barracks_tree[ $barrack->id ] ); ?>
             <tr>
                 <td><?= $name ?></td>
 				<td>
@@ -35,18 +35,3 @@
     </table>
 </div>
 
-    <script>
-            $('#region').change(function(){
-                getdpt()
-            });
-        function getdpt(){
-            $.ajax({
-                type: 'POST',
-                url: '<?= $this->Url->build(["controller" => "Barracks","action" => "getdpt"]); ?>',
-                data  : "id="+$('#region').val(),
-                success: function (data) {
-                    $('#departement').html(data);
-                }
-            });
-        }
-    </script>

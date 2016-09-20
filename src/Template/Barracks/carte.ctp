@@ -1,25 +1,15 @@
 <?= $this->Html->css('tree.css') ?>
 <?= $this->Html->script('tree.js')?>
-<div class='col-md-2'>
-
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active" ><a href="javascript:;"> Afficher par
-                </a>
-                </li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>">Arborescence</a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'annuaire']); ?>">Liste </a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'carte']); ?>">Carte</a></li>
-            </ul>
-        </div>
-    </div>
 
 
-</div>
-<div class='col-md-10'>
+<?php $cell = $this->cell('Barrack') ?>
+<?= $cell ?>
 
-    <div class="panel panel-default">
+
+
+<div class='col-md-9'>
+
+    <div class="panel panel-primary">
         <div class="panel-heading"><?= __('Carte des Casernes') ?>
         </div>
 
