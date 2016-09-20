@@ -7,8 +7,8 @@ use Cake\ORM\Entity;
  * Order Entity
  *
  * @property int $id
- * @property int $provider_id
- * @property int $user_id
+ * @property int $material_id
+ * @property int $quantity
  *
  * @property \App\Model\Entity\Provider $provider
  * @property \App\Model\Entity\User $user

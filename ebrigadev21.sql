@@ -429,6 +429,9 @@ CREATE TABLE IF NOT EXISTS `materials` (
   `description` text,
   `material_type_id` int(11) NOT NULL,
   `barrack_id` int(11) NOT NULL,
+  `user_id` int(11),
+  `reference` varchar(250),
+  `order_made` tinyint(1),
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -570,24 +573,10 @@ INSERT INTO `notifications` (`id`, `source_id`, `receiver`, `type`) VALUES
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `provider_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `material_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orders_supplies`
---
-
-CREATE TABLE IF NOT EXISTS `orders_supplies` (
-  `order_id` int(11) NOT NULL DEFAULT '0',
-  `supply_id` int(11) NOT NULL DEFAULT '0',
-  `quantity` int(11) DEFAULT '1',
-  PRIMARY KEY (`order_id`,`supply_id`),
-  KEY `supply_id` (`supply_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -1110,6 +1099,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` date DEFAULT NULL,
   `modified` date DEFAULT NULL,
   `connected` date DEFAULT NULL,
+  `personne_referente` text NOT NULL,
+  `tuteur_legal` text NOT NULL,
+  `alerte` int(11) not null,
+  `is_provider` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `login` (`login`)
