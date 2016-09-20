@@ -163,17 +163,12 @@ class OperationsController extends AppController
     public function addevent($id = null)
     {
 
-        $this->loadModel('Events');
-        $event = $this->Events->newEntity();
-        $operation = $this->Operations->get($id);
-
+        $event = $this->Operations->Events->newEntity();
 
         if ($this->request->is('post')) {
             $event = $this->Events->patchEntity($event, $this->request->data);
             $event->module_id = $id;
             $event->module = 'operations';
-            $event->latitude = $operation->latitude;
-            $event->longitude = $operation->longitude;
             if ($this->Events->save($event)) {
 
                 $this->Flash->success(__('The event has been saved.'));
@@ -183,11 +178,7 @@ class OperationsController extends AppController
             }
         }
 
-        $barracks = $this->Events->Barracks->find('treeList');
-        $materials = $this->Events->Materials->find('list', ['limit' => 200]);
-        $teams = $this->Events->Teams->find('list', ['limit' => 200]);
-        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'barracks', 'modules', 'materials', 'teams', 'vehicles'));
+        $this->set(compact('event'));
         $this->set('_serialize', ['event']);
     }
 
@@ -319,12 +310,6 @@ class OperationsController extends AppController
                 break;
             case 'Teams':
                 $contain = [$contentType, 'Teams.Users', 'Teams.Materials', 'Teams.Vehicles.VehicleTypes'];
-                $teamsList = $this->Events->Teams->find('all');
-                $usersList = $this->Events->Teams->Users->find('all');
-                $materialsList = $this->Events->Teams->Materials->find('all');
-                $vehiclesList = $this->Events->Teams->Vehicles->find('all', [
-                    'contain' => 'VehicleTypes'
-                ]);
                 //get container object with container id
                 $content = $containerTable->get($containerID, [
                     'contain' => $contain

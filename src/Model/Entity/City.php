@@ -15,7 +15,6 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Department $department
  * @property \App\Model\Entity\Barrack[] $barracks
- * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Organization[] $organizations
  * @property \App\Model\Entity\User[] $users
  */

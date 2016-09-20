@@ -105,7 +105,6 @@ class EventsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['module_id'], 'Modules'));
 
         return $rules;
     }
