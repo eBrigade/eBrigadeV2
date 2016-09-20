@@ -66,7 +66,8 @@ class FormationsController extends AppController
         $organizations = $this->Formations->Organizations->find('list', ['limit' => 200]);
         $events = $this->Formations->Events->find('list', ['limit' => 200]);
         $formationTypes = $this->Formations->FormationTypes->find('list', ['limit' => 200]);
-        $this->set(compact('formation', 'organizations', 'events', 'formationTypes','cities'));
+        $barracks = $this->Formations->Barracks->find('list',['valueField'=>'name']);
+        $this->set(compact('formation', 'organizations', 'events', 'formationTypes','cities','barracks'));
         $this->set('_serialize', ['formation']);
     }
 
@@ -95,7 +96,9 @@ class FormationsController extends AppController
         $organizations = $this->Formations->Organizations->find('list', ['limit' => 200]);
         $events = $this->Formations->Events->find('list', ['limit' => 200]);
         $formationTypes = $this->Formations->FormationTypes->find('list', ['limit' => 200]);
-        $this->set(compact('formation', 'organizations', 'events', 'formationTypes'));
+        $barracks = $this->Formations->Barracks->find('list',['valueField'=>'name']);
+        $cities = $this->Formations->Cities->find('list', ['ValueField' => 'city']);
+        $this->set(compact('formation', 'organizations', 'events', 'formationTypes','barracks','cities'));
         $this->set('_serialize', ['formation']);
     }
 

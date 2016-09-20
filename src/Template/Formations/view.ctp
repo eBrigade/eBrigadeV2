@@ -54,13 +54,13 @@
             </ul>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-8">
-                <li class="list-group-item list-group-item-info haha">
-                    <div class="my-modal-base">
-                        <div class="my-modal-cont"></div>
-                    </div>
-                    <div class="btn btn-info btn-sm" id="bt-aj-eq-for">Ajouter une Mission</div>
-                    Détails de la mission
-                </li>
+            <li class="list-group-item list-group-item-info haha">
+                <div class="my-modal-base">
+                    <div class="my-modal-cont"></div>
+                </div>
+                <div class="btn btn-info btn-sm" id="bt-aj-eq-for">Ajouter une Mission</div>
+                Détails de la mission
+            </li>
             </br>
             <?= $this->cell('Event',[$formation->id]) ?>
             <ul class="list-group">
