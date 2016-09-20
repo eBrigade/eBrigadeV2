@@ -12,6 +12,10 @@
         echo $this->Form->input('price');
         echo $this->Form->input('instruction');
         echo $this->Form->input('city_id',['option'=>$cities]);
+        echo $this->Form->input('barrack_id',['option'=>$barracks]);
+        echo $this->Form->input('address');
+        echo $this->Form->input('details');
+        echo $this->Form->input('horraires');
             echo $this->Form->input('formation_type_id', ['options' => $formationTypes, 'empty' => true]);
         ?>
     </fieldset>

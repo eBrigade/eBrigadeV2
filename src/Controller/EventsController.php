@@ -124,4 +124,28 @@ class EventsController extends AppController
 
         return $this->redirect($this->referer());
     }
+
+    public function addteam($id = NULL)
+    {
+        $event_team = $this->Events->Teams->newEntity();
+        if ($this->request->is('post')) {
+            $event_team = $this->Events->Teams->patchEntity($event_team, $this->request->data);
+            if ($this->Events->Teams->save($event_team)) {
+                $this->Flash->success(__('The event has been saved.'));
+
+                return $this->redirect($this->referer());
+            } else {
+                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+            }
+        }
+        $ids = $id;
+        $materials = $this->Events->Materials->find('list', ['limit' => 200]);
+        $vehicles = $this->Events->Vehicles->find('list', ['valueField' => 'name']);
+        $users = $this->Events->Teams->Users->find('list');
+        $event = $this->Events->find('list');
+        $events = $this->Events->find('all')->where(['id'=>$id]);
+        $this->set(compact('event_team', 'materials', 'vehicles','users','event','ids','events'));
+        $this->set('_serialize', ['event_team']);
+    }
+
 }

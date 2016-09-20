@@ -23,7 +23,7 @@
                 <td><?= h($formation->diploma) ?></td>
                 <td><?= h($formation->formation_start) ?></td>
                 <td><?= h($formation->formation_end) ?></td>
-                <td><?= h($formation->price) ?></td>
+                <td><?= h($formation->price) ?> €</td>
                 <td><?= h($formation->city_id) ?></td>
                 <td><?= h($formation->formation_type_id) ?></td>
                 <td><?= $formation->has('formation_type') ? $this->Html->link($formation->formation_type->title, ['controller' => 'FormationTypes', 'action' => 'view', $formation->formation_type->id]) : '' ?></td>

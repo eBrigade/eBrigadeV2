@@ -12,10 +12,8 @@ class MaterialsTableTest extends TestCase
 {
 
     /**
-     * Test subject
-     *
-     * @var \App\Model\Table\MaterialsTable
-     */
+     * Test subject     *
+     * @var \App\Model\Table\MaterialsTable     */
     public $Materials;
 
     /**
@@ -52,7 +50,6 @@ class MaterialsTableTest extends TestCase
         'app.supplies',
         'app.orders_supplies',
         'app.providers_supplies',
-        'app.user_materials',
         'app.barracks_users',
         'app.skills',
         'app.skills_users',
@@ -76,9 +73,7 @@ class MaterialsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Materials') ? [] : ['className' => 'App\Model\Table\MaterialsTable'];
-        $this->Materials = TableRegistry::get('Materials', $config);
-    }
+        $config = TableRegistry::exists('Materials') ? [] : ['className' => 'App\Model\Table\MaterialsTable'];        $this->Materials = TableRegistry::get('Materials', $config);    }
 
     /**
      * tearDown method
