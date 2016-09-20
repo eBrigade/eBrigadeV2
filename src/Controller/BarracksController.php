@@ -35,36 +35,31 @@ class BarracksController extends AppController
 
     public function index()
     {
-        $dpt =$this->request->query['departement'];
-
-        $finds = $this->Barracks->find('all', array(
-            'conditions' => array(
-                'is_active'=>'1',
-                "AND"=>array('town_name LIKE'=>'%'.$custom.'%'),
-//                "AND"=>array('type_ad_id' => $dpt),
-//                "AND"=>array('for_sale' => $sale),
-//                "AND"=>array('for_rent' => $rent),
-//                "AND"=>array('surface between '.$min[0].' and '.$min[1].'')
-            )))
-            ->contain(['Cities.Departments']);
-
-
-
-
-
-        $this->loadModel('MaterialStocks');
-        $barracks = $this->Barracks->find('all', array(
+        if ($this ->request ->is('post')) {
+            $barracks = $this->Barracks->find('all', array(
                 'order' => array('lft'),
-				'contain' => ['Users','Vehicles','MaterialStocks']
-				));
+                'contain' => ['Cities.Departments.Regions']
+            ))->where(['dpt_id' => $this->request->data('departement') ]);
+        }
+        else {
+            $barracks = $this->Barracks->find('all', array(
+                'order' => array('lft'),
+                'contain' => ['Users','Vehicles','MaterialStocks']
+            ));
+        }
+//        $afficherqueparents = $this->Barracks->find('all', array(
+//            'order' => array('lft'),
+//            'contain' => ['Users','Vehicles','MaterialStocks']
+//        ))->where(['parent_id IS NULL']);
+//        $this->loadModel('MaterialStocks');
 
-		$barracks_tree = $this->Barracks->find('treelist', array(
+
+        $barracks_tree = $this->Barracks->find('treelist', array(
                 'order' => array('parent_id','lft'))
         )->toArray();
 
-
-        $tableregion = TableRegistry::get('Regions');
-        $tabledpt = TableRegistry::get('Departments');
+        $tableregion = $this->Barracks->Cities->Departments->Regions;
+        $tabledpt = $this->Barracks->Cities->Departments;
         $region = $tableregion->find('list', [
             'keyField' => 'id',
             'valueField' => 'region'
@@ -76,7 +71,18 @@ class BarracksController extends AppController
 
         $this->set(compact('barracks','barracks_tree','region','dpt'));
     }
-	
+
+    public function getdpt()
+    {
+        if ($this -> request -> is('ajax')) {
+            $id = $this->request->data('id');
+            $status = $this->Barracks->Cities->Departments->find('')->where(['region_id' => $id]);
+        }
+
+        $this->set(compact('status'));
+        $this->set('_serialize', ['status']);
+    }
+
     public function carte()
     {
         $barracks = $this->Barracks->find('all',[
