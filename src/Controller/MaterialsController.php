@@ -167,29 +167,4 @@ class MaterialsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-    public function ajaxdelete($id = null)
-    {
-        if ($this->request->is(['post'])) {
-            $this->autoRender = false;
-            $id = $this->request->data['id'];
-            $entity = $this->Materials->get($id);
-            $this->Materials->delete($entity);
-        }
-    }
-
-    public function ajaxedit()
-    {
-        $this->autoRender = false;
-
-        if ($this->request->is('post')) {
-            $this->Materials->updateAll(
-                ['matriculation' => $this->request->data['matriculation'],
-                    'number_kilometer' => $this->request->data['number_kilometer'],
-                    'bought' => $this->request->data['bought'],
-                    'end_warranty' =>  $this->request->data['end_warranty'],
-                    'next_revision' => $this->request->data['next_revision']],
-                ['id' => $this->request->data['id']]);
-        }
-    }
 }
