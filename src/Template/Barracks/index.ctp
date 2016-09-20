@@ -15,21 +15,26 @@
 
 
 
+    <?php echo $this->Form->create('Post',array('id' => 'form-map' , 'class' => 'form-horizontal' , 'type' => 'post','url' => array('controller' => 'barracks', 'action' => 'index'))); ?>
 
-        <h4>Recherche</h4>
-                            <?php echo $this->Form->create('Post',array('id' => 'form-map' , 'class' => 'form-horizontal' , 'type' => 'get','url' => array('controller' => 'barracks', 'action' => 'index'))); ?>
-        <div class="col-md-12">
+    <div class="col-md-12">
         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-map-signs" aria-hidden="true"></i></span>
-            <?= $this->Form->input('departement', ['options' => $dpt , 'label' => false , 'templates' => [
+            <span class="input-group-addon"><i class="fa fa-map" aria-hidden="true"></i></span>
+            <?= $this->Form->input('region', ['empty' => 'Tri par Region','options' => $region , 'label' => false , 'templates' => [
             'inputContainer' => '{{content}}'
             ]]);  ?>
         </div>
+    </div> <br> <br>
+
+        <div class="col-md-12">
+        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-map-signs" aria-hidden="true"></i></span>
+            <?= $this->Form->input('departement', ['empty' => 'Tri par Departement','options' => $dpt , 'label' => false , 'templates' => [
+            'inputContainer' => '{{content}}'
+            ]]);  ?>
         </div>
-    <br> <br>
-        <?=   $this->Form->submit('Rechercher', ['class' => 'btn btn-success center-block']) ;
-                 $this->Form->end() ;
-                ?>
+        </div> <br> <br>
+        <?= $this->Form->end(); ?>
     </div>
 
 
@@ -69,3 +74,24 @@
     	</tbody>
     </table>
 </div>
+
+    <script>
+            $('#region').change(function(){
+                getdpt()
+            });
+        function getdpt(){
+            $.ajax({
+                type: 'POST',
+                url: '<?= $this->Url->build(["controller" => "Barracks","action" => "getdpt"]); ?>',
+                data  : "id="+$('#region').val(),
+                success: function (data) {
+                    $('#departement').html(data);
+                }
+            });
+        }
+
+
+            $('#departement').change(function(){
+                $('#form-map').submit();
+                 })
+    </script>
