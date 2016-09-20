@@ -1,61 +1,67 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Cities'), ['controller' => 'Cities', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New City'), ['controller' => 'Cities', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Availabilities'), ['controller' => 'Availabilities', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Availability'), ['controller' => 'Availabilities', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Orders'), ['controller' => 'Orders', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Order'), ['controller' => 'Orders', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List User Materials'), ['controller' => 'UserMaterials', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User Material'), ['controller' => 'UserMaterials', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Barracks'), ['controller' => 'Barracks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Barrack'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Skills'), ['controller' => 'Skills', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Skill'), ['controller' => 'Skills', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Teams'), ['controller' => 'Teams', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Team'), ['controller' => 'Teams', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Vehicles'), ['controller' => 'Vehicles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Vehicle'), ['controller' => 'Vehicles', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
-    <fieldset>
-        <legend><?= __('Edit User') ?></legend>
-        <?php
-            echo $this->Form->input('firstname');
-            echo $this->Form->input('lastname');
-            echo $this->Form->input('birthname');
-            echo $this->Form->input('email');
-            echo $this->Form->input('login');
-            echo $this->Form->input('password');
-            echo $this->Form->input('phone');
-            echo $this->Form->input('cellphone');
-            echo $this->Form->input('workphone');
-            echo $this->Form->input('address');
-            echo $this->Form->input('address_complement');
-            echo $this->Form->input('zipcode');
-            echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
-            echo $this->Form->input('birthday', ['empty' => true]);
-            echo $this->Form->input('birthplace');
-            echo $this->Form->input('skype');
-            echo $this->Form->input('is_active');
-            echo $this->Form->input('external');
-            echo $this->Form->input('connected', ['empty' => true]);
-            echo $this->Form->input('barracks._ids', ['options' => $barracks]);
-            echo $this->Form->input('skills._ids', ['options' => $skills]);
-            echo $this->Form->input('teams._ids', ['options' => $teams]);
-            echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <?= $this->Form->create($user) ?>
+                <fieldset>
+                    <h4><?= __('Edit User') ?></h4>
+                    <span class="pull-right">
+                        <?= $this->Form->postLink(
+                            __('Delete'),
+                            ['action' => 'delete', $user->id],
+                            ['class' => 'btn btn-danger', 'escape' => false],
+                            ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
+                        )
+                        ?>
+                    </span>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <?php
+                        echo $this->Form->input('firstname');
+                        echo $this->Form->input('lastname');
+                        echo $this->Form->input('birthname');
+                        echo $this->Form->input('email');
+                        echo $this->Form->input('login');
+                        echo $this->Form->input('password');
+                        echo $this->Form->input('birthday', [
+                            'empty' => true,
+                            'minYear' => date('Y')-90,
+                            'maxYear' => date('Y')-16
+                        ]);
+                        echo $this->Form->input('birthplace');
+                        ?>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <?php
+
+                        echo $this->Form->input('address');
+                        echo $this->Form->input('address_complement');
+                        echo $this->Form->input('zipcode');
+                        echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
+                        echo $this->Form->input('phone');
+                        echo $this->Form->input('cellphone');
+                        echo $this->Form->input('workphone');
+                        echo $this->Form->input('skype');
+                        ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <?php
+                        echo $this->Form->input('is_active');
+                        echo $this->Form->input('external');
+                        echo $this->Form->input('barracks._ids', ['options' => $barracks]);
+                        ?>
+                    </div>
+                </div>
+                </fieldset>
+            </div>
+            <div class="panel-footer text-center">
+                <?= $this->Form->button(__('Submit'),['class'=>'btn btn-success','escape' => false]) ?>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
+    </div>
 </div>
