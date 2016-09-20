@@ -1,4 +1,4 @@
-<?php foreach ($eve->teams as $team): ?>
+<?php foreach ($event->teams as $team): ?>
     <li class="list-group-item">
 		<?= $this->Form->button($this->Html->icon('pencil'), ['escape' => false]) ?>
         <?=$team->name?>
