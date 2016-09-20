@@ -34,7 +34,25 @@
             ]]);  ?>
         </div>
         </div> <br> <br>
-        <?= $this->Form->end(); ?>
+
+    <div class="col-md-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <?= $this->Form->input('nom', ['label' => false , 'placeholder'=>'recherche par nom', 'templates' => [
+            'inputContainer' => '{{content}}'
+            ]]);  ?>
+        </div>
+    </div> <br> <br>
+
+    <div class="col-md-12">
+        <div class="input-group">
+            <?=  $this->Form->input('parent', ['type' => 'checkbox' , 'label' => 'Parents uniquement']) ;   ?>
+            <?=  $this->Form->input('enfant', ['type' => 'checkbox' , 'label' => 'Enfants uniquement']) ;   ?>
+        </div>
+    </div> <br> <br>
+    <?=   $this->Form->submit('Rechercher', ['class' => 'btn btn-success center-block']) ;
+                  $this->Form->end() ;
+                 ?>
     </div>
 
 
@@ -89,9 +107,4 @@
                 }
             });
         }
-
-
-            $('#departement').change(function(){
-                $('#form-map').submit();
-                 })
     </script>
