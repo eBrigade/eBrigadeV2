@@ -20,8 +20,6 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\VehicleType $vehicle_type
  * @property \App\Model\Entity\VehicleModel $vehicle_model
  * @property \App\Model\Entity\Barrack[] $barracks
- * @property \App\Model\Entity\Event[] $events
- * @property \App\Model\Entity\Team[] $teams
  * @property \App\Model\Entity\User[] $users
  */
 class Vehicle extends Entity

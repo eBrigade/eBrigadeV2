@@ -1,6 +1,7 @@
 <?php
-if (empty($list)): echo 'Pas d\'élément de ce type dans cette équipe'; endif;
-if (!empty($list)): ?>
+if (empty($list)): echo 'Pas d\'élément de ce type dans cette équipe'; ?>
+<?php endif; ?>
+<?php if (!empty($list)): ?>
 
 <div class="table-responsive">
     <h3>Contenu de l'équipe <? $containerID?></h3>

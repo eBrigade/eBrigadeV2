@@ -18,7 +18,7 @@ class VehiclesFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'matriculation' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'matriculation' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'number_kilometer' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'snow' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null],
         'air_conditionner' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null],
@@ -31,8 +31,8 @@ class VehiclesFixture extends TestFixture
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
         '_options' => [
-            'engine' => 'InnoDB',
-            'collation' => 'latin1_swedish_ci'
+            'engine' => 'MyISAM',
+            'collation' => 'utf8_general_ci'
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -51,9 +51,9 @@ class VehiclesFixture extends TestFixture
             'air_conditionner' => 1,
             'vehicle_type_id' => 1,
             'vehicle_model_id' => 1,
-            'bought' => '2016-09-13',
-            'end_warranty' => '2016-09-13',
-            'next_revision' => '2016-09-13'
+            'bought' => '2016-09-20',
+            'end_warranty' => '2016-09-20',
+            'next_revision' => '2016-09-20'
         ],
     ];
 }

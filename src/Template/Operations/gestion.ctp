@@ -1,5 +1,13 @@
 <?= $this->Html->link("Basculer en affichage tactique", array('controller' => 'Operations', 'action' => 'map', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
 <?= $this->Html->link("Basculer en affichage opérationnel", array('controller' => 'Operations', 'action' => 'operationnel', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
+<div class="event-modal-base">
+    <div class="event-modal-cont"></div>
+</div>
+<div class="team-modal-base">
+    <div class="team-modal-cont"></div>
+</div>
+
+
 <div class="container">
     <div class="row">
 
@@ -38,7 +46,8 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
-                    <button href="#" id="add-event" class="btn btn-info">Nouvel Evénement</button>
+                    <button  id="add-event" class="btn btn-info btn-sm">Nouvel Evénement</button>
+
             </form>
         </div>
         <form>
@@ -63,6 +72,26 @@
 
 
 <script>
+
+    //team add modal
+    $(document).on('click', '#add-team', function (event) {
+        event.preventDefault();
+        var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addteam']); ?>';
+        $('.event-modal-cont').load(url, function (result) {
+            $('#teamModal').modal({show: true});
+        });
+    });
+
+    //event add modal
+    $('#add-event').on('click', function (event) {
+        event.preventDefault();
+        var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addevent', $operation->id]); ?>';
+        $('.event-modal-cont').load(url, function (result) {
+            $('#eventModal').modal({show: true});
+        });
+    });
+
+
     //gets content type
     function contentType() {
         var contentType = $('.content-active').attr('id').split('-');

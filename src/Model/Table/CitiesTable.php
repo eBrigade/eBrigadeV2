@@ -11,7 +11,6 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Dpts
  * @property \Cake\ORM\Association\HasMany $Barracks
- * @property \Cake\ORM\Association\HasMany $Events
  * @property \Cake\ORM\Association\HasMany $Operations
  * @property \Cake\ORM\Association\HasMany $Organizations
  * @property \Cake\ORM\Association\HasMany $Users
@@ -47,9 +46,6 @@ class CitiesTable extends Table
         $this->hasMany('Barracks', [
             'foreignKey' => 'city_id'
         ]);
-        $this->hasMany('Events', [
-            'foreignKey' => 'city_id'
-        ]);
         $this->hasMany('Operations', [
             'foreignKey' => 'city_id'
         ]);
@@ -72,9 +68,6 @@ class CitiesTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
-
-        $validator
-            ->allowEmpty('city');
 
         $validator
             ->allowEmpty('zipcode');
