@@ -3,7 +3,7 @@
         <h2>Profil de <?= h($user->login) ?>
         <?= ($this->request->session()->read('Auth.User.id') == $user->id) ?
             $this->Html->link('Editer '.$this->Html->icon('pencil'),
-                ['action' => 'edit',$user->id],
+                ['action' => 'profil',$user->id],
                 [
                     'escape' => false,
                     'class' => 'btn btn-danger btn-xs'

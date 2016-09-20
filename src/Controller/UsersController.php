@@ -37,7 +37,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Cities', 'Barracks', 'Skills', 'Teams', 'Vehicles', 'Availabilities', 'Orders', 'UserMaterials.Materials.MaterialTypes']
+            'contain' => ['Cities', 'Barracks', 'Skills', 'Teams', 'Vehicles', 'Availabilities']
         ]);
 
         $this->set('user', $user);
@@ -79,6 +79,30 @@ class UsersController extends AppController
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ['Barracks', 'Skills', 'Teams', 'Vehicles']
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
+        $cities = $this->Users->Cities->find('list', ['limit' => 200]);
+        $barracks = $this->Users->Barracks->find('list', ['limit' => 200]);
+        $skills = $this->Users->Skills->find('list', ['limit' => 200]);
+        $teams = $this->Users->Teams->find('list', ['limit' => 200]);
+        $vehicles = $this->Users->Vehicles->find('list', ['limit' => 200]);
+        $this->set(compact('user', 'cities', 'barracks', 'skills', 'teams', 'vehicles'));
+        $this->set('_serialize', ['user']);
+    }
+
+    public function profil($id = null)
     {
         $user = $this->Users->get($id, [
             'contain' => ['Barracks', 'Skills', 'Teams', 'Vehicles']

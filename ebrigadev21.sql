@@ -430,7 +430,7 @@ CREATE TABLE IF NOT EXISTS `materials` (
   `material_type_id` int(11) NOT NULL,
   `barrack_id` int(11) NOT NULL,
   `user_id` int(11),
-  `reference` varchar(250),
+  `m_reference` varchar(250),
   `order_made` tinyint(1),
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
