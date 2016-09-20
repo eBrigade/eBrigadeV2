@@ -80,18 +80,9 @@ class BarracksController extends AppController
                 'order' => array('parent_id','lft'))
         )->toArray();
 
-        $tableregion = $this->Barracks->Cities->Departments->Regions;
-        $tabledpt = $this->Barracks->Cities->Departments;
-        $region = $tableregion->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'region'
-        ]);
-        $dpt = $tabledpt->find('list', [
-            'keyField' => 'id',
-            'valueField' => 'dpt'
-        ]);
 
-        $this->set(compact('barracks','barracks_tree','region','dpt'));
+
+        $this->set(compact('barracks','barracks_tree'));
     }
 
     public function getdpt()

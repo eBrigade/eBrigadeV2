@@ -1,33 +1,8 @@
-<div class='col-md-2'>
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
-
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active" ><a href="javascript:;"> Afficher par
-                </a>
-                </li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>">Arborescence</a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'annuaire']); ?>">Liste </a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'carte']); ?>">Carte</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"  ><a href="javascript:;"> Trier par
-                </a>
-                </li>
-                <li id="bttoopen"><a href="javascript:;">*****</a></li>
-                <li id="bttoclose"><a href="javascript:;">*******</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+<?php $cell = $this->cell('Barrack') ?>
+<?= $cell ?>
 
 
-<div class='col-md-10'>
+<div class='col-md-9'>
     <?php foreach ($barracks as $barrack): ?>
     <div class="col-md-6" >
         <div class="panel panel-success">
