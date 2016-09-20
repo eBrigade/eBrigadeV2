@@ -35,14 +35,19 @@ class BarracksController extends AppController
 
     public function index()
     {
+        // recherche multi-critere
         if ($this ->request ->is('post')) {
-// recherche multi-critere
-                $array = [];
-        if (!empty($this->request->data['departement'])) {
-            $push = $this->request->data['departement'];
-            $pushall =  "dpt_id = '$push'";
-            array_push($array, $pushall);
-        }
+            $array = [];
+            if (!empty($this->request->data['region'])) {
+                $push = $this->request->data['region'];
+                $pushall =  "region_id = '$push'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['departement'])) {
+                $push = $this->request->data['departement'];
+                $pushall =  "dpt_id = '$push'";
+                array_push($array, $pushall);
+            }
             if (!empty($this->request->data['nom'])) {
                 $push = $this->request->data['nom'];
                 $pushall = "name LIKE '%$push%'";
@@ -59,10 +64,10 @@ class BarracksController extends AppController
                 array_push($array, $pushall);
             }
 
-            $barracks = $this->Barracks->find('all', array(
+            $barracks = $this->paginate($this->Barracks->find('all', array(
                 'order' => array('lft'),
-                'contain' => ['Cities.Departments.Regions']
-            ))->where(['lft >' => 0, $array]);
+                'contain' => ['Cities.Departments','Users','Vehicles','MaterialStocks']
+            ))->where(['lft >' => 0, $array]));
         }
 
         else {
@@ -98,18 +103,96 @@ class BarracksController extends AppController
 
     public function carte()
     {
-        $barracks = $this->Barracks->find('all',[
-        'contain' => ['Cities']]);
-        
+
+        // recherche multi-critere
+        if ($this ->request ->is('post')) {
+            $array = [];
+            if (!empty($this->request->data['region'])) {
+                $push = $this->request->data['region'];
+                $pushall =  "region_id = '$push'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['departement'])) {
+                $push = $this->request->data['departement'];
+                $pushall =  "dpt_id = '$push'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['nom'])) {
+                $push = $this->request->data['nom'];
+                $pushall = "name LIKE '%$push%'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['parent'])) {
+                $push = $this->request->data['parent'];
+                $pushall = "parent_id IS NULL";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['enfant'])) {
+                $push = $this->request->data['enfant'];
+                $pushall = "parent_id IS NOT NULL";
+                array_push($array, $pushall);
+            }
+
+            $barracks = $this->paginate($this->Barracks->find('all', array(
+                'order' => array('lft'),
+                'contain' => ['Cities.Departments']
+            ))->where(['lft >' => 0, $array]));
+        }
+        else {
+            $barracks = $this->Barracks->find('all', array(
+                'order' => array('lft'),
+                'contain' => ['Cities']
+            ));
+        }
+
         $this->set('barracks', $barracks);
     }
     
     public function annuaire()
     {
-        $this->paginate = [
-            'contain' => [ 'Cities']
-        ];
-        $barracks = $this->paginate($this->Barracks);
+
+        // recherche multi-critere
+        if ($this ->request ->is('post')) {
+            $array = [];
+            if (!empty($this->request->data['region'])) {
+                $push = $this->request->data['region'];
+                $pushall =  "region_id = '$push'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['departement'])) {
+                $push = $this->request->data['departement'];
+                $pushall =  "dpt_id = '$push'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['nom'])) {
+                $push = $this->request->data['nom'];
+                $pushall = "name LIKE '%$push%'";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['parent'])) {
+                $push = $this->request->data['parent'];
+                $pushall = "parent_id IS NULL";
+                array_push($array, $pushall);
+            }
+            if (!empty($this->request->data['enfant'])) {
+                $push = $this->request->data['enfant'];
+                $pushall = "parent_id IS NOT NULL";
+                array_push($array, $pushall);
+            }
+
+            $barracks = $this->paginate($this->Barracks->find('all', array(
+                'order' => array('lft'),
+                'contain' => ['Cities.Departments']
+            ))->where(['lft >' => 0, $array]));
+        }
+
+        else {
+            $barracks = $this->paginate($this->Barracks->find('all', array(
+                'order' => array('lft'),
+                'contain' => ['Cities']
+            )));
+        }
+
         $parentBarracks = $this->Barracks->find('treeList');
         $this->set(compact('barracks','parentBarracks'));
     }
