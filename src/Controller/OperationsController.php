@@ -184,11 +184,11 @@ class OperationsController extends AppController
 
         switch ($contentType) {
             case 'Users':
-                $this->loadModel('Users');
+
                 $this->paginate = [
                     'contain' => ['Barracks', 'Teams.Events']
                 ];
-                $userlist = $this->Users->find();
+                $userlist = $this->Operations->Events->Teams->Users->find();
                 break;
             case 'Materials':
                 $this->paginate = [
@@ -222,7 +222,7 @@ class OperationsController extends AppController
 
         // gets users that are not assigned in the same lapse of time
         $userlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
-            return $q->group('Users.id')->where( [ 'OR' => [
+            return $q->where( [ 'OR' => [
                     [function ($time) use ($timestart, $timeend) {
                         return $time->between('Events.event_end_date', $timestart, $timeend, 'datetime');
                     }],

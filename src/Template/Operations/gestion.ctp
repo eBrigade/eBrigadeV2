@@ -25,10 +25,12 @@
 
     <div class="row">
         <div class="col-xs-6 col-md-6">
-            <h4>Eléments disponibles</h4>
-            <form id="filter">
+                <div class="panel panel-heading"
+                <h4>Eléments disponibles</h4>
+                </div>
+                <form id="filter">
 
-            </form>
+                </form>
         </div>
         <div class="col-xs-6 col-md-6">
             <h4>Eléments déployés</h4>
@@ -46,7 +48,7 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
-                    <button  id="add-event" class="btn btn-info btn-sm">Nouvel Evénement</button>
+                    <button id="add-event" class="btn btn-info btn-sm">Nouvel Evénement</button>
 
             </form>
         </div>
