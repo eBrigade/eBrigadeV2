@@ -1,6 +1,13 @@
+<div class="row">
+    <div   class="col-md-12 ">
+        <?php echo $this->Html->link('<span class = "glyphicon glyphicon-plus"></span> AJOUTER UN EVENEMENT',
+        ['controller' => 'Events', 'action' => 'add'],
+        ['class' => 'btn btn-primary pull-right', 'role' => 'button', 'escape' => false]);?>
+        <div class='voffset6'></div>
+        <div id='calendar' class="col-md-12"></div>
+    </div>
+</div>
 
-
-<div id='calendar'></div>
 
 <?= $this->Html->css('fullcalendar.css') ?>
 <?= $this->Html->script('jquery-ui.js')?>

@@ -16,9 +16,9 @@
         </thead>
         <tbody>
     <?php foreach( $barracks as $id => $barrack ) { ?>
-    <?php $name = str_replace( '_' , '<i class="fa fa-long-arrow-right" aria-hidden="true"></i>' , $barracks_tree[ $barrack->id ] ); ?>
+    <?php $name = str_replace( '_' , ' <i class="fa fa-long-arrow-right" aria-hidden="true"></i> ' , $barracks_tree[ $barrack->id ] ); ?>
             <tr>
-                <td><?= $name ?></td>
+                <td> <?= $name ?></td>
 				<td>
                 	<?php
 						echo $this->Html->badge( $this->Html->icon('user') . ' ' . count( $barrack->users ) , ['escape' => false]) ;

@@ -3,7 +3,7 @@
         <div class="navbar navbar-default" role="navigation">
 
             <ul class="nav nav-pills nav-stacked">
-                <li class="active" ><a href="javascript:;"> TRIER PAR
+                <li class="active" ><a href="javascript:;"> FILTRER PAR
                 </a>
                 </li>
                 <div class="voffset3"></div>
@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map" aria-hidden="true"></i></span>
-                        <?= $this->Form->input('region', ['empty' => 'Tri par Region','options' => $region , 'label' => false , 'templates' => [
+                        <?= $this->Form->input('region', ['empty' => 'Region','options' => $region , 'label' => false , 'templates' => [
                         'inputContainer' => '{{content}}'
                         ]]);  ?>
                     </div>
@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-signs" aria-hidden="true"></i></span>
-                        <?= $this->Form->input('departement', ['empty' => 'Tri par Departement','options' => $dpt , 'label' => false , 'templates' => [
+                        <?= $this->Form->input('departement', ['empty' => 'Departement','options' => $dpt , 'label' => false , 'templates' => [
                         'inputContainer' => '{{content}}'
                         ]]);  ?>
                     </div>
@@ -33,7 +33,7 @@
                 <div class="col-md-12">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                        <?= $this->Form->input('nom', ['label' => false , 'placeholder'=>'recherche par nom', 'templates' => [
+                        <?= $this->Form->input('nom', ['label' => false , 'placeholder'=>'recherche', 'templates' => [
                         'inputContainer' => '{{content}}'
                         ]]);  ?>
                     </div>
@@ -61,7 +61,7 @@
                 <li class="active" ><a href="javascript:;"> AFFICHER PAR
                 </a></li >
                 <li ><a id="index" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>"><i class="fa fa-tree fa-lg " aria-hidden="true"></i> Arborescence </a></li>
-                <li ><a id="annuaire" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'annuaire']); ?>"><i class="fa fa-table fa-lg " aria-hidden="true"></i> Tableau </a></li>
+                <li ><a id="annuaire" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'annuaire']); ?>"><i class="fa fa-table fa-lg " aria-hidden="true"></i> Fiche </a></li>
                 <li ><a id="carte" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'carte']); ?>"><i class="fa fa-globe fa-lg " aria-hidden="true"></i> Carte</a></li>
             </ul>
         </div>
