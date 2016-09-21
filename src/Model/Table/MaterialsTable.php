@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Barracks
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $MaterialStocks
- * @property \Cake\ORM\Association\BelongsToMany $Barracks
+ * @property \Cake\ORM\Association\HasMany $Orders
  * @property \Cake\ORM\Association\BelongsToMany $Teams
  *
  * @method \App\Model\Entity\Material get($primaryKey, $options = [])
@@ -23,7 +23,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Material patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Material[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Material findOrCreate($search, callable $callback = null)
- */class MaterialsTable extends Table
+ */
+class MaterialsTable extends Table
 {
 
     /**
@@ -55,10 +56,8 @@ use Cake\Validation\Validator;
         $this->hasMany('MaterialStocks', [
             'foreignKey' => 'material_id'
         ]);
-        $this->belongsToMany('Barracks', [
-            'foreignKey' => 'material_id',
-            'targetForeignKey' => 'barrack_id',
-            'joinTable' => 'barracks_materials'
+        $this->hasMany('Orders', [
+            'foreignKey' => 'material_id'
         ]);
         $this->belongsToMany('Teams', [
             'foreignKey' => 'material_id',
@@ -76,15 +75,26 @@ use Cake\Validation\Validator;
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')            ->allowEmpty('id', 'create');
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
         $validator
-            ->requirePresence('name', 'create')            ->notEmpty('name')            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->requirePresence('name', 'create')
+            ->notEmpty('name')
+            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
         $validator
             ->allowEmpty('description');
+
         $validator
-            ->requirePresence(' reference', 'create')            ->notEmpty(' reference');
+            ->requirePresence('m_reference', 'create')
+            ->notEmpty('m_reference');
+
         $validator
-            ->boolean('order_made')            ->requirePresence('order_made', 'create')            ->notEmpty('order_made');
+            ->boolean('order_made')
+            ->requirePresence('order_made', 'create')
+            ->notEmpty('order_made');
+
         return $validator;
     }
 

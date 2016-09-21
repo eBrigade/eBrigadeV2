@@ -25,7 +25,7 @@
                             <td colspan=2 class="text-center">
                                 <?= $this->Html->link(__('Return'),[
                                     'action' => 'index',
-                                    $material->barrack->id
+                                    $material->barrack_id
                                 ],
                                 [
                                     'class' => 'btn btn-success'

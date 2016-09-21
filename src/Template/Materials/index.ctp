@@ -24,6 +24,7 @@
                         <td class="actions">
                             <?= $this->Html->link($this->Html->icon('eye-open'), ['action' => 'view', $material->id],['escape' => false,'class' => 'btn btn-primary']) ?>
                             <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $material->id],['class'=>'btn btn-info','escape' => false]) ?>
+                            <?= $this->Html->link($this->Html->icon('shopping-cart'), ['controller'=>'Orders','action' => 'add',$material->barrack->id,$material->id],['class'=>'btn btn-success','escape' => false]) ?>
                             <?= $this->Form->postLink($this->Html->icon('trash'), ['action' => 'delete', $material->id],['class'=>'btn btn-danger','escape' => false],['confirm' => __('Are you sure you want to delete # {0}?', $material->id)]) ?>
                         </td>
                     </tr>

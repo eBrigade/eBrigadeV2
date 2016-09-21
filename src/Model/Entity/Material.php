@@ -12,15 +12,16 @@ use Cake\ORM\Entity;
  * @property int $material_type_id
  * @property int $barrack_id
  * @property int $user_id
- * @property string $ reference
+ * @property string $m_reference
  * @property bool $order_made
  *
  * @property \App\Model\Entity\MaterialType $material_type
- * @property \App\Model\Entity\Barrack[] $barracks
+ * @property \App\Model\Entity\Barrack $barrack
+ * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\MaterialStock[] $material_stocks
- * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Team[] $teams
- */class Material extends Entity
+ */
+class Material extends Entity
 {
 
     /**
