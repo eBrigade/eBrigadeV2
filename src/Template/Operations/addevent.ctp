@@ -12,7 +12,7 @@
                         echo $this->Form->input('instructions');
                         echo $this->Form->input('event_start_date', ['type' => 'text', 'id' => 'start']);
                         echo $this->Form->input('event_end_date', ['type' => 'text', 'id' => 'end']);
-                        echo $this->form->input('public');
+                 /*       echo $this->form->checkbox('public',['label' => 'public']);*/
                         ?>
                     </fieldset>
                     <?= $this->Form->button(__('Submit')) ?>
