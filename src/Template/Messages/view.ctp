@@ -48,7 +48,8 @@
         <strong>'.$usert->lastname.'</strong> :  le '.$history->created.'
     </div>
     ';}
-        else {echo '<blockquote id="mp-right">
+        if ($history->from_user == $user)
+            {echo '<blockquote id="mp-right">
     <div>
         <strong>Moi</strong> :  le '.$history->created.'
     </div>

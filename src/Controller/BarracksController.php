@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use App\Model\Entity\Department;
+use App\Model\Entity\Formation;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
@@ -209,7 +210,7 @@ class BarracksController extends AppController
         $this->loadModel('MaterialStocks');
         $barrack = $this->Barracks->get($id, [
             'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users', 'Vehicles.VehicleTypes'
+                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities'
                 ]
         ]);
 
