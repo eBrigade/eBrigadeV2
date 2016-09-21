@@ -53,6 +53,12 @@ class FormationsTable extends Table
         $this->belongsTo('FormationTypes', [
             'foreignKey' => 'formation_type_id'
         ]);
+        $this->belongsTo('Barracks', [
+            'foreignKey' => 'barracks_id'
+        ]);
+        $this->belongsTo('Cities', [
+            'foreignKey' => 'city_id'
+        ]);
     }
 
     /**
