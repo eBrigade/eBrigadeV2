@@ -38,7 +38,8 @@
 
                 <td><?php if (!empty($item->barracks[0]->name)): echo h($item->barracks[0]->name); endif; ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Ajouter'), ['action' => 'remove', $item->id], ['class' => 'action-btn', 'id' => 'add-' . $item->id]) ?>
+                    <?= $this->Html->link($this->Html->icon('plus'), ['action' => 'remove', $item->id],
+                        ['class' => 'btn btn-success action-btn', 'escape'=>false, 'id' => 'add-' . $item->id]) ?>
 
                 </td>
 

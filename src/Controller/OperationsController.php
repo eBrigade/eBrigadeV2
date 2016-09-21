@@ -222,7 +222,7 @@ class OperationsController extends AppController
 
         // gets users that are not assigned in the same lapse of time
         $userlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
-            return $q->where( [ 'OR' => [
+            return $q->group('Users.id')->where( [ 'OR' => [
                     [function ($time) use ($timestart, $timeend) {
                         return $time->between('Events.event_end_date', $timestart, $timeend, 'datetime');
                     }],

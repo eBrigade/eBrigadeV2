@@ -29,7 +29,8 @@ if (empty($list)): echo 'Pas d\'élément de ce type dans cette équipe'; ?>
         <?php foreach ($list as $item): ?>
             <tr>
                 <td class="actions">
-                    <?= $this->Html->link(__('Enlever'), ['action' => 'remove', $item->id], ['class' => 'action-btn', 'id' => 'remove-' . $item->id]) ?>
+                    <?= $this->Html->link($this->Html->icon('minus'), ['action' => 'remove', $item->id],
+                        ['class' => 'btn btn-danger action-btn', 'escape' => false, 'id' => 'remove-' . $item->id]) ?>
 
                 </td>
                 <td><?= $this->Number->format($item->id) ?></td>
