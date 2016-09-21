@@ -11,7 +11,7 @@
         <legend><?= __('Add Operation') ?></legend>
         <?php
         echo $this->Form->input('title');
-        echo $this->Form->input('date');
+        echo $this->Form->input('date', ['type' => 'text', 'id' => 'datepicker']);
         echo $this->Form->input('barrack_id', ['options' => $barracks]);
         echo $this->Form->input('ville');
         echo $this->Form->input('city_id', ['type' => 'text', 'type' => 'hidden']);
@@ -21,12 +21,12 @@
         echo $this->Form->input('operation_environment_id', ['options' => $operationEnvironments]);
         echo $this->Form->input('operation_delay_id', ['options' => $operationDelays]);
         echo $this->Form->input('RIS', ['disabled' => 'disabled', 'label' => 'Résultat du calcul de RIS']);
-        echo $this->Form->input('public_ris', array('type'=>'hidden', 'disabled' => 'disabled'));
+        echo $this->Form->input('public_ris', array('type'=>'hidden'));
         echo $this->Form->input('operation_type_id', ['options' => $operationTypes, 'empty' => true, 'disabled' => 'disabled',  'label' => 'Type d\'intervention']);
         echo $this->Form->input('operation_recommendation_id', ['options' => $operationRecommendations]);
         echo $this->Form->input('public_reinforcement');
         echo $this->Form->input('public_total');
-        echo $this->Form->input('organization_id', ['options' => $organizations]);
+
         echo $this->Form->input('actors_headcount');
         echo $this->Form->input('rescuers_total');
         echo $this->Form->input('headcount_total');
@@ -59,8 +59,23 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<?= $this->Html->script('jquery-ui.js') ?>
+<?= $this->Html->script('jquery.datetimepicker.full.min.js') ?>
+<?= $this->Html->css('jquery.datetimepicker.css') ?>
 <script>
+
+    //ville auto complete
     $("#ville").easyAutocomplete(options_ac);
+
+    //datetimepicker on date field
+    $('#datepicker').datetimepicker({
+        timepicker:false,
+        format: "Y-m-d"
+    });
 </script>
 
 <?= $this->Html->script('calculRIS.js') ?>
+
+
+
