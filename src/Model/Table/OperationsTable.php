@@ -41,8 +41,9 @@ class OperationsTable extends Table
         parent::initialize($config);
 
         $this->table('operations');
-        $this->displayField('id');
+        $this->displayField('title');
         $this->primaryKey('id');
+
 
         $this->addBehavior('Geocodable', [
             'addressColumn' => [

@@ -21,10 +21,12 @@
         <li><?= $this->Html->link(__('New Organization'), ['controller' => 'Organizations', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Operation Types'), ['controller' => 'OperationTypes', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Operation Type'), ['controller' => 'OperationTypes', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Bills'), ['controller' => 'Bills', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Bill'), ['controller' => 'Bills', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="operations view large-9 medium-8 columns content">
-    <h3><?= h($operation->id) ?></h3>
+    <h3><?= h($operation->title) ?></h3>
     <table class="vertical-table">
         <tr>
             <th><?= __('Barrack') ?></th>
@@ -69,6 +71,14 @@
         <tr>
             <th><?= __('Title') ?></th>
             <td><?= h($operation->title) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Bill') ?></th>
+            <td><?= $operation->has('bill') ? $this->Html->link($operation->bill->id, ['controller' => 'Bills', 'action' => 'view', $operation->bill->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Canceled Detail') ?></th>
+            <td><?= h($operation->canceled_detail) ?></td>
         </tr>
         <tr>
             <th><?= __('Id') ?></th>
@@ -169,6 +179,14 @@
         <tr>
             <th><?= __('Longitude') ?></th>
             <td><?= $this->Number->format($operation->longitude) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Is Closed') ?></th>
+            <td><?= $this->Number->format($operation->is_closed) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Canceled') ?></th>
+            <td><?= $this->Number->format($operation->canceled) ?></td>
         </tr>
         <tr>
             <th><?= __('Date') ?></th>
