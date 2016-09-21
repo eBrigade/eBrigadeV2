@@ -25,7 +25,6 @@
             echo $this->Form->input('module');
             echo $this->Form->input('module_id', ['options' => $formations, 'empty' => true]);
             echo $this->Form->input('teams._ids', ['options' => $teams]);
-            echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

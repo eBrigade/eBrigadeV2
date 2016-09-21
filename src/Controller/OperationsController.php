@@ -138,16 +138,26 @@ class OperationsController extends AppController
 
     }
 
-    public function addteam()
+    public function addteam($id = null)
     {
 
-        $this->loadModel('Teams');
+        $eventID = $id;
 
-        $team = $this->Teams->newEntity();
+debug($eventID);
+        $team = $this->Operations->Events->Teams->newEntity();
+
         if ($this->request->is('post')) {
-            $team = $this->Teams->patchEntity($team, $this->request->data);
-            if ($this->Teams->save($team)) {
-                $this->Flash->success(__('The team has been saved.'));
+            $team = $this->Operations->Events->Teams->patchEntity($team, $this->request->data);
+            $event = $this->request->data('eventID');
+            if ($this->Operations->Events->Teams->save($team)) {
+                debug($event);
+                $teamID = $team->id;
+                $container = $this->Operations->Events->get($event, ['contain' => 'Teams']);
+                $content = $this->Operations->Events->Teams->findById($teamID)->toArray();
+
+
+                $this->Operations->Events->Teams->link($container, $content);
+
 
                 return $this->redirect($this->referer());
             } else {
@@ -155,7 +165,8 @@ class OperationsController extends AppController
             }
         }
 
-        $this->set(compact('team'));
+
+        $this->set(compact('team', 'eventID'));
         $this->set('_serialize', ['team']);
     }
 
@@ -166,13 +177,13 @@ class OperationsController extends AppController
         $event = $this->Operations->Events->newEntity();
 
         if ($this->request->is('post')) {
-            $event = $this->Events->patchEntity($event, $this->request->data);
+            $event = $this->Operations->Events->patchEntity($event, $this->request->data);
             $event->module_id = $id;
             $event->module = 'operations';
-            if ($this->Events->save($event)) {
+            if ($this->Operations->Events->save($event)) {
 
                 $this->Flash->success(__('The event has been saved.'));
-                return $this->redirect(['action' => 'gestion', $id]);
+                return $this->redirect($this->referer());
             } else {
                 $this->Flash->error(__('The event could not be saved. Please, try again.'));
             }

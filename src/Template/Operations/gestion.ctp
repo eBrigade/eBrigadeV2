@@ -68,26 +68,28 @@
         </div>
     </div>
 </div>
-</div>
 
 
 <script>
 
-    //team add modal
-    $(document).on('click', '#add-team', function (event) {
-        event.preventDefault();
-        var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addteam']); ?>';
-        $('.event-modal-cont').load(url, function (result) {
-            $('#teamModal').modal({show: true});
-        });
-    });
 
     //event add modal
-    $('#add-event').on('click', function (event) {
+    $(document).on('click', '#add-event', function (event) {
         event.preventDefault();
         var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addevent', $operation->id]); ?>';
         $('.event-modal-cont').load(url, function (result) {
             $('#eventModal').modal({show: true});
+        });
+    });
+
+    //team add modal
+    $(document).on('click', '#add-team', function (event) {
+        event.preventDefault();
+        var eventID = $('select[name=event]').val();
+
+        var url = "/operations/addteam/" + eventID;
+        $('.event-modal-cont').load(url, function (result) {
+            $('#teamModal').modal({show: true});
         });
     });
 
