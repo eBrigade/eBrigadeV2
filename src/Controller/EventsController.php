@@ -65,8 +65,7 @@ class EventsController extends AppController
         $operations = $this->Events->Operations->find('list', ['limit' => 200]);
         $formations = $this->Events->Formations->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
-        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('event', 'operations', 'formations', 'teams', 'vehicles'));
+        $this->set(compact('event', 'operations', 'formations', 'teams'));
         $this->set('_serialize', ['event']);
     }
 
