@@ -8,7 +8,18 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title"><?= h($barrack->name) ?></h3>
-                <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'delete', $barrack->id]); ?>" data-original-title="Supprimer cette caserne" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger pull-right mgblist upmarge"><i class="glyphicon glyphicon-remove"></i></a>
+
+                <?= $this->Form->postLink(__('<i class="glyphicon glyphicon-remove"></i>'),
+                ['controller' => 'barracks', 'action' => 'delete', $barrack->id],
+                [
+                'class' => 'btn btn-sm btn-danger pull-right mgblist upmarge',
+                'escape' => false,
+                'data-original-title' => 'Supprimer cette caserne',
+                'data-toggle' => 'tooltip',
+                'confirm' => __('Etes-vous sûr de vouloir supprimer cette caserne')
+                ]
+                ) ?>
+
                 <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'edit', $barrack->id]); ?>" data-original-title="Editer cette caserne" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning pull-right upmarge"><i class="glyphicon glyphicon-edit"></i></a>
 
             </div>
