@@ -54,7 +54,6 @@ use Cake\ORM\Entity;
  * @property int $canceled
  * @property string $canceled_detail
  *
- * @property \App\Model\Entity\Event[] $events
  * @property \App\Model\Entity\Barrack $barrack
  * @property \App\Model\Entity\City $city
  * @property \App\Model\Entity\OperationActivity $operation_activity
@@ -63,6 +62,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\OperationRecommendation $operation_recommendation
  * @property \App\Model\Entity\Organization $organization
  * @property \App\Model\Entity\OperationType $operation_type
+ * @property \App\Model\Entity\Bill $bill
  */
 class Operation extends Entity
 {

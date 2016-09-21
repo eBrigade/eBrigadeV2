@@ -2,10 +2,11 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Operations'), ['action' => 'index']) ?></li>
+
     </ul>
 </nav>
 <div class="operations form large-9 medium-8 columns content">
-    <?= $this->Form->create($operation, ['horizontal' => true]) ?>
+    <?= $this->Form->create($operation) ?>
     <fieldset>
         <legend><?= __('Add Operation') ?></legend>
         <?php
@@ -33,7 +34,12 @@
         echo $this->Form->input('general_organization');
         echo $this->Form->input('transport_organization');
         echo $this->Form->input('team_instructions');
-
+        echo $this->Form->input('report_assisted');
+        echo $this->Form->input('report_slight');
+        echo $this->Form->input('report_medicalized');
+        echo $this->Form->input('report_reinforcement');
+        echo $this->Form->input('report_evacuated');
+        echo $this->Form->input('report_bilan_notes');
         echo $this->Form->input('meals_morning');
         echo $this->Form->input('meals_lunch');
         echo $this->Form->input('meals_dinner');
