@@ -21,13 +21,25 @@
                 <td> <?= $name ?></td>
 				<td>
                 	<?php
-						echo $this->Html->badge( $this->Html->icon('user') . ' ' . count( $barrack->users ) , ['escape' => false]) ;
-						echo $this->Html->badge( $this->Html->icon('briefcase') . ' ' . count( $barrack->material_stocks ) , ['escape' => false] ) ;
-                    echo $this->Html->badge( $this->Html->icon('road') . ' ' . count( $barrack->vehicles ) , ['escape' => false] ) ;
+						echo $this->Html->badge( $this->Html->icon('user') . ' ' . count( $barrack->users ) , ['escape' => false ,'data-original-title' => 'Personnel' , 'data-toggle' => 'tooltip']) ;
+						echo $this->Html->badge( $this->Html->icon('briefcase') . ' ' . count( $barrack->material_stocks ) , ['escape' => false ,'data-original-title' => 'Matériel' , 'data-toggle' => 'tooltip']) ;
+                    echo $this->Html->badge( $this->Html->icon('road') . ' ' . count( $barrack->vehicles ) , ['escape' => false ,'data-original-title' => 'Véhicules' , 'data-toggle' => 'tooltip']) ;
 
                     ?>
                 </td>
-                <td>                <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'view' , $barrack->id]); ?>" class="btn btn-default  btn-sm" ><i class="glyphicon glyphicon-eye-open"></i></a>
+                <td>                <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'view' , $barrack->id]); ?>" class="btn btn-success  btn-sm" ><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'edit', $barrack->id]); ?>" data-original-title="Editer cette caserne" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+
+                    <?= $this->Form->postLink(__('<i class="glyphicon glyphicon-remove"></i>'),
+                    ['controller' => 'barracks', 'action' => 'delete', $barrack->id],
+                    [
+                    'class' => 'btn btn-sm btn-danger ',
+                    'escape' => false,
+                    'data-original-title' => 'Supprimer cette caserne',
+                    'data-toggle' => 'tooltip',
+                    'confirm' => __('Etes-vous sûr de vouloir supprimer cette caserne')
+                    ]
+                    ) ?>
                 </td>
             </tr>		
 	<?php }	?>
@@ -35,3 +47,7 @@
     </table>
 </div>
 
+
+  <script>
+      $('[data-toggle="tooltip"]').tooltip();
+      </script>

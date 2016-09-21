@@ -34,10 +34,18 @@ class MessagesController extends AppController
 
 //historique des conversations
         $log = TableRegistry::get('HistoryMp');
-        $get_history = $log->find('all')
-            ->where(['to_user' =>$user])
-            ->orWhere(['from_user' => $user])
-            ->order(['created' => 'DESC'])
+        $get_history = $log->find('all')->where([
+            'OR' => [
+                [
+                    'to_user' => $message->from_user,
+                    'from_user' => $message->to_user
+                ],
+                [
+                    'to_user' => $message->to_user,
+                    'from_user' => $message->from_user
+                ]
+            ]
+        ])->order(['created' => 'DESC'])
             ->limit(10)
             ->offset(1);
 

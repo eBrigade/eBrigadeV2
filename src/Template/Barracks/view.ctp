@@ -137,20 +137,17 @@
                     </thead>
                     <tbody>
 
-                    <?php foreach ($barrack->events as $event): ?>
-                    <?php if ($event->module == "operations"): ?>
-                    <?php $operation = $event->operation; ?>
+                    <?php foreach ($barrack->operations as $event): ?>
                     <tr>
                         <td>Opération</td>
-                        <td><?= $operation->title ?></td>
-                        <td><?= $operation->city->city ?></td>
-                        <td>le <?= $operation->date ?></td>
+                        <td><?= $event->title ?></td>
+                        <td><?= $event->city->city ?></td>
+                        <td>le <?= $event->date ?></td>
                         <td>
-                            <a href='<?= $this->Url->build(["controller" => "operations","action" => "view", $operation->id ]); ?>'
+                            <a href='<?= $this->Url->build(["controller" => "operations","action" => "view", $event->id ]); ?>'
                                class="btn btn-default   "><i class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
                     </tr>
-                    <?php endif; ?>
                     <?php endforeach; ?>
 
                     <?php foreach ($barrack->formations as $formation): ?>
