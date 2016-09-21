@@ -285,12 +285,12 @@ class BarracksController extends AppController
         $parentBarracks = $this->Barracks->find('treeList');
 
         $this->set(compact('barrack', 'cities','parentBarracks'));
-        $parentBarracks = $this->Barracks->ParentBarracks->find('list', ['limit' => 200]);
+
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
         $users = $this->Barracks->Users->find('list', ['limit' => 200]);
         $vehicles = $this->Barracks->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('barrack', 'parentBarracks', 'cities', 'materials', 'users', 'vehicles'));
+        $this->set(compact('barrack', 'cities', 'materials', 'users', 'vehicles'));
         $this->set('_serialize', ['barrack']);
     }
 
@@ -306,12 +306,12 @@ class BarracksController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $barrack = $this->Barracks->get($id);
         if ($this->Barracks->delete($barrack)) {
-            $this->Flash->success(__('The barrack has been deleted.'));
+            $this->Flash->success(__('La caserne a été supprimé.'));
         } else {
-            $this->Flash->error(__('The barrack could not be deleted. Please, try again.'));
+            $this->Flash->error(__('La caserne n\'a pas plus être effacé. Svp, Réessayez.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 
     public function availabilities($id=null,$date=null)
