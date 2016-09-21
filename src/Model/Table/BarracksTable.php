@@ -110,16 +110,16 @@ class BarracksTable extends Table
             ->notEmpty('address');
 
         $validator
-            ->requirePresence('address_complement', 'create')
-            ->notEmpty('address_complement');
+            ->requirePresence('address_complement', 'false')
+            ->allowEmpty('address_complement');
 
         $validator
             ->requirePresence('phone', 'create')
             ->notEmpty('phone');
 
         $validator
-            ->requirePresence('fax', 'create')
-            ->notEmpty('fax');
+            ->requirePresence('fax', 'false')
+            ->allowEmpty('fax');
 
         $validator
             ->email('email')
@@ -127,16 +127,16 @@ class BarracksTable extends Table
             ->notEmpty('email');
 
         $validator
-            ->requirePresence('website_url', 'create')
-            ->notEmpty('website_url');
+            ->requirePresence('website_url', 'false')
+            ->allowEmpty('website_url');
 
         $validator
-            ->requirePresence('ordre', 'create')
-            ->notEmpty('ordre');
+            ->requirePresence('ordre', 'false')
+            ->allowEmpty('ordre');
 
         $validator
-            ->requirePresence('rib', 'create')
-            ->notEmpty('rib');
+            ->requirePresence('rib', 'false')
+            ->allowEmpty('rib');
 			
 		$validator
 			->add('lft', 'valid', ['rule' => 'numeric'])

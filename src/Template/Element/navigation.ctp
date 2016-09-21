@@ -20,7 +20,7 @@
         <li><?= $this->Html->link(__('New Event Vehicle'), ['controller' => 'EventsVehicles', 'action' => 'add']) ?></li>
     </ul>
 </li>
-<li><?= $this->Html->link('Messages', ['controller' => 'Messages', 'action' => 'index']) ?></li>
+
 
 <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Operation <span class="caret"></span></a>
     <ul class="dropdown-menu">
@@ -44,11 +44,12 @@
         <li><?= $this->Html->link(__('add stock'), ['controller' => 'MaterialStocks', 'action' => 'add']) ?></li>
     </ul>
 </li>
-<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Barracks <span class="caret"></span></a>
+<li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Casernes <span class="caret"></span></a>
     <ul class="dropdown-menu">
-        <li><?= $this->Html->link('Barracks', ['controller' => 'Barracks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('add Barracks'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link('Voir les casernes', ['controller' => 'Barracks', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('Créér une caserne'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
     </ul>
 </li>
-<li><?= $this->Html->link('Calendar', ['controller' => 'Calendar', 'action' => 'index']) ?></li>
-<li><?= $this->Html->link('Availabilities', ['controller' => 'Calendar', 'action' => 'add']) ?></li>
+<li><?= $this->Html->link('Calendrier', ['controller' => 'Calendar', 'action' => 'index']) ?></li>
+<li><?= $this->Html->link('Disponibilité', ['controller' => 'Calendar', 'action' => 'add']) ?></li>
+<li><?= $this->Html->link('Messagerie', ['controller' => 'Messages', 'action' => 'index']) ?></li>
