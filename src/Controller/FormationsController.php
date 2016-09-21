@@ -19,7 +19,7 @@ class FormationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Organizations', 'FormationTypes', 'Events']
+            'contain' => ['Cities','Organizations', 'FormationTypes', 'Events']
         ];
         $formations = $this->paginate($this->Formations);
 
@@ -37,7 +37,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
+            'contain' => ['Cities','Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
         ]);
 
         $this->set('formation', $formation);
@@ -97,7 +97,7 @@ class FormationsController extends AppController
         $events = $this->Formations->Events->find('list', ['limit' => 200]);
         $formationTypes = $this->Formations->FormationTypes->find('list', ['limit' => 200]);
         $barracks = $this->Formations->Barracks->find('list',['valueField'=>'name']);
-        $cities = $this->Formations->Cities->find('list', ['ValueField' => 'city']);
+        $cities = $this->Formations->Cities->find('list', ['valueField' => 'city']);
         $this->set(compact('formation', 'organizations', 'events', 'formationTypes','barracks','cities'));
         $this->set('_serialize', ['formation']);
     }

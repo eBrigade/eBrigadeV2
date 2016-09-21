@@ -20,12 +20,13 @@
                     <div class="row-fluid">
                         <b>Localisation</b>
                         <p>Carte:</p>
-                        <p>Ville : <?= $formation->city_id ?></p>
+                        <p>Ville : <?= $formation->has('city') ? h($formation->city->city) : '' ?></p>
                         <p>Address : <?= $formation->address ?></p></div>
 
                     <div class="row-fluid">
                         <b>Date</b>
-                        <p><?= $formation->formation_start ?> à <?= $formation->formation_end ?></p>
+                        <p><?= $formation->formation_start->format('Y/m/d') ?> à <?= $formation->formation_end->format('Y/m/d') ?></p>
+                        <p><?= $formation->formation_start->format('H/i') ?> à <?= $formation->formation_end->format('H/i') ?></p>
                     </div>
 
                     <div class="row-fluid">
