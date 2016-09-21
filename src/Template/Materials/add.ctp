@@ -10,9 +10,10 @@
                 <?php
                 echo $this->Form->input('name');
                 echo $this->Form->input('description');
-                echo $this->Form->input('stock',['type' => 'number','min' => '1','default' => '1']);
                 echo $this->Form->input('material_type_id', ['options' => $materialTypes]);
                 echo $this->Form->input('barrack_id');
+                echo $this->Form->input('user_id',['options' => $providers]);
+                echo $this->Form->input('m_reference');
                 ?>
                     </div>
             </fieldset>

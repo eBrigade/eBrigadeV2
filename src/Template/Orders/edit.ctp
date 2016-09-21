@@ -8,12 +8,8 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('List Orders'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Providers'), ['controller' => 'Providers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Provider'), ['controller' => 'Providers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Supplies'), ['controller' => 'Supplies', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Supply'), ['controller' => 'Supplies', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Materials'), ['controller' => 'Materials', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Material'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="orders form large-9 medium-8 columns content">
@@ -21,9 +17,8 @@
     <fieldset>
         <legend><?= __('Edit Order') ?></legend>
         <?php
-            echo $this->Form->input('provider_id', ['options' => $providers, 'empty' => true]);
-            echo $this->Form->input('user_id', ['options' => $users, 'empty' => true]);
-            echo $this->Form->input('supplies._ids', ['options' => $supplies]);
+            echo $this->Form->input('material_id', ['options' => $materials]);
+            echo $this->Form->input('quantity');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

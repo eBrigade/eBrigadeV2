@@ -63,6 +63,15 @@ class MaterialStocksController extends AppController
                 $this->Flash->error(__('The material stock could not be saved. Please, try again.'));
             }
         }
+        if($barrack_id == null)
+        {
+            // filtrage selon la caserne de la personne si ce n'est pas renseigné
+            $user = $this->MaterialStocks->Materials->Barracks->find()->innerJoinWith('Users',function($q){
+                return $q->where(['Users.id' => $this->Auth->user('id')]);
+            })->select(['Barracks.id'])->first();
+            $barrack_id = $user->id;
+        }
+
         $materials = $this->MaterialStocks->Materials->find('list', ['limit' => 200]);
         $material_list = $this->MaterialStocks->Materials->find('list',[
             'fields' => [

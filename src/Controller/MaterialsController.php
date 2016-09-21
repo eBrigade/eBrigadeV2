@@ -25,7 +25,16 @@ class MaterialsController extends AppController
         $materials = $this->Materials->find('all',[
             'contain' => ['MaterialTypes','Barracks']
         ]);
-        ($id != null) ? $materials->where(['barrack_id' => $id]) : '';
+        if($id == null)
+        {
+            // filtrage
+            $user = $this->Materials->Barracks->find()->innerJoinWith('Users',function($q){
+                return $q->where(['Users.id' => $this->Auth->user('id')]);
+            })->select(['Barracks.id'])->first();
+            $id = $user->id; // id de la barrack
+        }
+
+        $materials->where(['barrack_id' => $id]);
         $materials = $this->paginate($materials);
         $this->set('id',$id);
         $barracks = $this->Materials->Barracks->find('treeList');
@@ -44,18 +53,17 @@ class MaterialsController extends AppController
     public function view($id = null)
     {
         $date = Time::now();
-        $date = $date->format('Y-m-d');
+        $date = $date->format('Y-m-d H:i:s');
         $material = $this->Materials->get($id, [
             'contain' => ['MaterialTypes', 'Barracks', 'Teams', 'MaterialStocks']
         ]);
         $stocks = $this->Materials
             ->find('all',[
-                'contain' => ['MaterialStocks','Teams.Events'],
+                'contain' => ['MaterialStocks'],
                 'conditions' => [
                     'id' => $id
                 ]
         ]);
-        // chercher les teams qui ne sont pas dans un event
 
         $this->set('date',$date);
         $this->set('stocks',$stocks);
@@ -72,22 +80,10 @@ class MaterialsController extends AppController
     {
         $material = $this->Materials->newEntity();
         if ($this->request->is('post')) {
-
+            $this->request->data['order_made'] = 0;
             $material = $this->Materials->patchEntity($material, $this->request->data);
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('The material has been saved.'));
-                // j'ajoute une entrée dans MaterialsStocks pour éviter
-                // de refaire des clics en trop
-                $LastId = $material->id;
-                $materialStocks = $this->Materials->MaterialStocks->newEntity();
-                $data = [
-                    'material_id' => $LastId,
-                    'stock' => $this->request->data['stock'],
-                    'affectation' => 'barracks',
-                    'affectation_id' => $this->request->data['barrack_id']
-                ];
-                $this->Materials->MaterialStocks->patchEntity($materialStocks,$data);
-                $this->Materials->MaterialStocks->save($materialStocks);
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The material could not be saved. Please, try again.'));
@@ -95,7 +91,15 @@ class MaterialsController extends AppController
         }
         $materialTypes = $this->Materials->MaterialTypes->find('list', ['limit' => 200]);
         $barracks = $this->Materials->Barracks->find('list', ['limit' => 200]);
+        $providers = $this->Materials->Users->find('list',[
+            'keyField' => 'id',
+            'valueField' => 'login',
+            'conditions' => [
+                'is_provider' => true
+            ]
+        ]);
         $this->set(compact('material', 'materialTypes', 'barracks'));
+        $this->set('providers',$providers);
         $this->set('_serialize', ['material']);
     }
 
@@ -169,4 +173,5 @@ class MaterialsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 }
