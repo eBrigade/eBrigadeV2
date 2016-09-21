@@ -60,18 +60,19 @@ class OperationsController extends AppController
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The operation could not be saved. Please, try again.'));
+                debug($operation);
             }
         }
         $barracks = $this->Operations->Barracks->find('list', ['limit' => 200]);
-        $cities = $this->Operations->Cities->find('list', ['limit' => 200]);
+
         $operationActivities = $this->Operations->OperationActivities->find('list', ['limit' => 200]);
         $operationEnvironments = $this->Operations->OperationEnvironments->find('list', ['limit' => 200]);
         $operationDelays = $this->Operations->OperationDelays->find('list', ['limit' => 200]);
         $operationRecommendations = $this->Operations->OperationRecommendations->find('list', ['limit' => 200]);
-        $organizations = $this->Operations->Organizations->find('list', ['limit' => 200]);
+
         $operationTypes = $this->Operations->OperationTypes->find('list', ['limit' => 200]);
         $bills = $this->Operations->Bills->find('list', ['limit' => 200]);
-        $this->set(compact('operation', 'barracks', 'cities', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationRecommendations', 'organizations', 'operationTypes', 'bills'));
+        $this->set(compact('operation', 'barracks', 'operationActivities', 'operationEnvironments', 'operationDelays', 'operationRecommendations', 'operationTypes', 'bills'));
         $this->set('_serialize', ['operation']);
     }
 
@@ -244,7 +245,6 @@ class OperationsController extends AppController
 
         $eventID = $id;
 
-        debug($eventID);
         $team = $this->Operations->Events->Teams->newEntity();
 
         if ($this->request->is('post')) {
@@ -275,6 +275,8 @@ class OperationsController extends AppController
     public function addevent($id = null)
     {
 
+        $operation = $this->Operations->get($id);
+
         $event = $this->Operations->Events->newEntity();
 
         if ($this->request->is('post')) {
@@ -290,7 +292,7 @@ class OperationsController extends AppController
             }
         }
 
-        $this->set(compact('event'));
+        $this->set(compact('event', 'operation'));
         $this->set('_serialize', ['event']);
     }
 

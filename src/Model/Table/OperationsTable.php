@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $OperationEnvironments
  * @property \Cake\ORM\Association\BelongsTo $OperationDelays
  * @property \Cake\ORM\Association\BelongsTo $OperationRecommendations
- * @property \Cake\ORM\Association\BelongsTo $Organizations
+
  * @property \Cake\ORM\Association\BelongsTo $OperationTypes
  * @property \Cake\ORM\Association\BelongsTo $Bills
  *
@@ -81,10 +81,7 @@ class OperationsTable extends Table
             'foreignKey' => 'operation_recommendation_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Organizations', [
-            'foreignKey' => 'organization_id',
-            'joinType' => 'INNER'
-        ]);
+
         $this->belongsTo('OperationTypes', [
             'foreignKey' => 'operation_type_id'
         ]);
@@ -113,10 +110,7 @@ class OperationsTable extends Table
             ->requirePresence('public_headcount', 'create')
             ->notEmpty('public_headcount');
 
-        $validator
-            ->numeric('public_ris')
-            ->requirePresence('public_ris', 'create')
-            ->notEmpty('public_ris');
+
 
         $validator
             ->requirePresence('public_reinforcement', 'create')
@@ -280,7 +274,6 @@ class OperationsTable extends Table
         $rules->add($rules->existsIn(['operation_environment_id'], 'OperationEnvironments'));
         $rules->add($rules->existsIn(['operation_delay_id'], 'OperationDelays'));
         $rules->add($rules->existsIn(['operation_recommendation_id'], 'OperationRecommendations'));
-        $rules->add($rules->existsIn(['organization_id'], 'Organizations'));
         $rules->add($rules->existsIn(['operation_type_id'], 'OperationTypes'));
         $rules->add($rules->existsIn(['bill_id'], 'Bills'));
 
