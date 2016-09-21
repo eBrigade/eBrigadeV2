@@ -245,7 +245,6 @@ class OperationsController extends AppController
 
         $eventID = $id;
 
-        debug($eventID);
         $team = $this->Operations->Events->Teams->newEntity();
 
         if ($this->request->is('post')) {
@@ -276,6 +275,8 @@ class OperationsController extends AppController
     public function addevent($id = null)
     {
 
+        $operation = $this->Operations->get($id);
+
         $event = $this->Operations->Events->newEntity();
 
         if ($this->request->is('post')) {
@@ -291,7 +292,7 @@ class OperationsController extends AppController
             }
         }
 
-        $this->set(compact('event'));
+        $this->set(compact('event', 'operation'));
         $this->set('_serialize', ['event']);
     }
 

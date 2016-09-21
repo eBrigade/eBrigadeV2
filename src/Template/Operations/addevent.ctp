@@ -30,13 +30,17 @@
 
     <script>
 
+
         //datetimepicker on date fields
+        //todo: fix startdate
         $('#start').datetimepicker({
+            startDate: "<?= $operation->date ?>",
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
         });
 
         $('#end').datetimepicker({
+            startDate: "<?= $operation->date ?>",
             dateFormat: "yy-mm-dd",
             timeFormat:  "hh:mm:ss"
         });
