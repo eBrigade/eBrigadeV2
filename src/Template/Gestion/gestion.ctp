@@ -101,7 +101,13 @@
     //event add modal
     $(document).on('click', '#add-event', function (event) {
         event.preventDefault();
-        var url = '<?= $this->Url->build(['controller' => 'Gestion', 'action' => 'addevent', $operation->id]); ?>';
+        if (module() == 'operations') {
+            var url = '<?= $this->Url->build(['controller' => 'Gestion', 'action' => 'addevent', 'operations',$operation->id]); ?>';
+        }
+        if (module() == 'formations') {
+            var url = '<?= $this->Url->build(['controller' => 'Gestion', 'action' => 'addevent', 'formations',$operation->id]); ?>';
+        }
+
         $('.event-modal-cont').load(url, function (result) {
             $('#eventModal').modal({show: true});
         });
@@ -112,7 +118,7 @@
         event.preventDefault();
         var eventID = $('select[name=event]').val();
 
-        var url = "/operations/addteam/" + eventID;
+        var url = "/gestion/addteam/"+ module() + "/" + eventID;
         $('.event-modal-cont').load(url, function (result) {
             $('#teamModal').modal({show: true});
         });

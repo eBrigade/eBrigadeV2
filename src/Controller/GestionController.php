@@ -18,7 +18,7 @@ class GestionController extends AppController
             $table = $this->Operations;
         }
         if ($module == 'formations') {
-            $this->loadModel('formations');
+            $this->loadModel('Formations');
             $table = $this->Formations;
         }
 
@@ -47,7 +47,7 @@ class GestionController extends AppController
             $table = $this->Operations;
         }
         if ($module == 'formations') {
-            $this->loadModel('formations');
+            $this->loadModel('Formations');
             $table = $this->Formations;
         }
 
@@ -67,7 +67,7 @@ class GestionController extends AppController
             $table = $this->Operations;
         }
         if ($module == 'formations') {
-            $this->loadModel('formations');
+            $this->loadModel('Formations');
             $table = $this->Formations;
         }
 
@@ -89,7 +89,7 @@ class GestionController extends AppController
             $table = $this->Operations;
         }
         if ($module == 'formations') {
-            $this->loadModel('formations');
+            $this->loadModel('Formations');
             $table = $this->Formations;
         }
 
@@ -115,7 +115,7 @@ class GestionController extends AppController
                 $itemlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
                     return $q->where(
                         ['OR' => [
-                            ['Users.id NOT IN' => 'TeamsUsers.user_id'],
+                            ['Users.id' => 'TeamsUsers.user_id'],
                             [function ($time) use ($timestart, $timeend) {
                                 return $time->between('Events.event_end_date', $timestart, $timeend, 'datetime');
                             }],
@@ -158,16 +158,15 @@ class GestionController extends AppController
 
     }
 
-    public function addteam($id = null)
+    public function addteam($module = null, $id = null)
     {
 
-        $module = $this->request->data('module');
         if ($module == 'operations') {
             $this->loadModel('Operations');
             $table = $this->Operations;
         }
         if ($module == 'formations') {
-            $this->loadModel('formations');
+            $this->loadModel('Formations');
             $table = $this->Formations;
         }
 
@@ -195,16 +194,15 @@ class GestionController extends AppController
         $this->set('_serialize', ['team']);
     }
 
-
-    public function addevent($id = null)
+    public function addevent($module = null, $id = null)
     {
-        $module = $this->request->data('module');
+
         if ($module == 'operations') {
             $this->loadModel('Operations');
             $table = $this->Operations;
         }
         if ($module == 'formations') {
-            $this->loadModel('formations');
+            $this->loadModel('Formations');
             $table = $this->Formations;
         }
 
@@ -299,7 +297,7 @@ class GestionController extends AppController
             $table = $this->Operations;
         }
         if ($module == 'formations') {
-            $this->loadModel('formations');
+            $this->loadModel('Formations');
             $table = $this->Formations;
         }
 
