@@ -24,7 +24,7 @@ function date(selector, range, def) {
 function modal(selector, controller) {
     $(selector).click(function () {
         $('.my-modal-cont').load(controller, function () {
-            $('#myModal').modal({show: false});
+            $('#myModal').modal({show: true});
         });
     });
 }

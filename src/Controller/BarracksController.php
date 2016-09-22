@@ -353,4 +353,15 @@ class BarracksController extends AppController
         }
         return $this->redirect($this->referer(['action' => 'index']));
     }
+
+    public function gestion($id = null)
+    {
+        $barrack = $this->Barracks->get($id, [
+            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
+                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities'
+            ]
+        ]);
+
+        $this->set('barrack',$barrack);
+    }
 }
