@@ -43,13 +43,13 @@ class EventsTable extends Table
 
         $this->belongsTo('Operations', [
             'className' => 'Operations',
-            'condition' => ['module' => 'operations'],
+            'conditions' => ['module' => 'operations'],
             'foreignKey' => 'module_id'
         ]);
 
         $this->belongsTo('Formations', [
             'className' => 'Formations',
-            'condition' => ['module' => 'formations'],
+            'conditions' => ['module' => 'formations'],
             'foreignKey' => 'module_id'
         ]);
 

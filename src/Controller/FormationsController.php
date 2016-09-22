@@ -37,8 +37,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Cities','Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
-        ]);
+            'contain' => ['Cities','Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']]);
 
         $this->set('formation', $formation);
         $this->set('_serialize', ['formation']);
@@ -112,14 +111,18 @@ class FormationsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $formation = $this->Formations->get($id);
+        $formation = $this->Formations->get($id, [
+            'contain' => ['Events']
+        ]);
         if ($this->Formations->delete($formation)) {
+
             $this->Flash->success(__('The formation has been deleted.'));
         } else {
             $this->Flash->error(__('The formation could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+/*        return $this->redirect(['action' => 'index']);*/
+debug($formation);
     }
 
 
