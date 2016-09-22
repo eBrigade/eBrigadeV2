@@ -5,15 +5,15 @@
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3>Ajouter une event à cette Formation</h3>
                 <div class="events form large-9 medium-8 columns content">
-                    <?= $this->Form->create($formation_event,['horizontal'=>true]) ?>
+                    <?= $this->Form->create($formation_event, ['horizontal' => true]) ?>
                     <fieldset>
                         <?php
-                        echo $this->Form->input('title',['label'=>'Titre']);
+                        echo $this->Form->input('title', ['label' => 'Titre']);
                         echo $this->Form->hidden('id');
-                        echo $this->Form->input('instructions',['label'=>'Consigne']);
-                        echo $this->Form->input('event_start_date', ['empty' => true,'label'=>'Debut Event']);
-                        echo $this->Form->input('event_end_date', ['empty' => true,'label'=>'Fin Event']);
-                        echo $this->Form->input('horaires',['label'=>'Horraire']);
+                        echo $this->Form->input('instructions', ['label' => 'Consigne']);
+                        echo $this->Form->input('event_start_date', ['label' => '', 'id' => 'datepickerdebu', 'type' => 'text', 'class' => 'btn btn-default','placeholder'=>'Debut Event','append' =>' ']);
+                        echo $this->Form->input('event_end_date', ['label' => '', 'id' => 'datepickerend', 'type' => 'text', 'class' => 'btn btn-default','placeholder'=>'Fin Event','append' =>' ']);
+                        echo $this->Form->input('horaires', ['label' => 'Horraire']);
                         ?>
                     </fieldset>
                     <?= $this->Form->button(__('Submit')) ?>
@@ -24,10 +24,60 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker12').datepicker({
-                }
-            });
-        </script>
+        <?= $this->Html->script('jquery-ui') ?>
+        <?= $this->Html->script('jquery.datetimepicker.full.min') ?>
+        <?= $this->Html->css('jquery.datetimepicker') ?>
+        <?php foreach ($date_start as $date): ?>
+            <script>
+                $.datetimepicker.setLocale('fr');
+                $(function () {
+                    var date_debut = $('#datepickerdebu');
+                    var date_fin = $('#datepickerend');
+                    date_debut.datetimepicker({
+                        i18n: {
+                            fr: {
+                                months: [
+                                    'Janvier', 'Février', 'Mars', 'Avril',
+                                    'Mai', 'Juin', 'Juiller', 'Aout',
+                                    'Septembre', 'Octobre', 'Novembre', 'Decembre'
+                                ],
+                                dayOfWeek: [
+                                    "Dim.", "Lun", "Mar", "Mer",
+                                    "Jeu", "Vre", "Sam."
+                                ]
+                            }
+                        },
+                        format: 'Y-m-d H:i',
+                        startDate: '<?= $date->formation_start->format('Y/m/d') ?>',
+                        onShow: function (ct) {
+                            this.setOptions({
+                                maxDate: date_fin.val() ? date_fin.val() : false
+                            })
+                        }
+                    });
+                    date_fin.datetimepicker({
+                        i18n: {
+                            fr: {
+                                months: [
+                                    'Janvier', 'Février', 'Mars', 'Avril',
+                                    'Mai', 'Juin', 'Jullier', 'Aout',
+                                    'Septembre', 'Octobre', 'Novembre', 'Decembre'
+                                ],
+                                dayOfWeek: [
+                                    "Dim.", "Lun", "Mar", "Mer",
+                                    "Jeu", "Vre", "Sam."
+                                ]
+                            }
+                        },
+                        format: 'Y-m-d H:i',
+                        onShow: function (ct) {
+                            this.setOptions({
+                                minDate: date_debut.val() ? date_debut.val() : false
+                            })
+                        }
+                    });
+                });
+                $('.input-group-addon').addClass('glyphicon glyphicon-calendar');
+            </script>
+        <?php endforeach; ?>
     </div>

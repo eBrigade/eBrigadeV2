@@ -54,7 +54,7 @@ class OperationsTable extends Table
 
         $this->hasMany('Events', [
             'className' => 'Events',
-            'condition' => ['module' => 'operations'],
+            'conditions' => ['module' => 'operations'],
             'foreignKey' => 'module_id'
         ]);
 

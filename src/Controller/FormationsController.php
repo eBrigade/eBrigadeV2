@@ -37,8 +37,7 @@ class FormationsController extends AppController
     public function view($id = null)
     {
         $formation = $this->Formations->get($id, [
-            'contain' => ['Cities','Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']
-        ]);
+            'contain' => ['Cities','Organizations', 'FormationTypes', 'Events', 'Events.Teams', 'Events.Teams.Users', 'Events.Teams.Vehicles', 'Events.Teams.Materials']]);
 
         $this->set('formation', $formation);
         $this->set('_serialize', ['formation']);
@@ -112,14 +111,18 @@ class FormationsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $formation = $this->Formations->get($id);
+        $formation = $this->Formations->get($id, [
+            'contain' => ['Events']
+        ]);
         if ($this->Formations->delete($formation)) {
+
             $this->Flash->success(__('The formation has been deleted.'));
         } else {
             $this->Flash->error(__('The formation could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+/*        return $this->redirect(['action' => 'index']);*/
+debug($formation);
     }
 
 
@@ -138,7 +141,9 @@ class FormationsController extends AppController
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
+        $date_start = $this->Formations->findAllById($id);
         $this->set(compact('formation_event'));
+        $this->set(compact('date_start'));
         $this->set('_serialize', ['formation_event']);
     }
 
@@ -147,7 +152,7 @@ class FormationsController extends AppController
     {
 
         $test = $this->request->data('barracks._ids');
-        $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
+        $barracks_users = $this->Formations->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
         $names = $this->Formations->Events->Teams->findAllById($id);
 
         $array = [];
@@ -180,7 +185,7 @@ class FormationsController extends AppController
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
-        $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
+        $barracks = $this->Formations->Barracks->find('list', ['limit' => 200]);
         $users = $this->Formations->Events->Teams->Users->find('list', ['valueField' => 'firstname']);
         $haha = NULL;
 
