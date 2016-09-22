@@ -77,8 +77,7 @@ class MaterialsController extends AppController
      */
     public function view($id = null)
     {
-        $date = Time::now();
-        $date = $date->format('Y-m-d H:i:s');
+        $date = new \DateTime();
         $material = $this->Materials->get($id, [
             'contain' => ['MaterialTypes', 'Barracks', 'Teams', 'MaterialStocks']
         ]);
@@ -92,8 +91,24 @@ class MaterialsController extends AppController
             ]
         ])->first();
 
+        // essais sur le temporel
+        $rent = $this->Materials->MaterialStocks->find('all',[
+            'contain' => [
+                'Teams'
+            ],
+            'conditions' => [
+                'material_id' => $id
+            ]
+        ])->matching('Teams.Events',function($q)use($date){
+            return $q->where([
+                'event_start_date <= ' => $date,
+                'event_end_date >= ' => $date
+            ]);
+        });
+
         $this->set('date',$date);
         $this->set('stocks',$stocks);
+        $this->set('rent',$rent);
         $this->set('material', $material);
         $this->set('_serialize', ['material']);
     }

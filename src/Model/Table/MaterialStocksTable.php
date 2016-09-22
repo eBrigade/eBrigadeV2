@@ -42,10 +42,24 @@ class MaterialStocksTable extends Table
             'joinType' => 'INNER'
         ]);
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'affectation_id',
-            'joinType' => 'INNER'
+        $this->belongsTo('Barracks', [
+            'className' => 'Barracks',
+            'condition' => ['affectation' => 'barracks'],
+            'foreignKey' => 'affectation_id'
         ]);
+
+        $this->belongsTo('Teams', [
+            'className' => 'Teams',
+            'condition' => ['affectation' => 'teams'],
+            'foreignKey' => 'affectation_id'
+        ]);
+
+        $this->belongsTo('Users', [
+            'className' => 'Users',
+            'condition' => ['affectation' => 'users'],
+            'foreignKey' => 'affectation_id',
+        ]);
+
     }
 
     /**
