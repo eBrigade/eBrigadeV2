@@ -11,8 +11,8 @@
                         echo $this->Form->input('title', ['label' => 'Titre']);
                         echo $this->Form->hidden('id');
                         echo $this->Form->input('instructions', ['label' => 'Consigne']);
-                        echo $this->Form->input('event_start_date', ['label' => 'Debut Event', 'id' => 'datepickerdebu', 'type' => 'text', 'class' => 'btn btn-default']);
-                        echo $this->Form->input('event_end_date', ['label' => 'Fin Event', 'id' => 'datepickerend', 'type' => 'text', 'class' => 'btn btn-default']);
+                        echo $this->Form->input('event_start_date', ['label' => '', 'id' => 'datepickerdebu', 'type' => 'text', 'class' => 'btn btn-default','placeholder'=>'Debut Event','append' =>' ']);
+                        echo $this->Form->input('event_end_date', ['label' => '', 'id' => 'datepickerend', 'type' => 'text', 'class' => 'btn btn-default','placeholder'=>'Fin Event','append' =>' ']);
                         echo $this->Form->input('horaires', ['label' => 'Horraire']);
                         ?>
                     </fieldset>
@@ -37,8 +37,8 @@
                         i18n: {
                             fr: {
                                 months: [
-                                    'Janvier', 'Fevrier', 'Mars', 'Avril',
-                                    'Mai', 'Juin', 'Jullier', 'Aout',
+                                    'Janvier', 'Février', 'Mars', 'Avril',
+                                    'Mai', 'Juin', 'Juiller', 'Aout',
                                     'Septembre', 'Octobre', 'Novembre', 'Decembre'
                                 ],
                                 dayOfWeek: [
@@ -59,7 +59,7 @@
                         i18n: {
                             fr: {
                                 months: [
-                                    'Janvier', 'Fevrier', 'Mars', 'Avril',
+                                    'Janvier', 'Février', 'Mars', 'Avril',
                                     'Mai', 'Juin', 'Jullier', 'Aout',
                                     'Septembre', 'Octobre', 'Novembre', 'Decembre'
                                 ],
@@ -77,6 +77,7 @@
                         }
                     });
                 });
+                $('.input-group-addon').addClass('glyphicon glyphicon-calendar');
             </script>
         <?php endforeach; ?>
     </div>

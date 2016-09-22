@@ -75,5 +75,6 @@
             $('#myModal').modal({show: true});
         });
     });
+    /*modal('#bt-vehi', url);*/
 </script>
 </body>
