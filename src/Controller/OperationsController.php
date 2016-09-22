@@ -221,15 +221,19 @@ class OperationsController extends AppController
 
 
         // gets users that are not assigned in the same lapse of time
+
         $userlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
-            return $q->where( [ 'OR' => [
+            return $q->where(
+                ['OR' => [
+                    ['Users.id NOT IN' => 'TeamsUsers.user_id'],
                     [function ($time) use ($timestart, $timeend) {
                         return $time->between('Events.event_end_date', $timestart, $timeend, 'datetime');
                     }],
                     [function ($time) use ($timestart, $timeend) {
                         return $time->between('Events.event_start_date', $timestart, $timeend, 'datetime');
                     }]
-                ]]
+                ]
+                ]
             );
         });
 
@@ -251,7 +255,6 @@ class OperationsController extends AppController
             $team = $this->Operations->Events->Teams->patchEntity($team, $this->request->data);
             $event = $this->request->data('eventID');
             if ($this->Operations->Events->Teams->save($team)) {
-                debug($event);
                 $teamID = $team->id;
                 $container = $this->Operations->Events->get($event, ['contain' => 'Teams']);
                 $content = $this->Operations->Events->Teams->findById($teamID)->toArray();
