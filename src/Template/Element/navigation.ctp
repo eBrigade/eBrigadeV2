@@ -48,6 +48,7 @@
     <ul class="dropdown-menu">
         <li><?= $this->Html->link('Voir les casernes', ['controller' => 'Barracks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('Créér une caserne'), ['controller' => 'Barracks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Gestion de la caserne'), ['controller' => 'Barracks', 'action' => 'gestion']) ?></li>
     </ul>
 </li>
 <li><?= $this->Html->link('Calendrier', ['controller' => 'Calendar', 'action' => 'index']) ?></li>
