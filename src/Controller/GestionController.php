@@ -41,6 +41,7 @@ class GestionController extends AppController
         $module = $this->request->data('module');
         $contentType = $this->request->data('contentType');
 
+
         if ($module == 'operations') {
             $this->loadModel('Operations');
             $table = $this->Operations;
@@ -292,6 +293,16 @@ class GestionController extends AppController
     public function loadlist()
     {
 
+        $module = $this->request->data('module');
+        if ($module == 'operations') {
+            $this->loadModel('Operations');
+            $table = $this->Operations;
+        }
+        if ($module == 'formations') {
+            $this->loadModel('formations');
+            $table = $this->Formations;
+        }
+
         //gets context
         $source = $this->request->data('source');
         $containerID = $this->request->data('containerID');
@@ -334,7 +345,7 @@ class GestionController extends AppController
         //cases to load content tables
         switch ($contentType) {
             case 'Users':
-                $users = $this->Operations->Events->Teams->Users->find();
+                $users = $table->Events->Teams->Users->find();
                 $users->matching('Teams', function ($q) use ($containerID) {
                     return $q->where(['Teams.id' => $containerID]);
                 });
@@ -344,7 +355,7 @@ class GestionController extends AppController
                 $list = $this->paginate($users);
                 break;
             case 'Materials':
-                $materials = $this->Operations->Events->Teams->Materials->find();
+                $materials = $table->Events->Teams->Materials->find();
                 $materials->matching('Teams', function ($q) use ($containerID) {
                     return $q->where(['Teams.id' => $containerID]);
                 });
@@ -354,7 +365,7 @@ class GestionController extends AppController
                 $list = $this->paginate($materials);
                 break;
             case 'Vehicles':
-                $vehicles = $this->Operations->Events->Teams->Vehicles->find();
+                $vehicles = $table->Events->Teams->Vehicles->find();
                 $vehicles->matching('Teams', function ($q) use ($containerID) {
                     return $q->where(['Teams.id' => $containerID]);
                 });

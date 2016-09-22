@@ -101,7 +101,7 @@
     //event add modal
     $(document).on('click', '#add-event', function (event) {
         event.preventDefault();
-        var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addevent', $operation->id]); ?>';
+        var url = '<?= $this->Url->build(['controller' => 'Gestion', 'action' => 'addevent', $operation->id]); ?>';
         $('.event-modal-cont').load(url, function (result) {
             $('#eventModal').modal({show: true});
         });
@@ -121,8 +121,8 @@
 
     //refreshes changed list
     function refreshlist() {
-        $('#content-list').load('/Operations/loadlist/', dataContext());
-        $('#filter-list').load('/Operations/filterlist/', dataContext());
+        $('#content-list').load('/Gestion/loadlist/', dataContext());
+        $('#filter-list').load('/Gestion/filterlist/', dataContext());
     }
 
     //sets filter on contentType choice
@@ -133,10 +133,11 @@
         $(this).addClass('content-active');
 
         var datafilter = {
-            contentType: contentType()
+            contentType: contentType(),
+            module: module()
         };
         var filter = $('#filter');
-        filter.load('/Operations/filtertype/', datafilter);
+        filter.load('/Gestion/filtertype/', datafilter);
         refreshlist()
     });
 
@@ -144,9 +145,10 @@
     //gets the right select teams
     $('#event').on('change', function (e) {
         var datateam = {
-            eventID: this.value
+            eventID: this.value,
+            module: module()
         };
-        $('#team').load('/Operations/teamselect/', datateam)
+        $('#team').load('/Gestion/teamselect/', datateam)
     });
 
     //select teams and element type action
@@ -167,14 +169,14 @@
         datax = data.split('?');
 
         console.log(datax[1]);
-        $('#filter-list').load('/Operations/filterlist' + '?' + datax[1], dataContext());
+        $('#filter-list').load('/Gestion/filterlist' + '?' + datax[1], dataContext());
     });
 
 
     //filter action
     $("#filter").submit(function (event) {
         event.preventDefault();
-        $('#filter-list').load('/Operations/filterlist/', dataContext());
+        $('#filter-list').load('/Gestion/filterlist/', dataContext());
     });
 
     //event on button
@@ -200,7 +202,7 @@
         var request = $.ajax({
             type: 'POST',
             data: datajax,
-            url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
+            url: '<?= $this->Url->build(["controller" => "Gestion", "action" => "ajoints"]); ?>'
         });
         //todo: double check actions if success or not in db to validate or not changes
         request.done(function () {
