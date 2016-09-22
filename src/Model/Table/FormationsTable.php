@@ -41,7 +41,8 @@ class FormationsTable extends Table
         $this->hasMany('Events', [
             'className' => 'Events',
             'conditions' => ['module' => 'formations'],
-            'foreignKey' => 'module_id'
+            'foreignKey' => 'module_id',
+            'dependent' => true
         ]);
         $this->belongsTo('Cities', [
             'foreignKey' => 'city_id',

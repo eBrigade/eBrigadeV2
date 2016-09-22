@@ -27,6 +27,7 @@
                 <td><?= $formation->has('city') ? h($formation->city->city) : '' ?></td>
                 <td><?= $formation->has('formation_type') ? h($formation->formation_type->name) : '' ?></td>
                 <td class="actions">
+                    <?= $this->Html->link($this->Html->icon('eye-open'), ['controller' => 'Gestion', 'action' => 'gestion', 'formations', $formation->id ], ['class'=>'btn btn-primary','escape'=>false]) ?>
                     <?= $this->Html->link(__(''), ['action' => 'view', $formation->id],['class'=>'btn btn-primary glyphicon glyphicon-eye-open']) ?>
                     <?= $this->Html->link(__(''), ['action' => 'edit', $formation->id],['class'=>'btn btn-info glyphicon glyphicon-edit']) ?>
                     <?= $this->Form->postLink(__(''), ['action' => 'delete', $formation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $formation->id),'class'=>'btn btn-danger glyphicon glyphicon-remove']) ?>

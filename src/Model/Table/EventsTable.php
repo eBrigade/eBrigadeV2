@@ -44,13 +44,15 @@ class EventsTable extends Table
         $this->belongsTo('Operations', [
             'className' => 'Operations',
             'conditions' => ['module' => 'operations'],
-            'foreignKey' => 'module_id'
+            'foreignKey' => 'module_id',
+             'dependent' => true
         ]);
 
         $this->belongsTo('Formations', [
             'className' => 'Formations',
             'conditions' => ['module' => 'formations'],
-            'foreignKey' => 'module_id'
+            'foreignKey' => 'module_id',
+            'dependent' => true
         ]);
 
         $this->belongsToMany('Teams', [
