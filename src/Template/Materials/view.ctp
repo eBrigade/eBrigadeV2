@@ -22,6 +22,12 @@
                             </td>
                         </tr>
                         <tr>
+                            <td colspan="2">
+                                <h4><?= __('Quantity') ?></h4>
+                                <?= $this->Text->autoParagraph(h($stocks->sum)); ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <td colspan=2 class="text-center">
                                 <?= $this->Html->link(__('Return'),[
                                     'action' => 'index',

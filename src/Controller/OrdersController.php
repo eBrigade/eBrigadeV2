@@ -27,7 +27,7 @@ class OrdersController extends AppController
             $id = $user->id; // id de la barrack
         }
         $orders = $this->Orders->find('all',[
-            'contain' => ['Materials'],
+            'contain' => ['Materials','Materials.MaterialStocks'],
         ])->innerJoinWith('Materials.Barracks')->where(['Barracks.id' => $id]);
         $orders = $this->paginate($orders);
 
@@ -76,7 +76,7 @@ class OrdersController extends AppController
             if ($this->Orders->save($order)) {
                 $this->Flash->success(__('The order has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index',$id]);
             } else {
                 $this->Flash->error(__('The order could not be saved. Please, try again.'));
             }
@@ -148,13 +148,13 @@ class OrdersController extends AppController
     //fonction pour confirmer la commande
     public function confirm($id = null)
     {
-        $materials = $this->Orders->Materials->get($id);
+        $orders = $this->Orders->Materials->get($id);
         // order_made à 1 = commandé
         $data = [
             'order_made' => 1
         ];
-        $materials = $this->Orders->Materials->patchEntity($materials,$data);
-        if($this->Orders->Materials->save($materials))
+        $orders = $this->Orders->Materials->patchEntity($orders,$data);
+        if($this->Orders->Materials->save($orders))
         {
             $this->Flash->success(__('The order has been confirmed.'));
         } else {
@@ -177,10 +177,15 @@ class OrdersController extends AppController
             'affectation' => 'barracks',
             'affectation_id' => $barrack_id
         ];
-
+        $material = $this->Orders->Materials->get($order->material_id); // pour modifier le status du matériel
         $materialStocks = $this->Orders->Materials->MaterialStocks->patchEntity($materialStocks,$data);
         if($this->Orders->Materials->MaterialStocks->save($materialStocks))
         {
+            $data = [
+                'order_made' => false
+            ];
+            $material = $this->Orders->Materials->patchEntity($material,$data);
+            $this->Orders->Materials->save($material);
             $this->Flash->success(__('The order has been labeled as received.'));
 
         } else {

@@ -10,8 +10,7 @@ use Cake\ORM\Entity;
  * @property int $material_id
  * @property int $quantity
  *
- * @property \App\Model\Entity\Provider $provider
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Material $material
  * @property \App\Model\Entity\Supply[] $supplies
  */
 class Order extends Entity

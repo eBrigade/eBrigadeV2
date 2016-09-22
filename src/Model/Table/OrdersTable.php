@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Orders Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Materials
+ * @property \Cake\ORM\Association\BelongsToMany $Supplies
  *
  * @method \App\Model\Entity\Order get($primaryKey, $options = [])
  * @method \App\Model\Entity\Order newEntity($data = null, array $options = [])
@@ -39,6 +40,11 @@ class OrdersTable extends Table
         $this->belongsTo('Materials', [
             'foreignKey' => 'material_id',
             'joinType' => 'INNER'
+        ]);
+        $this->belongsToMany('Supplies', [
+            'foreignKey' => 'order_id',
+            'targetForeignKey' => 'supply_id',
+            'joinTable' => 'orders_supplies'
         ]);
     }
 
