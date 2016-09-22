@@ -74,6 +74,29 @@
 
 <script>
 
+    function module() {
+        return  '<?= $module ?>';
+    }
+
+    //gets content type
+    function contentType() {
+        var contentType = $('.content-active').attr('id').split('-');
+        contentType = contentType[1];
+        return contentType;
+    }
+
+    //gets data context
+    function dataContext() {
+        var data = {
+            module: module(),
+            barrackID: $('select[name=barrack]').val(),
+            contentType: contentType(),
+            containerID: $('select[name=team]').val(),
+            source: $('select[name=event]').val()
+        };
+        return data;
+    }
+
 
     //event add modal
     $(document).on('click', '#add-event', function (event) {
@@ -95,24 +118,6 @@
         });
     });
 
-
-    //gets content type
-    function contentType() {
-        var contentType = $('.content-active').attr('id').split('-');
-        contentType = contentType[1];
-        return contentType;
-    }
-
-    //gets data context
-    function dataContext() {
-        var data = {
-            barrackID: $('select[name=barrack]').val(),
-            contentType: contentType(),
-            containerID: $('select[name=team]').val(),
-            source: $('select[name=event]').val()
-        };
-        return data;
-    }
 
     //refreshes changed list
     function refreshlist() {

@@ -25,7 +25,7 @@
                 <td><?= h($operation->date) ?></td>
                 <td><?= $operation->has('operation_type') ? $this->Html->link($operation->operation_type->title, ['controller' => 'OperationTypes', 'action' => 'view', $operation->operation_type->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link($this->Html->icon('eye-open'), ['action' => 'gestion', $operation->id], ['class'=>'btn btn-primary','escape'=>false]) ?>
+                    <?= $this->Html->link($this->Html->icon('eye-open'), ['controller' => 'Gestion', 'action' => 'gestion', 'operations', $operation->id ], ['class'=>'btn btn-primary','escape'=>false]) ?>
                     <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $operation->id], ['class'=>'btn btn-info','escape'=>false]) ?>
                     <?= $this->Form->postLink($this->Html->icon('trash'), ['action' => 'delete', $operation->id], ['class'=>'btn btn-danger','escape'=>false], ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?>
                 </td>
