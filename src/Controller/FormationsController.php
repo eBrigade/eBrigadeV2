@@ -138,7 +138,9 @@ class FormationsController extends AppController
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
+        $date_start = $this->Formations->findAllById($id);
         $this->set(compact('formation_event'));
+        $this->set(compact('date_start'));
         $this->set('_serialize', ['formation_event']);
     }
 
@@ -147,7 +149,7 @@ class FormationsController extends AppController
     {
 
         $test = $this->request->data('barracks._ids');
-        $barracks_users = $this->Formations->Events->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
+        $barracks_users = $this->Formations->Barracks->find('all')->where(['Barracks.id' => $test[0]])->matching('Users');
         $names = $this->Formations->Events->Teams->findAllById($id);
 
         $array = [];
@@ -180,7 +182,7 @@ class FormationsController extends AppController
                 $this->Flash->error(__('The formation could not be saved. Please, try again.'));
             }
         }
-        $barracks = $this->Formations->Events->Barracks->find('list', ['limit' => 200]);
+        $barracks = $this->Formations->Barracks->find('list', ['limit' => 200]);
         $users = $this->Formations->Events->Teams->Users->find('list', ['valueField' => 'firstname']);
         $haha = NULL;
 

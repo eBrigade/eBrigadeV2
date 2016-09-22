@@ -4,7 +4,7 @@
     	<li class="list-group-item list-group-item-info">
 			<h4 class="list-group-item-heading">
 				<?= $event->title ?>
-                <div class="btn-group">
+                <div class="btn-group pull-right">
                     <button type="button" class="btn btn-info btn-xs">Modifier cette Mission</button>
                     <button type="button" class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">

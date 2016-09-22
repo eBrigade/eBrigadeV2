@@ -5,9 +5,6 @@
             <ul class="list-group">
                 <li class="list-group-item list-group-item-danger">Détails importants de la mission</li>
                 <li class="list-group-item">
-                    ????
-                </li>
-                <li class="list-group-item">
                     A ce jour il manque toujours 2 équipiers
                 </li>
             </ul>
@@ -78,11 +75,5 @@
             $('#myModal').modal({show: true});
         });
     });
-    function modula(id) {
-        var url = '/Formations/adduserteam/' + id + '/<?= $formation->id ?>';
-        $('.my-modal-cont').load(url, function (result) {
-            $('#myModal2').modal({show: true});
-        });
-    }
 </script>
 </body>
