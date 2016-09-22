@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\Query;
 use Cake\I18n\Date;
 use Cake\I18n\Time;
 
@@ -18,11 +19,17 @@ class MaterialsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-     // Penser à ajouter le filtrage par matéreil type également ;)
-     // Filtrage par défaut sur les barracks id d'appartenance de l'utilisateur
+    // Penser à ajouter le filtrage par matéreil type également ;)
+    // Filtrage par défaut sur les barracks id d'appartenance de l'utilisateur
     public function index($id=null)
     {
         $materials = $this->Materials->find('all',[
+            'contain' => ['MaterialTypes','Barracks']
+        ]);
+        $ordered = $this->Materials->find('all',[
+            'contain' => ['MaterialTypes','Barracks']
+        ]);
+        $to_order = $this->Materials->find('all',[
             'contain' => ['MaterialTypes','Barracks']
         ]);
         if($id == null)
@@ -33,14 +40,32 @@ class MaterialsController extends AppController
             })->select(['Barracks.id'])->first();
             $id = $user->id; // id de la barrack
         }
+        // on cherche tous les materials qui ne sont pas en commande et qui sont dans les stocks
+        $materials->where([
+            'barrack_id' => $id,
+            'order_made' => false,
+            'Materials.id IN' => $this->Materials->MaterialStocks->find('all',['fields' => ['MaterialStocks.material_id']])
+        ]);
+        // on cherche tous les materials qui ne sont pas en commande et qui ne sont pas dans les stocks
+        $to_order->where([
+            'barrack_id' => $id,
+            'order_made' => false,
+            'Materials.id NOT IN' => $this->Materials->MaterialStocks->find('all',['fields' => ['MaterialStocks.material_id']])
+        ]);
+        // on cherche tous les materials qui sont en commande et qui ne sont pas dans les stocks
+        $ordered->where([
+            'barrack_id' => $id,
+            'order_made' => true,
+            'Materials.id NOT IN' => $this->Materials->MaterialStocks->find('all',['fields' => ['MaterialStocks.material_id']])
+        ]);
 
-        $materials->where(['barrack_id' => $id]);
         $materials = $this->paginate($materials);
+        $ordered = $this->paginate($ordered);
         $this->set('id',$id);
         $barracks = $this->Materials->Barracks->find('treeList');
         $this->set('barracks',$barracks);
-        $this->set(compact('materials'));
-        $this->set('_serialize', ['materials']);
+        $this->set(compact('materials','to_order','ordered'));
+        $this->set('_serialize', ['materials','to_order','ordered']);
     }
 
     /**
@@ -57,13 +82,15 @@ class MaterialsController extends AppController
         $material = $this->Materials->get($id, [
             'contain' => ['MaterialTypes', 'Barracks', 'Teams', 'MaterialStocks']
         ]);
-        $stocks = $this->Materials
-            ->find('all',[
-                'contain' => ['MaterialStocks'],
-                'conditions' => [
-                    'id' => $id
-                ]
-        ]);
+        $stocks = $this->Materials->MaterialStocks->find('all',[
+            'fields' => [
+                'material_id' => 'material_id',
+                'sum' => 'sum(stock)'
+            ],
+            'conditions' => [
+                'material_id' => $id
+            ]
+        ])->first();
 
         $this->set('date',$date);
         $this->set('stocks',$stocks);
@@ -80,7 +107,7 @@ class MaterialsController extends AppController
     {
         $material = $this->Materials->newEntity();
         if ($this->request->is('post')) {
-            $this->request->data['order_made'] = 0;
+            $this->request->data['order_made'] = 1;
             $material = $this->Materials->patchEntity($material, $this->request->data);
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('The material has been saved.'));

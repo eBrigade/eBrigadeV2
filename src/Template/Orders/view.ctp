@@ -20,9 +20,17 @@
                             <td><?= $this->Number->format($order->quantity) ?></td>
                         </tr>
                     </table>
-                    <div>
-                        <?= $this->Form->postLink($this->Html->icon('check'), ['action' => 'received', $order->id],['class' => 'btn btn-warning','escape'=>false],['confirm' => __('Are you sure you want to order # {0}?', $order->id)]) ?>
-                    </div>
+                    <?php
+                    // on ne peut cliquer dessus que si on la commande a été passée
+                    if($order->material->order_made)
+                    {
+                        ?>
+                        <div>
+                            <?= $this->Form->postLink(__('Received').$this->Html->icon('check'), ['action' => 'received', $order->id],['class' => 'btn btn-warning','escape'=>false],['confirm' => __('Are you sure you want to order # {0}?', $order->id)]) ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
                 <div class="panel-footer text-align">
 
