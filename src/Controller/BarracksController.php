@@ -14,12 +14,18 @@ use Cake\Utility\Hash;
  */
 class BarracksController extends AppController
 {
+    public $paginate = [
+        'limit' => 25,
+        'order' => [
+            'Barracks.id' => 'asc'
+        ]
+    ];
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
 
     public function tree()
     {
@@ -362,6 +368,10 @@ class BarracksController extends AppController
             ]
         ]);
 
+        $users = $this->Barracks->Users->find('all', ['contain' => 'Cities']);
+
         $this->set('barrack',$barrack);
+        $this->set('users',$this->paginate($users));
+
     }
 }
