@@ -197,7 +197,7 @@
         var request = $.ajax({
             type: 'POST',
             data: datajax,
-            url: '<?= $this->Url->build(["controller" => "Operations", "action" => "ajoints"]); ?>'
+            url: '<?= $this->Url->build(["controller" => "Operations", "action" => "joints"]); ?>'
         });
         //todo: double check actions if success or not in db to validate or not changes
         request.done(function () {

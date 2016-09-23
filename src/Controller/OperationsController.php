@@ -11,6 +11,12 @@ use App\Controller\AppController;
 class OperationsController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Gestion');
+    }
+
     /**
      * Index method
      *
@@ -345,7 +351,7 @@ class OperationsController extends AppController
     }
 
     //ajax version of joints function that manages add and remove for joint tables.
-    public function ajoints()
+    public function joints()
     {
         $this->autoRender = false;
 
@@ -355,9 +361,6 @@ class OperationsController extends AppController
         //if of the content
         $contentID = $this->request->data('contentID');
 
-        //id of the event or else that contains all the rest, allows url redirect to initial page
-        $source = $this->request->data('source');
-
         //container and content types : to load model and contain and to determine switch cases for query objects
         $containerType = $this->request->data('containerType');
         $contentType = $this->request->data('contentType');
@@ -365,40 +368,8 @@ class OperationsController extends AppController
         //add or remove : link/unlink
         $action = $this->request->data('action');
 
-        //loads container's model
-        $this->loadModel($containerType);
+        $this->Gestion->ajoints($containerType, $contentType, $containerID, $contentID, $action);
 
-        //cases to populate with joint table
-        switch ($containerType . $contentType) {
-            case 'TeamsUsers':
-                $containerTable = $this->Teams;
-                $contentTable = $this->Teams->Users;
-                break;
-            case 'TeamsMaterials':
-                $containerTable = $this->Teams;
-                $contentTable = $this->Teams->Materials;
-                break;
-            case 'TeamsVehicles':
-                $containerTable = $this->Teams;
-                $contentTable = $this->Teams->Vehicles;
-                break;
-            case 'EventsTeams':
-                $containerTable = $this->Events;
-                $contentTable = $this->Events->Teams;
-                break;
-        }
-
-        //get container query object
-        $container = $containerTable->get($containerID, ['contain' => [$contentType]]);
-        //get content
-        $content = $contentTable->findById($contentID)->toArray();
-
-        //links or unlinks container and content
-        if ($action == 'add') {
-            $contentTable->link($container, $content);
-        } elseif ($action == 'remove') {
-            $contentTable->unlink($container, $content);
-        }
     }
 
 
