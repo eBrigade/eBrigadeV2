@@ -11,6 +11,12 @@ use App\Controller\AppController;
 class OperationsController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Gestion');
+    }
+
     /**
      * Index method
      *
@@ -236,17 +242,18 @@ class OperationsController extends AppController
 
         switch ($contentType) {
             case 'Users':
-
+                $this->loadModel('Users');
                 $this->paginate = [
                     'contain' => ['Barracks', 'Teams.Events']
                 ];
-                $itemlist = $table->Events->Teams->Users->find();
+                $itemlist = $this->Users->find()->where(['Users.is_provider' => 0]);
                 // gets users that are not assigned in the same lapse of time
 
-                $itemlist->distinct()->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
-                    return $q->where(
+                $itemlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
+                    return $q->distinct()->where(
                         ['OR' => [
-                            ['Users.id' => 'TeamsUsers.user_id'],
+
+                            ['Users.id NOT IN ' => 'TeamsUsers.user_id'],
                             [function ($time) use ($timestart, $timeend) {
                                 return $time->between('Events.event_end_date', $timestart, $timeend, 'datetime');
                             }],
@@ -345,7 +352,7 @@ class OperationsController extends AppController
     }
 
     //ajax version of joints function that manages add and remove for joint tables.
-    public function ajoints()
+    public function joints()
     {
         $this->autoRender = false;
 
@@ -355,50 +362,15 @@ class OperationsController extends AppController
         //if of the content
         $contentID = $this->request->data('contentID');
 
-        //id of the event or else that contains all the rest, allows url redirect to initial page
-        $source = $this->request->data('source');
-
         //container and content types : to load model and contain and to determine switch cases for query objects
         $containerType = $this->request->data('containerType');
         $contentType = $this->request->data('contentType');
 
         //add or remove : link/unlink
         $action = $this->request->data('action');
+        debug($action);
+        $this->Gestion->ajoints($containerType, $contentType, $containerID, $contentID, $action);
 
-        //loads container's model
-        $this->loadModel($containerType);
-
-        //cases to populate with joint table
-        switch ($containerType . $contentType) {
-            case 'TeamsUsers':
-                $containerTable = $this->Teams;
-                $contentTable = $this->Teams->Users;
-                break;
-            case 'TeamsMaterials':
-                $containerTable = $this->Teams;
-                $contentTable = $this->Teams->Materials;
-                break;
-            case 'TeamsVehicles':
-                $containerTable = $this->Teams;
-                $contentTable = $this->Teams->Vehicles;
-                break;
-            case 'EventsTeams':
-                $containerTable = $this->Events;
-                $contentTable = $this->Events->Teams;
-                break;
-        }
-
-        //get container query object
-        $container = $containerTable->get($containerID, ['contain' => [$contentType]]);
-        //get content
-        $content = $contentTable->findById($contentID)->toArray();
-
-        //links or unlinks container and content
-        if ($action == 'add') {
-            $contentTable->link($container, $content);
-        } elseif ($action == 'remove') {
-            $contentTable->unlink($container, $content);
-        }
     }
 
 
