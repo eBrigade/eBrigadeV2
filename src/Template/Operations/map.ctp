@@ -1,30 +1,50 @@
 <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
 
 <div class="container-fluid clearfix">
-    <?= $this->Html->link("Basculer en affichage opérationnel", array('controller' => 'Operations','action'=> 'operationnel', $operation->id), array( 'class' => 'btn btn-info btn-xs')) ?>
-    <?= $this->Html->link("Basculer en affichage de gestion", array('controller' => 'Operations','action'=> 'gestion', $operation->id), array( 'class' => 'btn btn-info btn-xs')) ?>
+    <?= $this->Html->link("Basculer en affichage opérationnel", array('controller' => 'Operations', 'action' => 'operationnel', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
+    <?= $this->Html->link("Basculer en affichage de gestion", array('controller' => 'Operations', 'action' => 'gestion', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
 
     <div class="row">
         <div class="col-xs-6 col-md-4">
             <ul class="list-group">
 
-                <?php $teamNumber = 0 ?>
+
                 <?php if (!empty($operation->events)): ?>
                 <?php foreach ($operation->events as $event): ?>
-                <?php $teamNumber++ ?>
 
                 <li class="list-group-item list-group-item-info">
 
                     <p><b>Nom de l'événement : </b><?= $event->title ?></p>
                     <p><b>de : </b><?= $event->event_start_date ?>
                         à <?= $event->event_end_date ?></p>
+                    <p><b>instructions : </b><?= $event->instructions ?></p>
                     <p><b>Horaires : </b><?= $event->horaires ?></p>
                 </li>
             </ul>
             <div class="row-fluid clearfix">
-                <div class="col-xs-12 col-sm-6 col-md-8">
-                    <p><b>Détails : </b><?= $event->details ?></p>
-                    <p><b>instructions : </b><?= $event->instructions ?></p>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <ul class="list-group">
+
+
+                        <?php if (!empty($event->teams)): ?>
+                            <?php foreach ($event->teams as $team): ?>
+
+                                <li class="list-group-item list-group-item-success">
+
+                                    <p><b>Nom de l'équipe: </b><?= $team->name ?></p>
+                                    <p><b>Description </b><?= $team->desciption ?></p>
+                                    <p><b>position : </b><?= $team->position_adresse ?></p>
+                                    <p><b>Indicatif radio : </b><?= $team->radio_indicatif ?></p>
+                                    <p><b>Fréquence radio : </b><?= $team->radio_frequence ?></p>
+                                    <p><b>Horaires : </b><?= $team->horaires ?></p>
+                                    <p><b>Consignes : </b><?= $team->consignes ?></p>
+
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
+                    </ul>
+
                 </div>
             </div>
             <?php endforeach; ?>
@@ -65,13 +85,27 @@
 
                 ?>
 
+                <form id="positions">
                 <?php if (!empty($operation->events)): ?>
-                    <?php $num = 0 ?>
+                    <?php $eventNum = 0 ?>
                     <?php foreach ($operation->events as $event): ?>
-                        <?php $num++ ?>
-                        <?= $this->GoogleMap->addMarker("map_gen", $num, array('latitude' => $event->latitude, 'longitude' => $event->longitude), $marker_options); ?>
+                        <?php $eventNum++ ?>
+
+                        <?php if (!empty($event->teams)): ?>
+                            <?php $teamNum = 0 ?>
+                            <?php foreach ($event->teams as $team): ?>
+                                <?php $teamNum++ ?>
+
+                                <?= $this->GoogleMap->addMarker("map_gen", $eventNum.$teamNum, array('latitude' => $team->latitude, 'longitude' => $team->longitude), $marker_options); ?>
+                                <input type="text" id="latitude_<?= $eventNum.$teamNum?>" />
+                                <input type="text" id="longitude_<?= $eventNum.$teamNum?>" />
+
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+
                     <?php endforeach; ?>
                 <?php endif; ?>
+                </form>
             </div>
         </div>
     </div>
