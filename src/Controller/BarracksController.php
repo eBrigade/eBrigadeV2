@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use App\Model\Entity\Department;
 use App\Model\Entity\Formation;
+use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
@@ -364,13 +365,33 @@ class BarracksController extends AppController
     {
         $barrack = $this->Barracks->get($id, [
             'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities'
+                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities' => [
+                    'queryBuilder' => function (Query $q) {
+                        return $q->order(['Operations.date' => 'DESC']);
+                    },
+                    'Operations'
+                ]
             ]
         ]);
 
         $users = $this->Barracks->Users->find('all', ['contain' => 'Cities']);
 
-        $this->set('barrack',$barrack);
+        $this->loadModel('MaterialStocks');
+        $barrack_mat = $this->MaterialStocks->find('all',[
+            'contain' => ['Materials.MaterialTypes']])
+            ->where(['affectation' => 'barracks'])
+            ->andwhere(['affectation_id' => $id]);
+
+        $user_mat = $this->MaterialStocks->find('all',[
+            'contain' => ['Materials.MaterialTypes','Users']])
+            ->where(['affectation' => 'users'])
+            ->andwhere(['affectation_id' => $id]);
+
+
+        $c_barrack_mat = $barrack_mat->count();
+        $c_user_mat = $user_mat->count();
+
+        $this->set(compact('barrack', 'barrack_mat','c_barrack_mat','c_user_mat','user_mat'));
         $this->set('users',$this->paginate($users));
 
     }
