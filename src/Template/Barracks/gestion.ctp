@@ -110,22 +110,65 @@
         <div class="panel panel-info " id="user">
             <div class="panel-heading">Personnel
 
-                <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
+                <a href='<?= $this->Url->build(["controller" => "users","action" => "add" ]); ?>'
                    class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
-                <a href='<?= $this->Url->build(["controller" => "users","action" => "view"]); ?>'
+                <a href='<?= $this->Url->build(["controller" => "users","action" => "add"]); ?>'
                    class="btn btn-warning pull-right btn-add marge"><i class="glyphicon glyphicon-arrow-down"></i> Ajouter</a>
             </div>
-                        <table class="table table-bordered table-hover" width="100%" id="tbl">
-                            <thead>
+                        <table class="table table-bordered table-hover table-striped" width="100%" id="tbl">
+                            <thead id="gstuser">
                             <tr>
                                 <!--<th></th>-->
-                                 <th><?= $this->Paginator->sort('Users.firstname', ['label' => 'Nom']) ?></th>
-                                <th>Prénom</th>
-                                <th>Né le</th>
-                                <th>Code postal</th>
-                                <th>Ville</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
+                                 <th>
+                                     <?php if ($this->Paginator->sortKey() == 'Users.firstname'): ?>
+                                     <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
+                                     <?php else: ?>
+                                     <i class='fa fa-sort'></i>
+                                     <?php endif; ?>
+                                     <?= $this->Paginator->sort('firstname', ['label' => 'Nom']) ?>
+                                 </th>
+                                <th>
+                                    <?php if ($this->Paginator->sortKey() == 'Users.lastname'): ?>
+                                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
+                                    <?php else: ?>
+                                    <i class='fa fa-sort'></i>
+                                    <?php endif; ?>
+                                    <?= $this->Paginator->sort('lastname', ['label' => 'Prénom']) ?></th>
+                                <th>
+                                    <?php if ($this->Paginator->sortKey() == 'Users.birthday'): ?>
+                                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
+                                    <?php else: ?>
+                                    <i class='fa fa-sort'></i>
+                                    <?php endif; ?>
+                                    <?= $this->Paginator->sort('birthday', ['label' => 'Né le']) ?></th>
+                                <th>
+                                    <?php if ($this->Paginator->sortKey() == 'Users.zipcode'): ?>
+                                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
+                                    <?php else: ?>
+                                    <i class='fa fa-sort'></i>
+                                    <?php endif; ?>
+                                    <?= $this->Paginator->sort('zipcode', ['label' => 'Code postal']) ?></th>
+                                <th>
+                                    <?php if ($this->Paginator->sortKey() == 'Users.city'): ?>
+                                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
+                                    <?php else: ?>
+                                    <i class='fa fa-sort'></i>
+                                    <?php endif; ?>
+                                    <?= $this->Paginator->sort('city', ['label' => 'Ville']) ?></th>
+                                <th>
+                                    <?php if ($this->Paginator->sortKey() == 'Users.address'): ?>
+                                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
+                                    <?php else: ?>
+                                    <i class='fa fa-sort'></i>
+                                    <?php endif; ?>
+                                    <?= $this->Paginator->sort('address', ['label' => 'Adresse']) ?></th>
+                                <th>
+                                    <?php if ($this->Paginator->sortKey() == 'Users.phone'): ?>
+                                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
+                                    <?php else: ?>
+                                    <i class='fa fa-sort'></i>
+                                    <?php endif; ?>
+                                    <?= $this->Paginator->sort('phone', ['label' => 'Téléphone']) ?></th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -172,20 +215,19 @@
 
         <div class="panel panel-warning hidden" id="event">
             <div class="panel-heading">Evenements
-                <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
-                   class="btn btn-danger pull-right btn-add marge"><i class="glyphicon glyphicon-remove"></i> </a>
+
                 <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
                    class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
 
             </div>
             <table class="table table-bordered table-hover" width="100%" id="tbl">
-                <thead>
+                <thead id="gstuser">
                 <tr>
                     <th>Type</th>
                     <th>Intitulé</th>
                     <th>Ville</th>
                     <th>Date</th>
-                    <th></th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -196,9 +238,9 @@
                     <td><?= $event->title ?></td>
                     <td> <?= $event->city->city ?> (<?= $event->city->zipcode ?>)</td>
                     <td>le <?= $event->date ?></td>
-                    <td>
+                    <td style="text-align:center;">
                         <a href='<?= $this->Url->build(["controller" => "operations","action" => "view", $event->id ]); ?>'
-                           class="btn btn-default   btn-sm "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                           class="btn btn-default   btn-xs "><i class="fa fa-eye" aria-hidden="true"></i></a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -210,9 +252,9 @@
                     <td><?= $formation->title ?></td>
                     <td><?= $formation->city->city ?> (<?= $event->city->zipcode ?>)</td>
                     <td>du <?= $formation->formation_start->i18nFormat('dd/MM/yyyy') ?> au <?= $formation->formation_end->i18nFormat('dd/MM/yyyy') ?></td>
-                    <td>
+                    <td style="text-align:center;">
                         <a href='<?= $this->Url->build(["controller" => "formations","action" => "view", $formation->id ]); ?>'
-                           class="btn btn-default btn-sm "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                           class="btn btn-default btn-xs "><i class="fa fa-eye" aria-hidden="true"></i></a>
                     </td>
                 </tr>
                 <?php endif; ?>
@@ -233,14 +275,13 @@
 
         <div class="panel panel-danger hidden" id="vehi">
             <div class="panel-heading">Véhicules
-                <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
-                   class="btn btn-danger pull-right btn-add marge"><i class="glyphicon glyphicon-remove"></i> </a>
+
                 <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
                    class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
 
             </div>
             <table class="table table-bordered table-hover" width="100%" id="tbl">
-                <thead>
+                <thead id="gstuser">
                 <tr>
                     <th></th>
                     <th>Type</th>
@@ -251,7 +292,7 @@
                     <th class="hidden-sm hidden-xs">Acquis le</th>
                     <th class="hidden-sm hidden-xs">Garantie</th>
                     <th class="hidden-sm hidden-xs">Revision</th>
-                    <th class="hidden-sm hidden-xs"></th>
+                    <th class="hidden-sm hidden-xs">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -276,7 +317,7 @@
                     <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
                     <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
 
-                    <td class='hidden-sm hidden-xs' id='icon'>
+                    <td style="text-align:center;" class='hidden-sm hidden-xs' id='icon'>
                         <button id="btdel" class='glyphicon glyphicon-remove pull-right hidecross btn btn-danger btn-sm' aria-hidden='true'></button>
                         <button  id="btedit" class='glyphicon glyphicon-edit pull-right hideedit btn btn-warning btn-sm' aria-hidden='true'></button>
                     </td>
@@ -300,19 +341,17 @@
         <div class="panel panel-success  ">
             <div class="panel-heading">Materiels
                 <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
-                   class="btn btn-danger pull-right btn-add marge"><i class="glyphicon glyphicon-remove"></i> </a>
-                <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
                    class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
             </div>
 
 
             <table class="table table-bordered table-hover" width="100%" id="tbl">
-                <thead>
+                <thead id="gstuser">
                 <tr>
                     <th>Type</th>
                     <th>Stock</th>
                     <th>Désignation</th>
-                    <th></th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -322,10 +361,8 @@
                 <td>".$matos->material->material_type->name."</td>
                 <td id='stock'>".$matos->stock."</td>
                 <td>".$matos->material->name."</td>
-                <td id='actionm'>
-                    <button id='btdelm' class='glyphicon glyphicon-remove pull-right hidecrossm btn btn-danger btn-sm' aria-hidden='true'></button>
+                <td style='text-align:center' id='actionm'>
                     <button  id='bteditm' class='glyphicon glyphicon-edit pull-right hideeditm btn btn-warning btn-sm' aria-hidden='true'></button>
-
                 </td>
                 </tr>
                 ";
@@ -347,36 +384,27 @@
             <div class="col-md-6">
                 <div class="panel panel-success">
                     <div class="panel-heading">Materiels empruntés
-                        <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
-                           class="btn btn-danger pull-right btn-add marge"><i class="glyphicon glyphicon-remove"></i> </a>
-                        <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
-                           class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
+                   <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
+                           class="btn btn-warning pull-right btn-add marge"><i class="glyphicon glyphicon-arrow-down"></i> Ajouter</a>
                     </div>
 
 
                     <table class="table table-bordered table-hover" width="100%" id="tbl">
-                        <thead>
+                        <thead id="gstuser">
                         <tr>
-                            <th>Type</th>
-                            <th>Qté</th>
                             <th>	Désignation</th>
+                            <th>Qté</th>
                             <th>Emprunté par</th>
-                            <!--               <th class="hidden-xs hidden-sm">Depuis le</th>
-                                           <th class="hidden-xs hidden-sm">Jusqu'au</th>-->
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($user_mat as $material): ?>
                         <tr>
-                            <td><?=$material->material->material_type->name?></td>
-                            <td><?=$material->stock ?></td>
                             <td><?=$material->material->name?></td>
+                            <td><?=$material->stock ?></td>
                             <td><?=$material->user->firstname.' '.$material->user->lastname ?></td>
-
-                            <!--  <td class="hidden-xs hidden-sm">*
-                              </td>
-                              <td class="hidden-xs hidden-sm">*
-                              </td>-->
+                            <td></td>
                         </tr>
                         <?php endforeach; ?>
                         </tbody>

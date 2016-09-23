@@ -7,6 +7,7 @@ use App\Model\Entity\Formation;
 use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
+use Cake\View\Helper\PaginatorHelper;
 
 /**
  * Barracks Controller
@@ -363,6 +364,7 @@ class BarracksController extends AppController
 
     public function gestion($id = null)
     {
+
         $barrack = $this->Barracks->get($id, [
             'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
                 'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities' => [
@@ -374,7 +376,11 @@ class BarracksController extends AppController
             ]
         ]);
 
-        $users = $this->Barracks->Users->find('all', ['contain' => 'Cities']);
+        $users = $this->Barracks->Users->find('all',[
+            'contain' => ['Cities']
+        ])->matching('Barracks',function($q)use($id){
+            return $q->where(['Barracks.id' => $id]);
+        });
 
         $this->loadModel('MaterialStocks');
         $barrack_mat = $this->MaterialStocks->find('all',[
