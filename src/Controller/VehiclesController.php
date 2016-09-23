@@ -37,7 +37,7 @@ class VehiclesController extends AppController
     public function view($id = null)
     {
         $vehicle = $this->Vehicles->get($id, [
-            'contain' => ['VehicleTypes', 'VehicleModels', 'Barracks', 'Events', 'Teams', 'Users']
+            'contain' => ['VehicleTypes', 'VehicleModels', 'Barracks', 'Teams', 'Users']
         ]);
 
         $this->set('vehicle', $vehicle);
