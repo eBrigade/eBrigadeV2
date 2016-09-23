@@ -19,7 +19,7 @@
             <!--<th></th>-->
             <th>
                 <?php if ($this->Paginator->sortKey() == 'Users.firstname'): ?>
-                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down'; ?>'></i>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>
@@ -27,7 +27,7 @@
             </th>
             <th>
                 <?php if ($this->Paginator->sortKey() == 'Users.lastname'): ?>
-                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down'; ?>'></i>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>
@@ -35,7 +35,7 @@
             </th>
             <th>
                 <?php if ($this->Paginator->sortKey() == 'Users.birthday'): ?>
-                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down'; ?>'></i>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>
@@ -43,7 +43,7 @@
             </th>
             <th>
                 <?php if ($this->Paginator->sortKey() == 'Users.zipcode'): ?>
-                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down'; ?>'></i>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>
@@ -51,7 +51,7 @@
             </th>
             <th>
                 <?php if ($this->Paginator->sortKey() == 'Users.city'): ?>
-                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down'; ?>'></i>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>
@@ -59,7 +59,7 @@
             </th>
             <th>
                 <?php if ($this->Paginator->sortKey() == 'Users.address'): ?>
-                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down'; ?>'></i>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>
@@ -67,7 +67,7 @@
             </th>
             <th>
                 <?php if ($this->Paginator->sortKey() == 'Users.phone'): ?>
-                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down'; ?>'></i>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down'; ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>

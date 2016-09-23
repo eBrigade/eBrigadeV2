@@ -18,15 +18,27 @@
             <tr>
                 <th>
                     <?php if ($this->Paginator->sortKey() == 'Operations.title'): ?>
-                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down';
+                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
                     ?>'></i>
                     <?php else: ?>
                     <i class='fa fa-sort'></i>
                     <?php endif; ?>
-                    <?= $this->Paginator->sort('Operations.title', ['label' => 'Intitulé']) ?>
+                    <?= $this->Paginator->sort('Operations.title', ['label' => 'Titre']) ?>
                 </th>
-                <th>Ville</th>
-                <th>Date</th>
+                <th><?php if ($this->Paginator->sortKey() == 'Operations.city_id'): ?>
+                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                    ?>'></i>
+                    <?php else: ?>
+                    <i class='fa fa-sort'></i>
+                    <?php endif; ?>
+                    <?= $this->Paginator->sort('Operations.city_id', ['label' => 'Ville']) ?></th>
+                <th><?php if ($this->Paginator->sortKey() == 'Operations.date'): ?>
+                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                    ?>'></i>
+                    <?php else: ?>
+                    <i class='fa fa-sort'></i>
+                    <?php endif; ?>
+                    <?= $this->Paginator->sort('Operations.date', ['label' => 'Date']) ?></th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -77,21 +89,37 @@
             <thead class="gst">
             <tr>
                 <th>
-                    <?php if ($this->Paginator->sortKey() == 'Operations.title'): ?>
-                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === ' asc' ? 'up' : 'down';
+                    <?php if ($this->Paginator->sortKey() == 'Formations.title'): ?>
+                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
                     ?>'></i>
                     <?php else: ?>
                     <i class='fa fa-sort'></i>
                     <?php endif; ?>
-                    <?= $this->Paginator->sort('Operations.title', ['label' => 'Intitulé']) ?>
+                    <?= $this->Paginator->sort('Formations.title', ['label' => 'Titre']) ?>
                 </th>
-                <th>Ville</th>
-                <th>Date</th>
+                <th>
+                    <?php if ($this->Paginator->sortKey() == 'Formations.city_id'): ?>
+                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                    ?>'></i>
+                    <?php else: ?>
+                    <i class='fa fa-sort'></i>
+                    <?php endif; ?>
+                    <?= $this->Paginator->sort('Formations.city_id', ['label' => 'Ville']) ?>
+                </th>
+                <th>
+                    <?php if ($this->Paginator->sortKey() == 'Formations.formation_start'): ?>
+                    <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                    ?>'></i>
+                    <?php else: ?>
+                    <i class='fa fa-sort'></i>
+                    <?php endif; ?>
+                    <?= $this->Paginator->sort('Formations.formation_start', ['label' => 'Date']) ?>
+                </th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($barrack->formations as $formation): ?>
+            <?php foreach ($formations as $formation): ?>
             <?php if (!empty($formation)): ?>
             <tr>
                 <td><?= $formation->title ?></td>

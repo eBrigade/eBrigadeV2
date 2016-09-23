@@ -376,22 +376,27 @@ class BarracksController extends AppController
         ])->matching('Barracks', function ($q) use ($id) {
             return $q->where(['Barracks.id' => $id]);
         });
-        $barrack = $this->Barracks->get($id, [
-            'contain' => ['Formations.Cities', 'Operations.Cities'
-            ]
-        ]);
+        $formations = $this->Barracks->Formations->find('all', [
+            'contain' => ['Cities']
+        ])->matching('Barracks', function ($q) use ($id) {
+            return $q->where(['Barracks.id' => $id]);
+        });
+
         $this->set('operations', $this->paginate($operations));
+        $this->set('formations', $this->paginate($formations));
         $this->set(compact('barrack', 'id'));
 
     }
 
     public function gestionvehi($id = null)
     {
-        $barrack = $this->Barracks->get($id, [
-            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes', 'Users.Cities',
-                'Users', 'Vehicles.VehicleTypes', 'Formations.Cities', 'Operations.Cities'
-            ]
-        ]);
+        $vehicules = $this->Barracks->Vehicles->find('all', [
+            'contain' => ['VehicleTypes']
+        ])->matching('Barracks', function ($q) use ($id) {
+            return $q->where(['Barracks.id' => $id]);
+        });
+
+        $this->set('vehicules', $this->paginate($vehicules));
         $this->set(compact('barrack', 'id'));
     }
 
