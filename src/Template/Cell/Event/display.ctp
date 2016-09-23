@@ -15,7 +15,7 @@
                         <li><a href="/Events/edit/<?= $event->id ?>">Modifier les informations de la Mission</a></li>
                         <li role="separator" class="divider"></li>
                         <li><?= $this->Form->postLink(__('Supprimer l\'équipe et ses moyens'), ['controller'=>'Events','action' => 'delete', $event->id], ['confirm' => __('Are you sure you want to delete # {0}?', $event->id)]) ?></li>
-                        <li><a href="#">Vider la liste des équipiers</a></li>
+                        <li><?= $this->Form->postLink(__('Vider la liste des équipes'), ['controller'=>'Formations','action' => 'ulink', $event->id]) ?></li>
                         <li><a href="#">Vider la liste des véhicules et du matériel</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">Dupliquer l'équipe et ses moyens</a></li>
