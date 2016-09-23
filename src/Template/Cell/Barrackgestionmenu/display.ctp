@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-heading">Gestion de la caserne <?=  $barrack->name ?></div>
+            <div class="panel-heading">Gestion de la caserne <?=  $barrack ?></div>
         </div>
     </div>
 </div>
@@ -18,7 +18,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><span class="compteur"><?= count($barrack->users) ?></span><br>
+                        <div class="huge"><span class="compteur"><?= $total_user  ?></span><br>
                             <span class="sscompteur">Personnes</span></div>
                     </div>
                 </div>
@@ -40,8 +40,7 @@
                         <i class="fa fa-calendar fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <?php $for = count($barrack->formations); $ope = count($barrack->operations) ?>
-                        <div class="huge"><span class="compteur"><?= $for+$ope?></span><br>
+                        <div class="huge"><span class="compteur"><?= $total_event ?></span><br>
                             <span class="sscompteur">Evénements</span></div>
                     </div>
                 </div>
@@ -63,7 +62,7 @@
                         <i class="fa fa-car fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><span class="compteur"><?= count($barrack->vehicules) ?></span><br>
+                        <div class="huge"><span class="compteur"><?= $total_vehi ?></span><br>
                             <span class="sscompteur">Véhicules</span></div>
                     </div>
                 </div>
@@ -85,7 +84,7 @@
                         <i class="fa fa-wrench fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><span class="compteur"><?= count($barrack->materials) ?></span><br>
+                        <div class="huge"><span class="compteur"><?= $total_mat ?></span><br>
                             <span class="sscompteur">Matériels</span></div>
                     </div>
                 </div>
