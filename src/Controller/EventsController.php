@@ -79,7 +79,7 @@ class EventsController extends AppController
     public function edit($id = null)
     {
         $event = $this->Events->get($id, [
-            'contain' => ['Teams', 'Vehicles']
+            'contain' => ['Teams']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $event = $this->Events->patchEntity($event, $this->request->data);
@@ -94,7 +94,7 @@ class EventsController extends AppController
         $operations = $this->Events->Operations->find('list', ['limit' => 200]);
         $formations = $this->Events->Formations->find('list', ['limit' => 200]);
         $teams = $this->Events->Teams->find('list', ['limit' => 200]);
-        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);
+/*        $vehicles = $this->Events->Vehicles->find('list', ['limit' => 200]);*/
         $this->set(compact('event', 'operations', 'formations', 'teams', 'vehicles'));
         $this->set('_serialize', ['event']);
     }

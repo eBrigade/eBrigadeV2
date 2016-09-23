@@ -28,10 +28,7 @@
             echo $this->Form->input('event_start_date', ['empty' => true]);
             echo $this->Form->input('event_end_date', ['empty' => true]);
             echo $this->Form->input('public');
-            echo $this->Form->input('module');
-            echo $this->Form->input('module_id', ['options' => $formations, 'empty' => true]);
             echo $this->Form->input('teams._ids', ['options' => $teams]);
-            echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
