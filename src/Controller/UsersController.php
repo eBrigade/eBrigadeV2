@@ -53,6 +53,24 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
+            if($this->request->data['user_type'] == '0'){
+                $this->request->data['alerte'] = 0;
+                $this->request->data['is_provider'] = 0;
+            }
+            if($this->request->data['user_type'] == '1'){
+                $this->request->data['is_provider'] = 1;
+                $this->request->data['alerte'] = 0;
+                $this->request->data['tuteur_legal'] = ' ';
+                $this->request->data['personne_referente'] = ' ';
+            }
+            if($this->request->data['user_type'] == '2'){
+                $this->request->data['is_provider'] = 0;
+                $this->request->data['external'] = 1;
+                $this->request->data['alerte'] = 0;
+                $this->request->data['tuteur_legal'] = ' ';
+                $this->request->data['personne_referente'] = ' ';
+            }
+
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));

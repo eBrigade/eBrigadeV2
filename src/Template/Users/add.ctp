@@ -6,7 +6,19 @@
                 <fieldset>
                     <h4><?= __('Add User') ?></h4>
             </div>
-            <div class="panel-body">
+            <div class="form-inline text-center">
+                <h3>Type d'inscription :</h3>
+                <?= $this->Form->input('user_type',[
+                    'type' => 'radio',
+                    'options' => [
+                        ['value' => '0','text'=>'Protection civile','checked'],
+                        ['value' => '1','text'=>'Fournisseur'],
+                        ['value' => '2','text'=>'Autre']
+                    ],
+                    'label' => false,
+                ]) ?>
+            </div>
+            <div class="panel-body form-user">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <?php
@@ -15,13 +27,13 @@
                         echo $this->Form->input('password');
                         echo $this->Form->input('firstname');
                         echo $this->Form->input('lastname');
-                        echo $this->Form->input('birthname');
-                        echo $this->Form->input('birthday', [
+                        echo $this->Form->input('birthname',['class' => 'adpc']);
+                        echo $this->Form->input('birthday',[
                             'empty' => true,
                             'minYear' => date('Y')-90,
-                            'maxYear' => date('Y')-16
+                            'maxYear' => date('Y')-16,
                         ]);
-                        echo $this->Form->input('birthplace');
+                        echo $this->Form->input('birthplace',['class' => 'adpc']);
                         ?>
                     </div>
                     <div class="col-sm-12 col-md-6">
@@ -31,21 +43,21 @@
                         echo $this->Form->input('zipcode');
                         echo $this->Form->input('city_id', ['options' => $cities, 'empty' => true]);
                         echo $this->Form->input('phone');
-                        echo $this->Form->input('cellphone');
+                        echo $this->Form->input('cellphone',['class' => 'adpc']);
                         echo $this->Form->input('workphone');
-                        echo $this->Form->input('skype');
+                        echo $this->Form->input('skype',['class' => 'adpc']);
                         ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <?php
-                        echo $this->Form->input('personne_referente');
+                        echo $this->Form->input('personne_referente',['class' => 'adpc']);
                         ?>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <?php
-                        echo $this->Form->input('tuteur_legal');
+                        echo $this->Form->input('tuteur_legal',['class' => 'adpc']);
                         ?>
                     </div>
                 </div>
@@ -75,3 +87,29 @@
         </div>
     </div>
 </div>
+<?= $this->Html->script('jquery.js') ?>
+<script>
+    $(document).ready(function () {
+        selectAddType();
+    });
+    $('input[name="user_type"]').on('change',function(){
+        selectAddType();
+    })
+    function selectAddType()
+    {
+        if($('input[name="user_type"]:checked').val() !== '0')
+        {
+            $('.adpc')
+                .removeAttr('checked')
+                .removeAttr('selected')
+                .not(':button, :submit, :reset, :hidden, :radio, :checkbox')
+                .val('')
+                .prop('disabled',true);
+
+        }
+        else
+        {
+            $('.adpc').prop('disabled',false);
+        }
+    }
+</script>
