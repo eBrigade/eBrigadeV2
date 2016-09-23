@@ -112,7 +112,7 @@ class GestionController extends AppController
                 $itemlist = $table->Events->Teams->Users->find();
                 // gets users that are not assigned in the same lapse of time
 
-                $itemlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
+                $itemlist->distinct()->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
                     return $q->where(
                         ['OR' => [
                             ['Users.id' => 'TeamsUsers.user_id'],
