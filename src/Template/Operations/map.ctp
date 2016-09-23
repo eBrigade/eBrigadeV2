@@ -53,6 +53,8 @@
         <div class="col-xs-6 col-md-8" id="map">
             <div class="row-fluid">
                 <b>Localisation des Equipes</b>
+                <?= $this->Html->link($this->Html->icon('floppy-save'), ['action' => 'savemap'], ['class' => 'btn btn-primary', 'id' => 'savemap', 'escape' => false]) ?>
+
                 <?php
                 $map_options = array(
                     'id' => 'map_gen',
@@ -86,27 +88,71 @@
                 ?>
 
                 <form id="positions">
-                <?php if (!empty($operation->events)): ?>
-                    <?php $eventNum = 0 ?>
-                    <?php foreach ($operation->events as $event): ?>
-                        <?php $eventNum++ ?>
+                    <?php if (!empty($operation->events)): ?>
+                        <?php $eventNum = 0 ?>
+                        <?php foreach ($operation->events as $event): ?>
+                            <?php $eventNum++ ?>
 
-                        <?php if (!empty($event->teams)): ?>
-                            <?php $teamNum = 0 ?>
-                            <?php foreach ($event->teams as $team): ?>
-                                <?php $teamNum++ ?>
+                            <?php if (!empty($event->teams)): ?>
+                                <?php $teamNum = 0 ?>
+                                <?php foreach ($event->teams as $team): ?>
+                                    <?php $teamNum++ ?>
 
-                                <?= $this->GoogleMap->addMarker("map_gen", $eventNum.$teamNum, array('latitude' => $team->latitude, 'longitude' => $team->longitude), $marker_options); ?>
-                                <input type="text" id="latitude_<?= $eventNum.$teamNum?>" />
-                                <input type="text" id="longitude_<?= $eventNum.$teamNum?>" />
+                                    <?= $this->GoogleMap->addMarker("map_gen", $eventNum . $teamNum, array('latitude' => $team->latitude, 'longitude' => $team->longitude), $marker_options); ?>
+                                    <input type="text" class="lat teamID-<?= $team->id ?>"
+                                           id="latitude_<?= $eventNum . $teamNum ?>"/>
+                                    <input type="text" class="long teamID-<?= $team->id ?>"
+                                           id="longitude_<?= $eventNum . $teamNum ?>"/>
 
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
 
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    //savemap button
+    //todo: format de data supporté par POST (PHP ftw)
+    $('#savemap').on('click', function (event) {
+        event.preventDefault();
+
+        function data(teamID, lat, long) {
+
+            this.id = teamID;
+            this.latitude = lat;
+            this.longitude = long;
+        }
+
+        var i = 0;
+        var datajax = [];
+        $.each($('.lat'), function () {
+
+            var teamID = $(this).attr('class').split('-');
+            var lat = $(this).val();
+            if (lat !== "") {
+                i++;
+                var id = $(this).attr('id').replace('latitude', 'longitude');
+                var long = $("#" + id).val();
+
+                datajax[i] = new data(teamID[1], lat, long);
+
+                console.log(datajax);
+            }
+
+        });
+
+        //ajax
+        $.ajax({
+            type: 'POST',
+            data: datajax,
+            url: '<?= $this->Url->build(["controller" => "Operations", "action" => "savemap"]); ?>'
+        });
+
+    })
+
+</script>
