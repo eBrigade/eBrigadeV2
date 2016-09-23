@@ -448,8 +448,21 @@ html {
 
 .input-group { width: 100%!important; }
 
-/*cell barracks*/
+/*gestion barracks*/
 .action {
    float: right;
 }
 
+#bt_user , #bt_event , #bt_vehi , #bt_mat{
+    cursor: pointer;
+}
+
+.compteur {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sscompteur {
+    font-size: 15px;
+    font-weight: bold;
+}
