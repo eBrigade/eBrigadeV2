@@ -77,7 +77,7 @@ class MaterialsController extends AppController
      */
     public function view($id = null)
     {
-        $date = new \DateTime();
+        $today = new \DateTime();
         $material = $this->Materials->get($id, [
             'contain' => ['MaterialTypes', 'Barracks', 'Teams', 'MaterialStocks']
         ]);
@@ -87,28 +87,42 @@ class MaterialsController extends AppController
                 'sum' => 'sum(stock)'
             ],
             'conditions' => [
-                'material_id' => $id
+                'material_id' => $id,
+                'OR' => [
+                    ['affectation' => 'barracks'],
+                    ['affectation' => 'users']
+                ]
             ]
         ])->first();
 
-        // essais sur le temporel
-        $rent = $this->Materials->MaterialStocks->find('all',[
+        // essais sur le temporel -- affiche la quantité disponible au moment de la consultation
+        $rented_today = $this->Materials->MaterialStocks->find('all',[
             'contain' => [
                 'Teams'
             ],
             'conditions' => [
                 'material_id' => $id
+            ],
+            'fields' => [
+                'sum' => 'sum(stock)'
             ]
-        ])->matching('Teams.Events',function($q)use($date){
+        ])->matching('Teams.Events',function($q)use($today){
             return $q->where([
-                'event_start_date <= ' => $date,
-                'event_end_date >= ' => $date
+                'event_start_date <= ' => $today,
+                'event_end_date >= ' => $today
             ]);
-        });
+        })->first();
+        // afficher toutes les fois où le matériel est emprunté
+        $all_dates = $this->Materials->MaterialStocks->find('all',[
+            'conditions' => [
+                'material_id' => $id
+            ]
+        ])->matching('Teams.Events');
 
-        $this->set('date',$date);
+        $this->set('today',$today);
         $this->set('stocks',$stocks);
-        $this->set('rent',$rent);
+        $this->set('rented_today',$rented_today);
+        $this->set('all_dates',$all_dates);
         $this->set('material', $material);
         $this->set('_serialize', ['material']);
     }
@@ -122,7 +136,7 @@ class MaterialsController extends AppController
     {
         $material = $this->Materials->newEntity();
         if ($this->request->is('post')) {
-            $this->request->data['order_made'] = 1;
+            $this->request->data['order_made'] = 0;
             $material = $this->Materials->patchEntity($material, $this->request->data);
             if ($this->Materials->save($material)) {
                 $this->Flash->success(__('The material has been saved.'));
