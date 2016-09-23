@@ -242,17 +242,18 @@ class OperationsController extends AppController
 
         switch ($contentType) {
             case 'Users':
-
+                $this->loadModel('Users');
                 $this->paginate = [
                     'contain' => ['Barracks', 'Teams.Events']
                 ];
-                $itemlist = $table->Events->Teams->Users->find();
+                $itemlist = $this->Users->find()->where(['Users.is_provider' => 0]);
                 // gets users that are not assigned in the same lapse of time
 
-                $itemlist->distinct()->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
-                    return $q->where(
+                $itemlist->notMatching('Teams.Events', function ($q) use ($timestart, $timeend) {
+                    return $q->distinct()->where(
                         ['OR' => [
-                            ['Users.id' => 'TeamsUsers.user_id'],
+
+                            ['Users.id NOT IN ' => 'TeamsUsers.user_id'],
                             [function ($time) use ($timestart, $timeend) {
                                 return $time->between('Events.event_end_date', $timestart, $timeend, 'datetime');
                             }],
@@ -367,7 +368,7 @@ class OperationsController extends AppController
 
         //add or remove : link/unlink
         $action = $this->request->data('action');
-
+        debug($action);
         $this->Gestion->ajoints($containerType, $contentType, $containerID, $contentID, $action);
 
     }
