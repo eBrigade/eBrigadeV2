@@ -2,6 +2,7 @@
     <ul class="dropdown-menu">
         <li><?= $this->Html->link('Users', ['controller' => 'Users', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link('add users', ['controller' => 'Users', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link('Skills', ['controller' => 'Skills', 'action' => 'index']) ?></li>
     </ul>
 </li>
 <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Events <span class="caret"></span></a>
@@ -42,6 +43,7 @@
         <li><?= $this->Html->link(__('add type'), ['controller' => 'Materials', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('MaterialStocks'), ['controller' => 'MaterialStocks', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('add stock'), ['controller' => 'MaterialStocks', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Orders'), ['controller' => 'Orders', 'action' => 'index']) ?></li>
     </ul>
 </li>
 <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Casernes <span class="caret"></span></a>
