@@ -15,7 +15,15 @@
         <thead class="gst">
         <tr>
             <th></th>
-            <th>Type</th>
+            <th>
+                <?php if ($this->Paginator->sortKey() == 'vehicle_type_id'): ?>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                ?>'></i>
+                <?php else: ?>
+                <i class='fa fa-sort'></i>
+                <?php endif; ?>
+                <?= $this->Paginator->sort('vehicle_type_id', ['label' => 'Type']) ?>
+            </th>
             <th>Désignation</th>
             <th class="hidden-sm hidden-xs">Eqp</th>
             <th class="hidden-sm hidden-xs">Matricule</th>
@@ -28,7 +36,7 @@
         </thead>
         <tbody>
 
-        <?php foreach ($barrack->vehicles as $vehi): ?>
+        <?php foreach ($vehicules as $vehi): ?>
         <tr id='<?= $vehi->id ?>'>
             <td><img id='img-veh' src='<?= $this->Url->image($vehi->vehicle_type->picture) ?>'></td>
             <td><?= $vehi->vehicle_type->type ?></td>
@@ -48,19 +56,14 @@
             <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
             <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
 
-            <td style="text-align:center;" class='hidden-sm hidden-xs' id='icon'>
-                <button id="btdel" class='glyphicon glyphicon-remove pull-right hidecross btn btn-danger btn-sm'
-                        aria-hidden='true'></button>
-                <button id="btedit" class='glyphicon glyphicon-edit pull-right hideedit btn btn-warning btn-sm'
-                        aria-hidden='true'></button>
-            </td>
+            <td>  </td>
         </tr>
         <?php endforeach;  ?>
 
         </tbody>
     </table>
     <ul class="pagination pagination-large pull-right">
-<!--        <?php
+     <?php
             echo $this->Paginator->prev(__('Prec'), array('tag' => 'li'), null, array('tag' => 'li','class' =>
         'disabled','disabledTag' => 'a'));
         echo $this->Paginator->numbers(array('separator' => '','currentTag' => 'a', 'currentClass' =>
@@ -69,6 +72,6 @@
         echo $this->Paginator->next(__('Suiv'), array('tag' => 'li','currentClass' => 'disabled'), null,
         array('tag'
         => 'li','class' => 'disabled','disabledTag' => 'a'));
-        ?>-->
+        ?>
     </ul>
 </div>
