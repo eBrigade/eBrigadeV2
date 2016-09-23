@@ -362,26 +362,52 @@ class BarracksController extends AppController
         return $this->redirect($this->referer(['action' => 'index']));
     }
 
-    public function gestion($id = null)
+
+    public function gestionuser($id = null)
     {
-
-        $barrack = $this->Barracks->get($id, [
-            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities' => [
-                    'queryBuilder' => function (Query $q) {
-                        return $q->order(['Operations.date' => 'DESC']);
-                    },
-                    'Operations'
-                ]
-            ]
-        ]);
-
         $users = $this->Barracks->Users->find('all',[
             'contain' => ['Cities']
         ])->matching('Barracks',function($q)use($id){
             return $q->where(['Barracks.id' => $id]);
         });
 
+        $this->set('users',$this->paginate($users));
+        $this->set('id',$id);
+    }
+
+    public function gestionevent($id = null)
+    {
+        $operations = $this->Barracks->Operations->find('all',[
+            'contain' => ['Cities']
+        ])->matching('Barracks',function($q)use($id){
+            return $q->where(['Barracks.id' => $id]);
+        });
+
+        $barrack = $this->Barracks->get($id, [
+            'contain' => ['Formations.Cities','Operations.Cities'
+            ]
+        ]);
+
+
+        $this->set('operations',$this->paginate($operations));
+        $this->set(compact('barrack','id'));
+
+    }
+
+    public function gestionvehi($id = null)
+    {
+        $barrack = $this->Barracks->get($id, [
+            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
+                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities'
+            ]
+        ]);
+
+        $this->set(compact('barrack','id'));
+
+    }
+
+    public function gestionmat($id = null)
+    {
         $this->loadModel('MaterialStocks');
         $barrack_mat = $this->MaterialStocks->find('all',[
             'contain' => ['Materials.MaterialTypes']])
@@ -397,8 +423,6 @@ class BarracksController extends AppController
         $c_barrack_mat = $barrack_mat->count();
         $c_user_mat = $user_mat->count();
 
-        $this->set(compact('barrack', 'barrack_mat','c_barrack_mat','c_user_mat','user_mat'));
-        $this->set('users',$this->paginate($users));
-
+        $this->set(compact('barrack', 'barrack_mat','c_barrack_mat','c_user_mat','user_mat','id'));
     }
 }

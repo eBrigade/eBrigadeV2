@@ -66,10 +66,9 @@ class VehiclesController extends AppController
         $vehicleTypes = $this->Vehicles->VehicleTypes->find('list', ['limit' => 200]);
         $vehicleModels = $this->Vehicles->VehicleModels->find('list', ['limit' => 200]);
         $barracks = $this->Vehicles->Barracks->find('list', ['limit' => 200]);
-        $events = $this->Vehicles->Events->find('list', ['limit' => 200]);
         $teams = $this->Vehicles->Teams->find('list', ['limit' => 200]);
         $users = $this->Vehicles->Users->find('list', ['limit' => 200]);
-        $this->set(compact('vehicle', 'vehicleTypes', 'vehicleModels', 'barracks', 'events', 'teams', 'users'));
+        $this->set(compact('vehicle', 'vehicleTypes', 'vehicleModels', 'barracks', 'teams', 'users'));
         $this->set('_serialize', ['vehicle']);
     }
 
