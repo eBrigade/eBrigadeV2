@@ -36,6 +36,7 @@ class BarracksController extends AppController
         );
         $this->set('categories', $categories);
     }
+
     /**
      * Index method
      *
@@ -45,16 +46,16 @@ class BarracksController extends AppController
     public function index()
     {
         // recherche multi-critere
-        if ($this ->request ->is('post')) {
+        if ($this->request->is('post')) {
             $array = [];
             if (!empty($this->request->data['region'])) {
                 $push = $this->request->data['region'];
-                $pushall =  "region_id = '$push'";
+                $pushall = "region_id = '$push'";
                 array_push($array, $pushall);
             }
             if (!empty($this->request->data['departement'])) {
                 $push = $this->request->data['departement'];
-                $pushall =  "dpt_id = '$push'";
+                $pushall = "dpt_id = '$push'";
                 array_push($array, $pushall);
             }
             if (!empty($this->request->data['nom'])) {
@@ -75,33 +76,29 @@ class BarracksController extends AppController
 
             $barracks = $this->paginate($this->Barracks->find('all', array(
                 'order' => array('lft'),
-                'contain' => ['Cities.Departments','Users','Vehicles','MaterialStocks']
+                'contain' => ['Cities.Departments', 'Users', 'Vehicles', 'MaterialStocks']
             ))->where(['lft >' => 0, $array]));
-        }
-
-        else {
+        } else {
             $barracks = $this->Barracks->find('all', array(
                 'order' => array('lft'),
-                'contain' => ['Users','Vehicles','MaterialStocks']
+                'contain' => ['Users', 'Vehicles', 'MaterialStocks']
             ));
         }
-
 
 
         $this->loadModel('MaterialStocks');
 
         $barracks_tree = $this->Barracks->find('treelist', array(
-                'order' => array('parent_id','lft'))
+                'order' => array('parent_id', 'lft'))
         )->toArray();
 
 
-
-        $this->set(compact('barracks','barracks_tree'));
+        $this->set(compact('barracks', 'barracks_tree'));
     }
 
     public function getdpt()
     {
-        if ($this -> request -> is('ajax')) {
+        if ($this->request->is('ajax')) {
             $id = $this->request->data('id');
             $status = $this->Barracks->Cities->Departments->find('')->where(['region_id' => $id]);
         }
@@ -114,16 +111,16 @@ class BarracksController extends AppController
     {
 
         // recherche multi-critere
-        if ($this ->request ->is('post')) {
+        if ($this->request->is('post')) {
             $array = [];
             if (!empty($this->request->data['region'])) {
                 $push = $this->request->data['region'];
-                $pushall =  "region_id = '$push'";
+                $pushall = "region_id = '$push'";
                 array_push($array, $pushall);
             }
             if (!empty($this->request->data['departement'])) {
                 $push = $this->request->data['departement'];
-                $pushall =  "dpt_id = '$push'";
+                $pushall = "dpt_id = '$push'";
                 array_push($array, $pushall);
             }
             if (!empty($this->request->data['nom'])) {
@@ -146,8 +143,7 @@ class BarracksController extends AppController
                 'order' => array('lft'),
                 'contain' => ['Cities.Departments']
             ))->where(['lft >' => 0, $array]));
-        }
-        else {
+        } else {
             $barracks = $this->Barracks->find('all', array(
                 'order' => array('lft'),
                 'contain' => ['Cities']
@@ -156,21 +152,21 @@ class BarracksController extends AppController
 
         $this->set('barracks', $barracks);
     }
-    
+
     public function annuaire()
     {
 
         // recherche multi-critere
-        if ($this ->request ->is('post')) {
+        if ($this->request->is('post')) {
             $array = [];
             if (!empty($this->request->data['region'])) {
                 $push = $this->request->data['region'];
-                $pushall =  "region_id = '$push'";
+                $pushall = "region_id = '$push'";
                 array_push($array, $pushall);
             }
             if (!empty($this->request->data['departement'])) {
                 $push = $this->request->data['departement'];
-                $pushall =  "dpt_id = '$push'";
+                $pushall = "dpt_id = '$push'";
                 array_push($array, $pushall);
             }
             if (!empty($this->request->data['nom'])) {
@@ -193,9 +189,7 @@ class BarracksController extends AppController
                 'order' => array('lft'),
                 'contain' => ['Cities.Departments']
             ))->where(['lft >' => 0, $array]));
-        }
-
-        else {
+        } else {
             $barracks = $this->paginate($this->Barracks->find('all', array(
                 'order' => array('lft'),
                 'contain' => ['Cities']
@@ -203,7 +197,7 @@ class BarracksController extends AppController
         }
 
         $parentBarracks = $this->Barracks->find('treeList');
-        $this->set(compact('barracks','parentBarracks'));
+        $this->set(compact('barracks', 'parentBarracks'));
     }
 
     /**
@@ -217,26 +211,26 @@ class BarracksController extends AppController
     {
         $this->loadModel('MaterialStocks');
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities'
-                ]
+            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes', 'Users.Cities',
+                'Users', 'Vehicles.VehicleTypes', 'Formations.Cities', 'Operations.Cities'
+            ]
         ]);
 
-        $barrack_mat = $this->MaterialStocks->find('all',[
-       'contain' => ['Materials.MaterialTypes']])
+        $barrack_mat = $this->MaterialStocks->find('all', [
+            'contain' => ['Materials.MaterialTypes']])
             ->where(['affectation' => 'barracks'])
-        ->andwhere(['affectation_id' => $id]);
+            ->andwhere(['affectation_id' => $id]);
 
-        $user_mat = $this->MaterialStocks->find('all',[
-            'contain' => ['Materials.MaterialTypes','Users']])
+        $user_mat = $this->MaterialStocks->find('all', [
+            'contain' => ['Materials.MaterialTypes', 'Users']])
             ->where(['affectation' => 'users'])
             ->andwhere(['affectation_id' => $id]);
 
 
         $c_barrack_mat = $barrack_mat->count();
-       	$c_user_mat = $user_mat->count();
-		
-        $this->set(compact('barrack', 'barrack_mat','c_barrack_mat','c_user_mat','user_mat'));
+        $c_user_mat = $user_mat->count();
+
+        $this->set(compact('barrack', 'barrack_mat', 'c_barrack_mat', 'c_user_mat', 'user_mat'));
         $this->set('_serialize', ['barrack']);
     }
 
@@ -260,7 +254,7 @@ class BarracksController extends AppController
         }
         $parentBarracks = $this->Barracks->find('treeList');
 
-        $this->set(compact('barrack', 'cities','parentBarracks'));
+        $this->set(compact('barrack', 'cities', 'parentBarracks'));
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
         $users = $this->Barracks->Users->find('list', ['limit' => 200]);
@@ -293,7 +287,7 @@ class BarracksController extends AppController
         }
         $parentBarracks = $this->Barracks->find('treeList');
 
-        $this->set(compact('barrack', 'cities','parentBarracks'));
+        $this->set(compact('barrack', 'cities', 'parentBarracks'));
 
         $cities = $this->Barracks->Cities->find('list', ['limit' => 200]);
         $materials = $this->Barracks->Materials->find('list', ['limit' => 200]);
@@ -323,24 +317,24 @@ class BarracksController extends AppController
         return $this->redirect($this->referer());
     }
 
-    public function availabilities($id=null,$date=null)
+    public function availabilities($id = null, $date = null)
     {
         ($date == null) ? $date = date('Y-m-d') : '';
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['Materials.MaterialTypes', 'Materials.UserMaterials.Users','Users.Teams.Events','Users.Cities', 'Vehicles.VehicleTypes', 'Events']
+            'contain' => ['Materials.MaterialTypes', 'Materials.UserMaterials.Users', 'Users.Teams.Events', 'Users.Cities', 'Vehicles.VehicleTypes', 'Events']
         ]);
         $users = $this->Barracks->Users->find('all');
         $materials = $this->Barracks->Materials->find('all');
 
-        $this->set('barrack',$barrack);
-        $this->set('date',$date);
+        $this->set('barrack', $barrack);
+        $this->set('date', $date);
 
     }
 
 
     public function moveUp($id = null)
     {
-        $this->request->allowMethod(['post', 'put','get']);
+        $this->request->allowMethod(['post', 'put', 'get']);
         $barrack = $this->Barracks->get($id);
         if ($this->Barracks->moveUp($barrack)) {
             $this->Flash->success('The barrack has been moved Up.');
@@ -352,7 +346,7 @@ class BarracksController extends AppController
 
     public function moveDown($id = null)
     {
-        $this->request->allowMethod(['post', 'put','get']);
+        $this->request->allowMethod(['post', 'put', 'get']);
         $barrack = $this->Barracks->get($id);
         if ($this->Barracks->moveDown($barrack)) {
             $this->Flash->success('The barrack has been moved down.');
@@ -365,64 +359,55 @@ class BarracksController extends AppController
 
     public function gestionuser($id = null)
     {
-        $users = $this->Barracks->Users->find('all',[
+        $users = $this->Barracks->Users->find('all', [
             'contain' => ['Cities']
-        ])->matching('Barracks',function($q)use($id){
+        ])->matching('Barracks', function ($q) use ($id) {
             return $q->where(['Barracks.id' => $id]);
         });
 
-        $this->set('users',$this->paginate($users));
-        $this->set('id',$id);
+        $this->set('users', $this->paginate($users));
+        $this->set('id', $id);
     }
 
     public function gestionevent($id = null)
     {
-        $operations = $this->Barracks->Operations->find('all',[
+        $operations = $this->Barracks->Operations->find('all', [
             'contain' => ['Cities']
-        ])->matching('Barracks',function($q)use($id){
+        ])->matching('Barracks', function ($q) use ($id) {
             return $q->where(['Barracks.id' => $id]);
         });
-
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['Formations.Cities','Operations.Cities'
+            'contain' => ['Formations.Cities', 'Operations.Cities'
             ]
         ]);
-
-
-        $this->set('operations',$this->paginate($operations));
-        $this->set(compact('barrack','id'));
+        $this->set('operations', $this->paginate($operations));
+        $this->set(compact('barrack', 'id'));
 
     }
 
     public function gestionvehi($id = null)
     {
         $barrack = $this->Barracks->get($id, [
-            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes','Users.Cities',
-                'Users', 'Vehicles.VehicleTypes','Formations.Cities','Operations.Cities'
+            'contain' => ['Cities.Departments.Regions', 'Materials.MaterialTypes', 'Users.Cities',
+                'Users', 'Vehicles.VehicleTypes', 'Formations.Cities', 'Operations.Cities'
             ]
         ]);
-
-        $this->set(compact('barrack','id'));
-
+        $this->set(compact('barrack', 'id'));
     }
 
     public function gestionmat($id = null)
     {
         $this->loadModel('MaterialStocks');
-        $barrack_mat = $this->MaterialStocks->find('all',[
+        $barrack_mat = $this->MaterialStocks->find('all', [
             'contain' => ['Materials.MaterialTypes']])
             ->where(['affectation' => 'barracks'])
             ->andwhere(['affectation_id' => $id]);
 
-        $user_mat = $this->MaterialStocks->find('all',[
-            'contain' => ['Materials.MaterialTypes','Users']])
+        $user_mat = $this->MaterialStocks->find('all', [
+            'contain' => ['Materials.MaterialTypes', 'Users']])
             ->where(['affectation' => 'users'])
             ->andwhere(['affectation_id' => $id]);
 
-
-        $c_barrack_mat = $barrack_mat->count();
-        $c_user_mat = $user_mat->count();
-
-        $this->set(compact('barrack', 'barrack_mat','c_barrack_mat','c_user_mat','user_mat','id'));
+        $this->set(compact('barrack_mat', 'user_mat', 'id'));
     }
 }
