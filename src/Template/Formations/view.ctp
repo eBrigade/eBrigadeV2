@@ -23,7 +23,7 @@
                     <div class="row-fluid">
                         <b>Date</b>
                         <p><?= $formation->formation_start->format('Y/m/d') ?> à <?= $formation->formation_end->format('Y/m/d') ?></p>
-                        <p><?= $formation->formation_start->format('H/i') ?> à <?= $formation->formation_end->format('H/i') ?></p>
+                        <p><?= $formation->formation_start->format('H:i') ?> à <?= $formation->formation_end->format('H:i') ?></p>
                     </div>
 
                     <div class="row-fluid">
