@@ -164,6 +164,13 @@ class OperationsController extends AppController
         $this->set('_serialize', ['operation']);
     }
 
+    public function savemap() {
+        //todo:update multiple entities
+        $this->autoRender = false;
+        debug($_REQUEST);
+
+    }
+
 
     public function gestion($id = null )
     {
