@@ -12,66 +12,101 @@
     <div class="row">
 
         <h4>Gestion de : <?= $operation->title ?></h4>
-
-        <div class="btn-group btn-group-justified">
-            <a href="#" id="content-Users" class="content-type btn btn-primary">Equipiers</a>
-            <a href="#" id="content-Materials" class="content-type btn btn-primary">Matériel</a>
-            <a href="#" id="content-Vehicles" class="content-type btn btn-primary">Véhicules</a>
-        </div>
     </div>
 </div>
 
-<div class="container">
-
-    <div class="row">
-        <div class="col-xs-6 col-md-6">
-                <div class="panel panel-heading"
-                <h4>Eléments disponibles</h4>
-                </div>
-                <form id="filter">
-
-                </form>
-        </div>
-        <div class="col-xs-6 col-md-6">
-            <h4>Eléments déployés</h4>
-            <form>
-                <div class="form-group">
-                    <label for="event">Evénement</label>
-                    <select class="form-control" name="event" id="event">
-                        <option value="" disabled selected>sélection de l'événement</option>
-                        <?php if (!empty($operation->events)): ?>
-                            <?php foreach ($operation->events as $event): ?>
-                                <option value="<?= $event->id ?>">id :<?= $event->id ?> - nom : <?= $event->title ?>
-                                    -
-                                    début : <?= $event->event_start_date ?> , fin
-                                    : <?= $event->event_end_date ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                    <button id="add-event" class="btn btn-info btn-sm">Nouvel Evénement</button>
-
-            </form>
-        </div>
-        <form>
-            <div class="form-group" id="team">
-            </div>
-        </form>
-
-
-    </div>
-</div>
 <div class="row">
-    <div class="col-xs-6 col-md-6">
-        <div id="filter-list">
+    <div class='col-md-3'>
+        <div class="sidebar-nav linkout">
+            <div class="navbar navbar-default" role="navigation">
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="javascript:;"> GESTION DES
+                        </a></li>
+                    <li><a href="#" class="content-type" id="content-Users"><i class="fa fa-user fa-lg "
+                                                                               aria-hidden="true"></i> Equipiers</a>
+                    </li>
+                    <li><a href="#" class="content-type" id="content-Materials"><i class="fa fa-wrench fa-lg "
+                                                                                   aria-hidden="true"></i>
+                            Matériel</a></li>
+                    <li><a href="#" class="content-type" id="content-Vehicles"><i class="fa fa-plane fa-lg "
+                                                                                  aria-hidden="true"></i>
+                            Véhicules</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-nav linkout">
+            <div class="navbar navbar-default" role="navigation">
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="javascript:;"> CHOIX DE L'EQUIPE
+                        </a>
+                    </li>
+                    <div class="voffset3"></div>
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-map" aria-hidden="true"></i></span>
+                            <select class="form-control" name="event" id="event">
+                                <option value="" disabled selected>Evénement</option>
+                                <?php if (!empty($operation->events)): ?>
+                                    <?php foreach ($operation->events as $event): ?>
+                                        <option value="<?= $event->id ?>">id :<?= $event->id ?> - nom
+                                            : <?= $event->title ?>
+                                            -
+                                            début : <?= $event->event_start_date ?> , fin
+                                            : <?= $event->event_end_date ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                            <button id="add-event" class="btn btn-info btn-sm">Nouvel Evénement</button>
+                        </div>
+                    </div>
+                    <br> <br>
+
+                    <form>
+                        <div class="form-group" id="team">
+                        </div>
+                    </form>
+
+            </div>
+            </ul>
+        </div>
+        <div class="sidebar-nav linkout">
+            <div class="navbar navbar-default" role="navigation">
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="javascript:;"> Filtrer les éléments disponibles
+                        </a>
+                    </li>
+                    <div class="voffset3"></div>
+                    <div class="col-md-12">
+
+
+                        <div class="form-group" id="filter">
+
+                        </div>
+
+                    </div>
+                </ul>
+            </div>
+
         </div>
     </div>
-    <div class="col-xs-6 col-md-6">
-        <div id="content-list">
+        <div class="col-md-9">
+
+            <div class="col-xs-6 col-md-6">
+                <div id="filter-list">
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div id="content-list">
+                </div>
+            </div>
         </div>
-    </div>
+
+
+
 </div>
-
-
 <script>
 
     //gets content type
@@ -97,7 +132,7 @@
     $(document).on('click', '#add-event', function (event) {
         event.preventDefault();
 
-        var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addevent',$operation->id]); ?>';
+        var url = '<?= $this->Url->build(['controller' => 'Operations', 'action' => 'addevent', $operation->id]); ?>';
 
         $('.event-modal-cont').load(url, function (result) {
             $('#eventModal').modal({show: true});
