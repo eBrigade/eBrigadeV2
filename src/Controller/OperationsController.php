@@ -192,6 +192,9 @@ class OperationsController extends AppController
             ]
         ]);
 
+
+
+
         $this->set('operation', $operation);
         $this->set('_serialize', ['operation']);
 
