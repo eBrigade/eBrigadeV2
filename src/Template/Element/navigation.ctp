@@ -117,8 +117,13 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
                     </div>
                 </form>
+
+                <?php $cell = $this->cell('Notifications');
+                echo $cell; ?>
+
+
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="badge">0</span><span class="glyphicon glyphicon-envelope"></span></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-envelope"></span></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="<?= $this->Url->build(['controller' => 'Messages','action' => 'send' ]); ?>"><span class="glyphicon glyphicon-pencil"></span> Ecrire un Mail</a></li>
                         <li><a href="<?= $this->Url->build(['controller' => 'Messages','action' => 'index' ]); ?>"><span class="glyphicon glyphicon-inbox"></span> Reception </a></li>
