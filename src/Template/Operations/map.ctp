@@ -1,8 +1,8 @@
 <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
 
+<?= $this->element('operationNavBar', [$operation, 'viewType' => 'carte'])?>
+
 <div class="container-fluid clearfix">
-    <?= $this->Html->link("Basculer en affichage opérationnel", array('controller' => 'Operations', 'action' => 'operationnel', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
-    <?= $this->Html->link("Basculer en affichage de gestion", array('controller' => 'Operations', 'action' => 'gestion', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
 
     <div class="row">
         <div class="col-xs-6 col-md-4">

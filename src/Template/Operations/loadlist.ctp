@@ -2,7 +2,10 @@
 if (empty($list)): echo 'Pas d\'élément de ce type dans cette équipe'; ?>
 <?php endif; ?>
 <?php if (!empty($list)): ?>
-    <div class="panel panel-default">
+
+    <div class="panel panel-danger">
+        <div class="panel-heading"><b>Eléments de l'équipe</b>
+        </div>
         <div class="table-responsive">
 
             <table class="table table-striped">

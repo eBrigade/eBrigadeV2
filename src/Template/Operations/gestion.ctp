@@ -1,5 +1,4 @@
-<?= $this->Html->link("Basculer en affichage tactique", array('controller' => 'Operations', 'action' => 'map', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
-<?= $this->Html->link("Basculer en affichage opérationnel", array('controller' => 'Operations', 'action' => 'operationnel', $operation->id), array('class' => 'btn btn-info btn-xs')) ?>
+
 <div class="event-modal-base">
     <div class="event-modal-cont"></div>
 </div>
@@ -8,12 +7,7 @@
 </div>
 
 
-<div class="container">
-    <div class="row">
-
-        <h4>Gestion de : <?= $operation->title ?></h4>
-    </div>
-</div>
+<?= $this->element('operationNavBar', [$operation, 'viewType' => 'gestion'])?>
 
 <div class="row">
     <div class='col-md-3'>
@@ -58,7 +52,10 @@
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </select>
-                            <button id="add-event" class="btn btn-info btn-sm">Nouvel Evénement</button>
+                            <?= $this->Html->link($this->Html->icon('plus'), ['action' => 'addevent', $operation->id], ['id' => 'add-event', 'class'=>'btn btn-success','escape'=>false]) ?>
+                            <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $operation->id], ['class'=>'btn btn-info','escape'=>false]) ?>
+                            <?= $this->Form->postLink($this->Html->icon('trash'), ['action' => 'delete', $operation->id], ['class'=>'btn btn-danger','escape'=>false],
+                                ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?>
                         </div>
                     </div>
                     <br> <br>
@@ -103,7 +100,6 @@
                 </div>
             </div>
         </div>
-
 
 
 </div>
