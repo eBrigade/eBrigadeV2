@@ -13,7 +13,6 @@ $cakeDescription = 'Ebrigade';
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css('bootstrap.css') ?>
-    <?= $this->Html->css('bootstrap-theme.css') ?>
     <?= $this->Html->css('styles.css') ?>
     <?= $this->Html->css('themes/black-tie/jquery-ui.css') ?>
     <?= $this->Html->css('easy-autocomplete.css') ?>
@@ -41,10 +40,9 @@ $cakeDescription = 'Ebrigade';
         <ul class="nav navbar-nav">
             <?= $this->element('navigation')?>
         </ul>
-        <?php $notif = $this->cell('Notifications');
-        echo $notif; ?>
-        <?php $cell = $this->cell('Login');
-        echo $cell; ?>
+<!--        <?php $notif = $this->cell('Notifications');
+        echo $notif; ?>-->
+
     </div>
 </nav>
 <?= $this->Flash->render() ?>

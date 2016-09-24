@@ -3,10 +3,10 @@
     glyphicon-pencil']) ?>
     <hr/>
     <div class="sidebar-nav">
-        <div class="navbar navbar-default" role="navigation">
+        <div class="navbar linkout" role="navigation">
 
             <ul class="nav nav-pills nav-stacked">
-                <li class="active" id="mp-home"><a href='<?= $this->Url->build(["controller" => "messages","action" => "index" ]); ?>'><span class="badge pull-right"><?= $recmpcount ?></span> Reçu(s)
+                <li class="active" id="mp-home"><a href='<?= $this->Url->build(["controller" => "messages","action" => "index" ]); ?>'><span class="badge"><?= $recmpcount ?></span> Reçu(s)
                 </a>
                 </li>
                 <li  id="mp-send"><a href='<?= $this->Url->build(["controller" => "messages","action" => "dispatch" ]); ?>'>Envoyé(s) </a>
@@ -19,7 +19,7 @@
     <div id="hide" class="hide">
     <hr/>
     <div class="sidebar-nav">
-        <div class="navbar navbar-default" role="navigation">
+        <div class="navbar linkout" role="navigation">
             <ul class="nav nav-pills nav-stacked">
                 <li class="active masse">Envoi en masse </li>
                     <?php foreach ($list as $listring): ?>

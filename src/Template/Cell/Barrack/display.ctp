@@ -1,6 +1,6 @@
 <div class='col-md-3'>
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
+    <div class="sidebar-nav">
+        <div class="navbar linkout" role="navigation">
 
             <ul class="nav nav-pills nav-stacked">
                 <li class="active" ><a href="javascript:;"> FILTRER PAR
@@ -54,8 +54,8 @@
     </div>
 
 
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
+    <div class="sidebar-nav ">
+        <div class="navbar linkout" role="navigation">
 
             <ul class="nav nav-pills nav-stacked">
                 <li class="active" ><a href="javascript:;"> AFFICHER PAR
@@ -66,6 +66,8 @@
             </ul>
         </div>
     </div>
+
+
 </div>
 
 
