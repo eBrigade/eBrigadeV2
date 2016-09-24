@@ -257,6 +257,7 @@ class MessagesController extends AppController
     //supprimer une notification de mp
     public function deletenotif()
     {
+        $this->autoRender = false;
         $this->loadModel('Notifications');
         $id = $this->request->data['id'];
         $entity = $this->Notifications->get($id);

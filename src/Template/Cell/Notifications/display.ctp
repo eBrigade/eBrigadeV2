@@ -1,44 +1,28 @@
-<div class="dropdown">
-    <a id="dLabel" role="button" data-toggle="dropdown" data-target="" href="#">
-        <i class="glyphicon glyphicon-bell"></i>
-        <span class="badge badge-notify bdg-not" id="count"><?= $notifCount ?></span>
-    <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
-        <div class="notification-heading"><h4 class="menu-title">Notifications</h4>
-        </div>
-        <li class="divider"></li>
-        <div class="notifications-wrapper">
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="badge"><?= $notifCount ?></span><span class="glyphicon glyphicon-bell"></span></span></a>
+
+    <?php if($notifCount > 0) : ?>
+    <ul class="dropdown-menu" role="menu">
+        <?php endif;?>
 
 <?php
- foreach ($check as $alert){
- $text = $alert->message;
+ foreach ($check as $alert) : ?>
+        <?php $text = $alert->message;
  $mp = $alert->message->user;
-echo "
-            <a class='content' href='/messages/view/$alert->source_id'>
+        ?>
 
-                <div class='notification-item' id='$alert->id'>
-                    <h4 class='item-title'>Message privé de $mp->firstname $mp->lastname</h4>
-                    <h4 class='item-title'>Sujet :  $text->subject</h4>
-                    <p class='item-info delete'> Reçu le $text->created </p> <p class='item-info delete'><a href='#' id='delete'>Supprimer </a> | <a href='/messages/view/$alert->source_id'>Voir </a></p>
-                </div>
+<li id="<?= $alert->id ?>" class="delete"><a href='<?= $this->Url->build(['controller' => 'Messages','action' => 'send' ]); ?>'><span class='glyphicon glyphicon-envelope'></span> Message privé de <?= $mp->firstname.' '.$mp->lastname ?></a></li>
 
-            </a>
-    ";
-}
-?>
-
-        </div>
+<?php endforeach ?>
+        <?php if($notifCount > 0) : ?>
     </ul>
-</div>
-
+</li>
+<?php endif; ?>
 
 
 <script>
-    var count = <?= $notifCount ?>;
     $( ".delete" ).click(function() {
-        count--;
-        $( "#count" ).text(count);
-        var getid = $(this).parents().find('.notification-item').attr('id');
-        $(this).closest('.notification-item').remove();
+        var getid = $(this).attr('id');
         $.ajax({
             type:'post',
             data: 'id=' + getid ,
@@ -46,3 +30,5 @@ echo "
         });
     });
 </script>
+
+

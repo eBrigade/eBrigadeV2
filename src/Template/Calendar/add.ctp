@@ -282,9 +282,9 @@ var date = moment(start).format();
         $.ajax({
             type:'post',
             data: 'title=' + myArray,
-            url: '../calendar/save',
+            url: '../save',
             success:function(){
-              $('#savedate').load('../calendar/save');
+              $('#savedate').load('../save');
             }
         });
     });
