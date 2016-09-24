@@ -11,8 +11,8 @@
                     <option value="<?= $team->id ?>">id :<?= $team->id ?> - nom : <?= $team->name ?></option>
                 <?php endforeach; ?>
             </select>
-            <?= $this->Html->link($this->Html->icon('plus'), ['action' => 'addevent', $event->id], ['id' => 'add-team', 'class'=>'btn btn-success','escape'=>false]) ?>
-            <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $event->id], ['class'=>'btn btn-info','escape'=>false]) ?>
+            <?= $this->Html->link($this->Html->icon('plus'), ['action' => 'addteam', $event->id], ['id' => 'add-team', 'class'=>'btn btn-success','escape'=>false]) ?>
+            <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'editteam', $event->id], ['id' => 'edit-team', 'class'=>'btn btn-info','escape'=>false]) ?>
             <?= $this->Form->postLink($this->Html->icon('trash'), ['action' => 'delete', $event->id], ['class'=>'btn btn-danger','escape'=>false],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $event->id)]) ?>
 

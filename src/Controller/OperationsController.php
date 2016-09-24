@@ -66,7 +66,6 @@ class OperationsController extends AppController
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The operation could not be saved. Please, try again.'));
-                debug($operation);
             }
         }
         $barracks = $this->Operations->Barracks->find('list', ['limit' => 200]);
@@ -191,9 +190,6 @@ class OperationsController extends AppController
                 'Events.Teams.Vehicles.VehicleTypes'
             ]
         ]);
-
-
-
 
         $this->set('operation', $operation);
         $this->set('_serialize', ['operation']);
@@ -329,6 +325,27 @@ class OperationsController extends AppController
         $this->set('_serialize', ['team']);
     }
 
+    public function editteam($id = null)
+    {
+
+        $table = $this->Operations;
+
+        $team = $table->Events->Teams->get($id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $team = $table->Events->Teams->patchEntity($team, $this->request->data);
+            if ($table->Events->Teams->save($team)) {
+
+                return $this->redirect($this->referer());
+            } else {
+                $this->Flash->error(__('The team could not be saved. Please, try again.'));
+            }
+        }
+
+        $this->set(compact('team'));
+        $this->set('_serialize', ['team']);
+    }
+
     public function addevent($id = null)
     {
         $table = $this->Operations;
@@ -341,6 +358,28 @@ class OperationsController extends AppController
             $event = $table->Events->patchEntity($event, $this->request->data);
             $event->module_id = $id;
             $event->module = 'operations';
+            if ($table->Events->save($event)) {
+
+                $this->Flash->success(__('The event has been saved.'));
+                return $this->redirect($this->referer());
+            } else {
+                $this->Flash->error(__('The event could not be saved. Please, try again.'));
+            }
+        }
+
+        $this->set(compact('event', 'operation'));
+        $this->set('_serialize', ['event']);
+    }
+
+    public function editevent($id = null)
+    {
+        $table = $this->Operations;
+
+
+        $event = $table->Events->get($id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $event = $table->Events->patchEntity($event, $this->request->data);
             if ($table->Events->save($event)) {
 
                 $this->Flash->success(__('The event has been saved.'));

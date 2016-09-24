@@ -1,3 +1,8 @@
+<?php
+if (empty($list)): echo 'Veuillez choisir une équipe à gérer.'; ?>
+<?php endif; ?>
+<?php if (!empty($list)): ?>
+
 <div class="panel panel-success">
     <div class="panel-heading"><b>Eléments disponibles</b>
     </div>
@@ -61,3 +66,5 @@
         </div>
     </div>
 </div>
+
+<?php endif; ?>

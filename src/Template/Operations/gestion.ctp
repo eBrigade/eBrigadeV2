@@ -53,7 +53,7 @@
                                 <?php endif; ?>
                             </select>
                             <?= $this->Html->link($this->Html->icon('plus'), ['action' => 'addevent', $operation->id], ['id' => 'add-event', 'class'=>'btn btn-success','escape'=>false]) ?>
-                            <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $operation->id], ['class'=>'btn btn-info','escape'=>false]) ?>
+                            <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $operation->id], ['id' => 'edit-event','class'=>'btn btn-info','escape'=>false]) ?>
                             <?= $this->Form->postLink($this->Html->icon('trash'), ['action' => 'delete', $operation->id], ['class'=>'btn btn-danger','escape'=>false],
                                 ['confirm' => __('Are you sure you want to delete # {0}?', $operation->id)]) ?>
                         </div>
@@ -135,12 +135,34 @@
         });
     });
 
+    $(document).on('click', '#edit-event', function (event) {
+        event.preventDefault();
+
+        var eventID = $('select[name=event]').val();
+
+        var url = "/Operations/editevent/" + eventID;
+
+        $('.event-modal-cont').load(url, function (result) {
+            $('#eventModal').modal({show: true});
+        });
+    });
+
     //team add modal
     $(document).on('click', '#add-team', function (event) {
         event.preventDefault();
         var eventID = $('select[name=event]').val();
 
         var url = "/Operations/addteam/" + eventID;
+        $('.event-modal-cont').load(url, function (result) {
+            $('#teamModal').modal({show: true});
+        });
+    });
+
+    $(document).on('click', '#edit-team', function (event) {
+        event.preventDefault();
+        var teamID = $('select[name=team]').val();
+
+        var url = "/Operations/editteam/" + teamID;
         $('.event-modal-cont').load(url, function (result) {
             $('#teamModal').modal({show: true});
         });
