@@ -1,4 +1,6 @@
-<div class="panel panel-default">
+<div class="panel panel-success">
+    <div class="panel-heading"><b>Eléments disponibles</b>
+    </div>
     <div class="table-responsive">
 
         <table class="table table-striped">

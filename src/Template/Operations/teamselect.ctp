@@ -1,7 +1,5 @@
 <?php if (empty($event->teams)): ?>
-    <p>Pas d'équipe associée, en créer une ? (todo)</p>
-    <button id="add-team" class="btn btn-success btn-sm">Nouvelle équipe
-    </button>
+    <p>Pas d'équipe associée, veuillez en créer.</p>
 <?php endif ?>
 <?php if (!empty($event->teams)): ?>
     <div class="col-md-12">
@@ -13,8 +11,11 @@
                     <option value="<?= $team->id ?>">id :<?= $team->id ?> - nom : <?= $team->name ?></option>
                 <?php endforeach; ?>
             </select>
-            <button id="add-team" class="btn btn-success btn-sm">Nouvelle équipe
-            </button>
+            <?= $this->Html->link($this->Html->icon('plus'), ['action' => 'addevent', $event->id], ['id' => 'add-team', 'class'=>'btn btn-success','escape'=>false]) ?>
+            <?= $this->Html->link($this->Html->icon('pencil'), ['action' => 'edit', $event->id], ['class'=>'btn btn-info','escape'=>false]) ?>
+            <?= $this->Form->postLink($this->Html->icon('trash'), ['action' => 'delete', $event->id], ['class'=>'btn btn-danger','escape'=>false],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $event->id)]) ?>
+
         </div>
     </div> <br> <br>
 
