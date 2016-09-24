@@ -11,8 +11,8 @@
 
 <div class="row">
     <div class='col-md-3'>
-        <div class="sidebar-nav linkout">
-            <div class="navbar navbar-default" role="navigation">
+        <div class="sidebar-nav">
+            <div class="navbar linkout" role="navigation">
 
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active"><a href="javascript:;"> GESTION DES
@@ -29,8 +29,8 @@
                 </ul>
             </div>
         </div>
-        <div class="sidebar-nav linkout">
-            <div class="navbar navbar-default" role="navigation">
+        <div class="sidebar-nav">
+            <div class="navbar linkout" role="navigation">
 
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active"><a href="javascript:;"> CHOIX DE L'EQUIPE
@@ -68,8 +68,8 @@
             </div>
             </ul>
         </div>
-        <div class="sidebar-nav linkout">
-            <div class="navbar navbar-default" role="navigation">
+        <div class="sidebar-nav">
+            <div class="navbar linkout" role="navigation">
 
                 <ul class="nav nav-pills nav-stacked">
                     <li class="active"><a href="javascript:;"> Filtrer les éléments disponibles
