@@ -32,19 +32,13 @@ $cakeDescription = 'Ebrigade';
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Ebrigade v2</a>
-        </div>
-        <ul class="nav navbar-nav">
+
+
             <?= $this->element('navigation')?>
-        </ul>
+
 <!--        <?php $notif = $this->cell('Notifications');
         echo $notif; ?>-->
 
-    </div>
-</nav>
 <?= $this->Flash->render() ?>
 
 
