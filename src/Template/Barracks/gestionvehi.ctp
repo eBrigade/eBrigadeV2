@@ -19,23 +19,46 @@
         <thead class="gst">
         <tr>
             <th></th>
-            <th>
-                <?php if ($this->Paginator->sortKey() == 'vehicle_type_id'): ?>
+            <th>Type</th>
+            <th>Désignation</th>
+            <th class="hidden-sm hidden-xs">Eqp</th>
+            <th  class='hidden-sm hidden-xs' > <?php if ($this->Paginator->sortKey() == 'Vehicles.matriculation'): ?>
                 <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
                 ?>'></i>
                 <?php else: ?>
                 <i class='fa fa-sort'></i>
                 <?php endif; ?>
-                <?= $this->Paginator->sort('vehicle_type_id', ['label' => 'Type']) ?>
-            </th>
-            <th>Désignation</th>
-            <th class="hidden-sm hidden-xs">Eqp</th>
-            <th class="hidden-sm hidden-xs">Matricule</th>
-            <th class="hidden-sm hidden-xs">Km</th>
-            <th class="hidden-sm hidden-xs">Acquis le</th>
-            <th class="hidden-sm hidden-xs">Garantie</th>
-            <th class="hidden-sm hidden-xs">Revision</th>
-            <th class="hidden-sm hidden-xs">Action</th>
+                <?= $this->Paginator->sort('Vehicles.matriculation', ['label' => 'Matricule']) ?></th>
+            <th  class='hidden-sm hidden-xs' > <?php if ($this->Paginator->sortKey() == 'Vehicles.number_kilometer'): ?>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                ?>'></i>
+                <?php else: ?>
+                <i class='fa fa-sort'></i>
+                <?php endif; ?>
+                <?= $this->Paginator->sort('Vehicles.number_kilometer', ['label' => 'Km']) ?></th>
+
+            <th  class='hidden-sm hidden-xs' > <?php if ($this->Paginator->sortKey() == 'Vehicles.bought'): ?>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                ?>'></i>
+                <?php else: ?>
+                <i class='fa fa-sort'></i>
+                <?php endif; ?>
+                <?= $this->Paginator->sort('Vehicles.bought', ['label' => 'Acquis le']) ?></th>
+            <th  class='hidden-sm hidden-xs' > <?php if ($this->Paginator->sortKey() == 'Vehicles.end_warranty'): ?>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                ?>'></i>
+                <?php else: ?>
+                <i class='fa fa-sort'></i>
+                <?php endif; ?>
+                <?= $this->Paginator->sort('Vehicles.end_warranty', ['label' => 'Fin de garantie']) ?></th>
+            <th  class='hidden-sm hidden-xs' > <?php if ($this->Paginator->sortKey() == 'Vehicles.next_revision'): ?>
+                <i class='fa fa-sort-<?php echo $this->Paginator->sortDir() === 'asc' ? 'up' : 'down';
+                ?>'></i>
+                <?php else: ?>
+                <i class='fa fa-sort'></i>
+                <?php endif; ?>
+                <?= $this->Paginator->sort('Vehicles.next_revision', ['label' => 'Prochaine révision']) ?></th>
+            <th >Action</th>
         </tr>
         </thead>
         <tbody>
@@ -60,11 +83,9 @@
             <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
             <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
 
-            <td>
+            <td id="act">
                 <button id="btdel" class='glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm del' aria-hidden='true'></button>
                 <button  id="btedit" class='glyphicon glyphicon-edit pull-right  btn btn-warning btn-sm edit'  aria-hidden='true'></button>
-                <button  id="btok" class='glyphicon glyphicon-ok pull-right  btn btn-success btn-sm ok hidden'  aria-hidden='true'></button>
-
             </td>
         </tr>
         <?php endforeach;  ?>
@@ -98,12 +119,13 @@
     $('.del').click(function () {
         var array = [];
         array.push($(this).closest('tr').attr('id'));
-        $(this).parents('tr').first().remove();
+        $('#' + array).css('background-color','#F5A9A9');
         $.ajax({
             type: 'POST',
             url: '<?= $this->Url->build("Vehicles/ajaxdelete"); ?>',
             data: 'id=' + array,
             success: function (html) {
+                $('#' + array).remove();
                 $('.cpt-vehi').text(parseInt($('.cpt-vehi').text() - 1));
             }
         });
@@ -122,8 +144,7 @@
         $(this).closest('tr').find('#buy').html('<input type="text" value=' + buy_val_origin + ' id="e-buy" class="edit-mod">');
         $(this).closest('tr').find('#end').html('<input type="text" value=' + end_val_origin + ' id="e-end" class="edit-mod">');
         $(this).closest('tr').find('#rev').html('<input type="text" value=' + rev_val_origin + ' id="e-rev" class="edit-mod">');
-        $(this).closest('tr').find('#btedit').addClass("hidden");
-        $('#btok').removeClass("hidden");
+        $(this).closest('tr').find('#act').html('<button  id="btok" class="glyphicon glyphicon-ok pull-right  btn btn-success btn-sm ok"  aria-hidden="true"></button>');
         date('#e-buy', '-30:-0', '-5y');
         date('#e-end', '-30:+20', '+2y');
         date('#e-rev', '-0:+5', '+6m');
@@ -152,9 +173,10 @@
             $(this).closest('tr').find('#end').text( endnew);
             $(this).closest('tr').find('#rev').text( revnew);
             $('#btok').addClass("hidden");
-            $(this).closest('tr').find('#btedit').removeClass("hidden");
+            $(this).closest('tr').find('#act').html('<button id="btdel" class="glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm del" aria-hidden="true"></button><button  id="btedit" class="glyphicon glyphicon-edit pull-right  btn btn-warning btn-sm edit"  aria-hidden="true"></button>');
         });
-    });
-
+    }); 
     $('[data-toggle="tooltip"]').tooltip();
 </script>
+
+        

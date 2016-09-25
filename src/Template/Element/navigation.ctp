@@ -111,9 +111,9 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Personnel, caserne, ...">
+                <form class="navbar-form navbar-left" role="search" id="searchbox">
+                    <div class="input-group" >
+                        <input  type="text" class="form-control searchbar" placeholder="Personnel, caserne, ...">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
                     </div>
                 </form>
