@@ -3,13 +3,9 @@
 <?php $c_veh = count($barrack->vehicles) ?>
 <?php $c_eve = count($barrack->events) ?>
 
-
-
-
 <div class="my-modal-base">
     <div class="my-modal-cont"></div>
 </div>
-
 
 <!--_______________________________________________________________________________DETAIL CASERNE-->
 <div class="row">
@@ -24,8 +20,6 @@
                             <img src="<?= $this->Url->image('pro-civ.png') ?>" class="img-circle img-responsive"> </div>
                         <h3>Caserne <?= h($barrack->name) ?> </h3>
                     </div>
-
-
 
 <div id="barrack-map">
                     <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
@@ -145,7 +139,7 @@
                         <td>le <?= $event->date ?></td>
                         <td>
                             <a href='<?= $this->Url->build(["controller" => "operations","action" => "view", $event->id ]); ?>'
-                               class="btn btn-default   "><i class="fa fa-eye" aria-hidden="true"></i></a>
+                               class="btn btn-default   btn-sm "><i class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -159,7 +153,7 @@
                         <td>du <?= $formation->formation_start->i18nFormat('dd/MM/yyyy') ?> au <?= $formation->formation_end->i18nFormat('dd/MM/yyyy') ?></td>
                         <td>
                             <a href='<?= $this->Url->build(["controller" => "formations","action" => "view", $formation->id ]); ?>'
-                               class="btn btn-success btn-sm "><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                               class="btn btn-default btn-sm "><i class="fa fa-eye" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     <?php endif; ?>
@@ -206,7 +200,7 @@
                             <a href='<?= $this->Url->build(["controller" => "messages","action" => "send" ]); ?>'
                                class="btn btn-primary btn-sm   "><i class="fa fa-envelope" aria-hidden="true"></i> </a>
                             <a href='<?= $this->Url->build(["controller" => "users","action" => "view", $user->id ]); ?>'
-                               class="btn btn-success btn-sm   "><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                               class="btn btn-success btn-sm   "><i class="fa fa-user" aria-hidden="true"></i></a>
                         </td>
                     </tr>
 
@@ -237,7 +231,6 @@
                         <th>Stock</th>
                         <th>Type</th>
                         <th>Désignation</th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -247,11 +240,6 @@
                         <td id='stock'>".$matos->stock."</td>
                         <td>".$matos->material->material_type->name."</td>
                         <td>".$matos->material->name."</td>
-                        <td id='actionm'>
-                            <button id='btdelm' class='glyphicon glyphicon-remove pull-right hidecrossm btn btn-danger btn-sm' aria-hidden='true'></button>
-                            <button  id='bteditm' class='glyphicon glyphicon-edit pull-right hideeditm btn btn-warning btn-sm' aria-hidden='true'></button>
-
-                        </td>
                     </tr>
                     ";
                     ?>
@@ -330,7 +318,6 @@
                         <th class="hidden-sm hidden-xs">Acquis le</th>
                         <th class="hidden-sm hidden-xs">Garantie</th>
                         <th class="hidden-sm hidden-xs">Revision</th>
-                        <th class="hidden-sm hidden-xs"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -354,11 +341,6 @@
                         <td class='hidden-sm hidden-xs' id='buy'><?= $vehi->bought ?></td>
                         <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
                         <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
-
-                        <td class='hidden-sm hidden-xs' id='icon'>
-                            <button id="btdel" class='glyphicon glyphicon-remove pull-right hidecross btn btn-danger btn-sm' aria-hidden='true'></button>
-                            <button  id="btedit" class='glyphicon glyphicon-edit pull-right hideedit btn btn-warning btn-sm' aria-hidden='true'></button>
-                        </td>
                     </tr>
                     <?php endforeach;  ?>
 
@@ -373,22 +355,7 @@
     </div>
 </div>
 
-
-
-
     <script>
-        // compte le nbr de vehicule
-        var c_veh = '<?= $c_veh ?>';
-        $("#bdg-veh").text(c_veh);
-
-        // compte le nbr de materiel
-        var c_b_mat = '<?= $c_barrack_mat ?>';
-        $("#bdg-mat").text(c_b_mat);
-
-        // boutons ouvre les formulaires en modal
-        var vehicles = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $barrack->id ]); ?>';
-        modal('#bt-vehi', vehicles);
-
         // collapse sur les tables
         expand('#footer-event', '#tbl-event', 'tbl-event');
         expand('#footer-user', '#tbl-user', 'tbl-user');
@@ -396,142 +363,6 @@
         expand('#footer-usmat', '#tbl-usermaterial', 'tbl-usermaterial');
         expand('#footer-vehi', '#tbl-vehicule', 'tbl-vehicule');
 
-        // id de la caserne actuel
-        var cid = '<?= $barrack->id ?>';
-
-
-        // boutons pour supprimer du materiel
-        $('.hidecrossm').click(function () {
-        c_b_mat--;
-            $("#bdg-mat").text(c_b_mat);
-            var array = [];
-            array.push($(this).closest('tr').attr('id'));
-            $(this).parents('tr').first().remove();
-            $.ajax({
-                type: 'POST',
-                url: '<?= $this->Url->build(["controller" => "Materials","action" => "ajaxdelete"]); ?>',
-                data: 'id=' + array,
-                success: function (data) {
-                    return data;
-                }
-            });
-        });
-
-
-        // boutons pour supprimer un véhicule
-        $('.hidecross').click(function () {
-            c_veh--;
-            $("#bdg-veh").text(c_veh);
-            var array = [];
-            array.push($(this).closest('tr').attr('id'));
-            $(this).parents('tr').first().remove();
-            $.ajax({
-                type: 'POST',
-                url: '<?= $this->Url->build(["controller" => "Vehicles","action" => "ajaxdelete"]); ?>',
-                data: {id: array}
-            });
-        });
-
-
-
-        // boutons pour editer du materiel
-        $('.hideeditm').click(function () {
-            var stock_val_origin = $(this).closest('tr').find('#stock').text();
-            $(this).closest('tr').find('#stock').html('<input type="number" value=' + stock_val_origin + ' id="e-stock" class="edit-mod">');
-            $(this).closest('tr').find('#actionm').html('<button  id="cancelm" class="glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm vehimarge" aria-hidden="true"></button><button  id="okm" class="glyphicon glyphicon-ok pull-right  btn btn-success btn-sm " aria-hidden="true"></button>');
-            $('#tbl-mat').removeClass( "table-hover" );
-            $("#btdelm").hide();
-            $("#bteditm").hide();
-
-            $('#cancelm').click(function () {
-                $(this).closest('tr').find('#stock').html('' + stock_val_origin + '');
-                $("#cancelm").hide();
-                $("#okm").hide();
-                $('#tbl-mat').addClass( "table-hover" );
-                $("#btdelm").show();
-                $("#bteditm").show();
-            });
-
-            $('#okm').click(function () {
-                var id = $(this).closest('tr').attr('id');
-                var stock_new = $('#e-stock').val();
-                $("#cancelm").hide();
-                $("#okm").hide();
-                $('#tbl-mat').addClass( "table-hover" );
-                $("#btdelm").show();
-                $("#bteditm").show();
-                $(this).closest('tr').find('#stock').html('' + stock_new + '');
-                var send = 'id=' + id + '&stock=' + stock_new ;
-                $.ajax({
-                    type: 'post',
-                    url: '<?= $this->Url->build(["controller" => "Materialstocks","action" => "ajaxedit"]); ?>',
-                    data: send
-                });
-            });
-        });
-
-
-
-        // boutons pour editer des vehicules
-        $('.hideedit').click(function () {
-            var mat_val_origin = $(this).closest('tr').find('#mat').text();
-            var klm_val_origin = $(this).closest('tr').find('#klm').text();
-            var buy_val_origin = $(this).closest('tr').find('#buy').text().split("/").reverse().join("-");
-            var end_val_origin = $(this).closest('tr').find('#end').text().split("/").reverse().join("-");
-            var rev_val_origin = $(this).closest('tr').find('#rev').text().split("/").reverse().join("-");
-            $(this).closest('tr').find('#mat').html('<input type="text" value=' + mat_val_origin + ' id="e-mat" class="edit-mod">');
-            $(this).closest('tr').find('#klm').html('<input type="text" value=' + klm_val_origin + ' id="e-klm" class="edit-mod">');
-            $(this).closest('tr').find('#buy').html('<input type="text" value=' + buy_val_origin + ' id="e-buy" class="edit-mod">');
-            $(this).closest('tr').find('#end').html('<input type="text" value=' + end_val_origin + ' id="e-end" class="edit-mod">');
-            $(this).closest('tr').find('#rev').html('<input type="text" value=' + rev_val_origin + ' id="e-rev" class="edit-mod">');
-            $(this).closest('tr').find('#icon').html('<button  id="cancel" class="glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm vehimarge" aria-hidden="true"></button><button  id="ok" class="glyphicon glyphicon-ok pull-right  btn btn-success btn-sm " aria-hidden="true"></button>');
-            date('#e-buy', '-30:-0', '-5y');
-            date('#e-end', '-30:+20', '+2y');
-            date('#e-rev', '-0:+5', '+6m');
-            $('#tbl-vehicule').removeClass( "table-hover" );
-           $("#btdel").hide();
-            $("#btedit").hide();
-
-            $('#cancel').click(function () {
-                $(this).closest('tr').find('#mat').html('' + mat_val_origin + '');
-                $(this).closest('tr').find('#klm').html('' + klm_val_origin + '');
-                $(this).closest('tr').find('#buy').html('' + buy_val_origin + '');
-                $(this).closest('tr').find('#end').html('' + end_val_origin + '');
-                $(this).closest('tr').find('#rev').html('' + rev_val_origin + '');
-                $("#cancel").hide();
-                $("#ok").hide();
-                $('#tbl-vehicule').addClass( "table-hover" );
-                $("#btdel").show();
-                $("#btedit").show();
-            });
-
-
-            $('#ok').click(function () {
-                var id = $(this).closest('tr').attr('id');
-                var mat_new = $('#e-mat').val();
-                var klm_new = $('#e-klm').val();
-                var buy_new = $('#e-buy').val();
-                var end_new = $('#e-end').val();
-                var rev_new = $('#e-rev').val();
-                $("#cancel").hide();
-                $("#ok").hide();
-                $('#tbl-vehicule').addClass( "table-hover" );
-                $("#btdel").show();
-                $("#btedit").show();
-                $(this).closest('tr').find('#mat').html('' + mat_new + '');
-                $(this).closest('tr').find('#klm').html('' + klm_new + '');
-                $(this).closest('tr').find('#buy').html('' + buy_new + '');
-                $(this).closest('tr').find('#end').html('' + end_new + '');
-                $(this).closest('tr').find('#rev').html('' + rev_new + '');
-                var send = 'id=' + id + '&matriculation=' + mat_new + '&number_kilometer=' + klm_new +
-                        '&bought=' + buy_new + '&end_warranty=' + end_new + '&next_revision=' + rev_new  ;
-                $.ajax({
-                    type: 'post',
-                    url: '<?= $this->Url->build(["controller" => "Vehicles","action" => "ajaxedit"]); ?>',
-                    data: send
-                });
-            });
-        });
 
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -549,10 +380,4 @@
                 title: 'Hello World!'
             });
         }
-
     </script>
-
-
-
-
-    <?= $this->Html->script('jquery-ui.js')?>

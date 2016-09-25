@@ -27,13 +27,13 @@
 
                     ?>
                 </td>
-                <td>                <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'view' , $barrack->id]); ?>" class="btn btn-success  btn-sm" ><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'edit', $barrack->id]); ?>" data-original-title="Editer cette caserne" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                <td>                <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'view' , $barrack->id]); ?>" class="btn btn-default btn-sm" ><i class="glyphicon glyphicon-eye-open"></i> Voir en détails</a>
+                    <a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'edit', $barrack->id]); ?>" data-original-title="Editer cette caserne" data-toggle="tooltip" type="button" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
 
                     <?= $this->Form->postLink(__('<i class="glyphicon glyphicon-remove"></i>'),
                     ['controller' => 'barracks', 'action' => 'delete', $barrack->id],
                     [
-                    'class' => 'btn btn-sm btn-danger ',
+                    'class' => 'btn btn-xs btn-danger ',
                     'escape' => false,
                     'data-original-title' => 'Supprimer cette caserne',
                     'data-toggle' => 'tooltip',

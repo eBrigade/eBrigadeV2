@@ -27,6 +27,7 @@
 .linkout{
     border: 1px solid #004a99 !important;
     border-radius: 5px;
+    background-color: #f9f9f9!important;
 }
 
 .nav-pills>li>a {
@@ -785,4 +786,8 @@ html {
 
 body{
     background-color: ghostwhite;
+}
+
+.highlight{
+    background-color: greenyellow;
 }

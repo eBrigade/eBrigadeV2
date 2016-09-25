@@ -18,7 +18,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><span class="compteur"><?= $total_user  ?></span><br>
+                        <div class="huge"><span class="compteur cpt-user"><?= $total_user  ?></span><br>
                             <span class="sscompteur">Personnes</span></div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                         <i class="fa fa-calendar fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><span class="compteur"><?= $total_event ?></span><br>
+                        <div class="huge"><span class="compteur cpt-event"><?= $total_event ?></span><br>
                             <span class="sscompteur">Evénements</span></div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         <i class="fa fa-car fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><span class="compteur"><?= $total_vehi ?></span><br>
+                        <div class="huge"><span class="compteur cpt-vehi"><?= $total_vehi ?></span><br>
                             <span class="sscompteur">Véhicules</span></div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         <i class="fa fa-wrench fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge"><span class="compteur"><?= $total_mat ?></span><br>
+                        <div class="huge"><span class="compteur cpt-mat"><?= $total_mat ?></span><br>
                             <span class="sscompteur">Matériels</span></div>
                     </div>
                 </div>

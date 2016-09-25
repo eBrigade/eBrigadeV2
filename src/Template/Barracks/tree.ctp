@@ -1,24 +1,9 @@
 <?= $this->Html->css('tree.css') ?>
 <?= $this->Html->script('tree.js')?>
-<div class='col-md-2'>
+<div class='col-md-3'>
 
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
-
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active" ><a href="javascript:;"> Afficher par
-                </a>
-                </li>
-
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>">Arborescence</a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'filter']); ?>">Liste </a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'barracks','action' => 'map']); ?>">Carte</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="sidebar-nav linkout">
-        <div class="navbar navbar-default" role="navigation">
+    <div class="sidebar-nav ">
+        <div class="navbar linkout" role="navigation">
 
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"  ><a href="javascript:;"> Options
@@ -33,8 +18,27 @@
 
 
 
+
+    <div class="sidebar-nav ">
+        <div class="navbar linkout" role="navigation">
+
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active" ><a href="javascript:;"> AFFICHER PAR
+                </a></li >
+                <li ><a id="index" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>"><i class="fa fa-list fa-lg " aria-hidden="true"></i> Liste </a></li>
+                <li ><a id="annuaire" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'annuaire']); ?>"><i class="fa fa-table fa-lg " aria-hidden="true"></i> Fiche </a></li>
+                <li ><a id="arbre" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'tree']); ?>"><i class="fa fa-tree fa-lg " aria-hidden="true"></i> Arborescence </a></li>
+                <li ><a id="carte" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'carte']); ?>"><i class="fa fa-globe fa-lg " aria-hidden="true"></i> Carte</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
 </div>
-<div class='col-md-10'>
+<div class='col-md-9'>
 
     <div class="panel panel-primary">
         <div class="panel-heading"><?= __('Vue arborescente des Casernes') ?>
@@ -122,5 +126,8 @@ echo "</ul>\n";
 
 
     closeEasyTree();
+
+
+        $('#arbre').append('<i class="fa fa-check-circle fa-lg action" aria-hidden="true"></i> ').css("font-weight","Bold");
 
 </script>

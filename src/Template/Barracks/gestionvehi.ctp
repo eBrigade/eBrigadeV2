@@ -2,13 +2,17 @@
 <?= $cell ?>
 
 
+<div class="my-modal-base">
+    <div class="my-modal-cont"></div>
+</div>
+
 <!--_____________________________________________________________________________________VEHICULES-->
 
 <div class="panel panel-danger " id="vehi">
     <div class="panel-heading">Véhicules
 
-        <a href='<?= $this->Url->build(["controller" => "users","action" => "view" ]); ?>'
-           class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
+        <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i> Ajouter un véhicule'),['id' => 'bt-vehi', 'class' =>
+        'btn btn-success pull-right btn-add',]) ?>
 
     </div>
     <table class="table table-bordered table-hover" width="100%" id="tbl">
@@ -56,7 +60,12 @@
             <td class='hidden-sm hidden-xs' id='end'><?= $vehi->end_warranty ?></td>
             <td class='hidden-sm hidden-xs' id='rev'><?= $vehi->next_revision ?></td>
 
-            <td>  </td>
+            <td>
+                <button id="btdel" class='glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm del' aria-hidden='true'></button>
+                <button  id="btedit" class='glyphicon glyphicon-edit pull-right  btn btn-warning btn-sm edit'  aria-hidden='true'></button>
+                <button  id="btok" class='glyphicon glyphicon-ok pull-right  btn btn-success btn-sm ok hidden'  aria-hidden='true'></button>
+
+            </td>
         </tr>
         <?php endforeach;  ?>
 
@@ -75,3 +84,77 @@
         ?>
     </ul>
 </div>
+
+
+<?= $this->Html->script('jquery-ui.js')?>
+<script>
+    var cid = '<?= $id ?>';
+
+    // ouvre le formulaire en modal
+    var vehicles = '<?= $this->Url->build(["controller" => "Vehicles","action" => "add", $id ]); ?>';
+    modal('#bt-vehi', vehicles);
+
+    // supprimer des vehicules
+    $('.del').click(function () {
+        var array = [];
+        array.push($(this).closest('tr').attr('id'));
+        $(this).parents('tr').first().remove();
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->Url->build("Vehicles/ajaxdelete"); ?>',
+            data: 'id=' + array,
+            success: function (html) {
+                $('.cpt-vehi').text(parseInt($('.cpt-vehi').text() - 1));
+            }
+        });
+    });
+
+
+    // boutons pour editer des vehicules
+    $('.edit').click(function () {
+        var mat_val_origin = $(this).closest('tr').find('#mat').text();
+        var klm_val_origin = $(this).closest('tr').find('#klm').text();
+        var buy_val_origin = $(this).closest('tr').find('#buy').text().split("/").reverse().join("-");
+        var end_val_origin = $(this).closest('tr').find('#end').text().split("/").reverse().join("-");
+        var rev_val_origin = $(this).closest('tr').find('#rev').text().split("/").reverse().join("-");
+        $(this).closest('tr').find('#mat').html('<input type="text" value=' + mat_val_origin + ' id="e-mat" class="edit-mod">');
+        $(this).closest('tr').find('#klm').html('<input type="text" value=' + klm_val_origin + ' id="e-klm" class="edit-mod">');
+        $(this).closest('tr').find('#buy').html('<input type="text" value=' + buy_val_origin + ' id="e-buy" class="edit-mod">');
+        $(this).closest('tr').find('#end').html('<input type="text" value=' + end_val_origin + ' id="e-end" class="edit-mod">');
+        $(this).closest('tr').find('#rev').html('<input type="text" value=' + rev_val_origin + ' id="e-rev" class="edit-mod">');
+        $(this).closest('tr').find('#btedit').addClass("hidden");
+        $('#btok').removeClass("hidden");
+        date('#e-buy', '-30:-0', '-5y');
+        date('#e-end', '-30:+20', '+2y');
+        date('#e-rev', '-0:+5', '+6m');
+        $('#tbl').removeClass( "table-hover" );
+
+        $('#btok').click(function () {
+            var id = $(this).closest('tr').attr('id');
+            var mat_new = $('#e-mat').val();
+            var klm_new = $('#e-klm').val();
+            var buy_new = $('#e-buy').val();
+            var end_new = $('#e-end').val();
+            var rev_new = $('#e-rev').val();
+            var send = 'id=' + id + '&matriculation=' + mat_new + '&number_kilometer=' + klm_new +
+                    '&bought=' + buy_new + '&end_warranty=' + end_new + '&next_revision=' + rev_new  ;
+            $.ajax({
+                type: 'post',
+                url: '<?= $this->Url->build(["controller" => "Vehicles","action" => "ajaxedit"]); ?>',
+                data: send
+            });
+            var buynew = buy_new.split("-").reverse().join("/");
+            var endnew = end_new.split("-").reverse().join("/");
+            var revnew = rev_new.split("-").reverse().join("/");
+            $(this).closest('tr').find('#mat').text( mat_new);
+            $(this).closest('tr').find('#klm').text( klm_new);
+            $(this).closest('tr').find('#buy').text( buynew);
+            $(this).closest('tr').find('#end').text( endnew);
+            $(this).closest('tr').find('#rev').text( revnew);
+            $('#btok').addClass("hidden");
+            $(this).closest('tr').find('#btedit').removeClass("hidden");
+        });
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
