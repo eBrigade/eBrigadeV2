@@ -15,7 +15,7 @@
 
 
         <div class="map-responsive">
-            <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg&sensor=true'); ?>
+            <?= $this->Html->script('http://maps.google.com/maps/api/js?key=AIzaSyD5JoDyuQnaIzvNOAJJQAmAz2IZBedpxzg'); ?>
 
             <?php
                             $map_options = array(
@@ -28,9 +28,9 @@
             'custom' => null,
             'localize' => false,
             'address' => 'France' ,
-            'marker' => true,
+            'marker' => false,
             'markerTitle' => '',
-            'markerIcon' => 'http://google-maps-icons.googlecode.com/files/home.png',
+            'markerIcon' => 'http://maps.google.com/mapfiles/marker.png',
             'markerShadow' => 'http://google-maps-icons.googlecode.com/files/shadow.png',
             'infoWindow' => false,
             'windowText' => 'My Position',

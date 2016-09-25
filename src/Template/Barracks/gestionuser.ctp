@@ -83,7 +83,7 @@
             <td><?=  $user->firstname ?></td>
             <td><?=  $user->lastname ?></td>
             <td><?= $user->birthday ?></td>
-            <td><?= $user->zipcode ?></td>
+            <td><?= $user->city->zipcode ?></td>
             <td><?= $user->city->city ?></td>
             <td><?=  $user->address ?></td>
             <td><?= $user->phone ?></td>

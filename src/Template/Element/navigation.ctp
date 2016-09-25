@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Ebrigade</a>
+            <a class="navbar-brand" href="#"><img src="<?= $this->Url->image('logo.png') ?>"></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">

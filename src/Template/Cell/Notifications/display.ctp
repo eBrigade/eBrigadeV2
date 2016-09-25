@@ -11,7 +11,7 @@
  $mp = $alert->message->user;
         ?>
 
-<li id="<?= $alert->id ?>" class="delete"><a href='<?= $this->Url->build(['controller' => 'Messages','action' => 'send' ]); ?>'><span class='glyphicon glyphicon-envelope'></span> Message privé de <?= $mp->firstname.' '.$mp->lastname ?></a></li>
+<li id="<?= $alert->id ?>" class="delete"><a href='<?= $this->Url->build(['controller' => 'Messages','action' => 'view', $alert->message->id ]); ?>'><span class='glyphicon glyphicon-envelope'></span> Message privé de <?= $mp->firstname.' '.$mp->lastname ?></a></li>
 
 <?php endforeach ?>
         <?php if($notifCount > 0) : ?>

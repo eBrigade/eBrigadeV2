@@ -470,7 +470,7 @@ html {
 }
 
 .gst {
-    background-color: lemonchiffon;
+    background-color: #b9b9b9;
 }
 
 /*navbar*/
@@ -762,9 +762,7 @@ html {
         border-radius: 6px;
     }
 
-    .navbar-static-top,
-    .navbar-fixed-top,
-    .navbar-fixed-bottom {
+    .navbar-default {
         border-radius: 0;
     }
 }
