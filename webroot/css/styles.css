@@ -214,7 +214,7 @@ ul.form {
     border: 1px solid grey;
     width: 100%;
     min-width: 150px;
-    padding-left:20px;
+    padding-left:10px;
     height:50px;
     line-height:50px;
     display:block;
@@ -228,37 +228,94 @@ ul.form {
 }
 
 
-.form li a:hover {
-    background: b;
-}
+
 
 .form li a.nuit {
     border-left:10px solid #3174af;
+}
+.form li.selected a.nuit {
+    background: #3174af;
+    color:  white;
+}
+.form li a.nuit:hover {
+    background: #3174af;
+    color:  white;
 }
 
 .form li a.soir {
     border-left:10px solid #52bcdc;
 }
+.form li.selected a.soir {
+    background: #52bcdc;
+    color:  white;
+}
+.form li a.soir:hover {
+    background: #52bcdc;
+    color:  white;
+}
+
 
 .form li a.apres-midi {
     border-left:10px solid red;
+}
+.form li.selected a.apres-midi {
+    background: red;
+    color:  white;
+}
+.form li a.apres-midi:hover {
+    background: red;
+    color:  white;
 }
 
 .form li a.midi {
     border-left:10px solid darkorange;
 }
+.form li.selected a.midi {
+    background: darkorange;
+    color:  white;
+}
+.form li a.midi:hover {
+    background: darkorange;
+    color:  white;
+}
+
 
 .form li a.matin {
     border-left:10px solid #a1c927;
+}
+.form li.selected a.matin {
+    background: #a1c927;
+    color:  white;
+}
+.form li a.matin:hover {
+    background: #a1c927;
+    color:  white;
 }
 
 .form li a.astreinte {
     border-left:10px solid darkgray;
 }
+.form li.selected a.astreinte {
+    background: darkgray;
+    color:  white;
+}
+.form li a.astreinte:hover {
+    background: darkgray;
+    color:  white;
+}
 
 .form li a.absent {
     border-left:10px solid black;
 }
+.form li.selected a.absent {
+    background: black;
+    color:  white;
+}
+.form li a.absent:hover {
+    background: black;
+    color:  white;
+}
+
 
 .form li:first-child a:hover, .form li:first-child a {
     -webkit-border-radius: 5px 5px 0 0;
@@ -301,9 +358,7 @@ ul.form {
     float:right;
 }
 
-.form li.selected a {
-    background:#efefef;
-}
+
 
 /*couleur font menu deroulant datepicker*/
 .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
@@ -471,6 +526,11 @@ html {
 
 .gst {
     background-color: #b9b9b9;
+}
+
+.gst  thead tr th ,thead tr th a   {
+    text-decoration: none!important;
+    color: black!important;
 }
 
 /*navbar*/
@@ -767,18 +827,53 @@ html {
     }
 }
 
-@media (max-width: 767px){
-    .navbar-nav>li>a {
-        padding: 10px 15px;
-    }
+.searchbar{
+    width: 170px!important;
+}
 
-    .dropdown-submenu>.dropdown-menu {
+@media (max-width: 1181px) {
+    #searchbox {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 981px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
         display: block;
-        position: static;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
     }
 
-    .navbar-nav .open .dropdown-submenu>.dropdown-menu>li>a {
-        padding-left: 50px;
+    .navbar-collapse.collapse.in {
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
     }
 }
 

@@ -1,6 +1,6 @@
 <div class="row">
     <!--bouton de sauvegarde et status-->
-    <div   class="col-md-2 col-sm-12  col-xs-12">
+    <div   class="col-md-2 col-sm-12  col-xs-12 voffset3">
         <button type="button" id="bttosave" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> SAUVEGARDER </button><br/>
         <?php if ($availabilities){
         echo "<div id='savedate' > <span > Dernière sauvegarde le : $availabilities->modified   </span ></div>";
@@ -13,11 +13,11 @@
             <ul class="form">
                 <li><a class="absent" href="#"><i class="icon-user"></i>ABSENT</a></li>
                 <li><a class="astreinte" href="#"><i class="icon-envelope-alt"></i>ASTREINTE</a></li>
-                <li><a class="matin" href="#"><i class="icon-cog"></i>MATIN</a></li>
-                <li><a class="midi" href="#"><i class="icon-signout"></i>MIDI</a></li>
-                <li><a class="apres-midi" href="#"><i class="icon-envelope-alt"></i>APRES-MIDI</a></li>
-                <li><a class="soir" href="#"><i class="icon-cog"></i>SOIR</a></li>
-                <li><a class="nuit" href="#"><i class="icon-signout"></i>NUIT</a></li>
+                <li><a class="matin hyd" href="#"><i class="icon-cog"></i>MATIN</a></li>
+                <li><a class="midi hyd" href="#"><i class="icon-signout"></i>MIDI</a></li>
+                <li><a class="apres-midi hyd" href="#"><i class="icon-envelope-alt"></i>APRES-MIDI</a></li>
+                <li><a class="soir hyd" href="#"><i class="icon-cog"></i>SOIR</a></li>
+                <li><a class="nuit hyd" href="#"><i class="icon-signout"></i>NUIT</a></li>
             </ul>
         </div>
     </div>
@@ -289,6 +289,18 @@ var date = moment(start).format();
         });
     });
 
+
+    $('body').on('click', '.fc-agendaWeek-button', function() {
+        $('.hyd').addClass('hidden');
+        $('.selected').removeClass('selected');
+    });
+    $('body').on('click', '.fc-agendaDay-button', function() {
+        $('.hyd').addClass('hidden');
+        $('.selected').removeClass('selected');
+    });
+    $('body').on('click', '.fc-month-button', function() {
+        $('.hyd').removeClass('hidden');
+    });
 
     // sauvegarde automatique
 /*    setInterval(function(){

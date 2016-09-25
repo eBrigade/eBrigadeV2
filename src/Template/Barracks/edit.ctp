@@ -41,12 +41,11 @@
                     ?>   </div>
 
                 <div class="row">
-                    <div class="col-sm-offset-5 col-sm-2 text-center">
-                        <div class="btn-group">
-                            <?= $this->Form->button('<i class="fa fa-times" aria-hidden="true"></i>', ['onclick' => 'reset()' , 'type'=>'button','class' => 'btn btn-danger center-block btn-lg']) ; ?>
-                            <?= $this->Form->button('VALIDER', ['type'=>'submit' , 'class' => 'btn btn-success center-block btn-lg', 'div' => false]) ; ?>
-                            <?= $this->Form->end() ?>
-                        </div>
+                    <div class="btn-toolbar text-center">
+
+                        <?= $this->Form->button(' <i class="fa fa-times" aria-hidden="true"></i> Restaurer', ['onclick' => 'reset()' , 'type'=>'button','class' => 'btn btn-danger ']) ; ?>
+                        <?= $this->Form->button(' <i class="fa fa-check" aria-hidden="true"></i> Valider', ['type'=>'submit' , 'class' => 'btn btn-success  ', 'div' => false]) ; ?>
+                        <?= $this->Form->end() ?>
                     </div>
                 </div>
 
