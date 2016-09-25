@@ -60,8 +60,9 @@
             <ul class="nav nav-pills nav-stacked">
                 <li class="active" ><a href="javascript:;"> AFFICHER PAR
                 </a></li >
-                <li ><a id="index" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>"><i class="fa fa-tree fa-lg " aria-hidden="true"></i> Arborescence </a></li>
+                <li ><a id="index" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'index']); ?>"><i class="fa fa-list fa-lg " aria-hidden="true"></i> Liste </a></li>
                 <li ><a id="annuaire" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'annuaire']); ?>"><i class="fa fa-table fa-lg " aria-hidden="true"></i> Fiche </a></li>
+                <li ><a id="arbre" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'tree']); ?>"><i class="fa fa-tree fa-lg " aria-hidden="true"></i> Arborescence </a></li>
                 <li ><a id="carte" href="<?= $this->Url->build(['controller' => 'barracks','action' => 'carte']); ?>"><i class="fa fa-globe fa-lg " aria-hidden="true"></i> Carte</a></li>
             </ul>
         </div>
@@ -98,6 +99,9 @@
     }
     if (menu == 'carte' ){
         $('#carte').append('<i class="fa fa-check-circle fa-lg action" aria-hidden="true"></i> ').css("font-weight","Bold");
+    }
+    if (menu == 'arbre' ){
+        $('#arbre').append('<i class="fa fa-check-circle fa-lg action" aria-hidden="true"></i> ').css("font-weight","Bold");
     }
 
     // Check/uncheck sur le formulaire de recherche

@@ -1,22 +1,14 @@
 <?php
-namespace App\Test\TestCase\Model\Table;
+namespace App\Test\TestCase\Controller\Test;
 
-use App\Model\Table\VehiclesTable;
-use Cake\ORM\TableRegistry;
-use Cake\TestSuite\TestCase;
+use App\Controller\Test\VehiclesController;
+use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Model\Table\VehiclesTable Test Case
+ * App\Controller\Test\VehiclesController Test Case
  */
-class VehiclesTableTest extends TestCase
+class VehiclesControllerTest extends IntegrationTestCase
 {
-
-    /**
-     * Test subject
-     *
-     * @var \App\Model\Table\VehiclesTable
-     */
-    public $Vehicles;
 
     /**
      * Fixtures
@@ -54,6 +46,7 @@ class VehiclesTableTest extends TestCase
         'app.providers',
         'app.providers_supplies',
         'app.materials_teams',
+        'app.barracks_materials',
         'app.teams_vehicles',
         'app.operation_activities',
         'app.operation_environments',
@@ -61,60 +54,55 @@ class VehiclesTableTest extends TestCase
         'app.operation_recommendations',
         'app.operation_types',
         'app.bills',
-        'app.barracks_materials',
         'app.barracks_vehicles'
     ];
 
     /**
-     * setUp method
+     * Test index method
      *
      * @return void
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $config = TableRegistry::exists('Vehicles') ? [] : ['className' => 'App\Model\Table\VehiclesTable'];
-        $this->Vehicles = TableRegistry::get('Vehicles', $config);
-    }
-
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->Vehicles);
-
-        parent::tearDown();
-    }
-
-    /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
+    public function testIndex()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test validationDefault method
+     * Test view method
      *
      * @return void
      */
-    public function testValidationDefault()
+    public function testView()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
     /**
-     * Test buildRules method
+     * Test add method
      *
      * @return void
      */
-    public function testBuildRules()
+    public function testAdd()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test edit method
+     *
+     * @return void
+     */
+    public function testEdit()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test delete method
+     *
+     * @return void
+     */
+    public function testDelete()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

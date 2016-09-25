@@ -52,7 +52,7 @@ class VehiclesController extends AppController
     public function add($id = null)
     {
         $vehicle = $this->Vehicles->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')) {  
             $this->request->data['barrack_id'] = $id;
             $vehicle = $this->Vehicles->patchEntity($vehicle, $this->request->data);
             if ($this->Vehicles->save($vehicle)) {
@@ -68,7 +68,7 @@ class VehiclesController extends AppController
         $barracks = $this->Vehicles->Barracks->find('list', ['limit' => 200]);
         $teams = $this->Vehicles->Teams->find('list', ['limit' => 200]);
         $users = $this->Vehicles->Users->find('list', ['limit' => 200]);
-        $this->set(compact('vehicle', 'vehicleTypes', 'vehicleModels', 'barracks', 'teams', 'users'));
+        $this->set(compact('vehicle', 'vehicleTypes', 'vehicleModels', 'barracks', 'teams', 'users','id'));
         $this->set('_serialize', ['vehicle']);
     }
 
@@ -126,6 +126,7 @@ class VehiclesController extends AppController
 
     public function ajaxdelete($id = null)
     {
+        $this->autoRender = false;
         if ($this->request->is(['post'])) {
         $this->autoRender = false;
         $id = $this->request->data['id'];
@@ -147,6 +148,20 @@ class VehiclesController extends AppController
                     'next_revision' => $this->request->data['next_revision']],
                 ['id' => $this->request->data['id']]);
         }
+    }
+
+    public function saveajax()
+    {
+        $object = $this->Vehicles->newEntity();
+        if ($this->request->is('post')) {
+            $object = $this->Vehicles->patchEntity($object, $this->request->data);
+           $this->Vehicles->save($object);
+        }
+        $vehi = $this->Vehicles->find('all', [
+            'contain' => ['VehicleTypes', 'VehicleModels']
+        ])->where(['Vehicles.id' => $object->id])->first();
+
+        $this->set(compact('vehi'));
     }
 
 }
