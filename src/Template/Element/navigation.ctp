@@ -75,6 +75,8 @@
 
                                 <li><a href="<?= $this->Url->build(['controller' => 'Materials','action' => 'index' ]); ?>">
                                     <i class="fa fa-eye" aria-hidden="true"></i> Voir le matériel</a></li>
+                                <li><a href="<?= $this->Url->build(['controller' => 'Materials','action' => 'add' ]); ?>">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Ajouter du matériel</a></li>
                                 <li class="divider"></li>
                                 <li><a href="<?= $this->Url->build(['controller' => 'MaterialTypes','action' => 'index' ]); ?>">
                                     <i class="fa fa-folder-open-o" aria-hidden="true"></i> Type de matériel</a></li>
@@ -84,7 +86,7 @@
                                 <li><a href="<?= $this->Url->build(['controller' => 'MaterialStocks','action' => 'index' ]); ?>">
                                     <i class="fa fa-eye" aria-hidden="true"></i> Consulter le stock </a></li>
                                 <li><a href="<?= $this->Url->build(['controller' => 'MaterialStocks','action' => 'add' ]); ?>">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier le  stock </a></li>
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Emprunter du matériel </a></li>
                                 <li class="divider"></li>
                                 <li><a href="<?= $this->Url->build(['controller' => 'Orders','action' => 'index' ]); ?>">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i> Commander du matériel </a></li> </ul>
