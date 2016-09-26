@@ -241,6 +241,8 @@ class FormationsController extends AppController
                         $team = $this->Formations->Events->Teams->findById($copy_team->id)->toArray();
 
                         $this->Formations->Events->Teams->link($events,$team );
+
+
                     endforeach;
                 endforeach;
 
