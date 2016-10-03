@@ -1,6 +1,9 @@
 <?php $cell = $this->cell('Barrackgestionmenu',[$id]) ?>
 <?= $cell ?>
 
+<div class="my-modal-base">
+    <div class="my-modal-cont"></div>
+</div>
 <!--_____________________________________________________________________________________PERSONNEL-->
 
 
@@ -9,9 +12,9 @@
 
         <a href='<?= $this->Url->build(["controller" => "users","action" => "add" ]); ?>'
            class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
-        <a href='<?= $this->Url->build(["controller" => "users","action" => "add"]); ?>'
-           class="btn btn-warning pull-right btn-add marge"><i class="glyphicon glyphicon-arrow-down"></i>
-            Ajouter</a>
+
+        <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i> Ajouter'),['id' => 'bt-adduser', 'class' =>
+        'btn btn-warning pull-right btn-add marge',]) ?>
     </div>
     <table class="table table-bordered table-hover table-striped" width="100%" id="tbl">
         <thead class="gst">
@@ -91,17 +94,9 @@
             <!--class="btn btn-default btn-sm   "><i class="fa fa-envelope" aria-hidden="true"></i> </a>-->
             <!--<a href='<?= $this->Url->build(["controller" => "users","action" => "view", $user->id ]); ?>'-->
             <!--class="btn btn-default btn-sm   "><i class="fa fa-user" aria-hidden="true"></i></a>-->
-            <td style="text-align:center;">   <?= $this->Form->postLink(__('<i class="fa fa-times"
-                                                                               aria-hidden="true"></i>'),
-                ['controller' => 'users', 'action' => 'delete', $user->id],
-                [
-                'class' => 'btn btn-xs btn-danger ',
-                'escape' => false,
-                'data-original-title' => 'Supprimer cette caserne',
-                'data-toggle' => 'tooltip',
-                'confirm' => __('Etes-vous sûr de vouloir supprimer cet utilisateur ?')
-                ]
-                ) ?>
+            <td id="act">
+                <button id="btdel" class='glyphicon glyphicon-remove pull-right  btn btn-danger btn-sm del' aria-hidden='true'></button>
+                <button  id="btedit" class='glyphicon glyphicon-edit pull-right  btn btn-warning btn-sm edit'  aria-hidden='true'></button>
             </td>
         </tr>
         <?php endforeach;  ?>
@@ -118,3 +113,25 @@
         ?>
     </ul>
 </div>
+
+<script>
+    // ouvre le formulaire ajouter en modal
+    var adduser = '<?= $this->Url->build(["controller" => "Users","action" => "ajaxadduser", $id ]); ?>';
+    modal('#bt-adduser', adduser);
+
+    // supprimer du personnel
+    $('.del').click(function () {
+        var array = [];
+        array.push($(this).closest('tr').attr('id'));
+        $('#' + array).css('background-color','#F5A9A9');
+        $.ajax({
+            type: 'POST',
+            url: '<?= $this->Url->build("Users/ajaxdelete"); ?>',
+            data: 'id=' + array,
+            success: function (html) {
+                $('#' + array).remove();
+                $('.cpt-user').text(parseInt($('.cpt-user').text() - 1));
+            }
+        });
+    });
+</script>

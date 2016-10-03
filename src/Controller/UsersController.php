@@ -163,6 +163,45 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+    public function ajaxdelete($id = null)
+    {
+        $this->autoRender = false;
+        if ($this->request->is(['post'])) {
+            $this->autoRender = false;
+            $id = $this->request->data['id'];
+            $entity = $this->Users->get($id);
+            $this->Users->delete($entity);
+        }
+    }
+
+    public function ajaxadduser($id = null)
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $this->request->data['barrack_id'] = $id;
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Nouvel utilisateur ajouté.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('Cet utilisateur n\'a pas pu être ajouté. Svp, réessayez.'));
+            }
+        }
+
+        $barracks = $this->Users->Barracks->find('list');
+        $getusers = $this->Users->find('list', ['limit' => 200,
+            'keyField' => 'id',
+            'valueField' => function ($e) {
+                return $e->get('firstname'). ' ' . $e->get('lastname');
+            }
+        ]);
+        $this->set(compact('barracks','getusers','id','user'));
+    }
+    
+    
     public function login()
     {
         if ($this->request->is('post')) {
