@@ -1,62 +1,10 @@
+Playdoyer au Domready, ou pourquoi vos scripts sous firefox ne fonctionnent pas ...
 
-Quel est ce controller gestion. Pour rappel, cela n'ira pas avec les droits d'accès.
-Ces derniers sont basés uniquement sur les controllers et leurs fonctions.
+Bonjour
+Une info utile, après examen du code, il semble que vous n'utilisiez pas le Domready pour vos fonctions javascript, hors l'essayer c'est l'adopter.
+En effet, la ou la page charge le fichier et exécute le javascript quand vous lui avez demandé, domready, attends patiement que la page soient chargée pour lancer les fonctions.
+Maître yoda à dit : patience est mère de sureté, et Firefox l'applique ...
 
+Je vous commit un exemple sous peu.
 
---------------------------------
-Bonjour à tous,
-
-Alors quelques mise au point :
-- Je prends cet exemple : concernant matériel, pas question de palier par un appel ajax de la fonction add à la fonction addajax, ce sont deux choses distinctes, donc deux vues et deux protocoles différents. Obligatoirement. 
-Sinon il y a une problématique avec les droits d'accès pour qui chaque fonction a un droit.
-Merci de vérifier toutes les vues et de corriger en respectant à la lettre cette consigne. Tout devra être corrigé pour le vendredi soir impérativement.
-
-- Il manque des vues, comme déjà dit il faut baker tous les items qui ne le sont pas
-
-- Concernant matériel, il y a une grosse confusion avec matériel types que je n'avais pas vu, voila ce qui doit être effectué :
-Matériel : Seau d'eau - Seau d'eau bleu servant au nettoyage - Caserne Id (nom, description, materiel_types_id, barracks_id)
-Matériel Types : Logistique, Affecté à la logistique de la caserne de Raon, identifié par un code barre .... (nom,description)
-Matériel Stocks : 45, 1, 10, materiels, 0 (materiel_id, stock, affectation, affectation_id)
-exemple d'affectation de matériel : 46, 1, -1, users, 2 (id, materiel_id, stock, affectation, affectation_id)
-exemple de retour de matériel : 47, 1, 1, materiel_stocks, 46 (id, materiel_id, stock, affectation, affectation_id)
-
-Relation de barraks avec matériels : barracks as many matériels
-
-- tous les index doivent être formatés en mode bootstrap
-
-- MVC à vérifier et corriger : cities, dpts,  EventsEquipments, events_tems, events_vehicle, teams, 
-
-- Vue des barracks en index sous forme de liste en arbre (treelist), et vue actuelle a enregistrer sous forme d'une autre view (avec filtres à appliquer)
-
-- 3 champs à ajouter dans user
-
-- opérationnel et formation fonctionnels
-
-Normalement tout cela est largement faisable pour ce vendredi soir, tout devra être commit sur le master afin que je fasse la synthèse de test samedi et dimanche pour test lundi et affinage dans le début de semaine
-
-------------------------------------------------------
-
-A corriger : dans calendar availabalities : 
-Notice (8): Trying to get property of non-object [APP/Template\Calendar\save.ctp, line 1]
-
-Opérationnel (idem pour formation avec des terminologie différentes) :
-Attention, processus erroné en cours de développement :
-
-Processus actuel :
-Création d'event + Création d'équipe
-Affectation d'une équipe à un event
-
-Processus définis ensemble et à mettre en oeuvre :
-Le positionnement géographique se fait dans opération uniquement, pas dans l'event
-Création d'event
-Dans l'event créé, création d'équipes avec les infos suivantes (intitulé, indicatif radio, positionnement sommaire, horaires, consignes - textarea obligatoire ou wysiwyg)
-Dans l'équipe, affectation de personnel, de véhicules, et de moyens matériels
-.......................................................................................
-Cells de event revisitées pour cimplifcation du code et de la mise en page
-Penser global pour ces cells
-
-// Comme vu ce jour, ajouter le champ référence dans le matériel ;)
-// Mettre en forme matériel types
-
-// Dans la vue barracks viex, en cliquant sur le bouton enveloppe d'un user, précharger l'user ;)
-
+Bonne journée
