@@ -53,13 +53,6 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $from = 0;
-            if($this->request->data['user_type'] == NULL){
-                $from = 1;
-                $this->request->data['user_type'] == '0';
-                $this->request->data['alerte'] = 0;
-                $this->request->data['is_provider'] = 0;
-            }
             if($this->request->data['user_type'] == '0'){
                 $this->request->data['alerte'] = 0;
                 $this->request->data['is_provider'] = 0;
@@ -77,8 +70,7 @@ class UsersController extends AppController
                 $this->request->data['tuteur_legal'] = ' ';
                 $this->request->data['personne_referente'] = ' ';
             }
-
-
+            
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -87,15 +79,8 @@ class UsersController extends AppController
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
-
-            if ($from == 1) {
-                $this->render('ajaxcreateuser');
-            }
         }
-
-
-
-
+        
         $cities = $this->Users->Cities->find('list', ['limit' => 200]);
         $barracks = $this->Users->Barracks->find('list', ['limit' => 200]);
         $skills = $this->Users->Skills->find('list', ['limit' => 200]);
@@ -105,6 +90,24 @@ class UsersController extends AppController
         $this->set('_serialize', ['user']);
     }
 
+    public function ajaxcreateuser()
+    {
+        $object = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+                $this->request->data['user_type'] = 0;
+                $this->request->data['alerte'] = 0;
+                $this->request->data['is_provider'] = 0;
+
+            $object = $this->Users->patchEntity($object, $this->request->data);
+            $this->Users->save($object);
+        }
+
+        $user = $this->Users->find('all', [
+            'contain' => ['Cities']
+        ])->where(['Users.id' => $object->id])->first();
+
+        $this->set(compact('user'));
+    }
     /**
      * Edit method
      *
