@@ -165,7 +165,7 @@
         var array = $(this).serialize();
         $.ajax({
             type: "POST",
-            url: '<?= $this->Url->build(["controller" => "Users","action" => "add"]); ?>',
+            url: '<?= $this->Url->build(["controller" => "Users","action" => "ajaxcreateuser"]); ?>',
             data: array,
             success: function (html) {
                 $('#myModal').modal('toggle');
