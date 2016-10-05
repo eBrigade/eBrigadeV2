@@ -1,9 +1,28 @@
+
+<?php if ($id) : ?>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>Créer un utilisateur</h3>
+            </div>
+            <div class="modal-body">
+<?php endif ?>
+
+
+                <?php if (!$id) : ?>
 <div class="row">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <?= $this->Form->create($user) ?>
+                <?php endif ?>
+
+                <?= $this->Form->create($user , array("id"=>"form")) ?>
                 <fieldset>
+
+                    <?php if (!$id) : ?>
                     <h4><?= __('Add User') ?></h4>
             </div>
             <div class="form-inline text-center">
@@ -18,6 +37,13 @@
                     'label' => false,
                 ]) ?>
             </div>
+            <?php endif ?>
+
+            <?php if ($id) : ?>
+
+            <?=  $this->Form->input('barracks._ids', ['options' => $barracks, 'default' => $id, 'class' => 'hidden','label' => false ]); ?>
+            <?php endif ?>
+
             <div class="panel-body form-user">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
@@ -38,6 +64,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <?php
+
                         echo $this->Form->input('address');
                         echo $this->Form->input('address_complement');
                         echo $this->Form->input('zipcode');
@@ -76,18 +103,36 @@
                 echo $this->Form->input('vehicles._ids', ['options' => $vehicles]);
                 ?>
                 -->
-                </fieldset>
+
+
+
+            </fieldset>
+
+        <div class=" text-center">
+            <?= $this->Form->button(__('Submit'),[
+            'class'=>'btn btn-success','escape'=>false
+            ]) ?>
+            <?= $this->Form->end() ?>
+
+        </div>
+                <?php if (!$id) : ?>
+
+        </div>
+    </div>
+</div>
+                <?php endif ?>
+
+                <?php if ($id) : ?>
             </div>
-            <div class="panel-footer text-center">
-                <?= $this->Form->button(__('Submit'),[
-                    'class'=>'btn btn-success','escape'=>false
-                ]) ?>
-                <?= $this->Form->end() ?>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">Annuler</button>
             </div>
         </div>
     </div>
 </div>
-<?= $this->Html->script('jquery.js') ?>
+                                <?php endif ?>
+
+
 <script>
     $(document).ready(function () {
         selectAddType();
@@ -113,3 +158,27 @@
         }
     }
 </script>
+
+    <?php if ($id) : ?>
+    <script>
+    $('#form').submit(function(){
+        var array = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: '<?= $this->Url->build(["controller" => "Users","action" => "add"]); ?>',
+            data: array,
+            success: function (html) {
+                $('#myModal').modal('toggle');
+                var count = parseInt($('.cpt-user').text());
+                var add = count + 1;
+                $('.cpt-user').text(add);
+                $("#tbl tbody").prepend(html);
+                setTimeout(function() {
+                    $(".highlight").removeClass("highlight")
+                }, 3000);
+            }
+        });
+        return false;
+    });
+</script>
+    <?php endif ?>
