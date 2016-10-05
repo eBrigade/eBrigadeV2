@@ -49,10 +49,17 @@ class UsersController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id=null)
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
+            $from = 0;
+            if($this->request->data['user_type'] == NULL){
+                $from = 1;
+                $this->request->data['user_type'] == '0';
+                $this->request->data['alerte'] = 0;
+                $this->request->data['is_provider'] = 0;
+            }
             if($this->request->data['user_type'] == '0'){
                 $this->request->data['alerte'] = 0;
                 $this->request->data['is_provider'] = 0;
@@ -71,6 +78,7 @@ class UsersController extends AppController
                 $this->request->data['personne_referente'] = ' ';
             }
 
+
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -79,13 +87,21 @@ class UsersController extends AppController
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
+
+            if ($from == 1) {
+                $this->render('ajaxcreateuser');
+            }
         }
+
+
+
+
         $cities = $this->Users->Cities->find('list', ['limit' => 200]);
         $barracks = $this->Users->Barracks->find('list', ['limit' => 200]);
         $skills = $this->Users->Skills->find('list', ['limit' => 200]);
         $teams = $this->Users->Teams->find('list', ['limit' => 200]);
         $vehicles = $this->Users->Vehicles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'cities', 'barracks', 'skills', 'teams', 'vehicles'));
+        $this->set(compact('user', 'cities', 'barracks', 'skills', 'teams', 'vehicles','id'));
         $this->set('_serialize', ['user']);
     }
 
@@ -200,7 +216,6 @@ class UsersController extends AppController
         ]);
         $this->set(compact('barracks','getusers','id','user'));
     }
-    
     
     public function login()
     {

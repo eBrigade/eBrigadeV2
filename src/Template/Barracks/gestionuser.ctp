@@ -10,9 +10,9 @@
 <div class="panel panel-info" id="user">
     <div class="panel-heading">Personnel
 
-        <a href='<?= $this->Url->build(["controller" => "users","action" => "add" ]); ?>'
-           class="btn btn-success pull-right btn-add marge"><i class="glyphicon glyphicon-plus"></i> Créer</a>
 
+        <?= $this->Form->button(__(' <i class="glyphicon glyphicon-plus"></i> Créer'),['id' => 'bt-createuser', 'class' =>
+        'btn btn-success pull-right btn-add marge',]) ?>
         <?= $this->Form->button(__(' <i class="glyphicon glyphicon-arrow-down"></i> Ajouter'),['id' => 'bt-adduser', 'class' =>
         'btn btn-warning pull-right btn-add marge',]) ?>
     </div>
@@ -118,6 +118,8 @@
     // ouvre le formulaire ajouter en modal
     var adduser = '<?= $this->Url->build(["controller" => "Users","action" => "ajaxadduser", $id ]); ?>';
     modal('#bt-adduser', adduser);
+    var createuser = '<?= $this->Url->build(["controller" => "Users","action" => "add", $id ]); ?>';
+    modal('#bt-createuser', createuser);
 
     // supprimer du personnel
     $('.del').click(function () {
