@@ -49,7 +49,7 @@ class BarracksTable extends Table
 			'parent'=>'parent_id',
 			'left'=>'lft',
 			'right'=>'rght',
-			'level'=>'level'	   
+			'level'=>'level'
 	]);
 
         $this->belongsTo('Barracks', [

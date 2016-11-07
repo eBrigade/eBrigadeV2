@@ -23,37 +23,11 @@ use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
-/**
- * The default class to use for all routes
- *
- * The following route classes are supplied with CakePHP and are appropriate
- * to set as the default:
- *
- * - Route
- * - InflectedRoute
- * - DashedRoute
- *
- * If no call is made to `Router::defaultRouteClass()`, the class used is
- * `Route` (`Cake\Routing\Route\Route`)
- *
- * Note that `Route` does not do any inflections on URLs which will result in
- * inconsistently cased URLs when used with `:plugin`, `:controller` and
- * `:action` markers.
- *
- */
+
 Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
-    /**
-     * Here, we are connecting '/' (base path) to a controller called 'Pages',
-     * its action called 'display', and we pass a param to select the view file
-     * to use (in this case, src/Template/Pages/home.ctp)...
-     */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-
-    /**
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->connect('/userMaterials/view/:user_id/:material_id',['controller' => 'UserMaterials','action' => 'view'],[
         'pass' => ['user_id','material_id'],
@@ -65,38 +39,144 @@ Router::scope('/', function (RouteBuilder $routes) {
         'user_id' => '[0-9]+',
         'material_id' => '[0-9]+'
     ]);
-    $routes->connect('/barracks/availabilities/:id/:date',['controller' => 'Barracks','action' => 'availabilities'],[
-        'pass' => ['id','date'],
-        'id' => '[0-9]+',
-        'date' => '[0-9\-]+'
-    ]);
     $routes->connect('/skills-users/edit/:skill_id/:user_id',['controller' => 'SkillsUsers','action' => 'edit'],[
         'pass' => ['skill_id','user_id'],
         'skill_id' => '[0-9]+',
         'user_id' => '[0-9]+'
     ]);
-    /**
-     * Connect catchall routes for all controllers.
-     *
-     * Using the argument `DashedRoute`, the `fallbacks` method is a shortcut for
-     *    `$routes->connect('/:controller', ['action' => 'index'], ['routeClass' => 'DashedRoute']);`
-     *    `$routes->connect('/:controller/:action/*', [], ['routeClass' => 'DashedRoute']);`
-     *
-     * Any route class can be used with this method, such as:
-     * - DashedRoute
-     * - InflectedRoute
-     * - Route
-     * - Or your own route class
-     *
-     * You can remove these routes once you've connected the
-     * routes you want in your application.
-     */
-    $routes->fallbacks('DashedRoute');
+    $routes->connect('/deconnexion',['controller' => 'Users','action' => 'logout']);
+ //   __________________________________________________________________Vue des Casernes
+    $routes->connect(
+        '/casernes/liste',
+        ['controller' => 'Barracks', 'action' => 'index']
+    );
+    $routes->connect(
+        '/casernes/fiche',
+        ['controller' => 'Barracks', 'action' => 'annuaire']
+    );
+    $routes->connect(
+        '/casernes/arborescence',
+        ['controller' => 'Barracks', 'action' => 'tree']
+    );
+    $routes->connect(
+        '/casernes/carte',
+        ['controller' => 'Barracks', 'action' => 'carte']
+    );
+    $routes->connect(
+        '/caserne/ajouter',
+        ['controller' => 'Barracks', 'action' => 'add']
+    );
+
+    $routes->connect(
+        '/caserne/:id-:name',
+        ['controller' => 'Barracks', 'action' => 'view'],
+        [
+            'pass' => ['id','name'],
+            'id' => '[0-9]+',
+        ]
+    );
+    $routes->connect(
+        '/caserne/:id-:name/edition',
+        ['controller' => 'Barracks', 'action' => 'edit'],
+        [
+            'pass' => ['id','name'],
+            'id' => '[0-9]+',
+        ]
+    );
+//   __________________________________________________________________ Gestion des casernes
+    $routes->connect(
+        '/gestion/caserne/:id-:name/personnel',
+        ['controller' => 'Barracks', 'action' => 'gestionuser'],
+        [
+            'pass' => ['id','name'],
+            'id' => '[0-9]+',
+        ]
+    );
+    $routes->connect(
+        '/gestion/caserne/:id-:name/evenements',
+        ['controller' => 'Barracks', 'action' => 'gestionevent'],
+        [
+            'pass' => ['id','name'],
+            'id' => '[0-9]+',
+        ]
+    );
+    $routes->connect(
+        '/gestion/caserne/:id-:name/vehicules',
+        ['controller' => 'Barracks', 'action' => 'gestionvehi'],
+        [
+            'pass' => ['id','name'],
+            'id' => '[0-9]+',
+        ]
+    );
+    $routes->connect(
+        '/gestion/caserne/:id-:name/materiel',
+        ['controller' => 'Barracks', 'action' => 'gestionmat'],
+        [
+            'pass' => ['id','name'],
+            'id' => '[0-9]+',
+        ]
+    );
+    $routes->fallbacks(DashedRoute::class);
 });
 
-/**
- * Load all plugin routes.  See the Plugin documentation on
- * how to customize the loading of plugin routes.
- */
+
+//   __________________________________________________________________ Calendrier des disponibilités
+Router::prefix('Calendrier',  function($routes) {
+    $routes->connect(
+        '/disponibilite',
+        ['controller' => 'Calendar', 'action' => 'add']
+    );
+    $routes->connect(
+        '/sauvegarder',
+        ['controller' => 'Calendar', 'action' => 'save']
+    );
+    $routes->fallbacks(DashedRoute::class);
+});
+//   __________________________________________________________________ Calendrier des événements
+Router::prefix('Calendrier',  function($routes) {
+    $routes->connect(
+        '/evenements',
+        ['controller' => 'Calendar', 'action' => 'index']
+    );
+    $routes->fallbacks(DashedRoute::class);
+});
+//   __________________________________________________________________ Messagerie
+Router::prefix('Messagerie',  function($routes) {
+    $routes->connect(
+        '/boite-de-reception',
+        ['controller' => 'Messages', 'action' => 'index']
+    );
+    $routes->connect(
+        '/ecrire-un-message/*',
+        ['controller' => 'Messages', 'action' => 'send' ]
+    );
+    $routes->connect(
+        '/boite-d-envoi',
+        ['controller' => 'Messages', 'action' => 'dispatch']
+    );
+    $routes->connect(
+        '/boite-d-envoi',
+        ['controller' => 'Messages', 'action' => 'dispatch']
+    );
+    $routes->connect(
+        '/boite-de-reception/:id-:subject',
+        ['controller' => 'Messages', 'action' => 'view'],
+        [
+            'pass' => ['id','subject'],
+            'id' => '[0-9]+',
+        ]
+    );
+    $routes->connect(
+        '/boite-d-envoi/:id-:subject',
+        ['controller' => 'Messages', 'action' => 'sendview'],
+        [
+            'pass' => ['id','subject'],
+            'id' => '[0-9]+',
+        ]
+    );
+    $routes->fallbacks(DashedRoute::class);
+});
+
+//   __________________________________________________________________ Plugins
 Plugin::routes();
 Router::extensions('json', 'xml');

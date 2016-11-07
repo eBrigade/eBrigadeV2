@@ -106,15 +106,15 @@
 
 <script>
         $("#bt_user").on('click', function(){
-        window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionuser' , $id]); ?>";
+        window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionuser' , $id, 'protection-civile-des-vosges']); ?>";
         });
         $("#bt_event").on('click', function(){
-            window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionevent' , $id]); ?>";
+            window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionevent' ,  $id, 'protection-civile-des-vosges']); ?>";
         });
         $("#bt_vehi").on('click', function(){
-            window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionvehi' , $id]); ?>";
+            window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionvehi' ,  $id, 'protection-civile-des-vosges']); ?>";
         });
         $("#bt_mat").on('click', function(){
-            window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionmat' , $id]); ?>";
+            window.location = "<?= $this->Url->build(['controller' => 'Barracks','action' => 'gestionmat' ,  $id, 'protection-civile-des-vosges']); ?>";
         });
 </script>

@@ -16,19 +16,7 @@
             </ul>
         </div>
     </div>
-    <div id="hide" class="hide">
-    <hr/>
-    <div class="sidebar-nav">
-        <div class="navbar linkout" role="navigation">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active masse">Envoi en masse </li>
-                    <?php foreach ($list as $listring): ?>
-                <li id="list<?= $listring->id ?>"> <a href='#'><?= $listring->name ?></a> </li>
-                <?php endforeach ?>
-            </ul>
-        </div>
-    </div>
-    </div>
+
 </div>
 
 
@@ -48,9 +36,9 @@
             $('#mp-home').removeClass('active');
             $('#mp-send').addClass('active');
         }
-        if ($('#mp-write').length !== 0){
+        if ($('#send-view').length !== 0){
             $('#mp-home').removeClass('active');
-            $('#hide').removeClass('hide');
+            $('#mp-send').addClass('active');
         }
     });
 </script>
