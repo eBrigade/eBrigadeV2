@@ -78,11 +78,11 @@
                     <div class="voffset3"></div>
                     <div class="col-md-12">
 
-
+                        <form id="filter-form">
                         <div class="form-group" id="filter">
 
                         </div>
-
+                        </form>
                     </div>
                 </ul>
             </div>
@@ -222,7 +222,7 @@
 
 
     //filter action
-    $("#filter").submit(function (event) {
+    $("#filter-form").submit(function (event) {
         event.preventDefault();
         $('#filter-list').load('/Operations/filterlist/', dataContext());
     });
