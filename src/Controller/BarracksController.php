@@ -207,7 +207,7 @@ class BarracksController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($id = null , $name = null)
     {
         $this->loadModel('MaterialStocks');
         $barrack = $this->Barracks->get($id, [
@@ -270,7 +270,7 @@ class BarracksController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null , $name = null)
     {
         $barrack = $this->Barracks->get($id, [
             'contain' => ['Materials', 'Users', 'Vehicles']
@@ -357,7 +357,7 @@ class BarracksController extends AppController
     }
 
 
-    public function gestionuser($id = null)
+    public function gestionuser($id = null, $name = null)
     {
         $users = $this->Barracks->Users->find('all', [
             'contain' => ['Cities']
@@ -366,10 +366,10 @@ class BarracksController extends AppController
         });
 
         $this->set('users', $this->paginate($users));
-        $this->set('id', $id);
+        $this->set(compact('id', 'name'));
     }
 
-    public function gestionevent($id = null)
+    public function gestionevent($id = null, $name = null)
     {
         $operations = $this->Barracks->Operations->find('all', [
             'contain' => ['Cities']
@@ -384,11 +384,11 @@ class BarracksController extends AppController
 
         $this->set('operations', $this->paginate($operations));
         $this->set('formations', $this->paginate($formations));
-        $this->set(compact('barrack', 'id'));
+        $this->set(compact('barrack', 'id','name'));
 
     }
 
-    public function gestionvehi($id = null)
+    public function gestionvehi($id = null, $name = null)
     {
         $vehicules = $this->Barracks->Vehicles->find('all', [
             'contain' => ['VehicleTypes']
@@ -397,10 +397,10 @@ class BarracksController extends AppController
         });
 
         $this->set('vehicules', $this->paginate($vehicules));
-        $this->set(compact('barrack', 'id'));
+        $this->set(compact('barrack', 'id','name'));
     }
 
-    public function gestionmat($id = null)
+    public function gestionmat($id = null, $name = null)
     {
         $this->loadModel('MaterialStocks');
         $barrack_mat = $this->MaterialStocks->find('all', [
@@ -413,6 +413,6 @@ class BarracksController extends AppController
             ->where(['affectation' => 'users'])
             ->andwhere(['affectation_id' => $id]);
 
-        $this->set(compact('barrack_mat', 'user_mat', 'id'));
+        $this->set(compact('barrack_mat', 'user_mat', 'id','name'));
     }
 }

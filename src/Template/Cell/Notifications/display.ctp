@@ -11,24 +11,11 @@
  $mp = $alert->message->user;
         ?>
 
-<li id="<?= $alert->id ?>" class="delete"><a href='<?= $this->Url->build(['controller' => 'Messages','action' => 'view', $alert->message->id ]); ?>'><span class='glyphicon glyphicon-envelope'></span> Message privé de <?= $mp->firstname.' '.$mp->lastname ?></a></li>
+<li id="<?= $alert->id ?>" class="delete"><a href='<?= $this->Url->build(['controller' => 'Messages','action' => 'view', $alert->message->id, strtolower(str_replace(' ', '-', $alert->message->subject)), 'prefix' => 'messagerie'  ]); ?>'><span class='glyphicon glyphicon-envelope'></span> Message privé de <?= $mp->firstname.' '.$mp->lastname ?></a></li>
 
 <?php endforeach ?>
         <?php if($notifCount > 0) : ?>
     </ul>
 </li>
 <?php endif; ?>
-
-
-<script>
-    $( ".delete" ).click(function() {
-        var getid = $(this).attr('id');
-        $.ajax({
-            type:'post',
-            data: 'id=' + getid ,
-            url: ' <?= $this->Url->build('/messages/deletenotif'); ?>'
-        });
-    });
-</script>
-
 

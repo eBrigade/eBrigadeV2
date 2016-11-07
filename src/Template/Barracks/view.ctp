@@ -197,7 +197,7 @@
                         <td><?= $user->phone ?><br><?= $user->cellphone ?><br><?= $user->workphone ?></td>
                         </td>
                         <td>
-                            <a href='<?= $this->Url->build(["controller" => "messages","action" => "send" ]); ?>'
+                            <a href='<?= $this->Url->build(["controller" => "messages","action" => "send", 'membre', $user->id , 'prefix' => 'messagerie' ]); ?>'
                                class="btn btn-primary btn-sm   "><i class="fa fa-envelope" aria-hidden="true"></i> </a>
                             <a href='<?= $this->Url->build(["controller" => "users","action" => "view", $user->id ]); ?>'
                                class="btn btn-success btn-sm   "><i class="fa fa-user" aria-hidden="true"></i></a>
